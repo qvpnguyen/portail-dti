@@ -1,0 +1,25 @@
+CREATE database PortailDB;
+Use PortailDB;
+
+CREATE TABLE Department (Name varchar(255) NOT NULL, Location varchar(255), PRIMARY KEY (Name));
+CREATE TABLE Course (ID int(10) NOT NULL AUTO_INCREMENT, DepartmentName varchar(255) NOT NULL, InstructorID int(10) NOT NULL, Duration int(10), Name varchar(255), PRIMARY KEY (ID));
+CREATE TABLE Instructor (ID int(10) NOT NULL AUTO_INCREMENT, DepartmentName varchar(255) NOT NULL, headedBy varchar(255) NOT NULL, FirstName varchar(255), LastName varchar(255), Phone varchar(255), PRIMARY KEY (ID));
+CREATE TABLE Student (ID int(10) NOT NULL AUTO_INCREMENT, FirstName varchar(255), LastName varchar(255), Phone varchar(255), PRIMARY KEY (ID));
+CREATE TABLE Course_Student (CourseID int(10) NOT NULL, StudentID int(10) NOT NULL, PRIMARY KEY (CourseID, StudentID));
+CREATE TABLE Étudiant (ID int(10) NOT NULL AUTO_INCREMENT, Prénom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255), DDN date, Département varchar(255), Active int(10), ProfesseurID int(10) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Professeur (ID int(10) NOT NULL AUTO_INCREMENT, Prénom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255), Département varchar(255), Avtive bit(1), PRIMARY KEY (ID));
+CREATE TABLE AncienÉtudiant (ID int(10) NOT NULL AUTO_INCREMENT, Prenom varchar(255), Nom varchar(255), Email varchar(255), AnnéeGraduation date, FormationComplétée varchar(255), PRIMARY KEY (ID));
+CREATE TABLE Notes (ID int(10) NOT NULL AUTO_INCREMENT, NoteObtenu int(10), `Session` int(10), Année date, ÉtudiantID int(10) NOT NULL, CoursID int(10) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Cours (ID int(10) NOT NULL AUTO_INCREMENT, NomCours varchar(255), Crédits int(10), ProfesseurID int(10) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE ParticipationCours (CoursID int(10) NOT NULL, ÉtudiantID int(10) NOT NULL);
+ALTER TABLE Instructor ADD CONSTRAINT FKInstructor448600 FOREIGN KEY (DepartmentName) REFERENCES Department (Name);
+ALTER TABLE Instructor ADD CONSTRAINT FKInstructor494534 FOREIGN KEY (headedBy) REFERENCES Department (Name);
+ALTER TABLE Course ADD CONSTRAINT FKCourse955069 FOREIGN KEY (DepartmentName) REFERENCES Department (Name);
+ALTER TABLE Course_Student ADD CONSTRAINT FKCourse_Stu893798 FOREIGN KEY (CourseID) REFERENCES Course (ID);
+ALTER TABLE Course_Student ADD CONSTRAINT FKCourse_Stu850870 FOREIGN KEY (StudentID) REFERENCES Student (ID);
+ALTER TABLE Course ADD CONSTRAINT FKCourse841954 FOREIGN KEY (InstructorID) REFERENCES Instructor (ID);
+ALTER TABLE Cours ADD CONSTRAINT FKCours388136 FOREIGN KEY (ProfesseurID) REFERENCES Professeur (ID);
+ALTER TABLE Notes ADD CONSTRAINT FKNotes55906 FOREIGN KEY (ÉtudiantID) REFERENCES Étudiant (ID);
+ALTER TABLE ParticipationCours ADD CONSTRAINT FKParticipat507234 FOREIGN KEY (CoursID) REFERENCES Cours (ID);
+ALTER TABLE ParticipationCours ADD CONSTRAINT FKParticipat812598 FOREIGN KEY (ÉtudiantID) REFERENCES Étudiant (ID);
+ALTER TABLE Notes ADD CONSTRAINT FKNotes610320 FOREIGN KEY (CoursID) REFERENCES Cours (ID);
