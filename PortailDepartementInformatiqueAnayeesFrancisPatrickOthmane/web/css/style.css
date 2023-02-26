@@ -24,24 +24,43 @@ body {
 /* --------- En-tête de page ----------- */
 header {
     background: linear-gradient(90.29deg, #3B4394 0%, rgba(177, 43, 99, 0.92) 59.9%, rgba(235, 31, 75, 0.96) 100%);
-    position: absolute;
+    /*position: absolute;*/
     left: 0;
     top: 0;
     width: 100%;
     color: #fff;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-image: linear-gradient(to right, #3B4394, #B12B63, #EB1F4B) 1;
 }
 
-/*header .titre {
-    font-size: 1rem;
-}*/
+.logo-college {
+    width: 20%;
+}
 
 header .sous-titre {
     font-size: 0.75rem;
     bottom: 0;
 }
 
+header .header-utilisateur {
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
 header .titre-utilisateur {
-    font-size: 1rem;
+    font-size: 1.75rem;
+}
+
+header .barre-division-utilisateur {
+    width: 51px;
+    height: 0px;
+    left: 1205px;
+    top: 40px;
+    border: 1px solid #FFFFFF;
+    transform: rotate(90deg);
 }
 
 .navbar {
@@ -54,10 +73,11 @@ header .titre-utilisateur {
     font-weight: 600;
 }
 
-p{
+header p {
     margin-top: 10px;
     margin-bottom: 0;
 }
+
 .navbar input[type="search"],
 select.form-control {
     width: 400px;
@@ -70,8 +90,12 @@ select.form-control {
 
 /* --------- Section principale (Main) ----------- */
 main {
-    margin-top: 12rem;
     background: rgba(255, 255, 255, 0.78);
+}
+
+main h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 /* --------- Pied de page ----------- */
@@ -93,11 +117,16 @@ footer {
     border-radius: 22px;
 }
 
-.w-25{
-    width: 20%!important;
+/* --------- Classe pour la boîte d'inscription ----------- */
+.boite-inscription {
+    width: 634px;
+    height: 750px;
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 22px;
 }
+
 /* --------- Changement de style pour les champs input pour devenir une ligne ----------- */
-input[type="text"], input[type="password"],
+input[type="text"], input[type="password"], input[type="email"],
 select.form-control {
     background: transparent;
     border: none;
@@ -107,10 +136,99 @@ select.form-control {
     border-radius: 0;
 }
 
-input[type="text"]:focus, input[type="password"]:focus,
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
 select.form-control:focus {
     background: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
+/* --------- Classes pour les boîtes (cartes) de vidéo et la description de projets sur la page visiteur ----------- */
+.rangee-projet {
+    padding: 3rem 0;
+}
+
+.carte-video {
+    background: rgba(241, 236, 236, 0.4);
+    border: 1px solid #9D9D9D;
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
+}
+
+.carte-video:hover {
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25), 0px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.carte-description {
+    background: rgba(241, 236, 236, 0.4);
+    border: 1px solid #9D9D9D;
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
+}
+
+.carte-description:hover {
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25), 0px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.video-projet {
+    border-radius: 12px 12px 0 0;
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.conteneur-infos-projet {
+    background-color: #fff;
+    padding: 2px 16px;
+    border-radius: 0 0 12px 12px;
+}
+
+.conteneur-infos-projet > h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.conteneur-infos-projet > p {
+    font-size: 0.85rem;
+}
+
+/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur les pages Etudiant et Professeur ----------- */
+.rangee-boites {
+    padding: 3rem 0;
+}
+
+.rangee-boites a {
+    text-decoration: none;
+}
+
+.boite-fonctionnalite {
+    width: 300px;
+    height: 300px;
+    background: rgba(241, 236, 236, 0.4);
+    border: 1px solid #9D9D9D;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.boite-fonctionnalite:hover {
+    /*color: #fff !important;*/
+    background: rgba(235, 31, 75, 0.96);
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25), 0px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.boite-fonctionnalite > * {
+    margin: auto;
+}
+
+.boite-fonctionnalite > svg {
+    margin-top: 3rem;
+}
+
+.boite-fonctionnalite > h3 {
+    margin-top: -1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
