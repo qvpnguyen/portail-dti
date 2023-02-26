@@ -12,10 +12,13 @@ body {
 .titre {
     color: #fff;
     font-weight: 700;
+    font-size: 25px;
+    margin-top: 18px;
 }
 
 .sous-titre {
     color: #fff;
+    font-size: 18px;
 }
 
 /* --------- En-tête de page ----------- */
@@ -28,9 +31,9 @@ header {
     color: #fff;
 }
 
-header .titre {
+/*header .titre {
     font-size: 1rem;
-}
+}*/
 
 header .sous-titre {
     font-size: 0.75rem;
@@ -51,6 +54,10 @@ header .titre-utilisateur {
     font-weight: 600;
 }
 
+p{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
 .navbar input[type="search"],
 select.form-control {
     width: 400px;
@@ -86,6 +93,9 @@ footer {
     border-radius: 22px;
 }
 
+.w-25{
+    width: 20%!important;
+}
 /* --------- Changement de style pour les champs input pour devenir une ligne ----------- */
 input[type="text"], input[type="password"],
 select.form-control {
