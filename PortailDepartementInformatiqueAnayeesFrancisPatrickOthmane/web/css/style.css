@@ -78,8 +78,7 @@ header p {
     margin-bottom: 0;
 }
 
-.navbar input[type="search"],
-select.form-control {
+.navbar input[type="search"] {
     width: 400px;
     background: linear-gradient(90.24deg, rgba(59, 67, 148, 0.4) 0%, rgba(141, 50, 114, 0.4) 57.81%, rgba(235, 31, 75, 0.44) 100%);
     border-radius: 12px;
@@ -117,7 +116,7 @@ footer {
     border-radius: 22px;
 }
 
-/* --------- Classe pour la boîte d'inscription ----------- */
+/* --------- Classe pour la boîte d'inscription (également utilisée pour la boîte de création du dépot d'un projet) ----------- */
 .boite-inscription {
     width: 634px;
     height: 750px;
@@ -125,9 +124,15 @@ footer {
     border-radius: 22px;
 }
 
+.description-projet {
+    background: rgba(241, 236, 236, 0.4);
+    border: 1px solid #9D9D9D;
+    /*box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+    border-radius: 12px;
+}
+
 /* --------- Changement de style pour les champs input pour devenir une ligne ----------- */
-input[type="text"], input[type="password"], input[type="email"],
-select.form-control {
+input[type="text"], input[type="password"], input[type="email"] {
     background: transparent;
     border: none;
     border-bottom: 1px solid #000;
@@ -136,8 +141,7 @@ select.form-control {
     border-radius: 0;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
-select.form-control:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
     background: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -231,4 +235,15 @@ select.form-control:focus {
     margin-top: -1rem;
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+/* --------- Classe pour le bouton personnalisé en mauve ----------- */
+.bouton-mauve {
+    color: #fff;
+    background-color: #3B4394;
+}
+
+.bouton-mauve:hover {
+    color: #fff;
+    background-color: #212760;
 }
