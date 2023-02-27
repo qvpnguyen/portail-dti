@@ -73,13 +73,21 @@ header .barre-division-utilisateur {
     font-weight: 600;
 }
 
+.navbar-positioning{
+    justify-content: inherit;
+    float: right;
+}
+
+.align-right{
+    margin: 0 25px 0 0;
+}
+
 header p {
     margin-top: 10px;
     margin-bottom: 0;
 }
 
-.navbar input[type="search"],
-select.form-control {
+.navbar input[type="search"]{
     width: 400px;
     background: linear-gradient(90.24deg, rgba(59, 67, 148, 0.4) 0%, rgba(141, 50, 114, 0.4) 57.81%, rgba(235, 31, 75, 0.44) 100%);
     border-radius: 12px;
