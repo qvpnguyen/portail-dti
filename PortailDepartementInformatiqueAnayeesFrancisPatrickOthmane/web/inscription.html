@@ -5,7 +5,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
     <head>
-        <title>Bienvenue au Portail du département de l'informatique</title>
+        <title>Inscription - Portail du département de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -36,7 +36,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
             <div class="container px-5 d-flex justify-content-center">
                 <div class="row">
-                    <div class="boite-login">
+                    <div class="boite-inscription">
+                        
                         <form action="" method="post">
                             <div class="d-flex justify-content-center">
                                 <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
@@ -50,23 +51,61 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                     <label class="btn btn-outline-dark" for="btnvisiteur">Visiteur</label>
                                 </div>
                             </div>
-                            <div class="col-8 mx-5">
-                                <div class="form-group my-5">
-                                    <label for="nomUtilisateur">Nom d'utilisateur:</label>
-                                    <input type="text" class="form-control" id="nomUtilisateur" placeholder="Entrez votre nom d'utilisateur">
+                            <div class="row gx-5 mx-2">
+                                <div class="col-6">
+                                    <div class="form-group my-3">
+                                        <label for="prenom">Prénom:</label>
+                                        <input type="text" class="form-control" id="prenom">
+                                    </div>
                                 </div>
-                                <div class="form-group my-5">
-                                    <label for="motDePasse">Mot de passe:</label>
-                                    <input type="password" class="form-control" id="motDePasse" placeholder="Entrez votre mot de passe">
+                                <div class="col-6">
+                                    <div class="form-group my-3">
+                                        <label for="nom">Nom:</label>
+                                        <input type="text" class="form-control" id="nom">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group my-3">
+                                        <label for="dateDeNaissance">Date de naissance:</label>
+                                        <input type="date" class="form-control" id="dateDeNaissance">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group my-3">
+                                        <label for="profil">Profil:</label>
+                                        <select name="profil" id="profil" class="form-select">
+                                            <option value="Programmation">Programmation</option>
+                                            <option value="Réseautique">Réseautique</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group my-3">
+                                        <label for="courriel">Courriel:</label>
+                                        <input type="email" class="form-control" id="courriel" placeholder="courriel@dti.crosemont.quebec">
+                                    </div>
+                                    <div class="form-group my-3">
+                                        <label for="nomUtilisateur">Nom d'utilisateur:</label>
+                                        <input type="text" class="form-control" id="nomUtilisateur" placeholder="pNom">
+                                    </div>
+                                    <div class="form-group my-3">
+                                        <label for="motDePasse">Mot de passe:</label>
+                                        <input type="password" class="form-control" id="motDePasse" placeholder="Entrez votre mot de passe">
+                                    </div>
+                                    <div class="form-group my-3">
+                                        <label for="confirmerMotDePasse">Confirmer le mot de passe:</label>
+                                        <input type="password" class="form-control" id="confirmerMotDePasse" placeholder="Confirmez votre mot de passe">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-dark">Connexion</button>
+                            
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-dark">Inscription</button>
                             </div>
                         </form>
                         <div class="text-center mt-4">
                             <p><a href="projets.html" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
-                            <p>Pas de compte? <a href="inscription.html" class="text-dark">Cliquez ici</a></p>
+                            <!--<p>Pas de compte? <a href="" class="text-dark">Cliquez ici</a></p>-->
                         </div>              
                     </div>
                 </div>

@@ -4,12 +4,11 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
-import java.sql.Date;
 import java.util.List;
 
 /**
  *
- * @author franc
+ * @author anayeesfrancispatrickothmane
  */
 public class Projet {
     
