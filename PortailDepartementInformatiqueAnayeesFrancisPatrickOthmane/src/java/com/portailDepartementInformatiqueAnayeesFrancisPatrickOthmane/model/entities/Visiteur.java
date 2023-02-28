@@ -6,17 +6,16 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
 
 /**
  *
- * @author franc
+ * @author othma
  */
 public class Visiteur extends Utilisateur {
 
     public Visiteur() {
     }
 
-    public Visiteur(int id, String email, boolean active, String nom, String prenom, String password, String photo) {
-        super(email, active, nom, prenom, password, photo);
+    public Visiteur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
+        super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
     }
-    
     
     
 }

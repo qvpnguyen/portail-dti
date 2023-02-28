@@ -11,25 +11,14 @@ import java.util.List;
  * @author franc
  */
 public class Cours {
-
-    
     private int id;
     private String nom;
     private int credits;
-    private List<Etudiant> listeEtudiantsID;
-    private int professeurId;
+    private List<Etudiant> listeEtudiants;
+    private int profID;
     private int groupe;
 
     public Cours() {
-    }
-    
-    
-    public Cours(int id, String nom, int credits, int professeurId, int groupe) {
-        this.id = id;
-        this.nom = nom;
-        this.credits = credits;
-        this.professeurId = professeurId;
-        this.groupe = groupe;
     }
 
     public int getId() {
@@ -52,25 +41,27 @@ public class Cours {
         return credits;
     }
 
+    public int getProfID() {
+        return profID;
+    }
+
+    public void setProfID(int profID) {
+        this.profID = profID;
+    }
+
     public void setCredits(int credits) {
         this.credits = credits;
     }
 
-    public List<Etudiant> getListeEtudiantsID() {
-        return listeEtudiantsID;
+    public List<Etudiant> getListeEtudiants() {
+        return listeEtudiants;
     }
 
-    public void setListeEtudiantsID(List<Etudiant> listeEtudiantsID) {
-        this.listeEtudiantsID = listeEtudiantsID;
+    public void setListeEtudiants(List<Etudiant> listeEtudiants) {
+        this.listeEtudiants = listeEtudiants;
     }
 
-    public int getProfesseurId() {
-        return professeurId;
-    }
-
-    public void setProfesseurId(int professeurId) {
-        this.professeurId = professeurId;
-    }
+   
 
     public int getGroupe() {
         return groupe;
@@ -80,6 +71,19 @@ public class Cours {
         this.groupe = groupe;
     }
     
-    
-    
+            public String afficherTitreDesColonnes() {
+        String message = "";
+        message = String.format(" %-10s  %30s %15s %15s %15s  ", "Id", "Nom", "Crédits", "Groupe",
+                "ProfesseurID");
+       message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
+       return message;
+    }
+  
+    @Override
+       public String toString() {
+         String message = "";
+       message = String.format(" %-10d  %30s %15b %15s %15s  ",this.id,this.nom, this.credits,this.groupe,
+                   this.profID); 
+       return message;
+    }
 }

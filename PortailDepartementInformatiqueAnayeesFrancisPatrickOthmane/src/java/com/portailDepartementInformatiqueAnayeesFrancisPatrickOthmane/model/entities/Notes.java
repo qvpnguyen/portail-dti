@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * @author anayeesfrancispatrickothmane
+ * @author franc
  */
 public class Notes {
     
@@ -65,7 +65,5 @@ public class Notes {
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
     }
-    
-    
     
 }

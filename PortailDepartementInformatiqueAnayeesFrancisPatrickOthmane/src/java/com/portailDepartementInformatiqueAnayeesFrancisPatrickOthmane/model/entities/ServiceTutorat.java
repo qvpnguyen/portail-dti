@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 /**
  *
- * @author anayeesfrancispatrickothmane
+ * @author franc
  */
 public class ServiceTutorat {
     
@@ -18,24 +18,19 @@ public class ServiceTutorat {
     private LocalTime heure;
     private double duree;
     private String typeDeRencontre;
-    private int tuteurId;
-    private int etudiantTutoreId;
-    private int coursId;
+    private Etudiant tuteur;
+    private Etudiant etudiantTutore;
+    private Cours cours;
 
-    public ServiceTutorat() {
-    }
-    
-    
-
-    public ServiceTutorat(int id, Date dateTutorat, LocalTime heure, double duree, String typeDeRencontre, int tuteurId, int etudiantTutoreId, int coursId) {
+    public ServiceTutorat(int id, Date dateTutorat, LocalTime heure, double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
         this.id = id;
         this.dateTutorat = dateTutorat;
         this.heure = heure;
         this.duree = duree;
         this.typeDeRencontre = typeDeRencontre;
-        this.tuteurId = tuteurId;
-        this.etudiantTutoreId = etudiantTutoreId;
-        this.coursId = coursId;
+        this.tuteur = tuteur;
+        this.etudiantTutore = etudiantTutore;
+        this.cours = cours;
     }
 
     public int getId() {
@@ -78,31 +73,28 @@ public class ServiceTutorat {
         this.typeDeRencontre = typeDeRencontre;
     }
 
-    public int getTuteurId() {
-        return tuteurId;
+    public Etudiant getTuteur() {
+        return tuteur;
     }
 
-    public void setTuteurId(int tuteurId) {
-        this.tuteurId = tuteurId;
+    public void setTuteur(Etudiant tuteur) {
+        this.tuteur = tuteur;
     }
 
-    public int getEtudiantTutoreId() {
-        return etudiantTutoreId;
+    public Etudiant getEtudiantTutore() {
+        return etudiantTutore;
     }
 
-    public void setEtudiantTutoreId(int etudiantTutoreId) {
-        this.etudiantTutoreId = etudiantTutoreId;
+    public void setEtudiantTutore(Etudiant etudiantTutore) {
+        this.etudiantTutore = etudiantTutore;
     }
 
-    public int getCoursId() {
-        return coursId;
+    public Cours getCours() {
+        return cours;
     }
 
-    public void setCoursId(int coursId) {
-        this.coursId = coursId;
+    public void setCours(Cours cours) {
+        this.cours = cours;
     }
-    
-    
-    
     
 }

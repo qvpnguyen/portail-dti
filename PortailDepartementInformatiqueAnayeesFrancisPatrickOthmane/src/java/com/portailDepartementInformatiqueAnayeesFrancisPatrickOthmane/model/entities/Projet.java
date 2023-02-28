@@ -4,57 +4,41 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author anayeesfrancispatrickothmane
+ * @author franc
  */
 public class Projet {
     
     private int id;
     private String nom;
-    private Date annee;
-    private Cours cours;
+    private int annee;
     private List<Etudiant> listeEquipeProjet;
     private String description;
     private String video;
     private String lienGitlab;
-    private int professeurEnChargeId;
-    private int NotesID;
+    private int coursID;  
+    private int professeurEnChargeID;
+    private int noteID;  
 
     public Projet() {
     }
 
-    public Projet(int id, String nom, Date annee, Cours cours, List<Etudiant> listeEquipeProjet, String description, String video, String lienGitlab, int professeurEnChargeId, int NotesID) {
+    public Projet(int id, String nom, int annee, String description, String video, String lienGitlab, int coursID, int professeurEnChargeID, int noteID) {
         this.id = id;
         this.nom = nom;
         this.annee = annee;
-        this.cours = cours;
-        this.listeEquipeProjet = listeEquipeProjet;
         this.description = description;
         this.video = video;
         this.lienGitlab = lienGitlab;
-        this.professeurEnChargeId = professeurEnChargeId;
-        this.NotesID = NotesID;
+        this.coursID = coursID;
+        this.professeurEnChargeID = professeurEnChargeID;
+        this.noteID = noteID;
+        this.listeEquipeProjet = new ArrayList();
     }
-
-    
-    
-   
-
-    
-    
-    
-    public int getProfesseurEnChargeId() {
-        return professeurEnChargeId;
-    }
-
-    public void setProfesseurEnChargeId(int professeurEnChargeId) {
-        this.professeurEnChargeId = professeurEnChargeId;
-    }
-
-    
 
     public int getId() {
         return id;
@@ -72,22 +56,12 @@ public class Projet {
         this.nom = nom;
     }
 
-    public Date getAnnee() {
+    public int getAnnee() {
         return annee;
     }
 
-    public void setAnnee(Date annee) {
+    public void setAnnee(int annee) {
         this.annee = annee;
-    }
-
-    
-
-    public Cours getCours() {
-        return cours;
-    }
-
-    public void setCours(Cours cours) {
-        this.cours = cours;
     }
 
     public List<Etudiant> getListeEquipeProjet() {
@@ -122,17 +96,45 @@ public class Projet {
         this.lienGitlab = lienGitlab;
     }
 
-    public int getNotesID() {
-        return NotesID;
+    public int getCoursID() {
+        return coursID;
     }
 
-    public void setNotesID(int NotesID) {
-        this.NotesID = NotesID;
+    public void setCoursID(int coursID) {
+        this.coursID = coursID;
     }
 
-    
+    public int getProfesseurEnChargeID() {
+        return professeurEnChargeID;
+    }
+
+    public void setProfesseurEnChargeID(int professeurEnChargeID) {
+        this.professeurEnChargeID = professeurEnChargeID;
+    }
+
+    public int getNoteID() {
+        return noteID;
+    }
+
+    public void setNoteID(int noteID) {
+        this.noteID = noteID;
+    }
+
+          public String afficherTitreDesColonnes() {
+        String message = "";
+        message = String.format(" %-10s  %30s %15s %15s %15s %15s %15s %15s %25s ", "Id", "Nom", "Annee", "Description", "Video","LienGitlab",
+                "CoursID","ProfesseurID","NotesID");
+       message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
+       return message;
+    }
+  
+    @Override
+       public String toString() {
+         String message = "";
+       message = String.format(" %-10d  %30s %15b %15s %15s %15s %15s %15s %25s ",this.id,this.nom, this.annee,this.description,this.video,
+                   this.lienGitlab, this.coursID,this.professeurEnChargeID,this.noteID); 
+       return message;
+    }
 
   
-    
-    
 }

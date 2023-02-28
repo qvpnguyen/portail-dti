@@ -1,0 +1,215 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao;
+
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
+import java.text.ParseException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ *
+ * @author othma
+ */
+public class GestionUtilisateurImplDaoTest {
+     public static void main(String[] args) {
+         testFindAllEtudiants();
+         testFindAllCours();
+         testFindAllProf();
+         testFindAllProjets();
+         testFindAllNotesDeCours();
+         testFindNotesDeCoursById();
+         //testProfById();
+         //testFindEtudiantByRole();
+         //testFindEtudiantByName();
+         //testFindEtudiantById();
+         //testCreateEtudiant();
+         //testDeleteEtudiant();
+         //testFindAllEtudiants();
+     }
+     
+     
+     public static void testFindAllEtudiants() {
+        System.out.println("findAll");
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        List<Etudiant> result = instance.findAllEtudiants();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (Etudiant utilisateur : result) {
+            System.out.println(utilisateur.toString());
+        }
+    }
+     public static void testFindAllProf() {
+        System.out.println("findAllProfesseurs");
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        List<Professeur> result = instance.findAllProf();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (Professeur prof : result) {
+            System.out.println(prof.toString());
+        }
+    }
+     public static void testFindAllCours() {
+        System.out.println("findAllCours");
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        List<Cours> result = instance.findAllCours();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (Cours cours : result) {
+            System.out.println(cours.toString());
+        }
+    }
+     public static void testFindAllProjets() {
+        System.out.println("findAllProjets");
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        List<Projet> result = instance.findAllProjets();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (Projet projet: result) {
+            System.out.println(projet.toString());
+        }
+    }
+     public static void testFindAllNotesDeCours() {
+        System.out.println("findAllNotes");
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        List<NoteDeCours> result = instance.findAllNotesDeCours();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (NoteDeCours notes: result) {
+            System.out.println(notes.toString());
+        }
+    }
+     
+      public static void testFindNotesDeCoursById() {
+        System.out.println("findNotesDeCoursById");
+        int id = 0;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez l'ide du note de cours : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        id = lectureClavier.nextInt();
+        NoteDeCours result = instance.findNotesById(id);
+        System.out.println(result.toString());
+
+    }
+     
+     public static void testFindEtudiantByName() {
+        System.out.println("findByName");
+        String nom = "";
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez le nom de l'utilisateur : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        nom = lectureClavier.next();
+        Etudiant result = instance.findEtudiantByName(nom);
+        System.out.println(result.toString());
+
+    }
+     public static void testFindEtudiantById() {
+        System.out.println("findById");
+        int id = 0;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez l'ide l'utilisateur : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        id = lectureClavier.nextInt();
+        Etudiant result = instance.findEtudiantById(id);
+        System.out.println(result.toString());
+
+    }
+     public static void testFindEtudiantByRole() {
+        System.out.println("findByRole");
+        String role = "",nom = "";
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez le nom de l'etudiant: ");
+        Scanner lectureClavier = new Scanner(System.in);
+        nom = lectureClavier.nextLine();
+        System.out.println("Entrez le role de l'etudiant : ");
+        role = lectureClavier.nextLine();
+        Etudiant result = instance.findEtudiantByRole(nom,role);
+        System.out.println(result.toString());
+
+    }
+     
+     public static void testCreateEtudiant() {
+        System.out.println("create");
+        Etudiant utilisateur = null;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        Scanner lectureClavier = new Scanner(System.in);
+        System.out.println("Entrez l'ID ");
+        int id = lectureClavier.nextInt();
+        System.out.println("Entrez email ");
+        String email = lectureClavier.next();
+        System.out.println("L'utilisateur est-il actif(oui/non)?");
+        String reponse = lectureClavier.next();
+        boolean active = reponse.equals("oui") ? true : false;
+
+        System.out.println("Entrez le nom ");
+        String nom = lectureClavier.next();
+        System.out.println("Entrez le prenom ");
+        String prenom = lectureClavier.next();
+         System.out.println("Entrez le nom de l'utilisateur");
+        String nomUtilisateur = lectureClavier.next();
+        System.out.println("Entrez le mot de passe");
+        String motDePasse = lectureClavier.next();
+        System.out.println("Entrez le profil");
+        String profil = lectureClavier.next();
+        System.out.println("Entrez la date de naissance (au format jj-mm-aaaa)");
+       SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Date ddn = null;
+try {
+    java.util.Date date = sdf.parse(lectureClavier.next());
+    ddn = new java.sql.Date(date.getTime());
+} catch (ParseException e) {
+    e.printStackTrace();
+}
+        System.out.println("Entrez le role");
+        String role = lectureClavier.next();
+        System.out.println("L'utilisateur est-il actif(oui/non)?");
+        String reponse1 = lectureClavier.next();
+        boolean formation = reponse1.equals("oui") ? true : false;
+        System.out.println("Entrez l'ID du cours ");
+        int coursID = lectureClavier.nextInt();
+        System.out.println("L'utilisateur est-il disponible(oui/non)?");
+        String reponse3 = lectureClavier.next();
+        boolean dispo = reponse3.equals("oui") ? true : false;
+        
+        
+        utilisateur = new Etudiant(id,prenom, nom,email,profil, active,nomUtilisateur,motDePasse,ddn,role,formation,coursID,dispo);
+
+        boolean result = instance.createEtudiant(utilisateur);
+        if (result) {
+            System.out.println("insertion reussite");
+        } else {
+            System.out.println("insertion echec ");
+        }
+
+    }
+     public static void testDeleteEtudiant() {
+        System.out.println("delete");
+        int id = 0;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez l'ide l'utilisateur : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        id = lectureClavier.nextInt();
+        boolean result = instance.deleteEtudiant(id);
+        if (result) {
+            System.out.println("l'utilisateur dont l'id est " + id + " est supprimé de la base des données");
+        } else {
+            System.out.println("l'utilisateur dont l'id est " + id + " n'existe de la base des données");
+        }
+    }
+
+     public static void testProfById() {
+        System.out.println("findProfesseurById");
+        int id = 0;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez l'id du professeur : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        id = lectureClavier.nextInt();
+        Professeur result = instance.findProfById(id);
+        System.out.println(result.toString());
+
+    }
+
+}

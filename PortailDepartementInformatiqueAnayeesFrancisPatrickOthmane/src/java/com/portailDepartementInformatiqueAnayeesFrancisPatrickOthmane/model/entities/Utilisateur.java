@@ -4,38 +4,35 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author franc
  */
-public class Utilisateur implements Serializable{
+public class  Utilisateur {
     
-     private int id;
-    private String email;
-    private boolean active;
-    private String nom;
-    private String prenom;
-    private String password;
-    private String photo;
+    int id;
+    String prenom;
+    String nom;
+    String email;
+    String profil;
+    boolean active;
+    String nomUtilisateur;
+    String motDePasse;
+    
+    
 
     public Utilisateur() {
     }
 
-
- 
-
-    public Utilisateur(String email, boolean active, String nom, String prenom, String password, String photo) {
+    public Utilisateur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
         this.id = id;
-        this.email = email;
-        this.active = active;
-        this.nom = nom;
         this.prenom = prenom;
-        this.password = password;
-        this.photo = photo;
+        this.nom = nom;
+        this.email = email;
+        this.profil = profil;
+        this.active = active;
+        this.nomUtilisateur = nomUtilisateur;
+        this.motDePasse = motDePasse;
     }
 
     public int getId() {
@@ -46,20 +43,20 @@ public class Utilisateur implements Serializable{
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public String getPrenom() {
         return prenom;
     }
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getEmail() {
@@ -70,20 +67,12 @@ public class Utilisateur implements Serializable{
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getProfil() {
+        return profil;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setProfil(String profil) {
+        this.profil = profil;
     }
 
     public boolean isActive() {
@@ -94,11 +83,26 @@ public class Utilisateur implements Serializable{
         this.active = active;
     }
 
+    public String getNomUtilisateur() {
+        return nomUtilisateur;
+    }
 
-    public String afficherTitreDesColonnes() {
+    public void setNomUtilisateur(String nomUtilisateur) {
+        this.nomUtilisateur = nomUtilisateur;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+
+         public String afficherTitreDesColonnes() {
         String message = "";
-        message = String.format(" %-10s  %30s %15s %15s %15s %15s %25s", "Id", "Email", "Active", "Nom", "Prenom",
-                "Password", "Photo");
+        message = String.format(" %-10s  %30s %15s %15s %15s %15s %25s ", "Id", "nomUtilisateur", "Active", "Nom", "Prenom","Profil",
+                "MotDePasse");
        message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
        return message;
     }
@@ -106,10 +110,8 @@ public class Utilisateur implements Serializable{
     @Override
        public String toString() {
          String message = "";
-       message = String.format(" %-10d  %30s %15b %15s %15s %15s %25s ",this.id,this.email, this.active,this.nom,this.prenom,
-                    this.password, this.photo); 
+       message = String.format(" %-10d  %30s %15b %15s %15s %15s %25s ",this.id,this.nomUtilisateur, this.active,this.nom,this.prenom,
+                   this.profil, this.motDePasse); 
        return message;
     }
-    
-    
 }
