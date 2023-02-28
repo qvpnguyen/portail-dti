@@ -6,15 +6,14 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
 
 /**
  *
- * @author anayeesfrancispatrickothmane
+ * @author franc
  */
 public class Administrateur extends Utilisateur {
-    
-    private int id;
-    private String prenom;
-    private String nom;
-    private String email;
-    private  Utilisateur nomUtilisteur;
-    private String motDePasse;
-    
+
+    public Administrateur() {
+    }
+
+    public Administrateur(int id, String email, boolean active, String nom, String prenom, String password, String photo) {
+        super(email, active, nom, prenom, password, photo);
+    }
 }

@@ -8,13 +8,15 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
  *
  * @author franc
  */
-public class Professeur extends  Utilisateur {
+public class Visiteur extends Utilisateur {
 
-    public Professeur() {
+    public Visiteur() {
     }
 
-    public Professeur(int id, String email, boolean active, String nom, String prenom, String password, String photo) {
+    public Visiteur(int id, String email, boolean active, String nom, String prenom, String password, String photo) {
         super(email, active, nom, prenom, password, photo);
-    }   
+    }
+    
+    
     
 }
