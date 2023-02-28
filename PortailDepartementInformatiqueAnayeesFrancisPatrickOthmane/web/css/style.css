@@ -5,25 +5,39 @@
     font-family: 'Montserrat', serif, sans-serif, cursive, fantasy, monospace, Times New Roman,Times, serif;
 }
 
-html{
-    zoom:78%;
+html {
+    height: 100%;
+    zoom: 80%;
 }
 
 body {
+    height: 100%;
     background: linear-gradient(90.29deg, #3B4394 0%, rgba(177, 43, 99, 0.92) 59.9%, rgba(235, 31, 75, 0.96) 100%);
 }
 
-/* Classes pour le titre Ed.volution et son sous-titre sur la page index ----------- */
-.titre {
-    color: #fff;
-    font-weight: 700;
-    font-size: 25px;
-    margin-top: 18px;
+/* Classes pour la section Main uniquement pour les pages index et inscription ----------- */
+
+.main-index-inscription {
+    background: none;
 }
 
-.sous-titre {
+/* Classes pour le logo du Collège, le titre Ed.volution et son sous-titre sur les pages index et inscription (format agrandi) ----------- */
+
+.logo-college-agrandi {
+    width: 25%;
+}
+
+.titre-agrandi {
     color: #fff;
-    font-size: 18px;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-top: 3rem;
+}
+
+.sous-titre-agrandi {
+    color: #fff;
+    font-size: 1.5rem;
+    bottom: 0;
 }
 
 /* --------- En-tête de page ----------- */
@@ -40,7 +54,14 @@ header {
 }
 
 .logo-college {
-    width: 20%;
+    width: 15%;
+}
+
+.titre {
+    color: #fff;
+    font-weight: 700;
+    font-size: 25px;
+    margin-top: 18px;
 }
 
 header .sous-titre {
@@ -128,6 +149,11 @@ footer {
     color: #fff;
 }
 
+/* --------- Classe pour l'en-tête logo ----------- */
+.entete-logo {
+    width: calc(634px*1);
+}
+
 /* --------- Classe pour la boîte de login ----------- */
 .boite-login {
     width: 634px;
@@ -142,6 +168,7 @@ footer {
     height: 750px;
     background: rgba(255, 255, 255, 0.76);
     border-radius: 22px;
+    margin-top: 9rem;
 }
 
 .description-projet {
