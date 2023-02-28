@@ -6,7 +6,7 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao
 
 /**
  *
- * @author franc
+ * @author anayeesfrancispatrickothmane
  */
 public class GestionUtilisateurImplDao {
     

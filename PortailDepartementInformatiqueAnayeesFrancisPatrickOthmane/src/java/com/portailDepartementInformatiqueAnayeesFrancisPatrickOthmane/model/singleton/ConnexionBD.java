@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author dahamada
+ * @author anayeesfrancispatrickothmane
  */
 public class ConnexionBD {
       private static Connection conn=null;

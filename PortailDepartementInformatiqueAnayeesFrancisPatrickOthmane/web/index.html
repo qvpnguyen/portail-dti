@@ -19,49 +19,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <link rel="stylesheet" href="css/style.css"/>
     </head>
     <body>
-        <div class="container mt-5 w-50 m-auto">
-            <div class="row">
-                <div class="col-9">
-                    <h1 class="titre">Ed.<br>volution</h1>
-                    <p class="sous-titre">Oser apprendre et évoluer</p>
-                </div>
-                <div class="col-3">
-                    <img width="75" class="float-end" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
+        <header class="border-0">
+            <div class="container d-flex justify-content-center">
+                <div class="entete-logo">
+                    <div class="d-flex justify-content-between">
+                        <img class="logo-college-agrandi py-3" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
+                        <div class="mt-4">
+                            <h1 class="titre-agrandi">Ed.<br>volution</h1>
+                            <p class="sous-titre-agrandi">Oser apprendre et évoluer</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="boite-login mt-5">
-                    <form action="" method="post">
-                        <div class="d-flex justify-content-center">
-                            <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="btnetudiant" autocomplete="off" checked>
-                                <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
+        </header>
+        
+        <main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
+            <div class="container px-5 d-flex justify-content-center">
+                <div class="row">
+                    <div class="boite-login">
+                        <form action="" method="post">
+                            <div class="d-flex justify-content-center">
+                                <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnetudiant" autocomplete="off" checked>
+                                    <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnprofesseur" autocomplete="off">
-                                <label class="btn btn-outline-dark" for="btnprofesseur">Professeur</label>
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnprofesseur" autocomplete="off">
+                                    <label class="btn btn-outline-dark" for="btnprofesseur">Professeur</label>
+
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnvisiteur" autocomplete="off">
+                                    <label class="btn btn-outline-dark" for="btnvisiteur">Visiteur</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8 mx-5">
-                            <div class="form-group my-5">
-                                <label for="nomUtilisateur">Nom d'utilisateur:</label>
-                                <input type="text" class="form-control" id="nomUtilisateur" placeholder="Entrez votre nom d'utilisateur">
+                            <div class="col-8 mx-5">
+                                <div class="form-group my-5">
+                                    <label for="nomUtilisateur">Nom d'utilisateur:</label>
+                                    <input type="text" class="form-control" id="nomUtilisateur" placeholder="Entrez votre nom d'utilisateur">
+                                </div>
+                                <div class="form-group my-5">
+                                    <label for="motDePasse">Mot de passe:</label>
+                                    <input type="password" class="form-control" id="motDePasse" placeholder="Entrez votre mot de passe">
+                                </div>
                             </div>
-                            <div class="form-group my-5">
-                                <label for="motDePasse">Mot de passe:</label>
-                                <input type="password" class="form-control" id="motDePasse" placeholder="Entrez votre mot de passe">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-dark">Connexion</button>
                             </div>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-dark">Connexion</button>
-                        </div>
-                    </form>
-                    <div class="text-center mt-4">
-                        <p><a href="projets.html" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
-                        <p>Pas de compte? <a href="inscription.html" class="text-dark">Cliquez ici</a></p>
-                    </div>              
+                        </form>
+                        <div class="text-center mt-4">
+                            <p><a href="projets.html" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
+                            <p>Pas de compte? <a href="" class="text-dark">Cliquez ici</a></p>
+                        </div>              
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
         <footer>
             <p>&copy; 2023 Département de l'informatique</p>
         </footer>
