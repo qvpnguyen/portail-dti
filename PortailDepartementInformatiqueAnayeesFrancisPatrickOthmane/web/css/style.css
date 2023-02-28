@@ -4,6 +4,11 @@
     padding: 0;
     font-family: 'Montserrat', serif, sans-serif, cursive, fantasy, monospace, Times New Roman,Times, serif;
 }
+
+html{
+    zoom:78%;
+}
+
 body {
     background: linear-gradient(90.29deg, #3B4394 0%, rgba(177, 43, 99, 0.92) 59.9%, rgba(235, 31, 75, 0.96) 100%);
 }
@@ -164,6 +169,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 
 /* --------- Classes pour les boîtes (cartes) de vidéo et la description de projets sur la page visiteur ----------- */
 .rangee-projet {
+
     padding: 3rem 0;
 }
 
@@ -267,4 +273,14 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 .bouton-mauve:hover {
     color: #fff;
     background-color: #212760;
+}
+
+/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur la page projets ----------- */
+
+.rangee-projetEval {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 60px;
+/*    margin: 0 250px 60px 250px;*/
+
 }
