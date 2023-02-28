@@ -169,7 +169,8 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 
 /* --------- Classes pour les boîtes (cartes) de vidéo et la description de projets sur la page visiteur ----------- */
 .rangee-projet {
-
+    
+    margin-top: 100px;
     padding: 3rem 0;
 }
 
@@ -275,7 +276,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
     background-color: #212760;
 }
 
-/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur la page projets ----------- */
+/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur la page evaluationProjets ----------- */
 
 .rangee-projetEval {
     display: flex;
@@ -283,4 +284,29 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
     padding-top: 60px;
 /*    margin: 0 250px 60px 250px;*/
 
+}
+
+/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur la page projets ----------- */
+
+hr {
+  height: 4px;
+  border-width: 0;
+  background-color: black;
+  margin: 10px auto;
+  width: 50%;
+}
+
+.note-police{
+    font-weight: 500;
+    font-size: 30px;
+    padding-top: 30px;
+}
+
+.note-projet{
+    font-size: 60px;
+}
+
+.star-rating{
+    margin-top: 30px;
+    text-align: center;
 }
