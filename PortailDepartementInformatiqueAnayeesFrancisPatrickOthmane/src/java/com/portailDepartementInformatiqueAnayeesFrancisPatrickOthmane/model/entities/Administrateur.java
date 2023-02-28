@@ -9,9 +9,14 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
  * @author franc
  */
 public class Administrateur extends Utilisateur {
-private GestionUtilisateur gestion = new GestionUtilisateur();
+private GestionUtilisateur gestion ;
+
+    public Administrateur() {
+    }
+
     public Administrateur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
         super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
+        gestion = new GestionUtilisateur();
     }
     public void activer(int id ){
         

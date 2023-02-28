@@ -4,11 +4,13 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao;
 
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Administrateur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Visiteur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.singleton.ConnexionBD;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -25,10 +27,16 @@ import java.util.logging.Logger;
  */
 public class GestionUtilisateurImplDao {
 private static final String SQL_SELECT_ETUDIANT = "SELECT * FROM étudiant";
+private static final String SQL_SELECT_ADMINISTRATEURS = "select * from administrateur";
+private static final String SQL_SELECT_VISITEURS = "select * from visiteur";
+private static final String SQL_SELECT_VISITEURS_PAR_ID = "select * from visiteur where ID=?";
+private static final String SQL_SELECT_VISITEURS_PAR_NOM = "select * from visiteur where Nom=?";
+private static final String SQL_SELECT_VISITEURS_PAR_EMAIL = "select * from visiteur where Email=?";
 private static final String SQL_SELECT_COURS = "SELECT * FROM cours";
 private static final String SQL_SELECT_PROJET = "SELECT * FROM projet";
 private static final String SQL_SELECT_NOTES = "SELECT * FROM notesdecours";
-private static final String SQL_SELECT_NOTESCOURS_PAR_ID = "SELECT * FROM notesdecours where CoursID = ?";
+private static final String SQL_SELECT_NOTESCOURS_PAR_ID = "SELECT * FROM notesdecours where ID = ?";
+private static final String SQL_SELECT_NOTESCOURS_PAR_NOM = "SELECT * FROM notesdecours where Nom = ?";
 private static final String SQL_SELECT_PROFESSEURS = "SELECT * FROM professeur";
 private static final String SQL_SELECT_ETUDIANT_PAR_NOM = "select * from étudiant where Nom = ?";
 private static final String SQL_SELECT_PROJET_PAR_NOM = "select * from projet where Nom = ?";
@@ -39,9 +47,15 @@ private static final String SQL_SELECT_ETUDIANT_PAR_DISPO = "select * from étud
 private static final String SQL_SELECT_ETUDIANT_PAR_DISPO_AND_ROLE = "select * from étudiant where Disponibilité = ? and Role = ? ";
 private static final String SQL_SELECT_ETUDIANT_PAR_ID = "select * from étudiant where id = ?";
 private static final String SQL_INSERT_ETUDIANT = "INSERT INTO étudiant (id,Prénom, Nom, Email, DDN, Active, Role, FormationComplétée, Profil, NomUtilisateur, MotDePasse, CoursID,Disponibilité) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"; 
+private static final String SQL_INSERT_PROF = "INSERT INTO professeur (id,Prénom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
+private static final String SQL_DELETE_PROFESSEUR_PAR_ID = "delete from professeur where id = ?";
+private static final String SQL_INSERT_VISITEUR = "INSERT INTO visiteur (id,Prenom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
+private static final String SQL_DELETE_VISITEUR_PAR_ID = "delete from visiteur where ID = ?";
 private static final String SQL_DELETE_ETUDIANT_PAR_ID = "delete from étudiant where id = ?";
 private static final String SQL_SELECT_ETUDIANT_PAR_ROLE = "select * from étudiant where Role = ? ";
 private static final String SQL_UPDATE_ETUDIANT = "update étudiant set id=?,Prénom=?, Nom=?, Email=?, DDN=?, Active=?, Role=?, FormationComplétée=?, Profil=?, NomUtilisateur=?, MotDePasse=?, CoursID=?,Diponibilité=?";
+private static final String SQL_UPDATE_PROF = "update professeur set id=?,Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
+private static final String SQL_UPDATE_VISITEUR = "update visiteur set ID=?,Prenom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
 private static final String SQL_SELECT_PROFESSEUR_PAR_ID = "select * from professeur where id = ?";
 private static final String SQL_SELECT_PROFESSEUR_PAR_NOM = "select * from professeur where Nom = ?";
 private static final String SQL_SELECT_PROFESSEUR_PAR_EMAIL = "select * from professeur where Email = ?";
@@ -565,13 +579,6 @@ public boolean deleteEtudiant(int id) {
            
 
             ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_ETUDIANT_PAR_ID);
-
-            // Supprimer les lignes dans la table intermédiaire qui dépendent de la ligne parente
-          
-            // Supprimer les lignes enfants dans les deux tables qui dépendent de la ligne parente
-           
-
-            // Supprimer la ligne parente
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -584,6 +591,185 @@ public boolean deleteEtudiant(int id) {
         ConnexionBD.closeConnection();
         return retour;
     }
+
+public boolean createProf(Professeur utilisateur) {
+        boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_INSERT_PROF);
+            //   Insérer les données dans la table parente, utilisateurs
+            ps.setInt(1, utilisateur.getId());
+            ps.setString(2, utilisateur.getPrenom());
+            ps.setString(3, utilisateur.getNom());
+            ps.setString(4, utilisateur.getEmail());
+            ps.setBoolean(5, utilisateur.isActive());
+            ps.setString(6, utilisateur.getProfil());
+            ps.setString(7, utilisateur.getNomUtilisateur());
+            ps.setString(8, utilisateur.getMotDePasse());
+   
+
+      
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+//		System.out.println("nb ligne " + nbLigne);
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+public boolean UpdateProf(Professeur utilisateur) {
+        boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_PROF);
+
+            ps.setInt(1, utilisateur.getId());
+            ps.setString(2, utilisateur.getPrenom());
+            ps.setString(3, utilisateur.getNom());
+            ps.setString(4, utilisateur.getEmail());
+            ps.setBoolean(5, utilisateur.isActive());
+            ps.setString(6, utilisateur.getProfil());
+            ps.setString(7, utilisateur.getNomUtilisateur());
+            ps.setString(8, utilisateur.getMotDePasse());
+   
+
+      
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+public boolean deleteProf(int id) {
+        boolean retour = false;
+        int nbLigne = 0;
+
+      
+        PreparedStatement ps;
+
+        try {
+           
+
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_PROFESSEUR_PAR_ID);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+
+public boolean createVisiteur(Visiteur utilisateur) {
+        boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_INSERT_VISITEUR);
+            //   Insérer les données dans la table parente, utilisateurs
+            ps.setInt(1, utilisateur.getId());
+            ps.setString(2, utilisateur.getPrenom());
+            ps.setString(3, utilisateur.getNom());
+            ps.setString(4, utilisateur.getEmail());
+            ps.setBoolean(5, utilisateur.isActive());
+            ps.setString(6, utilisateur.getProfil());
+            ps.setString(7, utilisateur.getNomUtilisateur());
+            ps.setString(8, utilisateur.getMotDePasse());
+   
+
+      
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+//		System.out.println("nb ligne " + nbLigne);
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+public boolean UpdateVisiteur(Visiteur utilisateur) {
+        boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_VISITEUR);
+
+            ps.setInt(1, utilisateur.getId());
+            ps.setString(2, utilisateur.getPrenom());
+            ps.setString(3, utilisateur.getNom());
+            ps.setString(4, utilisateur.getEmail());
+            ps.setBoolean(5, utilisateur.isActive());
+            ps.setString(6, utilisateur.getProfil());
+            ps.setString(7, utilisateur.getNomUtilisateur());
+            ps.setString(8, utilisateur.getMotDePasse());
+   
+
+      
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+public boolean deleteVisiteur(int id) {
+        boolean retour = false;
+        int nbLigne = 0;
+
+      
+        PreparedStatement ps;
+
+        try {
+           
+
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_VISITEUR_PAR_ID);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+
 
 public List<Professeur> findAllProf() {
         List<Professeur> listeProfesseurs = null;
@@ -737,11 +923,161 @@ public NoteDeCours findNotesById(int id) {
         ConnexionBD.closeConnection();
         return notes;
     }
-//    List<Projet> findAllProjets();
-//    Projet findProjetByName(String nom);
-//    List<NoteDeCours> findAllNotesDeCours();
-//    NoteDeCours findNotesDeCoursParNom(String nom);
+public NoteDeCours findNotesByName(String nom) {
+        NoteDeCours notes = null;
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTESCOURS_PAR_NOM);
+            ps.setString(1, nom);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                notes= new NoteDeCours();
+                notes.setId(result.getInt("ID"));
+                notes.setLien(result.getString("Lien"));
+                notes.setCoursID(result.getInt("CoursID"));
+                notes.setNom(result.getString("Nom"));
+                
+
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ConnexionBD.closeConnection();
+        return notes;
+    }
 
 
+public List<Visiteur> findAllVisiteurs() {
+        List<Visiteur> listeVisiteurs = null;
+        try {
+
+            
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS);
+           
+            ResultSet result = ps.executeQuery();
+               
+            listeVisiteurs = new ArrayList<>();
+           
+            while (result.next()) {
+                Visiteur visiteur = new Visiteur();
+                visiteur.setId(result.getInt("ID"));
+                visiteur.setPrenom(result.getString("Prenom"));
+                visiteur.setNom(result.getString("Nom"));
+                visiteur.setEmail(result.getString("Email"));
+                visiteur.setActive(result.getBoolean("Active"));
+                visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
+                visiteur.setMotDePasse(result.getString("MotDePasse"));
+                listeVisiteurs.add(visiteur);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return listeVisiteurs;
+    }
+public Visiteur findByIDVisiteur(int id) {
+        Visiteur visiteur = null;
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS_PAR_ID);
+            ps.setInt(1, id);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                visiteur = new Visiteur();
+                visiteur.setId(result.getInt("ID"));
+                visiteur.setPrenom(result.getString("Prenom"));
+                visiteur.setNom(result.getString("Nom"));
+                visiteur.setEmail(result.getString("Email"));
+                visiteur.setActive(result.getBoolean("Active"));
+                visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
+                visiteur.setMotDePasse(result.getString("MotDePasse"));
+                
+
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ConnexionBD.closeConnection();
+        return visiteur;
+    }
+public Visiteur findVisiteurByNom(String nom) {
+         Visiteur visiteur = null;
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS_PAR_NOM);
+            ps.setString(1, nom);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                visiteur = new Visiteur();
+                visiteur.setId(result.getInt("ID"));
+                visiteur.setPrenom(result.getString("Prenom"));
+                visiteur.setNom(result.getString("Nom"));
+                visiteur.setEmail(result.getString("Email"));
+                visiteur.setActive(result.getBoolean("Active"));
+                visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
+                visiteur.setMotDePasse(result.getString("MotDePasse"));
+                
+
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ConnexionBD.closeConnection();
+        return visiteur;
+    }
+public Visiteur findVisiteurByEmail(String email) {
+         Visiteur visiteur = null;
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS_PAR_EMAIL);
+            ps.setString(1, email);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                visiteur = new Visiteur();
+                visiteur.setId(result.getInt("ID"));
+                visiteur.setPrenom(result.getString("Prenom"));
+                visiteur.setNom(result.getString("Nom"));
+                visiteur.setEmail(result.getString("Email"));
+                visiteur.setActive(result.getBoolean("Active"));
+                visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
+                visiteur.setMotDePasse(result.getString("MotDePasse"));
+                
+
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ConnexionBD.closeConnection();
+        return visiteur;
+    }
+
+
+public List<Administrateur> findAllAdministrateur() {
+        List<Administrateur> listeAdmins = null;
+        try {
+
+            
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ADMINISTRATEURS);
+           
+            ResultSet result = ps.executeQuery();
+               
+            listeAdmins = new ArrayList<>();
+           
+            while (result.next()) {
+                Administrateur admin = new Administrateur();
+                admin.setId(result.getInt("ID"));
+                admin.setPrenom(result.getString("Prénom"));
+                admin.setNom(result.getString("Nom"));
+                admin.setEmail(result.getString("Email"));
+                admin.setNomUtilisateur(result.getString("NomUtilisateur"));
+                admin.setMotDePasse(result.getString("MotDePasse"));
+                listeAdmins.add(admin);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return listeAdmins;
+    }
 
 }

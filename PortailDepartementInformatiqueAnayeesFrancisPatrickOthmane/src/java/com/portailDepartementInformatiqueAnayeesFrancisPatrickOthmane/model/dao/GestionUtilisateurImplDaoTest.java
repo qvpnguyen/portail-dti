@@ -4,11 +4,13 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao;
 
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Administrateur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Visiteur;
 import java.text.ParseException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -26,7 +28,9 @@ public class GestionUtilisateurImplDaoTest {
          testFindAllProf();
          testFindAllProjets();
          testFindAllNotesDeCours();
-         testFindNotesDeCoursById();
+         testFindAllVisiteurs();
+         testFindAllAdministrateurs();
+        // testFindNotesDeCoursById();
          //testProfById();
          //testFindEtudiantByRole();
          //testFindEtudiantByName();
@@ -34,8 +38,7 @@ public class GestionUtilisateurImplDaoTest {
          //testCreateEtudiant();
          //testDeleteEtudiant();
          //testFindAllEtudiants();
-     }
-     
+     }     
      
      public static void testFindAllEtudiants() {
         System.out.println("findAll");
@@ -53,6 +56,15 @@ public class GestionUtilisateurImplDaoTest {
         System.out.println(result.get(0).afficherTitreDesColonnes());
         for (Professeur prof : result) {
             System.out.println(prof.toString());
+        }
+    }
+      public static void testFindAllAdministrateurs() {
+        System.out.println("findAllAdmins");
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        List<Administrateur> result = instance.findAllAdministrateur();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (Administrateur utilisateur : result) {
+            System.out.println(utilisateur.toString());
         }
     }
      public static void testFindAllCours() {
@@ -82,7 +94,15 @@ public class GestionUtilisateurImplDaoTest {
             System.out.println(notes.toString());
         }
     }
-     
+     public static void testFindAllVisiteurs() {
+        System.out.println("findAllVisiteurs");
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        List<Visiteur> result = instance.findAllVisiteurs();
+        System.out.println(result.get(0).afficherTitreDesColonnes());
+        for (Visiteur visiteur : result) {
+            System.out.println(visiteur.toString());
+        }
+    }
       public static void testFindNotesDeCoursById() {
         System.out.println("findNotesDeCoursById");
         int id = 0;

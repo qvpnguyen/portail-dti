@@ -16,11 +16,10 @@ public class NoteDeCours {
     private String nom;
     private int coursID;
     private String lien;
-
-    
     
     public NoteDeCours() {
     }
+    
     public NoteDeCours(int id, String nom, int coursID, String lien) {
         this.id = id;
         this.nom = nom;
