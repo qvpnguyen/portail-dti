@@ -34,8 +34,7 @@ public class GestionUtilisateurImplDaoTest {
          //testCreateEtudiant();
          //testDeleteEtudiant();
          //testFindAllEtudiants();
-     }
-     
+     }     
      
      public static void testFindAllEtudiants() {
         System.out.println("findAll");

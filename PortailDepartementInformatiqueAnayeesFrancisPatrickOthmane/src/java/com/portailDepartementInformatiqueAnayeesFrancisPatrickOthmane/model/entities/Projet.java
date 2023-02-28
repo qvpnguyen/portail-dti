@@ -131,7 +131,7 @@ public class Projet {
     @Override
        public String toString() {
          String message = "";
-       message = String.format(" %-10d  %30s %15b %15s %15s %15s %15s %15s %25s ",this.id,this.nom, this.annee,this.description,this.video,
+       message = String.format(" %-10d  %30s %15d %15s %15s %15s %15s %15s %25s ",this.id,this.nom, this.annee,this.description,this.video,
                    this.lienGitlab, this.coursID,this.professeurEnChargeID,this.noteID); 
        return message;
     }

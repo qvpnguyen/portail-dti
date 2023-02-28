@@ -16,11 +16,10 @@ public class NoteDeCours {
     private String nom;
     private int coursID;
     private String lien;
-
-    
     
     public NoteDeCours() {
     }
+    
     public NoteDeCours(int id, String nom, int coursID, String lien) {
         this.id = id;
         this.nom = nom;
@@ -73,7 +72,7 @@ public class NoteDeCours {
     @Override
        public String toString() {
          String message = "";
-       message = String.format(" %-10d  %30s %15b  %25s ",this.id,this.lien, this.coursID, this.nom); 
+       message = String.format(" %-10d  %30s %15d  %25s ",this.id,this.lien, this.coursID, this.nom); 
        return message;
     }
     

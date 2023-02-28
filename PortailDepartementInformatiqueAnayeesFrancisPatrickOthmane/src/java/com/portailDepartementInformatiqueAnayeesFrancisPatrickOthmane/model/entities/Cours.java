@@ -82,7 +82,7 @@ public class Cours {
     @Override
        public String toString() {
          String message = "";
-       message = String.format(" %-10d  %30s %15b %15s %15s  ",this.id,this.nom, this.credits,this.groupe,
+       message = String.format(" %-10d  %30s %15d %15s %15s  ",this.id,this.nom, this.credits,this.groupe,
                    this.profID); 
        return message;
     }
