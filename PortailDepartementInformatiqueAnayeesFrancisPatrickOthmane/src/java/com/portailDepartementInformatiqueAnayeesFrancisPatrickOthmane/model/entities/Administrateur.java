@@ -9,11 +9,28 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
  * @author franc
  */
 public class Administrateur extends Utilisateur {
-
-    public Administrateur() {
+private GestionUtilisateur gestion = new GestionUtilisateur();
+    public Administrateur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
+        super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
     }
-
-    public Administrateur(int id, String email, boolean active, String nom, String prenom, String password, String photo) {
-        super(email, active, nom, prenom, password, photo);
+    public void activer(int id ){
+        
+        
+        for(int i=0;i<= gestion.getListeTousEtudiants().size();i++){
+            if(gestion.getListeTousEtudiants().get(i).getId()==id){
+                gestion.getListeTousEtudiants().get(i).setActive(true);
+            }
+        }
+        
     }
+     public void desactiver(int id ){
+       
+        for(int i=0;i<= gestion.getListeTousEtudiants().size();i++){
+            if(gestion.getListeTousEtudiants().get(i).getId()==id){
+                gestion.getListeTousEtudiants().get(i).setActive(false);
+            }
+        }
+        
+    }
+    
 }

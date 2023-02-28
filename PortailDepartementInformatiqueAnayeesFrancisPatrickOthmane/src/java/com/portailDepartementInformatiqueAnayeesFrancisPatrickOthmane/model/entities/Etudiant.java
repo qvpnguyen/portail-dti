@@ -5,34 +5,44 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
 import java.sql.Date;
-import java.util.ArrayList;
+
 
 /**
  *
  * @author franc
  */
 public class Etudiant extends Utilisateur {
+    
+   
     private Date  ddn;
+    //private boolean active;
     private String role;
     private boolean formationCompletee;
-    private String profil;
-    private ArrayList<Cours> listeCours;
-    private boolean dispoTuteur;
+    private int coursId; 
+    private boolean dispoTutorat;
 
     public Etudiant() {
     }
 
- 
-    
-    public Etudiant(Date ddn, String role, boolean formationCompletee, String profil, ArrayList<Cours> listeCours, boolean dispoTuteur, int id, String email, boolean active, String nom, String prenom, String password, String photo) {
-        super(email, active, nom, prenom, password, photo);
+    public Etudiant( int id,String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse,Date ddn, String role, boolean formationCompletee, int coursId, boolean dispoTutorat) {
+        super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
         this.ddn = ddn;
         this.role = role;
         this.formationCompletee = formationCompletee;
-        this.profil = profil;
-        this.listeCours = listeCours;
-        this.dispoTuteur = dispoTuteur;
+        this.coursId = coursId;
+        this.dispoTutorat = dispoTutorat;
     }
+
+    public boolean isDispoTutorat() {
+        return dispoTutorat;
+    }
+
+    public void setDispoTutorat(boolean dispoTutorat) {
+        this.dispoTutorat = dispoTutorat;
+    }
+
+    
+    
 
     public Date getDdn() {
         return ddn;
@@ -58,32 +68,17 @@ public class Etudiant extends Utilisateur {
         this.formationCompletee = formationCompletee;
     }
 
-    public String getProfil() {
-        return profil;
+    public int getCoursId() {
+        return coursId;
     }
 
-    public void setProfil(String profil) {
-        this.profil = profil;
+    public void setCoursId(int coursId) {
+        this.coursId = coursId;
     }
 
-    public ArrayList<Cours> getListeCours() {
-        return listeCours;
-    }
+   
 
-    public void setListeCours(ArrayList<Cours> listeCours) {
-        this.listeCours = listeCours;
-    }
 
-    public boolean isDispoTuteur() {
-        return dispoTuteur;
-    }
-
-    public void setDispoTuteur(boolean dispoTuteur) {
-        this.dispoTuteur = dispoTuteur;
-    }
-
-    
-    
-    
-    
 }
+    
+
