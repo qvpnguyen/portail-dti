@@ -1,8 +1,9 @@
 CREATE DATABASE PortailDB;
 USE PortailDB;
-CREATE TABLE Étudiant (ID int(10) NOT NULL AUTO_INCREMENT, Prénom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255) NOT NULL UNIQUE, DDN date NOT NULL, Active bit(1) NOT NULL, Role varchar(255), FormationComplétée bit(1) NOT NULL, Profil varchar(255) NOT NULL, NomUtilisateur varchar(255) NOT NULL UNIQUE, MotDePasse varchar(255) NOT NULL, CoursID int(10) NOT NULL, PRIMARY KEY (ID));
-CREATE TABLE Professeur (ID int(10) NOT NULL AUTO_INCREMENT, Prénom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255) NOT NULL UNIQUE, Profil varchar(255) NOT NULL, Active bit(1) NOT NULL, NomUtilisateur varchar(255) NOT NULL UNIQUE, MotDePasse varchar(255) NOT NULL, PRIMARY KEY (ID));
-CREATE TABLE Notes (ID int(10) NOT NULL AUTO_INCREMENT, NoteObtenue int(10), `Session` varchar(255) NOT NULL, Année date NOT NULL, Commentaire varchar(1000), ÉtudiantID int(10) NOT NULL, CoursID int(10) NOT NULL, PRIMARY KEY (ID));
+
+CREATE TABLE Etudiant (ID int(10) NOT NULL AUTO_INCREMENT, Prenom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255) NOT NULL UNIQUE, DDN date NOT NULL, Active bit(1) NOT NULL, Role varchar(255), FormationCompletee bit(1) NOT NULL, Profil varchar(255) NOT NULL, NomUtilisateur varchar(255) NOT NULL UNIQUE, MotDePasse varchar(255) NOT NULL, CoursID int(10) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Professeur (ID int(10) NOT NULL AUTO_INCREMENT, Prenom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255) NOT NULL UNIQUE, Profil varchar(255) NOT NULL, Active bit(1) NOT NULL, NomUtilisateur varchar(255) NOT NULL UNIQUE, MotDePasse varchar(255) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Notes (ID int(10) NOT NULL AUTO_INCREMENT, NoteObtenue int(10), `Session` varchar(255) NOT NULL, Annee date NOT NULL, Commentaire varchar(1000), EtudiantID int(10) NOT NULL, CoursID int(10) NOT NULL, PRIMARY KEY (ID));
 CREATE TABLE Cours (ID int(10) NOT NULL AUTO_INCREMENT, Nom varchar(255) NOT NULL, Crédits int(10) NOT NULL, Groupe int(10) NOT NULL, ProfesseurID int(10) NOT NULL, PRIMARY KEY (ID));
 CREATE TABLE ParticipationCours (CoursID int(10) NOT NULL, ÉtudiantID int(10) NOT NULL);
 CREATE TABLE Administrateur (ID int(10) NOT NULL AUTO_INCREMENT, Prénom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255) NOT NULL UNIQUE, NomUtilisateur varchar(255) NOT NULL UNIQUE, MotDePasse varchar(255) NOT NULL, PRIMARY KEY (ID));
@@ -10,6 +11,12 @@ CREATE TABLE ServiceTutorat (ID int(10) NOT NULL AUTO_INCREMENT, CoursID int(10)
 CREATE TABLE Projet (ID int(10) NOT NULL AUTO_INCREMENT, Nom varchar(255) NOT NULL, Annee int(10) NOT NULL, Description varchar(1000) NOT NULL, Video varchar(255) NOT NULL, LienGitlab varchar(255) NOT NULL, CoursID int(10) NOT NULL, ProfesseurID int(10) NOT NULL, NotesID int(10) NOT NULL, PRIMARY KEY (ID));
 CREATE TABLE Étudiant_Projet (ÉtudiantID int(10) NOT NULL, ProjetID int(10) NOT NULL, PRIMARY KEY (ÉtudiantID, ProjetID));
 CREATE TABLE NotesDeCours (ID int(10) NOT NULL AUTO_INCREMENT, Lien varchar(255) NOT NULL, CoursID int(10) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Notes (ID int(10) NOT NULL AUTO_INCREMENT, noteObtenue int NOT NULL, 'session' varchar(255) NOT NULL, année date NOT NULL, commentaire longtext, EtudiantID int(10) NOT NULL,CoursID int(10) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Utilisateur(ID int(10) NOT NULL, Prenom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255) NOT NULL, Active Bit(1) NOT NULL, Password varchar(255) NOT NULL, Photo Varbinary(MAX) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Visiteur (ID int(10) NOT NULL, Prenom varchar(255) NOT NULL, Nom varchar(255) NOT NULL, Email varchar(255) NOT NULL, Active Bit(1) NOT NULL, Password varchar(255) NOT NULL, Photo varchar(255), PRIMARY KEY (ID));
+
+
+
 ALTER TABLE Cours ADD CONSTRAINT FKCours388136 FOREIGN KEY (ProfesseurID) REFERENCES Professeur (ID);
 ALTER TABLE Notes ADD CONSTRAINT FKNotes55906 FOREIGN KEY (ÉtudiantID) REFERENCES Étudiant (ID);
 ALTER TABLE ParticipationCours ADD CONSTRAINT FKParticipat507234 FOREIGN KEY (CoursID) REFERENCES Cours (ID);
