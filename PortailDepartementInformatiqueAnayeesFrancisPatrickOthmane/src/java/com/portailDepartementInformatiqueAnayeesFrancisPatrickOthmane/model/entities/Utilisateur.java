@@ -6,7 +6,7 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
 
 /**
  *
- * @author franc
+ * @author anayeesfrancispatrickothmane
  */
 public class Utilisateur {
     
