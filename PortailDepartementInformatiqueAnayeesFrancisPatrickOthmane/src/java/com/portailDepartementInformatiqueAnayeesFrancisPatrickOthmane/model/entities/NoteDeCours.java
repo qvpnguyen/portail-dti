@@ -73,7 +73,7 @@ public class NoteDeCours {
     @Override
        public String toString() {
          String message = "";
-       message = String.format(" %-10d  %30s %15b  %25s ",this.id,this.lien, this.coursID, this.nom); 
+       message = String.format(" %-10d  %30s %15d  %25s ",this.id,this.lien, this.coursID, this.nom); 
        return message;
     }
     

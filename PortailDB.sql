@@ -29,6 +29,8 @@ CREATE TABLE `administrateur` (
   `Prénom` varchar(255) NOT NULL,
   `Nom` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
+  `Role` varchar(255) NOT NULL,
+  `Active` boolean NOT NULL,
   `NomUtilisateur` varchar(255) NOT NULL,
   `MotDePasse` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -43,7 +45,7 @@ CREATE TABLE `administrateur` (
 
 LOCK TABLES `administrateur` WRITE;
 /*!40000 ALTER TABLE `administrateur` DISABLE KEYS */;
-INSERT INTO `administrateur` VALUES (1,'Julie','Gagnon','julie.gagnon@mail.com','jgagnon','motdepasse');
+INSERT INTO `administrateur` VALUES (1,'Julie','Gagnon','julie.gagnon@mail.com','Administrateur',true,'jgagnon','motdepasse');
 /*!40000 ALTER TABLE `administrateur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +61,7 @@ CREATE TABLE `visiteur` (
   `Prénom` varchar(255) NOT NULL,
   `Nom` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
-  `Profil` varchar(255) NOT NULL,
+  `Role` varchar(255) NOT NULL,
   `Active` boolean NOT NULL,
   `NomUtilisateur` varchar(255) NOT NULL,
   `MotDePasse` varchar(255) NOT NULL,
@@ -75,7 +77,7 @@ CREATE TABLE `visiteur` (
 
 LOCK TABLES `visiteur` WRITE;
 /*!40000 ALTER TABLE `visiteur` DISABLE KEYS */;
-INSERT INTO `visiteur` VALUES (1, 'John', 'Doe', 'john.doe@example.com', 'visiteur', true, 'jdoe', 'password123');
+INSERT INTO `visiteur` VALUES (1, 'John', 'Doe', 'john.doe@example.com', 'Visiteur', true, 'jdoe', 'password123');
 /*!40000 ALTER TABLE `visiteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,9 +152,9 @@ DROP TABLE IF EXISTS `notesdecours`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notesdecours` (
   `ID` int NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(25) DEFAULT NULL,
   `Lien` varchar(255) NOT NULL,
   `CoursID` int NOT NULL,
-  `Nom` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FKNotesDeCou587519` (`CoursID`),
   CONSTRAINT `FKNotesDeCou587519` FOREIGN KEY (`CoursID`) REFERENCES `cours` (`ID`)
@@ -165,7 +167,7 @@ CREATE TABLE `notesdecours` (
 
 LOCK TABLES `notesdecours` WRITE;
 /*!40000 ALTER TABLE `notesdecours` DISABLE KEYS */;
-INSERT INTO `notesdecours` VALUES (1,'https://www.youtube.com/watch?v=12345',1,NULL),(2,'https://www.youtube.com/watch?v=12345',1,NULL);
+INSERT INTO `notesdecours` VALUES (1,'Exercices sur les DAOs','https://www.youtube.com/watch?v=12345',1),(2,'Configuration Netbeans','https://www.youtube.com/watch?v=54321',1);
 /*!40000 ALTER TABLE `notesdecours` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,8 +210,8 @@ CREATE TABLE `professeur` (
   `Prénom` varchar(255) NOT NULL,
   `Nom` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
-  `Profil` varchar(255) NOT NULL,
-  `Active` bit(1) NOT NULL,
+  `Role` varchar(255) NOT NULL,
+  `Active` boolean NOT NULL,
   `NomUtilisateur` varchar(255) NOT NULL,
   `MotDePasse` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -224,7 +226,7 @@ CREATE TABLE `professeur` (
 
 LOCK TABLES `professeur` WRITE;
 /*!40000 ALTER TABLE `professeur` DISABLE KEYS */;
-INSERT INTO `professeur` VALUES (1,'Marie','Lamoureux','marie.lamoureux@mail.com','Informatique',_binary '','mlamoureux','motdepasse');
+INSERT INTO `professeur` VALUES (1,'Marie','Lamoureux','marie.lamoureux@mail.com','Professeur',true,'mlamoureux','motdepasse');
 /*!40000 ALTER TABLE `professeur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,9 +316,9 @@ CREATE TABLE `étudiant` (
   `Nom` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `DDN` date NOT NULL,
-  `Active` bit(1) NOT NULL,
+  `Active` boolean NOT NULL,
   `Role` varchar(255) DEFAULT NULL,
-  `FormationComplétée` bit(1) NOT NULL,
+  `FormationComplétée` boolean NOT NULL,
   `Profil` varchar(255) NOT NULL,
   `NomUtilisateur` varchar(255) NOT NULL,
   `MotDePasse` varchar(255) NOT NULL,
@@ -336,7 +338,7 @@ CREATE TABLE `étudiant` (
 
 LOCK TABLES `étudiant` WRITE;
 /*!40000 ALTER TABLE `étudiant` DISABLE KEYS */;
-INSERT INTO `étudiant` VALUES (2,'Jean','Dupont','jean.dupont@mail.com','1995-01-01',_binary '','Étudiant',_binary '','Informatique','jdupont','motdepasse',1,NULL),(4,'Jenna','pont','jenna.dupont@mail.com','1995-01-01',_binary '','Étudiant',_binary '','Informatique','jpont','motdepasse',1,NULL),(2102726,'othmane','sedjari','2102726@crosemont.qc.ca','2002-01-23',_binary '','tuteur',_binary '','etudiant','sedjario','ottopro',1,NULL);
+INSERT INTO `étudiant` VALUES (2,'Jean','Dupont','jean.dupont@mail.com','1995-01-01',true,'Étudiant',true,'Programmation','jdupont','motdepasse',1,NULL),(4,'Jenna','pont','jenna.dupont@mail.com','1995-01-01',true,'Étudiant',true,'Réseautique','jpont','motdepasse',1,NULL),(2102726,'othmane','sedjari','2102726@crosemont.qc.ca','2002-01-23',true,'Tuteur',true,'Programmation','sedjario','ottopro',1,NULL);
 /*!40000 ALTER TABLE `étudiant` ENABLE KEYS */;
 UNLOCK TABLES;
 
