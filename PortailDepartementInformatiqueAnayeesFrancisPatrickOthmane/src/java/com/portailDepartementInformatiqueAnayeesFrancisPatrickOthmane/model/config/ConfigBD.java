@@ -7,7 +7,7 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.con
 
 /**
  *
- * @author dahamada
+ * @author anayeesFrancisPatrickOthmane
  */
 public interface ConfigBD {
            //  Définir l’url de connexion avec le nom de la base donné

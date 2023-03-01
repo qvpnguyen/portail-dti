@@ -19,11 +19,12 @@ import java.util.Scanner;
 
 /**
  *
- * @author othma
+ * @author anayeesFrancisPatrickOthmane
  */
 public class GestionUtilisateurImplDaoTest {
 
     public static void main(String[] args) {
+
         testFindAllEtudiants();
         testFindAllCours();
         testFindAllProf();
@@ -43,8 +44,29 @@ public class GestionUtilisateurImplDaoTest {
 //        testUpdateEtudiant();
 //    testFindAllEtudiantsByDisponibilitéAndByRole();
 //    testFindNotesDeCoursByName();
-    testCreateProf();
+        testCreateProf();
 //        testUpdateProf();
+
+//        testFindAllEtudiants();
+//        testFindAllCours();
+//        testFindAllProf();
+//        testFindAllProjets();
+//        testFindAllNotesDeCours();
+//        testFindAllVisiteurs();
+//        testFindAllAdministrateurs();
+//        testFindNotesDeCoursById();
+//        testFindAllCoursByNomProfesseur();
+//        testFindNotesDeCoursByCoursID();
+        testFindNotesDeCoursByAuthor();
+        //testProfById();
+        //testFindEtudiantByRole();
+        //testFindEtudiantByName();
+        //testFindEtudiantById();
+        //testCreateEtudiant();
+        //testDeleteEtudiant();
+        //testFindAllEtudiants();
+        //testUpdateEtudiant();
+
     }
 
     public static void testFindAllEtudiants() {
@@ -221,7 +243,7 @@ public class GestionUtilisateurImplDaoTest {
         }
 
     }
-    
+
     public static void testUpdateEtudiant() {
         System.out.println("updateEtudiant");
         Etudiant etudiant = null;
@@ -310,7 +332,7 @@ public class GestionUtilisateurImplDaoTest {
         System.out.println(result.toString());
 
     }
-    
+
     public static void testCreateProf() {
         System.out.println("createProf");
         Professeur utilisateur = null;
@@ -343,7 +365,7 @@ public class GestionUtilisateurImplDaoTest {
             System.out.println("insertion echec ");
         }
     }
-    
+
     public static void testUpdateProf() {
         System.out.println("updateProf");
         Professeur utilisateur = null;
@@ -352,7 +374,7 @@ public class GestionUtilisateurImplDaoTest {
         System.out.println("");
         boolean result = instance.updateProf(utilisateur);
     }
-    
+
     public static void testFindAllEtudiantsByDisponibilitéAndByRole() {
         System.out.println("findAllEtudiantsByDisponibilitéAndByRole");
         GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
@@ -365,7 +387,7 @@ public class GestionUtilisateurImplDaoTest {
         List<Etudiant> result = instance.findAllEtudiantsByDisponibilitéAndByRole(role, disponible);
         System.out.println(result.toString());
     }
-    
+
     public static void testFindNotesDeCoursByName() {
         System.out.println("findNotesDeCoursByName");
         Scanner lectureClavier = new Scanner(System.in);
@@ -378,7 +400,64 @@ public class GestionUtilisateurImplDaoTest {
         } catch (Exception e) {
             System.out.println("Aucune note de cours trouvée.");
         }
-        
+
+    }
+
+    public static void testFindAllCoursByNomProfesseur() {
+        System.out.println("findAllCoursByNomProfesseur");
+        try {
+
+            Scanner lectureClavier = new Scanner(System.in);
+            System.out.println("Entrez le nom du professeur: ");
+            String nomProfesseur = lectureClavier.next();
+            GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+            List<Cours> expResult = null;
+            List<Cours> result = instance.findAllCoursByNomProfesseur(nomProfesseur);
+            System.out.println(result.get(0).afficherTitreDesColonnes());
+            for (Cours cours : result) {
+                System.out.println(cours.toString());
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Erreur: Le nom du professeur n'existe pas.");
+        }
+
+    }
+
+    public static void testFindNotesDeCoursByCoursID() {
+        System.out.println("findNotesDeCoursByCoursID");
+        try {
+            Scanner lectureClavier = new Scanner(System.in);
+            System.out.println("Entrez l'id du cours: ");
+            int coursID = lectureClavier.nextInt();
+            GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+            List<NoteDeCours> expResult = null;
+            List<NoteDeCours> result = instance.findNotesDeCoursByCoursID(coursID);
+            System.out.println(result.get(0).afficherTitreDesColonnes());
+            for (NoteDeCours noteDeCours : result) {
+                System.out.println(noteDeCours.toString());
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Erreur: L'id du cours n'existe pas.");
+        }
+
+    }
+
+    public static void testFindNotesDeCoursByAuthor() {
+        System.out.println("findNotesDeCoursByAuthor");
+        try {
+            Scanner lectureClavier = new Scanner(System.in);
+            System.out.println("Entrez le nom de l'auteur/professeur: ");
+            String professeurAuteur = lectureClavier.next();
+            GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+            List<NoteDeCours> expResult = null;
+            List<NoteDeCours> result = instance.findNotesDeCoursByAuthor(professeurAuteur);
+            System.out.println(result.get(0).afficherTitreDesColonnes());
+            for (NoteDeCours noteDeCours : result) {
+                System.out.println(noteDeCours.toString());
+            }
+        } catch (Exception e) {
+            System.out.println("Erreur: Le nom du professeur n'existe pas.");
+        }
     }
 
 }

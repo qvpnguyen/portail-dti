@@ -9,7 +9,7 @@ import java.sql.Date;
 
 /**
  *
- * @author franc
+ * @author anayeesFrancisPatrickOthmane
  */
 public class Etudiant extends Utilisateur {
     
