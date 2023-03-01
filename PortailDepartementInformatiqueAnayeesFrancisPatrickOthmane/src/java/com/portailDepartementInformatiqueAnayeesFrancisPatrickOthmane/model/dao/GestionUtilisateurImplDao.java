@@ -34,6 +34,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_SELECT_VISITEURS_PAR_NOM = "select * from visiteur where Nom=?";
     private static final String SQL_SELECT_VISITEURS_PAR_EMAIL = "select * from visiteur where Email=?";
     private static final String SQL_SELECT_COURS = "SELECT * FROM cours";
+    private static final String SQL_SELECT_COURS_PAR_NOMPROF = "SELECT cours.nom FROM cours JOIN professeur ON cours.ID = professeur.ID WHERE professeur.nom = ?";
     private static final String SQL_SELECT_PROJET = "SELECT * FROM projet";
     private static final String SQL_SELECT_NOTES = "SELECT * FROM notesdecours";
     private static final String SQL_SELECT_NOTESCOURS_PAR_ID = "SELECT * FROM notesdecours where ID = ?";
@@ -1108,7 +1109,31 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
     @Override
     public List<Cours> findAllCoursByNomProfesseur(String nomProfesseur) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Cours> listeCours = null;
+
+        try {
+
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_NOMPROF);
+
+            ResultSet result = ps.executeQuery();
+
+            listeCours = new ArrayList<>();
+
+            while (result.next()) {
+                Cours cours = new Cours();
+                cours.setId(result.getInt("ID"));
+                cours.setNom(result.getString("Nom"));
+                cours.setCredits(result.getInt("Crédits"));
+                cours.setGroupe(result.getInt("Groupe"));
+                cours.setProfID(result.getInt("ProfesseurID"));
+                listeCours.add(cours);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return listeCours;
+ 
     }
 
     @Override

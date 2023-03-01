@@ -31,7 +31,7 @@ public class GestionUtilisateurImplDaoTest {
         testFindAllNotesDeCours();
         testFindAllVisiteurs();
         testFindAllAdministrateurs();
-        // testFindNotesDeCoursById();
+        testFindNotesDeCoursById();
         //testProfById();
         //testFindEtudiantByRole();
         //testFindEtudiantByName();
@@ -39,7 +39,7 @@ public class GestionUtilisateurImplDaoTest {
         //testCreateEtudiant();
         //testDeleteEtudiant();
         //testFindAllEtudiants();
-        testUpdateEtudiant();
+        //testUpdateEtudiant();
     }
 
     public static void testFindAllEtudiants() {
@@ -120,6 +120,7 @@ public class GestionUtilisateurImplDaoTest {
         Scanner lectureClavier = new Scanner(System.in);
         id = lectureClavier.nextInt();
         NoteDeCours result = instance.findNotesDeCoursById(id);
+        System.out.println(result.afficherTitreDesColonnes());
         System.out.println(result.toString());
 
     }
