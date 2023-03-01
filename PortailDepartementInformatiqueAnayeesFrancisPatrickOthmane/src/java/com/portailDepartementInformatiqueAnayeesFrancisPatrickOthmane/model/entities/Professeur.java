@@ -18,10 +18,14 @@ public class Professeur extends Utilisateur{
     public Professeur() {
     }
     
-    public Professeur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
-        super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
+    public Professeur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
+        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse);
         this.notesDeCours = new ArrayList<>();
         this.projets = new ArrayList<>();
+    }
+    
+    public Professeur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
+        super(prenom, nom, email, role, active, nomUtilisateur, motDePasse);
     }
 
     public List<NoteDeCours> getNotesDeCours() {

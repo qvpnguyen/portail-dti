@@ -38,11 +38,11 @@ public interface GestionUtilisateurDao {
 
     List<Etudiant> findAllEtudiantsByRole(String nom);
 
-    List<Etudiant> findAllEtudiantsByCours();
+    List<Etudiant> findAllEtudiantsByCours(int coursID);
 
-    List<Etudiant> findAllEtudiantsByDisponibilité();
+    List<Etudiant> findAllEtudiantsByDisponibilité(boolean dispo);
 
-    List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole();
+    List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole(String role, boolean dispo);
     
     Etudiant findEtudiantById(int id);
 

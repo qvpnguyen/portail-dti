@@ -15,6 +15,7 @@ public class  Utilisateur {
     String nom;
     String email;
     String profil;
+    String role;
     boolean active;
     String nomUtilisateur;
     String motDePasse;
@@ -30,6 +31,16 @@ public class  Utilisateur {
         this.nom = nom;
         this.email = email;
         this.profil = profil;
+        this.active = active;
+        this.nomUtilisateur = nomUtilisateur;
+        this.motDePasse = motDePasse;
+    }
+    
+    public Utilisateur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.role = role;
         this.active = active;
         this.nomUtilisateur = nomUtilisateur;
         this.motDePasse = motDePasse;
@@ -75,6 +86,14 @@ public class  Utilisateur {
         this.profil = profil;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -101,7 +120,7 @@ public class  Utilisateur {
 
          public String afficherTitreDesColonnes() {
         String message = "";
-        message = String.format(" %-10s  %30s %15s %15s %15s %15s %25s ", "Id", "nomUtilisateur", "Active", "Nom", "Prenom","Profil",
+        message = String.format(" %-10s  %30s %15s %15s %15s %15s %15s %25s ", "Id", "nomUtilisateur", "Active", "Nom", "Prenom","Profil","Role",
                 "MotDePasse");
        message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
        return message;
@@ -110,8 +129,8 @@ public class  Utilisateur {
     @Override
        public String toString() {
          String message = "";
-       message = String.format(" %-10d  %30s %15b %15s %15s %15s %25s ",this.id,this.nomUtilisateur, this.active,this.nom,this.prenom,
-                   this.profil, this.motDePasse); 
+       message = String.format(" %-10d  %30s %15b %15s %15s %15s %15s %25s ",this.id,this.nomUtilisateur, this.active,this.nom,this.prenom,
+                   this.profil, this.role, this.motDePasse); 
        return message;
     }
 }
