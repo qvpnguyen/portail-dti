@@ -25,45 +25,45 @@ import java.util.logging.Logger;
  *
  * @author franc
  */
-public class GestionUtilisateurImplDao {
-private static final String SQL_SELECT_ETUDIANT = "SELECT * FROM étudiant";
-private static final String SQL_SELECT_ADMINISTRATEURS = "select * from administrateur";
-private static final String SQL_SELECT_VISITEURS = "select * from visiteur";
-private static final String SQL_SELECT_VISITEURS_PAR_ID = "select * from visiteur where ID=?";
-private static final String SQL_SELECT_VISITEURS_PAR_NOM = "select * from visiteur where Nom=?";
-private static final String SQL_SELECT_VISITEURS_PAR_EMAIL = "select * from visiteur where Email=?";
-private static final String SQL_SELECT_COURS = "SELECT * FROM cours";
-private static final String SQL_SELECT_PROJET = "SELECT * FROM projet";
-private static final String SQL_SELECT_NOTES = "SELECT * FROM notesdecours";
-private static final String SQL_SELECT_NOTESCOURS_PAR_ID = "SELECT * FROM notesdecours where ID = ?";
-private static final String SQL_SELECT_NOTESCOURS_PAR_NOM = "SELECT * FROM notesdecours where Nom = ?";
-private static final String SQL_SELECT_PROFESSEURS = "SELECT * FROM professeur";
-private static final String SQL_SELECT_ETUDIANT_PAR_NOM = "select * from étudiant where Nom = ?";
-private static final String SQL_SELECT_PROJET_PAR_NOM = "select * from projet where Nom = ?";
-private static final String SQL_SELECT_UNETUDIANT_PAR_ROLE = "select * from étudiant where Nom = ? and Role = ?";
-private static final String SQL_SELECT_ETUDIANT_PAR_EMAIL = "select * from étudiant where Email = ?";
-private static final String SQL_SELECT_ETUDIANT_PAR_COURS = "select * from étudiant where CoursID = ?";
-private static final String SQL_SELECT_ETUDIANT_PAR_DISPO = "select * from étudiant where Disponibilité = ?";
-private static final String SQL_SELECT_ETUDIANT_PAR_DISPO_AND_ROLE = "select * from étudiant where Disponibilité = ? and Role = ? ";
-private static final String SQL_SELECT_ETUDIANT_PAR_ID = "select * from étudiant where id = ?";
-private static final String SQL_INSERT_ETUDIANT = "INSERT INTO étudiant (id,Prénom, Nom, Email, DDN, Active, Role, FormationComplétée, Profil, NomUtilisateur, MotDePasse, CoursID,Disponibilité) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"; 
-private static final String SQL_INSERT_PROF = "INSERT INTO professeur (id,Prénom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
-private static final String SQL_DELETE_PROFESSEUR_PAR_ID = "delete from professeur where id = ?";
-private static final String SQL_INSERT_VISITEUR = "INSERT INTO visiteur (id,Prenom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
-private static final String SQL_DELETE_VISITEUR_PAR_ID = "delete from visiteur where ID = ?";
-private static final String SQL_DELETE_ETUDIANT_PAR_ID = "delete from étudiant where id = ?";
-private static final String SQL_SELECT_ETUDIANT_PAR_ROLE = "select * from étudiant where Role = ? ";
-private static final String SQL_UPDATE_ETUDIANT = "update étudiant set id=?,Prénom=?, Nom=?, Email=?, DDN=?, Active=?, Role=?, FormationComplétée=?, Profil=?, NomUtilisateur=?, MotDePasse=?, CoursID=?,Diponibilité=?";
-private static final String SQL_UPDATE_PROF = "update professeur set id=?,Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
-private static final String SQL_UPDATE_VISITEUR = "update visiteur set ID=?,Prenom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
-private static final String SQL_SELECT_PROFESSEUR_PAR_ID = "select * from professeur where id = ?";
-private static final String SQL_SELECT_PROFESSEUR_PAR_NOM = "select * from professeur where Nom = ?";
-private static final String SQL_SELECT_PROFESSEUR_PAR_EMAIL = "select * from professeur where Email = ?";
+public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
- 
+    private static final String SQL_SELECT_ETUDIANT = "SELECT * FROM étudiant";
+    private static final String SQL_SELECT_ADMINISTRATEURS = "select * from administrateur";
+    private static final String SQL_SELECT_VISITEURS = "select * from visiteur";
+    private static final String SQL_SELECT_VISITEURS_PAR_ID = "select * from visiteur where ID=?";
+    private static final String SQL_SELECT_VISITEURS_PAR_NOM = "select * from visiteur where Nom=?";
+    private static final String SQL_SELECT_VISITEURS_PAR_EMAIL = "select * from visiteur where Email=?";
+    private static final String SQL_SELECT_COURS = "SELECT * FROM cours";
+    private static final String SQL_SELECT_PROJET = "SELECT * FROM projet";
+    private static final String SQL_SELECT_NOTES = "SELECT * FROM notesdecours";
+    private static final String SQL_SELECT_NOTESCOURS_PAR_ID = "SELECT * FROM notesdecours where ID = ?";
+    private static final String SQL_SELECT_NOTESCOURS_PAR_NOM = "SELECT * FROM notesdecours where Nom = ?";
+    private static final String SQL_SELECT_PROFESSEURS = "SELECT * FROM professeur";
+    private static final String SQL_SELECT_ETUDIANT_PAR_NOM = "select * from étudiant where Nom = ?";
+    private static final String SQL_SELECT_PROJET_PAR_NOM = "select * from projet where Nom = ?";
+    private static final String SQL_SELECT_UNETUDIANT_PAR_ROLE = "select * from étudiant where Nom = ? and Role = ?";
+    private static final String SQL_SELECT_ETUDIANT_PAR_EMAIL = "select * from étudiant where Email = ?";
+    private static final String SQL_SELECT_ETUDIANT_PAR_COURS = "select * from étudiant where CoursID = ?";
+    private static final String SQL_SELECT_ETUDIANT_PAR_DISPO = "select * from étudiant where Disponibilité = ?";
+    private static final String SQL_SELECT_ETUDIANT_PAR_DISPO_AND_ROLE = "select * from étudiant where Disponibilité = ? and Role = ? ";
+    private static final String SQL_SELECT_ETUDIANT_PAR_ID = "select * from étudiant where id = ?";
+    private static final String SQL_INSERT_ETUDIANT = "INSERT INTO étudiant (id,Prénom, Nom, Email, DDN, Active, Role, FormationComplétée, Profil, NomUtilisateur, MotDePasse, CoursID,Disponibilité) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    private static final String SQL_INSERT_PROF = "INSERT INTO professeur (id,Prénom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_PROFESSEUR_PAR_ID = "delete from professeur where id = ?";
+    private static final String SQL_INSERT_VISITEUR = "INSERT INTO visiteur (id,Prenom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_VISITEUR_PAR_ID = "delete from visiteur where ID = ?";
+    private static final String SQL_DELETE_ETUDIANT_PAR_ID = "delete from étudiant where id = ?";
+    private static final String SQL_SELECT_ETUDIANT_PAR_ROLE = "select * from étudiant where Role = ? ";
+    private static final String SQL_UPDATE_ETUDIANT = "update étudiant set id=?,Prénom=?, Nom=?, Email=?, DDN=?, Active=?, Role=?, FormationComplétée=?, Profil=?, NomUtilisateur=?, MotDePasse=?, CoursID=?,Diponibilité=?";
+    private static final String SQL_UPDATE_PROF = "update professeur set id=?,Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
+    private static final String SQL_UPDATE_VISITEUR = "update visiteur set ID=?,Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
+    private static final String SQL_SELECT_PROFESSEUR_PAR_ID = "select * from professeur where id = ?";
+    private static final String SQL_SELECT_PROFESSEUR_PAR_NOM = "select * from professeur where Nom = ?";
+    private static final String SQL_SELECT_PROFESSEUR_PAR_EMAIL = "select * from professeur where Email = ?";
 
-public List<Etudiant> findAllEtudiants() {
-        List<Etudiant> listeEtudiants  = null;
+    @Override
+    public List<Etudiant> findAllEtudiants() {
+        List<Etudiant> listeEtudiants = null;
         try {
 
             //Initialise la requête préparée basée sur la connexion
@@ -101,23 +101,25 @@ public List<Etudiant> findAllEtudiants() {
         ConnexionBD.closeConnection();
         return listeEtudiants;
     }
-public List<Etudiant> findAllEtudiantsByRole(String Role) {
+
+    @Override
+    public List<Etudiant> findAllEtudiantsByRole(String nom) {
         List<Etudiant> listeEtudiants = null;
         try {
 
             //Initialise la requête préparée basée sur la connexion
             // la requête SQL passé en argument pour construire l'objet preparedStatement
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ETUDIANT_PAR_ROLE);
-            ps.setString(1, Role);
+            ps.setString(1, nom);
             //On execute la requête et on récupère les résultats dans la requête 
             // dans ResultSet
             ResultSet result = ps.executeQuery();
-            
+
             listeEtudiants = new ArrayList<>();
             //// la méthode next() pour se déplacer sur l'enregistrement suivant
             //on parcours ligne par ligne les résultas retournés
             while (result.next()) {
-               Etudiant utilisateur = new Etudiant();
+                Etudiant utilisateur = new Etudiant();
                 utilisateur.setId(result.getInt("id"));
                 utilisateur.setPrenom(result.getString("Prénom"));
                 utilisateur.setNom(result.getString("Nom"));
@@ -140,8 +142,10 @@ public List<Etudiant> findAllEtudiantsByRole(String Role) {
         ConnexionBD.closeConnection();
         return listeEtudiants;
     }
-public List<Etudiant> findAllEtudiantsByCours() {
-        List<Etudiant> listeEtudiants  = null;
+
+    @Override
+    public List<Etudiant> findAllEtudiantsByCours() {
+        List<Etudiant> listeEtudiants = null;
         try {
 
             //Initialise la requête préparée basée sur la connexion
@@ -179,8 +183,10 @@ public List<Etudiant> findAllEtudiantsByCours() {
         ConnexionBD.closeConnection();
         return listeEtudiants;
     }
-public List<Etudiant> findAllEtudiantsByDispo() {
-        List<Etudiant> listeEtudiants  = null;
+
+    @Override
+    public List<Etudiant> findAllEtudiantsByDisponibilité() {
+        List<Etudiant> listeEtudiants = null;
         try {
 
             //Initialise la requête préparée basée sur la connexion
@@ -218,8 +224,10 @@ public List<Etudiant> findAllEtudiantsByDispo() {
         ConnexionBD.closeConnection();
         return listeEtudiants;
     }
-public List<Etudiant> findAllEtudiantsByDispoAndByRole() {
-        List<Etudiant> listeEtudiants  = null;
+
+    @Override
+    public List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole() {
+        List<Etudiant> listeEtudiants = null;
         try {
 
             //Initialise la requête préparée basée sur la connexion
@@ -258,8 +266,9 @@ public List<Etudiant> findAllEtudiantsByDispoAndByRole() {
         return listeEtudiants;
     }
 
-public List<Cours> findAllCours() {
-        List<Cours> listeCours  = null;
+    @Override
+    public List<Cours> findAllCours() {
+        List<Cours> listeCours = null;
         try {
 
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS);
@@ -276,7 +285,7 @@ public List<Cours> findAllCours() {
                 cours.setGroupe(result.getInt("Groupe"));
                 cours.setProfID(result.getInt("ProfesseurID"));
                 listeCours.add(cours);
-                
+
             };
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -284,8 +293,10 @@ public List<Cours> findAllCours() {
         ConnexionBD.closeConnection();
         return listeCours;
     }
-public List<Projet> findAllProjets() {
-        List<Projet> listeProjet  = null;
+
+    @Override
+    public List<Projet> findAllProjets() {
+        List<Projet> listeProjet = null;
         try {
 
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROJET);
@@ -306,7 +317,7 @@ public List<Projet> findAllProjets() {
                 projet.setProfesseurEnChargeID(result.getInt("ProfesseurID"));
                 projet.setNoteID(result.getInt("NotesID"));
                 listeProjet.add(projet);
-                
+
             };
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -314,8 +325,10 @@ public List<Projet> findAllProjets() {
         ConnexionBD.closeConnection();
         return listeProjet;
     }
-public List<NoteDeCours> findAllNotesDeCours() {
-        List<NoteDeCours> listeNoteDeCours  = null;
+
+    @Override
+    public List<NoteDeCours> findAllNotesDeCours() {
+        List<NoteDeCours> listeNoteDeCours = null;
         try {
 
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTES);
@@ -325,16 +338,14 @@ public List<NoteDeCours> findAllNotesDeCours() {
             listeNoteDeCours = new ArrayList<>();
 
             while (result.next()) {
-                NoteDeCours notes= new NoteDeCours();
+                NoteDeCours notes = new NoteDeCours();
                 notes.setId(result.getInt("ID"));
                 notes.setLien(result.getString("Lien"));
                 notes.setCoursID(result.getInt("CoursID"));
                 notes.setNom(result.getString("Nom"));
-                
-                
-               
+
                 listeNoteDeCours.add(notes);
-                
+
             };
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -343,7 +354,8 @@ public List<NoteDeCours> findAllNotesDeCours() {
         return listeNoteDeCours;
     }
 
-public Etudiant findEtudiantByName(String nom) {
+    @Override
+    public Etudiant findEtudiantByName(String nom) {
         Etudiant utilisateur = null;
         try {
 
@@ -359,7 +371,7 @@ public Etudiant findEtudiantByName(String nom) {
             //// la méthode next() pour se déplacer sur l'enregistrement suivant
             //on parcours ligne par ligne les résultas retournés
             while (result.next()) {
-                 utilisateur = new Etudiant();
+                utilisateur = new Etudiant();
                 utilisateur.setId(result.getInt("id"));
                 utilisateur.setPrenom(result.getString("Prénom"));
                 utilisateur.setNom(result.getString("Nom"));
@@ -372,7 +384,7 @@ public Etudiant findEtudiantByName(String nom) {
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
-                
+
             };
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -381,7 +393,9 @@ public Etudiant findEtudiantByName(String nom) {
         ConnexionBD.closeConnection();
         return utilisateur;
     }
-public Etudiant findEtudiantByEmail(String email) {
+
+    @Override
+    public Etudiant findEtudiantByEmail(String email) {
         Etudiant utilisateur = null;
         try {
 
@@ -397,7 +411,7 @@ public Etudiant findEtudiantByEmail(String email) {
             //// la méthode next() pour se déplacer sur l'enregistrement suivant
             //on parcours ligne par ligne les résultas retournés
             while (result.next()) {
-                 utilisateur = new Etudiant();
+                utilisateur = new Etudiant();
                 utilisateur.setId(result.getInt("id"));
                 utilisateur.setPrenom(result.getString("Prénom"));
                 utilisateur.setNom(result.getString("Nom"));
@@ -410,7 +424,7 @@ public Etudiant findEtudiantByEmail(String email) {
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
-                
+
             };
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -419,7 +433,9 @@ public Etudiant findEtudiantByEmail(String email) {
         ConnexionBD.closeConnection();
         return utilisateur;
     }
-public Etudiant findEtudiantById(int id) {
+
+    @Override
+    public Etudiant findEtudiantById(int id) {
         Etudiant utilisateur = null;
         try {
 
@@ -435,7 +451,7 @@ public Etudiant findEtudiantById(int id) {
             //// la méthode next() pour se déplacer sur l'enregistrement suivant
             //on parcours ligne par ligne les résultas retournés
             while (result.next()) {
-                 utilisateur = new Etudiant();
+                utilisateur = new Etudiant();
                 utilisateur.setId(result.getInt("id"));
                 utilisateur.setPrenom(result.getString("Prénom"));
                 utilisateur.setNom(result.getString("Nom"));
@@ -457,7 +473,9 @@ public Etudiant findEtudiantById(int id) {
         ConnexionBD.closeConnection();
         return utilisateur;
     }
-public Etudiant findEtudiantByRole(String nom, String role) {
+
+    @Override
+    public Etudiant findEtudiantByRole(String prenom, String nom, String role) {
         Etudiant utilisateur = null;
         try {
 
@@ -466,7 +484,7 @@ public Etudiant findEtudiantByRole(String nom, String role) {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_UNETUDIANT_PAR_ROLE);
             // on initialise la propriété id du bean avec sa valeur
             ps.setString(1, nom);
-            ps.setString(2, role); 
+            ps.setString(2, role);
             //On execute la requête et on récupère les résultats dans la requête 
             // dans ResultSet
             ResultSet result = ps.executeQuery();
@@ -474,7 +492,7 @@ public Etudiant findEtudiantByRole(String nom, String role) {
             //// la méthode next() pour se déplacer sur l'enregistrement suivant
             //on parcours ligne par ligne les résultas retournés
             while (result.next()) {
-                 utilisateur = new Etudiant();
+                utilisateur = new Etudiant();
                 utilisateur.setId(result.getInt("id"));
                 utilisateur.setPrenom(result.getString("Prénom"));
                 utilisateur.setNom(result.getString("Nom"));
@@ -495,9 +513,10 @@ public Etudiant findEtudiantByRole(String nom, String role) {
         //Fermeture de toutes les ressources ouvertes
         ConnexionBD.closeConnection();
         return utilisateur;
-    }    
+    }
 
-public boolean createEtudiant(Etudiant utilisateur) {
+    @Override
+    public boolean createEtudiant(Etudiant utilisateur) {
         boolean retour = false;
         int nbLigne = 0;
         PreparedStatement ps;
@@ -519,7 +538,6 @@ public boolean createEtudiant(Etudiant utilisateur) {
             ps.setInt(12, utilisateur.getCoursId());
             ps.setBoolean(13, utilisateur.isDispoTutorat());
 
-      
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -534,7 +552,9 @@ public boolean createEtudiant(Etudiant utilisateur) {
         ConnexionBD.closeConnection();
         return retour;
     }
-public boolean updateEtudiant(Etudiant utilisateur) {
+
+    @Override
+    public boolean updateEtudiant(Etudiant utilisateur) {
         boolean retour = false;
         int nbLigne = 0;
         PreparedStatement ps;
@@ -568,15 +588,15 @@ public boolean updateEtudiant(Etudiant utilisateur) {
         ConnexionBD.closeConnection();
         return retour;
     }
-public boolean deleteEtudiant(int id) {
+
+    @Override
+    public boolean deleteEtudiant(int id) {
         boolean retour = false;
         int nbLigne = 0;
 
-      
         PreparedStatement ps;
 
         try {
-           
 
             ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_ETUDIANT_PAR_ID);
             ps.setInt(1, id);
@@ -592,7 +612,8 @@ public boolean deleteEtudiant(int id) {
         return retour;
     }
 
-public boolean createProf(Professeur utilisateur) {
+    @Override
+    public boolean createProf(Professeur utilisateur) {
         boolean retour = false;
         int nbLigne = 0;
         PreparedStatement ps;
@@ -608,9 +629,7 @@ public boolean createProf(Professeur utilisateur) {
             ps.setString(6, utilisateur.getProfil());
             ps.setString(7, utilisateur.getNomUtilisateur());
             ps.setString(8, utilisateur.getMotDePasse());
-   
 
-      
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -625,7 +644,10 @@ public boolean createProf(Professeur utilisateur) {
         ConnexionBD.closeConnection();
         return retour;
     }
-public boolean UpdateProf(Professeur utilisateur) {
+
+    //TODO:: la méthode updateProf
+    @Override
+    public boolean updateProf(Professeur utilisateur) {
         boolean retour = false;
         int nbLigne = 0;
         PreparedStatement ps;
@@ -641,9 +663,7 @@ public boolean UpdateProf(Professeur utilisateur) {
             ps.setString(6, utilisateur.getProfil());
             ps.setString(7, utilisateur.getNomUtilisateur());
             ps.setString(8, utilisateur.getMotDePasse());
-   
 
-      
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -657,15 +677,15 @@ public boolean UpdateProf(Professeur utilisateur) {
         ConnexionBD.closeConnection();
         return retour;
     }
-public boolean deleteProf(int id) {
+
+    @Override
+    public boolean deleteProf(int id) {
         boolean retour = false;
         int nbLigne = 0;
 
-      
         PreparedStatement ps;
 
         try {
-           
 
             ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_PROFESSEUR_PAR_ID);
             ps.setInt(1, id);
@@ -681,7 +701,8 @@ public boolean deleteProf(int id) {
         return retour;
     }
 
-public boolean createVisiteur(Visiteur utilisateur) {
+    @Override
+    public boolean createVisiteur(Visiteur utilisateur) {
         boolean retour = false;
         int nbLigne = 0;
         PreparedStatement ps;
@@ -697,9 +718,7 @@ public boolean createVisiteur(Visiteur utilisateur) {
             ps.setString(6, utilisateur.getProfil());
             ps.setString(7, utilisateur.getNomUtilisateur());
             ps.setString(8, utilisateur.getMotDePasse());
-   
 
-      
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -714,7 +733,9 @@ public boolean createVisiteur(Visiteur utilisateur) {
         ConnexionBD.closeConnection();
         return retour;
     }
-public boolean UpdateVisiteur(Visiteur utilisateur) {
+
+    @Override
+    public boolean updateVisiteur(Visiteur utilisateur) {
         boolean retour = false;
         int nbLigne = 0;
         PreparedStatement ps;
@@ -730,9 +751,7 @@ public boolean UpdateVisiteur(Visiteur utilisateur) {
             ps.setString(6, utilisateur.getProfil());
             ps.setString(7, utilisateur.getNomUtilisateur());
             ps.setString(8, utilisateur.getMotDePasse());
-   
 
-      
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -746,15 +765,15 @@ public boolean UpdateVisiteur(Visiteur utilisateur) {
         ConnexionBD.closeConnection();
         return retour;
     }
-public boolean deleteVisiteur(int id) {
+
+    @Override
+    public boolean deleteVisiteur(int id) {
         boolean retour = false;
         int nbLigne = 0;
 
-      
         PreparedStatement ps;
 
         try {
-           
 
             ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_VISITEUR_PAR_ID);
             ps.setInt(1, id);
@@ -770,18 +789,17 @@ public boolean deleteVisiteur(int id) {
         return retour;
     }
 
-
-public List<Professeur> findAllProf() {
+    @Override
+    public List<Professeur> findAllProfesseurs() {
         List<Professeur> listeProfesseurs = null;
         try {
 
-            
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROFESSEURS);
-           
+
             ResultSet result = ps.executeQuery();
-               
+
             listeProfesseurs = new ArrayList<>();
-           
+
             while (result.next()) {
                 Professeur professeur = new Professeur();
                 professeur.setId(result.getInt("id"));
@@ -799,7 +817,9 @@ public List<Professeur> findAllProf() {
         ConnexionBD.closeConnection();
         return listeProfesseurs;
     }
-public Professeur findProfById(int id) {
+
+    @Override
+    public Professeur findProfById(int id) {
         Professeur professeur = null;
         try {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROFESSEUR_PAR_ID);
@@ -823,7 +843,9 @@ public Professeur findProfById(int id) {
         ConnexionBD.closeConnection();
         return professeur;
     }
-public Professeur findProfByName(String nom) {
+
+    @Override
+    public Professeur findProfByName(String nom) {
         Professeur professeur = null;
         try {
 
@@ -833,7 +855,7 @@ public Professeur findProfByName(String nom) {
 
             while (result.next()) {
                 professeur = new Professeur();
-              professeur.setId(result.getInt("id"));
+                professeur.setId(result.getInt("id"));
                 professeur.setPrenom(result.getString("Prénom"));
                 professeur.setNom(result.getString("Nom"));
                 professeur.setEmail(result.getString("Email"));
@@ -848,10 +870,11 @@ public Professeur findProfByName(String nom) {
         ConnexionBD.closeConnection();
         return professeur;
     }
-public Professeur findProfByEmail(String email) {
+
+    @Override
+    public Professeur findProfByEmail(String email) {
         Professeur professeur = null;
         try {
-
 
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROFESSEUR_PAR_EMAIL);
             ps.setString(1, email);
@@ -874,7 +897,8 @@ public Professeur findProfByEmail(String email) {
         return professeur;
     }
 
-public Projet findProjetByName(String nom) {
+    @Override
+    public Projet findProjetByName(String nom) {
         Projet projet = null;
         try {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROJET_PAR_NOM);
@@ -891,7 +915,6 @@ public Projet findProjetByName(String nom) {
                 projet.setCoursID(result.getInt("CoursID"));
                 projet.setProfesseurEnChargeID(result.getInt("ProfesseurID"));
                 projet.setNoteID(result.getInt("NotesID"));
-                
 
             };
         } catch (SQLException ex) {
@@ -901,19 +924,20 @@ public Projet findProjetByName(String nom) {
         ConnexionBD.closeConnection();
         return projet;
     }
-public NoteDeCours findNotesById(int id) {
+
+    @Override
+    public NoteDeCours findNotesDeCoursById(int id) {
         NoteDeCours notes = null;
         try {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTESCOURS_PAR_ID);
             ps.setInt(1, id);
             ResultSet result = ps.executeQuery();
             while (result.next()) {
-                notes= new NoteDeCours();
+                notes = new NoteDeCours();
                 notes.setId(result.getInt("ID"));
                 notes.setLien(result.getString("Lien"));
                 notes.setCoursID(result.getInt("CoursID"));
                 notes.setNom(result.getString("Nom"));
-                
 
             };
         } catch (SQLException ex) {
@@ -923,19 +947,20 @@ public NoteDeCours findNotesById(int id) {
         ConnexionBD.closeConnection();
         return notes;
     }
-public NoteDeCours findNotesByName(String nom) {
+
+    @Override
+    public NoteDeCours findNotesDeCoursByName(String nom) {
         NoteDeCours notes = null;
         try {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTESCOURS_PAR_NOM);
             ps.setString(1, nom);
             ResultSet result = ps.executeQuery();
             while (result.next()) {
-                notes= new NoteDeCours();
+                notes = new NoteDeCours();
                 notes.setId(result.getInt("ID"));
                 notes.setLien(result.getString("Lien"));
                 notes.setCoursID(result.getInt("CoursID"));
                 notes.setNom(result.getString("Nom"));
-                
 
             };
         } catch (SQLException ex) {
@@ -946,22 +971,21 @@ public NoteDeCours findNotesByName(String nom) {
         return notes;
     }
 
-
-public List<Visiteur> findAllVisiteurs() {
+    @Override
+    public List<Visiteur> findAllVisiteurs() {
         List<Visiteur> listeVisiteurs = null;
         try {
 
-            
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS);
-           
+
             ResultSet result = ps.executeQuery();
-               
+
             listeVisiteurs = new ArrayList<>();
-           
+
             while (result.next()) {
                 Visiteur visiteur = new Visiteur();
                 visiteur.setId(result.getInt("ID"));
-                visiteur.setPrenom(result.getString("Prenom"));
+                visiteur.setPrenom(result.getString("Prénom"));
                 visiteur.setNom(result.getString("Nom"));
                 visiteur.setEmail(result.getString("Email"));
                 visiteur.setActive(result.getBoolean("Active"));
@@ -975,7 +999,9 @@ public List<Visiteur> findAllVisiteurs() {
         ConnexionBD.closeConnection();
         return listeVisiteurs;
     }
-public Visiteur findByIDVisiteur(int id) {
+
+    @Override
+    public Visiteur findVisiteurById(int id) {
         Visiteur visiteur = null;
         try {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS_PAR_ID);
@@ -990,7 +1016,6 @@ public Visiteur findByIDVisiteur(int id) {
                 visiteur.setActive(result.getBoolean("Active"));
                 visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 visiteur.setMotDePasse(result.getString("MotDePasse"));
-                
 
             };
         } catch (SQLException ex) {
@@ -1000,8 +1025,10 @@ public Visiteur findByIDVisiteur(int id) {
         ConnexionBD.closeConnection();
         return visiteur;
     }
-public Visiteur findVisiteurByNom(String nom) {
-         Visiteur visiteur = null;
+
+    @Override
+    public Visiteur findVisiteurByName(String nom) {
+        Visiteur visiteur = null;
         try {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS_PAR_NOM);
             ps.setString(1, nom);
@@ -1015,7 +1042,6 @@ public Visiteur findVisiteurByNom(String nom) {
                 visiteur.setActive(result.getBoolean("Active"));
                 visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 visiteur.setMotDePasse(result.getString("MotDePasse"));
-                
 
             };
         } catch (SQLException ex) {
@@ -1025,8 +1051,10 @@ public Visiteur findVisiteurByNom(String nom) {
         ConnexionBD.closeConnection();
         return visiteur;
     }
-public Visiteur findVisiteurByEmail(String email) {
-         Visiteur visiteur = null;
+
+    @Override
+    public Visiteur findVisiteurByEmail(String email) {
+        Visiteur visiteur = null;
         try {
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_VISITEURS_PAR_EMAIL);
             ps.setString(1, email);
@@ -1040,7 +1068,6 @@ public Visiteur findVisiteurByEmail(String email) {
                 visiteur.setActive(result.getBoolean("Active"));
                 visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 visiteur.setMotDePasse(result.getString("MotDePasse"));
-                
 
             };
         } catch (SQLException ex) {
@@ -1051,18 +1078,17 @@ public Visiteur findVisiteurByEmail(String email) {
         return visiteur;
     }
 
-
-public List<Administrateur> findAllAdministrateur() {
+    @Override
+    public List<Administrateur> findAllAdmins() {
         List<Administrateur> listeAdmins = null;
         try {
 
-            
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ADMINISTRATEURS);
-           
+
             ResultSet result = ps.executeQuery();
-               
+
             listeAdmins = new ArrayList<>();
-           
+
             while (result.next()) {
                 Administrateur admin = new Administrateur();
                 admin.setId(result.getInt("ID"));
@@ -1078,6 +1104,21 @@ public List<Administrateur> findAllAdministrateur() {
         }
         ConnexionBD.closeConnection();
         return listeAdmins;
+    }
+
+    @Override
+    public List<Cours> findAllCoursByNomProfesseur(String nomProfesseur) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<NoteDeCours> findNotesDeCoursByCoursID(int coursID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
