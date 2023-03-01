@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author franc
+ * @author anayeesFrancisPatrickOthmane
  */
 public class Professeur extends Utilisateur{
     private List<NoteDeCours> notesDeCours;
