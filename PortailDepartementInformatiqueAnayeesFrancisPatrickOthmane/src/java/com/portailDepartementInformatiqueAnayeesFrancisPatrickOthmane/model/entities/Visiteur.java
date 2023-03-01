@@ -6,7 +6,7 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
 
 /**
  *
- * @author othma
+ * @author anayeesFrancisPatrickOthmane
  */
 public class Visiteur extends Utilisateur {
 
