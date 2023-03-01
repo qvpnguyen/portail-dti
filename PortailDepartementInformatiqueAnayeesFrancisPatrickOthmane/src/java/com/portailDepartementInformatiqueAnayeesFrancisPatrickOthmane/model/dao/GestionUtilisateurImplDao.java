@@ -34,10 +34,13 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_SELECT_VISITEURS_PAR_NOM = "select * from visiteur where Nom=?";
     private static final String SQL_SELECT_VISITEURS_PAR_EMAIL = "select * from visiteur where Email=?";
     private static final String SQL_SELECT_COURS = "SELECT * FROM cours";
+    private static final String SQL_SELECT_COURS_PAR_NOMPROF = "SELECT * FROM cours JOIN professeur ON cours.ProfesseurID = professeur.ID WHERE professeur.nom = ?";
     private static final String SQL_SELECT_PROJET = "SELECT * FROM projet";
     private static final String SQL_SELECT_NOTES = "SELECT * FROM notesdecours";
     private static final String SQL_SELECT_NOTESCOURS_PAR_ID = "SELECT * FROM notesdecours where ID = ?";
     private static final String SQL_SELECT_NOTESCOURS_PAR_NOM = "SELECT * FROM notesdecours where Nom = ?";
+    private static final String SQL_SELECT_NOTESCOURS_PAR_COURSID = "SELECT * FROM notesdecours WHERE coursid = ?";
+    private static final String SQL_SELECT_NOTESCOURS_PAR_AUTHOR = "SELECT * FROM notesdecours JOIN cours ON notesdecours.coursID = cours.ID JOIN professeur ON cours.ProfesseurID = professeur.ID WHERE professeur.nom = ?";
     private static final String SQL_SELECT_PROFESSEURS = "SELECT * FROM professeur";
     private static final String SQL_SELECT_ETUDIANT_PAR_NOM = "select * from étudiant where Nom = ?";
     private static final String SQL_SELECT_PROJET_PAR_NOM = "select * from projet where Nom = ?";
@@ -1108,17 +1111,81 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
     @Override
     public List<Cours> findAllCoursByNomProfesseur(String nomProfesseur) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Cours> listeCours = null;
+
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_NOMPROF);
+            ps.setString(1, nomProfesseur);
+            ResultSet result = ps.executeQuery();
+
+            listeCours = new ArrayList<>();
+
+            while (result.next()) {
+                Cours cours = new Cours();
+                cours.setId(result.getInt("ID"));
+                cours.setNom(result.getString("Nom"));
+                cours.setCredits(result.getInt("Crédits"));
+                cours.setGroupe(result.getInt("Groupe"));
+                cours.setProfID(result.getInt("ProfesseurID"));
+                listeCours.add(cours);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return listeCours;
     }
 
     @Override
     public List<NoteDeCours> findNotesDeCoursByCoursID(int coursID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<NoteDeCours> listeNoteDeCours = null;
+
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTESCOURS_PAR_COURSID);
+            ps.setInt(1, coursID);
+            ResultSet result = ps.executeQuery();
+
+            listeNoteDeCours = new ArrayList<>();
+
+            while (result.next()) {
+                NoteDeCours noteDeCours = new NoteDeCours();
+                noteDeCours.setId(result.getInt("ID"));
+                noteDeCours.setNom(result.getString("Nom"));
+                noteDeCours.setLien(result.getString("Lien"));
+                noteDeCours.setCoursID(result.getInt("CoursID"));
+                listeNoteDeCours.add(noteDeCours);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return listeNoteDeCours;
     }
 
     @Override
     public List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<NoteDeCours> listeNoteDeCours = null;
+
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTESCOURS_PAR_AUTHOR);
+            ps.setString(1, professeurAuteur);
+            ResultSet result = ps.executeQuery();
+
+            listeNoteDeCours = new ArrayList<>();
+
+            while (result.next()) {
+                NoteDeCours noteDeCours = new NoteDeCours();
+                noteDeCours.setId(result.getInt("ID"));
+                noteDeCours.setNom(result.getString("Nom"));
+                noteDeCours.setLien(result.getString("Lien"));
+                noteDeCours.setCoursID(result.getInt("CoursID"));
+                listeNoteDeCours.add(noteDeCours);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return listeNoteDeCours;
     }
 
 }
