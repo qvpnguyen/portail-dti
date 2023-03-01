@@ -44,22 +44,22 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_SELECT_PROFESSEURS = "SELECT * FROM professeur";
     private static final String SQL_SELECT_ETUDIANT_PAR_NOM = "select * from étudiant where Nom = ?";
     private static final String SQL_SELECT_PROJET_PAR_NOM = "select * from projet where Nom = ?";
-    private static final String SQL_SELECT_UNETUDIANT_PAR_ROLE = "select * from étudiant where Nom = ? and Role = ?";
+    private static final String SQL_SELECT_ETUDIANT_PAR_NOM_AND_ROLE = "select * from étudiant where Nom = ? and Role = ?";
     private static final String SQL_SELECT_ETUDIANT_PAR_EMAIL = "select * from étudiant where Email = ?";
     private static final String SQL_SELECT_ETUDIANT_PAR_COURS = "select * from étudiant where CoursID = ?";
     private static final String SQL_SELECT_ETUDIANT_PAR_DISPO = "select * from étudiant where Disponibilité = ?";
-    private static final String SQL_SELECT_ETUDIANT_PAR_DISPO_AND_ROLE = "select * from étudiant where Disponibilité = ? and Role = ? ";
+    private static final String SQL_SELECT_ETUDIANT_PAR_DISPO_AND_ROLE = "select * from étudiant WHERE Role = ? and Disponibilité = ?";
     private static final String SQL_SELECT_ETUDIANT_PAR_ID = "select * from étudiant where id = ?";
-    private static final String SQL_INSERT_ETUDIANT = "INSERT INTO étudiant (id,Prénom, Nom, Email, DDN, Active, Role, FormationComplétée, Profil, NomUtilisateur, MotDePasse, CoursID,Disponibilité) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-    private static final String SQL_INSERT_PROF = "INSERT INTO professeur (id,Prénom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT_ETUDIANT = "INSERT INTO étudiant (id,Prénom, Nom, Email, DDN, Active, Role, FormationComplétée, Profil, NomUtilisateur, MotDePasse, CoursID,Disponibilité) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT_PROF = "INSERT INTO professeur (id,Prénom, Nom, Email, Active,Role , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PROFESSEUR_PAR_ID = "delete from professeur where id = ?";
     private static final String SQL_INSERT_VISITEUR = "INSERT INTO visiteur (id,Prenom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_VISITEUR_PAR_ID = "delete from visiteur where ID = ?";
     private static final String SQL_DELETE_ETUDIANT_PAR_ID = "delete from étudiant where id = ?";
-    private static final String SQL_SELECT_ETUDIANT_PAR_ROLE = "select * from étudiant where Role = ? ";
-    private static final String SQL_UPDATE_ETUDIANT = "update étudiant set id=?,Prénom=?, Nom=?, Email=?, DDN=?, Active=?, Role=?, FormationComplétée=?, Profil=?, NomUtilisateur=?, MotDePasse=?, CoursID=?,Diponibilité=?";
-    private static final String SQL_UPDATE_PROF = "update professeur set id=?,Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
-    private static final String SQL_UPDATE_VISITEUR = "update visiteur set ID=?,Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=?";
+    private static final String SQL_SELECT_ETUDIANTS_PAR_ROLE = "select * from étudiant where Role = ? ";
+    private static final String SQL_UPDATE_ETUDIANT = "update étudiant set Prénom=?, Nom=?, Email=?, DDN=?, Active=?, Role=?, FormationComplétée=?, Profil=?, NomUtilisateur=?, MotDePasse=?, CoursID=?,Disponibilité=? where id=?";
+    private static final String SQL_UPDATE_PROF = "update professeur set Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=? where id=?";
+    private static final String SQL_UPDATE_VISITEUR = "update visiteur set Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=? where id=?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_ID = "select * from professeur where id = ?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_NOM = "select * from professeur where Nom = ?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_EMAIL = "select * from professeur where Email = ?";
@@ -112,7 +112,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
             //Initialise la requête préparée basée sur la connexion
             // la requête SQL passé en argument pour construire l'objet preparedStatement
-            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ETUDIANT_PAR_ROLE);
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ETUDIANTS_PAR_ROLE);
             ps.setString(1, nom);
             //On execute la requête et on récupère les résultats dans la requête 
             // dans ResultSet
@@ -147,7 +147,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     }
 
     @Override
-    public List<Etudiant> findAllEtudiantsByCours() {
+    public List<Etudiant> findAllEtudiantsByCours(int coursID) {
         List<Etudiant> listeEtudiants = null;
         try {
 
@@ -188,7 +188,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     }
 
     @Override
-    public List<Etudiant> findAllEtudiantsByDisponibilité() {
+    public List<Etudiant> findAllEtudiantsByDisponibilité(boolean dispo) {
         List<Etudiant> listeEtudiants = null;
         try {
 
@@ -198,6 +198,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
             //On execute la requête et on récupère les résultats dans la requête 
             // dans ResultSet
+            ps.setBoolean(1, dispo);
             ResultSet result = ps.executeQuery();
 
             listeEtudiants = new ArrayList<>();
@@ -229,7 +230,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     }
 
     @Override
-    public List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole() {
+    public List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole(String role, boolean dispo) {
         List<Etudiant> listeEtudiants = null;
         try {
 
@@ -239,6 +240,9 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
             //On execute la requête et on récupère les résultats dans la requête 
             // dans ResultSet
+            ps.setString(1, role);
+            ps.setBoolean(2, dispo);
+            
             ResultSet result = ps.executeQuery();
 
             listeEtudiants = new ArrayList<>();
@@ -484,7 +488,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
             //Initialise la requête préparée basée sur la connexion
             // la requête SQL passé en argument pour construire l'objet preparedStatement
-            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_UNETUDIANT_PAR_ROLE);
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ETUDIANT_PAR_NOM_AND_ROLE);
             // on initialise la propriété id du bean avec sa valeur
             ps.setString(1, nom);
             ps.setString(2, role);
@@ -565,19 +569,20 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         try {
 
             ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_ETUDIANT);
-            ps.setInt(1, utilisateur.getId());
-            ps.setString(2, utilisateur.getPrenom());
-            ps.setString(3, utilisateur.getNom());
-            ps.setString(4, utilisateur.getEmail());
-            ps.setDate(5, utilisateur.getDdn());
-            ps.setBoolean(6, utilisateur.isActive());
-            ps.setString(7, utilisateur.getRole());
-            ps.setBoolean(8, utilisateur.isFormationCompletee());
-            ps.setString(9, utilisateur.getProfil());
-            ps.setString(10, utilisateur.getNomUtilisateur());
-            ps.setString(11, utilisateur.getMotDePasse());
-            ps.setInt(12, utilisateur.getCoursId());
-            ps.setBoolean(13, utilisateur.isDispoTutorat());
+            
+            ps.setString(1, utilisateur.getPrenom());
+            ps.setString(2, utilisateur.getNom());
+            ps.setString(3, utilisateur.getEmail());
+            ps.setDate(4, utilisateur.getDdn());
+            ps.setBoolean(5, utilisateur.isActive());
+            ps.setString(6, utilisateur.getRole());
+            ps.setBoolean(7, utilisateur.isFormationCompletee());
+            ps.setString(8, utilisateur.getProfil());
+            ps.setString(9, utilisateur.getNomUtilisateur());
+            ps.setString(10, utilisateur.getMotDePasse());
+            ps.setInt(11, utilisateur.getCoursId());
+            ps.setBoolean(12, utilisateur.isDispoTutorat());
+            ps.setInt(13, utilisateur.getId());
             nbLigne = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -600,10 +605,9 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         PreparedStatement ps;
 
         try {
-
             ps = ConnexionBD.getConnection().prepareStatement(SQL_DELETE_ETUDIANT_PAR_ID);
             ps.setInt(1, id);
-            ps.executeUpdate();
+            nbLigne = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -629,7 +633,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
             ps.setString(3, utilisateur.getNom());
             ps.setString(4, utilisateur.getEmail());
             ps.setBoolean(5, utilisateur.isActive());
-            ps.setString(6, utilisateur.getProfil());
+            ps.setString(6, utilisateur.getRole());
             ps.setString(7, utilisateur.getNomUtilisateur());
             ps.setString(8, utilisateur.getMotDePasse());
 
@@ -658,14 +662,15 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         try {
             ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_PROF);
 
-            ps.setInt(1, utilisateur.getId());
-            ps.setString(2, utilisateur.getPrenom());
-            ps.setString(3, utilisateur.getNom());
-            ps.setString(4, utilisateur.getEmail());
-            ps.setBoolean(5, utilisateur.isActive());
-            ps.setString(6, utilisateur.getProfil());
-            ps.setString(7, utilisateur.getNomUtilisateur());
-            ps.setString(8, utilisateur.getMotDePasse());
+            
+            ps.setString(1, utilisateur.getPrenom());
+            ps.setString(2, utilisateur.getNom());
+            ps.setString(3, utilisateur.getEmail());
+            ps.setBoolean(4, utilisateur.isActive());
+            ps.setString(5, utilisateur.getProfil());
+            ps.setString(6, utilisateur.getNomUtilisateur());
+            ps.setString(7, utilisateur.getMotDePasse());
+            ps.setInt(8, utilisateur.getId());
 
             nbLigne = ps.executeUpdate();
 
@@ -746,14 +751,14 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         try {
             ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_VISITEUR);
 
-            ps.setInt(1, utilisateur.getId());
-            ps.setString(2, utilisateur.getPrenom());
-            ps.setString(3, utilisateur.getNom());
-            ps.setString(4, utilisateur.getEmail());
-            ps.setBoolean(5, utilisateur.isActive());
-            ps.setString(6, utilisateur.getProfil());
-            ps.setString(7, utilisateur.getNomUtilisateur());
-            ps.setString(8, utilisateur.getMotDePasse());
+            ps.setString(1, utilisateur.getPrenom());
+            ps.setString(2, utilisateur.getNom());
+            ps.setString(3, utilisateur.getEmail());
+            ps.setBoolean(4, utilisateur.isActive());
+            ps.setString(5, utilisateur.getProfil());
+            ps.setString(6, utilisateur.getNomUtilisateur());
+            ps.setString(7, utilisateur.getMotDePasse());
+            ps.setInt(8, utilisateur.getId());
 
             nbLigne = ps.executeUpdate();
 
