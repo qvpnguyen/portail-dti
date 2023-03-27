@@ -8,6 +8,7 @@ import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.enti
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Visiteur;
@@ -17,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,6 +54,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_SELECT_ETUDIANT_PAR_ID = "select * from étudiant where id = ?";
     private static final String SQL_INSERT_ETUDIANT = "INSERT INTO étudiant (id,Prénom, Nom, Email, DDN, Active, Role, FormationComplétée, Profil, NomUtilisateur, MotDePasse, CoursID,Disponibilité) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_INSERT_PROF = "INSERT INTO professeur (id,Prénom, Nom, Email, Active,Role , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT_PROJET = "INSERT INTO projet (id,nom,annee,listeequipe,description,video,liengitlab,coursID,professeurID,notesID) values (?,?,?,?,?,?,?,?,?,null)";
     private static final String SQL_DELETE_PROFESSEUR_PAR_ID = "delete from professeur where id = ?";
     private static final String SQL_INSERT_VISITEUR = "INSERT INTO visiteur (id,Prenom, Nom, Email, Active,Profil , NomUtilisateur, MotDePasse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_VISITEUR_PAR_ID = "delete from visiteur where ID = ?";
@@ -320,9 +323,9 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 projet.setDescription(result.getString("Description"));
                 projet.setVideo(result.getString("Video"));
                 projet.setLienGitlab(result.getString("LienGitlab"));
-                projet.setCoursID(result.getInt("CoursID"));
-                projet.setProfesseurEnChargeID(result.getInt("ProfesseurID"));
-                projet.setNoteID(result.getInt("NotesID"));
+                projet.setCours((Cours)result.getObject("CoursID"));
+                projet.setProfesseur((Professeur)result.getObject("ProfesseurID"));
+                projet.setNotes((Notes)result.getObject("NotesID"));
                 listeProjet.add(projet);
 
             };
@@ -920,9 +923,9 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 projet.setDescription(result.getString("Description"));
                 projet.setVideo(result.getString("Video"));
                 projet.setLienGitlab(result.getString("LienGitlab"));
-                projet.setCoursID(result.getInt("CoursID"));
-                projet.setProfesseurEnChargeID(result.getInt("ProfesseurID"));
-                projet.setNoteID(result.getInt("NotesID"));
+                projet.setCours((Cours)result.getObject("CoursID"));
+                projet.setProfesseur((Professeur)result.getObject("ProfesseurID"));
+                projet.setNotes((Notes)result.getObject("NotesID"));
 
             };
         } catch (SQLException ex) {
@@ -931,6 +934,37 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
 
         ConnexionBD.closeConnection();
         return projet;
+    }
+    
+    @Override
+    public boolean createProjet(Projet projet) {
+        boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_INSERT_PROJET);
+            ps.setInt(1, projet.getId());
+            ps.setString(2, projet.getNom());
+            ps.setInt(3, projet.getAnnee());
+            ps.setString(4, Arrays.toString(projet.getListeEquipeProjet()));
+            ps.setString(5, projet.getDescription());
+            ps.setString(6, projet.getVideo());
+            ps.setString(7, projet.getLienGitlab());
+            ps.setInt(8, projet.getCours().getId());
+            ps.setInt(9, projet.getProfesseur().getId());
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
     }
 
     @Override
@@ -1192,5 +1226,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         ConnexionBD.closeConnection();
         return listeNoteDeCours;
     }
+
+    
 
 }

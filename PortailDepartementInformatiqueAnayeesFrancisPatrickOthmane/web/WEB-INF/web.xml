@@ -11,6 +11,10 @@
         <servlet-name>EtudiantController</servlet-name>
         <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.EtudiantController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SauvegardeProjetController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.SauvegardeProjetController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProjetsController</servlet-name>
         <url-pattern>/ProjetsController</url-pattern>
@@ -18,6 +22,10 @@
     <servlet-mapping>
         <servlet-name>EtudiantController</servlet-name>
         <url-pattern>/EtudiantController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SauvegardeProjetController</servlet-name>
+        <url-pattern>/sauvegardeProjetController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

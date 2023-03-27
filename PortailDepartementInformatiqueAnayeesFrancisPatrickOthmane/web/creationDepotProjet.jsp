@@ -3,6 +3,8 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
         <title>Création du dépôt du projet - Portail du département de l'informatique</title>
@@ -17,12 +19,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
         <!-- Inclusion du stylesheet principal -->
         <link rel="stylesheet" href="css/style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#ajouterMembre').click(function() {
+                    $('#inputContainer').append('<input type="text" class="form-control" name="membresEquipe"><br>');
+                });
+            });
+        </script>
     </head>
     <body class="fond-blanc">
         <header class="border-0">
             <div class="d-flex justify-content-between mx-5 py-3">
                 <div class="d-flex">
-                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
+                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
                     <div class="ms-3">
                         <h1 class="titre">Ed.<br>volution</h1>
                         <p class="sous-titre">Oser apprendre et évoluer</p>
@@ -84,18 +94,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <div class="row">
                     <div class="boite-inscription mt-5">
                         
-                        <form action="" method="post">
+                        <form action="sauvegardeProjetController" method="post">
                             <div class="row mx-2 mt-4">
                                 <div class="col-10">
                                     <div class="form-group my-3">
-                                        <label for="nomProjet">Nom du projet</label>
+                                        <label for="nomProjet">Nom du projet:</label>
                                         <input type="text" class="form-control" id="nomProjet" name="nomProjet">
                                     </div>
                                 </div>
                                 <div class="col-10">
                                     <div class="form-group my-3">
                                         <label for="professeur">Professeur responsable:</label>
-                                        <input type="text" class="form-control" id="professeur" name="professeur">
+                                        <select name="professeur" id="professeur" class="form-select">
+                                            <c:forEach var="unProf" items="${requestScope.listeProfesseurs}">
+                                                <option value="${unProf.id}">${unProf.prenom} ${unProf.nom}</option>
+                                            </c:forEach>
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group my-3">
+                                        <label for="cours">Cours associé:</label>
+                                        <select name="cours" id="cours" class="form-select">
+                                            <c:forEach var="unCours" items="${requestScope.listeCours}">
+                                                <option value="${unCours.id}">${unCours.nom}</option>
+                                            </c:forEach>
+                                      </select>
                                     </div>
                                 </div>
                                 <div class="col-10">
@@ -104,16 +128,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <input type="text" class="form-control" name="membresEquipe">
                                     </div>
                                 </div>
-                                <div class="col-1 d-flex align-items-end mb-3">
+                                <div id="ajouterMembre" class="col-1 d-flex align-items-end mb-3">
                                     <svg width="38" height="29" viewBox="0 0 38 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M22 26V24.2282C22 23.0343 22 22.438 21.8418 21.9505C21.6467 21.3468 21.2775 20.7969 20.7693 20.3534C20.2612 19.9099 19.6312 19.5876 18.9396 19.4174C18.381 19.2793 17.6978 19.2793 16.33 19.2793H6.67C5.3022 19.2793 4.619 19.2793 4.0604 19.4174C3.36878 19.5876 2.73878 19.9099 2.23065 20.3534C1.72252 20.7969 1.35327 21.3468 1.1582 21.9505C1 22.438 1 23.0343 1 24.2282V26M18.08 8.96601C18.08 11.7093 15.448 13.9332 12.2 13.9332C8.952 13.9332 6.32 11.7093 6.32 8.96601C6.32 6.22273 8.952 4 12.2 4C15.448 4 18.08 6.22395 18.08 8.96601Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M30.144 19.688V9.512H31.656V19.688H30.144ZM25.68 15.32V13.904H36.12V15.32H25.68Z" fill="black"/>
                                     </svg>
                                 </div>
+                                <div id="inputContainer" class="col-10"></div>
                                 <div class="col-10">
                                     <div class="form-group my-3">
                                         <label for="description">Brève description du projet:</label>
                                         <textarea rows="5" class="form-control description-projet mt-2" id="description" name="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group my-3">
+                                        <label for="annee">Année:</label>
+                                        <!--<input type="number" class="form-control" id="annee" name="annee" value="2023">-->
+                                        <select name="annee" class="form-select">
+                                            <option selected disabled>Choisir une année</option>
+                                            <c:forEach var="annee" begin="2020" end="2030">
+                                                <option value="${annee}">${annee}</option>
+                                            </c:forEach>
+                                      </select>
                                     </div>
                                 </div>
                                 <div class="col-10">
@@ -123,7 +160,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             <div class="col-8">
                                             <input type="file" class="form-control mt-2" id="video" name="video">
                                             </div>
-                                            <div class="col-4 mt-2">
+<!--                                            <div class="col-4 mt-2">
                                                 <button type="button" class="btn bouton-mauve">
                                                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M8.54878 14.7195V1.87793M8.54878 1.87793L12.6883 6.34964M8.54878 1.87793L4.40921 6.34964" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -131,23 +168,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                                     </svg>
                                                     Téléverser
                                                 </button>
-                                            </div>
+                                            </div>-->
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group my-3">
+                                        <label for="lienGitlab">Lien Gitlab:</label>
+                                        <input type="text" class="form-control" id="lienGitlab" name="lienGitlab">
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="d-grid gap-2 mt-4 mx-3">
-                                <button type="submit" class="btn bouton-mauve">
-                                    <svg width="27" height="24" viewBox="0 0 27 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <input type="submit" value="Sauvegarder" class="btn bouton-mauve">
+                                <!-- Code SVG pour l'icone de sauvegarde -->
+<!--                                    <svg width="27" height="24" viewBox="0 0 27 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0H27V23.5161H0V0Z" fill="white" fill-opacity="0.01"/>
                                     <path d="M23.0625 1.95898H3.93748C3.0055 1.95898 2.24998 2.61701 2.24998 3.42874V20.086C2.24998 20.8977 3.0055 21.5557 3.93748 21.5557H23.0625C23.9945 21.5557 24.75 20.8977 24.75 20.086V3.42874C24.75 2.61701 23.9945 1.95898 23.0625 1.95898Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
                                     <path d="M19.125 1.95898V10.7775H8.43751V1.95898H19.125Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
                                     <path d="M15.1875 5.38867V7.34835" stroke="white" stroke-width="2" stroke-linecap="round"/>
                                     <path d="M6.74823 1.95898H20.8116" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                    Sauvegarder
-                                </button>
+                                    </svg>-->
+                                </input>
                                 <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <rect width="24" height="24" fill="url(#pattern0)"/>
