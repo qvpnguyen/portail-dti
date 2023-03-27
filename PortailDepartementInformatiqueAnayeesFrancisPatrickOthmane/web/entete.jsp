@@ -1,25 +1,19 @@
+<%-- 
+    Document   : entete
+    Created on : Mar 26, 2023, 1:27:01 PM
+    Author     : Anayees
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
-        <title>Projets - Portail du département de l'informatique</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Inclusion des fichiers Bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        <!-- Importation des polices (fonts) -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
-        <!-- Inclusion du stylesheet principal -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>${pageName}</title>
         <link rel="stylesheet" href="css/style.css"/>
     </head>
     <body>
-        <header>
+         <header>
             <div class="d-flex justify-content-between mx-5 py-3">
                 <div class="d-flex">
                     <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
@@ -39,7 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <div>
                 <nav class="navbar">
                     <div class="container-fluid mx-4">
-                        <a class="navbar-brand">Ensemble des projets</a>
+                        <p class="navbar-brand">${pageName}</p>
                         <div class="d-flex">
                             <!-- Logo GitLab -->
                             <a href="https://git.dti.crosemont.quebec/">
@@ -74,67 +68,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </nav>
             </div>
         </header>
-
-        <main class="section-principale">
-            <h2 class="p-5 text-center">Ces ensembles des projets sont réalisés par des étudiants en informatique au cours de leur parcours scolaire qui témoignent de la créativité et de l'ingéniosité de la prochaine génération de développeurs. Grâce à ces projets, les étudiants en informatique ont acquis une expérience pratique en développement des applications de Web et se sont positionnés pour réussir dans l'industrie technologique rapide et en constante évolution.</h2>
-            <div class="container px-5">
-                <div class="rangee-projet row gx-5">
-                    <div class="col-4">
-                        <div class="carte-video">
-                            <img class="video-projet" src="images/play-button-icon.png" alt="Jouer"/>
-                            <div class="conteneur-infos-projet">
-                                <h4 class="mt-2">Nom du projet</h4>
-                                <p><i>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea.</i></p>
-                                <p>Réalisé par: Anayees Sarkes, Francis Martel, Patrick Nguyen, Othmane Sedjari</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="carte-description p-4">
-                            <p>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea. Ut sed simul maiestatis. Ius ad dicant molestie delicatissimi. Semper mandamus ut nec, mei menandri inimicus aliquando ei, vim numquam omnesque offendit ea. Accusamus dignissim quo an, mel at admodum mandamus eloquentiam. Vel et dico dicat praesent, sit ad corpora mediocritatem.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rangee-projet row gx-5">
-                    <div class="col-8">
-                        <div class="carte-description p-4">
-                            <p>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea. Ut sed simul maiestatis. Ius ad dicant molestie delicatissimi. Semper mandamus ut nec, mei menandri inimicus aliquando ei, vim numquam omnesque offendit ea. Accusamus dignissim quo an, mel at admodum mandamus eloquentiam. Vel et dico dicat praesent, sit ad corpora mediocritatem.</p>
-                        </div>
-                    </div> 
-                    <div class="col-4">
-                        <div class="carte-video">
-                            <img class="video-projet" src="images/play-button-icon.png" alt="Jouer"/>
-                            <div class="conteneur-infos-projet">
-                                <h4 class="mt-2">Nom du projet</h4>
-                                <p><i>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea.</i></p>
-                                <p>Réalisé par: Anayees Sarkes, Francis Martel, Patrick Nguyen, Othmane Sedjari</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rangee-projet row gx-5">
-                    <div class="col-4">
-                        <div class="carte-video">
-                            <img class="video-projet" src="images/play-button-icon.png" alt="Jouer"/>
-                            <div class="conteneur-infos-projet">
-                                <h4 class="mt-2">Nom du projet</h4>
-                                <p><i>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea.</i></p>
-                                <p>Réalisé par: Anayees Sarkes, Francis Martel, Patrick Nguyen, Othmane Sedjari</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="carte-description p-4">
-                            <p>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea. Ut sed simul maiestatis. Ius ad dicant molestie delicatissimi. Semper mandamus ut nec, mei menandri inimicus aliquando ei, vim numquam omnesque offendit ea. Accusamus dignissim quo an, mel at admodum mandamus eloquentiam. Vel et dico dicat praesent, sit ad corpora mediocritatem.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer style="position: relative;">
-            <p>&copy; 2023 Département de l'informatique</p>
-        </footer>
     </body>
 </html>
