@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>${pageName}</title>
         <link rel="stylesheet" href="css/style.css"/>
     </head>
     <body>
@@ -33,7 +33,7 @@
             <div>
                 <nav class="navbar">
                     <div class="container-fluid mx-4">
-                        <a class="navbar-brand">Ensemble des projets</a>
+                        <p class="navbar-brand">${pageName}</p>
                         <div class="d-flex">
                             <!-- Logo GitLab -->
                             <a href="https://git.dti.crosemont.quebec/">

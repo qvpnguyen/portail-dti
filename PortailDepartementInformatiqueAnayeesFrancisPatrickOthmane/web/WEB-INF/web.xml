@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <welcome-file-list>
+        <welcome-file>ProjetsController</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>ProjetsController</servlet-name>
         <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ProjetsController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EtudiantController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.EtudiantController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProjetsController</servlet-name>
         <url-pattern>/ProjetsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EtudiantController</servlet-name>
+        <url-pattern>/EtudiantController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

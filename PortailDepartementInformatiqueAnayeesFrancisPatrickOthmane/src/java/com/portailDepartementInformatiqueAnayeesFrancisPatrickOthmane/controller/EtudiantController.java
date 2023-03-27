@@ -15,20 +15,29 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Anayees
  */
-public class ProjetsController extends HttpServlet {
+public class EtudiantController extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String pageName = "";
-        
-        if (request.getRequestURI().endsWith("ProjetsController")){
-            pageName = "Ensemble des projets";
+
+         if (request.getRequestURI().endsWith("EtudiantController")){
+            pageName = "Portail du Département Informatique - Étudiant";
         }
         //System.out.println("Setting pageName to " + pageName);
         request.setAttribute("pageName", pageName);
         //System.out.println("pageName attribute set: " + request.getAttribute("pageName"));
-        request.getRequestDispatcher("projets.jsp").include(request, response);
+        request.getRequestDispatcher("etudiant.jsp").include(request, response);
 
     }
 

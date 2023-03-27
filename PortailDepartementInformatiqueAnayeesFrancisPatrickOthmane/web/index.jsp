@@ -5,7 +5,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
     <head>
-        <title>Bienvenue au Portail du dÃ©partement de l'informatique</title>
+        <title>Bienvenue au Portail du département de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -26,7 +26,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <img class="logo-college-agrandi py-3" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
                         <div class="mt-4">
                             <h1 class="titre-agrandi">Ed.<br>volution</h1>
-                            <p class="sous-titre-agrandi">Oser apprendre et Ã©voluer</p>
+                            <p class="sous-titre-agrandi">Oser apprendre et évoluer</p>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             <div class="d-flex justify-content-center">
                                 <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
                                     <input type="radio" class="btn-check" name="btnradio" id="btnetudiant" autocomplete="off" checked>
-                                    <label class="btn btn-outline-dark" for="btnetudiant">Ã‰tudiant</label>
+                                    <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
 
                                     <input type="radio" class="btn-check" name="btnradio" id="btnprofesseur" autocomplete="off">
                                     <label class="btn btn-outline-dark" for="btnprofesseur">Professeur</label>
@@ -65,7 +65,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             </div>
                         </form>
                         <div class="text-center mt-4">
-                            <p><a href="projets.html" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
+                            <p><a href="/projets" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
                             <p>Pas de compte? <a href="inscription.html" class="text-dark">Cliquez ici</a></p>
                         </div>              
                     </div>
@@ -73,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             </div>
         </main>
         <footer>
-            <p>&copy; 2023 DÃ©partement de l'informatique</p>
+            <p>&copy; 2023 Département de l'informatique</p>
         </footer>
     </body>
 </html>
