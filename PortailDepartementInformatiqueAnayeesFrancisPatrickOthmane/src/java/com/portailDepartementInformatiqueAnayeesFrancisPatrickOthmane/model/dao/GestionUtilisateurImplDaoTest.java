@@ -25,13 +25,13 @@ public class GestionUtilisateurImplDaoTest {
 
     public static void main(String[] args) {
 
-        testFindAllEtudiants();
+//        testFindAllEtudiants();
         testFindAllCours();
         testFindAllProf();
-        testFindAllProjets();
-        testFindAllNotesDeCours();
-        testFindAllVisiteurs();
-        testFindAllAdministrateurs();
+//        testFindAllProjets();
+//        testFindAllNotesDeCours();
+//        testFindAllVisiteurs();
+//        testFindAllAdministrateurs();
 //        testFindNotesDeCoursById();
 //        testProfById();
 //        testFindEtudiantByRole();
@@ -44,7 +44,7 @@ public class GestionUtilisateurImplDaoTest {
 //        testUpdateEtudiant();
 //    testFindAllEtudiantsByDisponibilitéAndByRole();
 //    testFindNotesDeCoursByName();
-        testCreateProf();
+//        testCreateProf();
 //        testUpdateProf();
 
 //        testFindAllEtudiants();
@@ -57,7 +57,7 @@ public class GestionUtilisateurImplDaoTest {
 //        testFindNotesDeCoursById();
 //        testFindAllCoursByNomProfesseur();
 //        testFindNotesDeCoursByCoursID();
-        testFindNotesDeCoursByAuthor();
+//        testFindNotesDeCoursByAuthor();
         //testProfById();
         //testFindEtudiantByRole();
         //testFindEtudiantByName();

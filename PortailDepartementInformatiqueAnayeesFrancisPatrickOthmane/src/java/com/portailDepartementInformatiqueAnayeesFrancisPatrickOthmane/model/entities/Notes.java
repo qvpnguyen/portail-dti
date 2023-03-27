@@ -17,6 +17,9 @@ public class Notes {
     private String session;
     private Date annee;
     private String commentaire;
+    
+    public Notes() {
+    }
 
     public Notes(int id, int noteObtenue, String session, Date annee, String commentaire) {
         this.id = id;
