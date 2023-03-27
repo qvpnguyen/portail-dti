@@ -20,15 +20,18 @@ public class ProjetsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        //Assignation du titre de la page à l'uri correspondant
         String pageName = "";
         
         if (request.getRequestURI().endsWith("ProjetsController")){
             pageName = "Ensemble des projets";
         }
-        //System.out.println("Setting pageName to " + pageName);
         request.setAttribute("pageName", pageName);
-        //System.out.println("pageName attribute set: " + request.getAttribute("pageName"));
         request.getRequestDispatcher("projets.jsp").include(request, response);
+        
+        //Affichage des projets
+        
 
     }
 
