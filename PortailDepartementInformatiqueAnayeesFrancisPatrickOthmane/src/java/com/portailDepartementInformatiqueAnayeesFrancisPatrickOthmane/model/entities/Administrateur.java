@@ -14,6 +14,11 @@ private GestionUtilisateur gestion ;
     public Administrateur() {
     }
 
+    public Administrateur(int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, String photo) {
+        super(id, prenom, nom, email, profil, role, active, nomUtilisateur, motDePasse, photo);
+        gestion = new GestionUtilisateur();
+    }
+
     public Administrateur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
         super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
         gestion = new GestionUtilisateur();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <welcome-file-list>
+        <welcome-file>gestionNotesCours.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>ProfesseurController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.servlet.ProfesseurController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NotesDeCoursController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.servlet.NotesDeCoursController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProfesseurController</servlet-name>
+        <url-pattern>/professeurController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NotesDeCoursController</servlet-name>
+        <url-pattern>/notesDeCoursController</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
