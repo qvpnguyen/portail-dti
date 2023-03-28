@@ -3,6 +3,11 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
+
+<%  
+    ArrayList<NotesDeCours> listeNotesCours = (ArrayList)request.getAttribute("listeNotesCours");
+     
+%>
 <html>
     <head>
         <title>Gestion des notes de cours - Portail du département de l'informatique</title>

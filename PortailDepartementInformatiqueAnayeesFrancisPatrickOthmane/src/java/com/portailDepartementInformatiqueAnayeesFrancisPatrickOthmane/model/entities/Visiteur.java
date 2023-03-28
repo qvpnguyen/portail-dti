@@ -13,6 +13,10 @@ public class Visiteur extends Utilisateur {
     public Visiteur() {
     }
 
+    public Visiteur(int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, String photo) {
+        super(id, prenom, nom, email, profil, role, active, nomUtilisateur, motDePasse, photo);
+    }
+
     public Visiteur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
         super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
     }

@@ -19,10 +19,24 @@ public class  Utilisateur {
     boolean active;
     String nomUtilisateur;
     String motDePasse;
+    String photo;
     
     
 
     public Utilisateur() {
+    }
+
+    public Utilisateur(int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, String photo) {
+        this.id = id;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.profil = profil;
+        this.role = role;
+        this.active = active;
+        this.nomUtilisateur = nomUtilisateur;
+        this.motDePasse = motDePasse;
+        this.photo = photo;
     }
 
     public Utilisateur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
@@ -117,6 +131,15 @@ public class  Utilisateur {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    
 
          public String afficherTitreDesColonnes() {
         String message = "";

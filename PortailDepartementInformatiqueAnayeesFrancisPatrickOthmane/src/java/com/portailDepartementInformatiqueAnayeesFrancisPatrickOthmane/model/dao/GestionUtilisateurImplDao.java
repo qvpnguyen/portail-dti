@@ -98,6 +98,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
+                utilisateur.setPhoto(result.getString("photo"));
                 listeEtudiants.add(utilisateur);
             };
         } catch (SQLException ex) {
@@ -139,6 +140,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
+                utilisateur.setPhoto(result.getString("photo"));
                 listeEtudiants.add(utilisateur);
             };
         } catch (SQLException ex) {
@@ -180,6 +182,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
+                utilisateur.setPhoto(result.getString("photo"));
                 listeEtudiants.add(utilisateur);
             };
         } catch (SQLException ex) {
@@ -222,6 +225,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
+                utilisateur.setPhoto(result.getString("photo"));
                 listeEtudiants.add(utilisateur);
             };
         } catch (SQLException ex) {
@@ -266,6 +270,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
+                utilisateur.setPhoto(result.getString("photo"));
                 listeEtudiants.add(utilisateur);
             };
         } catch (SQLException ex) {
@@ -394,6 +399,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
+                utilisateur.setPhoto(result.getString("photo"));
 
             };
         } catch (SQLException ex) {
@@ -434,6 +440,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
+                utilisateur.setPhoto(result.getString("photo"));
 
             };
         } catch (SQLException ex) {
@@ -474,6 +481,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
+                utilisateur.setPhoto(result.getString("photo"));
 
             };
         } catch (SQLException ex) {
@@ -515,6 +523,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
                 utilisateur.setCoursId(result.getInt("CoursID"));
+                utilisateur.setPhoto(result.getString("photo"));
 
             };
         } catch (SQLException ex) {
@@ -820,6 +829,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 professeur.setActive(result.getBoolean("Active"));
                 professeur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 professeur.setMotDePasse(result.getString("MotDePasse"));
+                professeur.setPhoto(result.getString("photo"));
                 listeProfesseurs.add(professeur);
             };
         } catch (SQLException ex) {
@@ -845,6 +855,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 professeur.setActive(result.getBoolean("Active"));
                 professeur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 professeur.setMotDePasse(result.getString("MotDePasse"));
+                professeur.setPhoto(result.getString("photo"));
 
             };
         } catch (SQLException ex) {
@@ -873,6 +884,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 professeur.setActive(result.getBoolean("Active"));
                 professeur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 professeur.setMotDePasse(result.getString("MotDePasse"));
+                professeur.setPhoto(result.getString("photo"));
 
             };
         } catch (SQLException ex) {
@@ -899,6 +911,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 professeur.setActive(result.getBoolean("Active"));
                 professeur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 professeur.setMotDePasse(result.getString("MotDePasse"));
+                professeur.setPhoto(result.getString("photo"));
 
             };
         } catch (SQLException ex) {
@@ -1033,6 +1046,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 visiteur.setActive(result.getBoolean("Active"));
                 visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 visiteur.setMotDePasse(result.getString("MotDePasse"));
+                
                 listeVisiteurs.add(visiteur);
             };
         } catch (SQLException ex) {
@@ -1139,6 +1153,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 admin.setEmail(result.getString("Email"));
                 admin.setNomUtilisateur(result.getString("NomUtilisateur"));
                 admin.setMotDePasse(result.getString("MotDePasse"));
+                admin.setPhoto(result.getString("photo"));
                 listeAdmins.add(admin);
             };
         } catch (SQLException ex) {

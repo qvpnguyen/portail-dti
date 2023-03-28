@@ -16,12 +16,20 @@ public class Etudiant extends Utilisateur {
    
     private Date  ddn;
     //private boolean active;
-    private String role;
+    //private String role;
     private boolean formationCompletee;
     private int coursId; 
     private boolean dispoTutorat;
 
     public Etudiant() {
+    }
+
+    public Etudiant(Date ddn, boolean formationCompletee, int coursId, boolean dispoTutorat, int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, String photo) {
+        super(id, prenom, nom, email, profil, role, active, nomUtilisateur, motDePasse, photo);
+        this.ddn = ddn;
+        this.formationCompletee = formationCompletee;
+        this.coursId = coursId;
+        this.dispoTutorat = dispoTutorat;
     }
 
     public Etudiant( int id,String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse,Date ddn, String role, boolean formationCompletee, int coursId, boolean dispoTutorat) {
