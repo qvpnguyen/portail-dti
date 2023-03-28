@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    height: 100%;
+    min-height: 100%;
     background: linear-gradient(90.29deg, #3B4394 0%, rgba(177, 43, 99, 0.92) 59.9%, rgba(235, 31, 75, 0.96) 100%);
 }
 
@@ -165,7 +165,7 @@ footer {
 /* --------- Classe pour la boîte d'inscription (également utilisée pour la boîte de création du dépot d'un projet) ----------- */
 .boite-inscription {
     width: 634px;
-    height: 750px;
+    padding-bottom: 3rem;
     background: rgba(255, 255, 255, 0.76);
     border-radius: 22px;
     margin-top: 9rem;

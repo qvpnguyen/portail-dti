@@ -77,6 +77,8 @@ public interface GestionUtilisateurDao {
 
     Projet findProjetByName(String nom);
     
+    boolean createProjet(Projet projet);
+    
     List<Cours> findAllCours();
     
     List<Cours> findAllCoursByNomProfesseur(String nomProfesseur);

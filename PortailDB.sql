@@ -241,12 +241,13 @@ CREATE TABLE `projet` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Nom` varchar(255) NOT NULL,
   `Annee` int NOT NULL,
+  `ListeEquipe` varchar(255) NOT NULL,
   `Description` varchar(1000) NOT NULL,
   `Video` varchar(255) NOT NULL,
   `LienGitlab` varchar(255) NOT NULL,
   `CoursID` int NOT NULL,
   `ProfesseurID` int NOT NULL,
-  `NotesID` int NOT NULL,
+  `NotesID` int,
   PRIMARY KEY (`ID`),
   KEY `FKProjet961229` (`CoursID`),
   KEY `FKProjet854526` (`ProfesseurID`),
@@ -263,7 +264,7 @@ CREATE TABLE `projet` (
 
 LOCK TABLES `projet` WRITE;
 /*!40000 ALTER TABLE `projet` DISABLE KEYS */;
-INSERT INTO `projet` VALUES (7,'Application mobile',2023,'Développement d\'une application mobile pour la gestion des tâches','https://www.youtube.com/watch?v=12345','https://gitlab.com/projet-mobile',1,1,3);
+INSERT INTO `projet` VALUES (7,'Application mobile',2023,'Anayees, Patrick, Francis, Othmane','Développement d\'une application mobile pour la gestion des tâches','https://www.youtube.com/watch?v=12345','https://gitlab.com/projet-mobile',1,1,3);
 /*!40000 ALTER TABLE `projet` ENABLE KEYS */;
 UNLOCK TABLES;
 
