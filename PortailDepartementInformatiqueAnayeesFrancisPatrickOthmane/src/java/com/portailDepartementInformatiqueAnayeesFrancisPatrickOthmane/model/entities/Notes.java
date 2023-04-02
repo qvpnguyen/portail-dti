@@ -17,6 +17,8 @@ public class Notes {
     private String session;
     private Date annee;
     private String commentaire;
+    private int etudiantID;
+    private int coursID;
     
     public Notes() {
     }
@@ -68,5 +70,24 @@ public class Notes {
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
     }
+
+    public int getEtudiantID() {
+        return etudiantID;
+    }
+
+    public void setEtudiantID(int etudiantID) {
+        this.etudiantID = etudiantID;
+    }
+
+    public int getCoursID() {
+        return coursID;
+    }
+
+    public void setCoursID(int coursID) {
+        this.coursID = coursID;
+    }
+    
+    
+
     
 }

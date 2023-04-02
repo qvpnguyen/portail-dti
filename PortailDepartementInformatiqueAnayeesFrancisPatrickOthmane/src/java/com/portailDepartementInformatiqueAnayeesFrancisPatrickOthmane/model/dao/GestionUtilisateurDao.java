@@ -8,6 +8,7 @@ import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.enti
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Visiteur;
@@ -81,7 +82,13 @@ public interface GestionUtilisateurDao {
     
     List<Cours> findAllCours();
     
+    Cours findCoursById(int id);
+    
     List<Cours> findAllCoursByNomProfesseur(String nomProfesseur);
+    
+    List<Notes> findAllNotes();
+    
+    Notes findNoteById(int id);
 
     List<NoteDeCours> findAllNotesDeCours();
 
@@ -93,6 +100,6 @@ public interface GestionUtilisateurDao {
 
     List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);
     
-    boolean createNotesDeCours(NoteDeCours notes);
+    
 
 }

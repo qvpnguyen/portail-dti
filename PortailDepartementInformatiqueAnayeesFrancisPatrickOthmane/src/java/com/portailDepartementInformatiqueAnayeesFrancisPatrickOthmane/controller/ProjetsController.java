@@ -4,8 +4,11 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,22 +24,29 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class ProjetsController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private List<Projet> listeProjets = null;
+    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
+
+    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
+            throws jakarta.servlet.ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         //Assignation du titre de la page à l'uri correspondant
         String pageName = "";
-        
-        if (request.getRequestURI().endsWith("ProjetsController")){
+
+        if (request.getRequestURI().endsWith("ProjetsController")) {
+            pageName = "Ensemble des projets";
+        } else if (pageName.isEmpty()){
             pageName = "Ensemble des projets";
         }
         request.setAttribute("pageName", pageName);
-        request.getRequestDispatcher("projets.jsp").include(request, response);
-        
-        //Affichage des projets
-        
+        //request.getRequestDispatcher("projets.jsp").include(request, response);
 
+        //Affichage des projets
+        listeProjets = dao.findAllProjets();
+        System.out.println(listeProjets);
+        request.setAttribute("listeProjets", listeProjets);
+        request.getRequestDispatcher("projets.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

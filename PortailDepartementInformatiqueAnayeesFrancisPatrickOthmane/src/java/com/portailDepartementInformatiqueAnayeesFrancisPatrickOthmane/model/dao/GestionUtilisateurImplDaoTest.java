@@ -26,8 +26,8 @@ public class GestionUtilisateurImplDaoTest {
     public static void main(String[] args) {
 
 //        testFindAllEtudiants();
-        testFindAllCours();
-        testFindAllProf();
+//        testFindAllCours();
+//        testFindAllProf();
 //        testFindAllProjets();
         testFindAllNotesDeCours();
         testFindNotesDeCoursByName();
@@ -51,7 +51,8 @@ public class GestionUtilisateurImplDaoTest {
 //        testFindAllEtudiants();
 //        testFindAllCours();
 //        testFindAllProf();
-//        testFindAllProjets();
+        testFindAllProjets();
+//        testFindCoursById();
 //        testFindAllNotesDeCours();
 //        testFindAllVisiteurs();
 //        testFindAllAdministrateurs();
@@ -332,6 +333,18 @@ public class GestionUtilisateurImplDaoTest {
         Professeur result = instance.findProfById(id);
         System.out.println(result.toString());
 
+    }
+    
+    public static void testFindCoursById() {
+        System.out.println("findCoursById");
+        int id = 0;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez l'id du cours : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        id = lectureClavier.nextInt();
+        Cours result = (Cours) instance.findCoursById(id);
+        System.out.println(result.afficherTitreDesColonnes());
+        System.out.println(result.toString());
     }
 
     public static void testCreateProf() {
