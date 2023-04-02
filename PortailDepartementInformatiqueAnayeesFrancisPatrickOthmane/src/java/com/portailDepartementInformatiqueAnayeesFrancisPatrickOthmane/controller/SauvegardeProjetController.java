@@ -9,19 +9,21 @@ import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.enti
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-//import jakarta.servlet.ServletException;
-//import jakarta.servlet.http.HttpServlet;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.persistence.Entity;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+//import javax.servlet.ServletException;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SauvegardeProjetController extends HttpServlet {
     private List<Professeur> listeProfesseurs = null;
     private List<Cours> listeCours = null;
+    Utilisateur utilisateur = null;
     Projet projet = null;
     boolean retour = false;
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
@@ -46,29 +49,54 @@ public class SauvegardeProjetController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String pageName = "";
+        if (request.getRequestURI().endsWith("sauvegardeProjetController")) {
+            pageName = "Portail du département informatique - Création d'un projet";
+        }
         String nom = request.getParameter("nomProjet");
         String annee = request.getParameter("annee");
         int anneeInt = 0;
         if (annee != null) {
             anneeInt = Integer.valueOf(annee);
         }
-        System.out.println("annee!!!!!"+annee);
-        System.out.println("anneeInt!!!!!"+anneeInt);
         String professeur = request.getParameter("professeur");
         int professeurID = 0;
         if (professeur != null) {
             professeurID = Integer.valueOf(professeur);
         }
-        System.out.println("professeur!!!!!"+professeur);
         String cours = request.getParameter("cours");
         int coursID = 0;
         if (cours != null) {
             coursID = Integer.valueOf(cours);
         }
-        System.out.println("cours!!!!!"+cours);
         String[] membresEquipe = request.getParameterValues("membresEquipe");
-//        List<String> liste = Arrays.asList(membresEquipe);
-//        List<Etudiant> listeEquipeProjet = new ArrayList(liste);
+        List<Etudiant> listeEtudiants = new ArrayList();
+//        if (membresEquipe != null) {
+//            for (int i = 0; i < membresEquipe.length; i++) {
+//                String[] unEtudiant = membresEquipe[i].split(" ");
+//                utilisateur = dao.findEtudiantByPrenomNom(unEtudiant[0], unEtudiant[1]);
+//                if (utilisateur != null) {
+//                    Etudiant etud = (Etudiant) utilisateur;
+//                    listeEtudiants.add(etud);
+//                }
+//            }
+//        }
+        Etudiant[] etudiantArray = new Etudiant[listeEtudiants.size()];
+        for (int i = 0; i < listeEtudiants.size(); i++) {
+            etudiantArray[i] = listeEtudiants.get(i);
+        }
+//        Etudiant[] etudiantArray = Arrays.stream(membresEquipe)
+//                .map(s -> s.split(" "))
+//                .map(e -> new Etudiant(e[0], e[1]))
+//                .toArray(Etudiant[]::new);
+//        Etudiant[] membreEquipe = null;
+//        if (membresEquipe != null && membresEquipe.length > 0){
+//            membreEquipe = new Etudiant[membresEquipe.length];
+//            for (int i = 0; i < membresEquipe.length; i++){
+//                int etudiant = Integer.parseInt(membresEquipe[i]);
+//                membreEquipe[i] = new Etudiant(etudiant);
+//            }
+//        }
         String description = request.getParameter("description");
         String video = request.getParameter("video");
         String lienGitlab = request.getParameter("lienGitlab");
@@ -78,7 +106,7 @@ public class SauvegardeProjetController extends HttpServlet {
         unCours.setId(coursID);
         Professeur unProf = new Professeur();
         unProf.setId(professeurID);
-        projet = new Projet(nom, anneeInt, membresEquipe, description, video, lienGitlab, unCours, unProf);
+        projet = new Projet(nom, anneeInt, etudiantArray, description, video, lienGitlab, unCours, unProf);
         retour = dao.createProjet(projet);
         if (retour) {
             String message = String.format("Le projet %s a été créé avec succès", nom);
@@ -86,11 +114,13 @@ public class SauvegardeProjetController extends HttpServlet {
             request.setAttribute("projet", projet);
             request.setAttribute("listeProfesseurs", listeProfesseurs);
             request.setAttribute("listeCours", listeCours);
-            request.getRequestDispatcher("creationDepotProjet.jsp").forward(request, response);
+            request.setAttribute("pageName", pageName);
+            request.getRequestDispatcher("creationDepotProjet.jsp").include(request, response);
         } else {
             request.setAttribute("listeProfesseurs", listeProfesseurs);
             request.setAttribute("listeCours", listeCours);
-            request.getRequestDispatcher("creationDepotProjet.jsp").forward(request, response);
+            request.setAttribute("pageName", pageName);
+            request.getRequestDispatcher("creationDepotProjet.jsp").include(request, response);
         }
     }
 
