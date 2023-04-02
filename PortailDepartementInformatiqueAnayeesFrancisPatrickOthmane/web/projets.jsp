@@ -44,7 +44,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="projet" items="${listeProjets}" varStatus="status">
-                            <c:if test="${status.index % 2 != 0}">
+                            <c:if test="${status.index % 2 == 0}">
                                 <div class="rangee-projet row gx-5">
                                     <div class="col-4">
                                         <div class="carte-video">
@@ -63,7 +63,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                     </div>
                                 </div>
                             </c:if>
-                            <c:if test="${status.index % 2 == 0}">
+                            <c:if test="${status.index % 2 != 0}">
                                 <div class="rangee-projet row gx-5">
                                     <div class="col-8">
                                         <div class="carte-description p-4">
@@ -82,23 +82,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                     </div>
                                 </div>
                             </c:if>
-                                <div class="rangee-projet row gx-5">
-                                    <div class="col-4">
-                                        <div class="carte-video">
-                                            <img class="video-projet" src="images/play-button-icon.png" alt="Jouer"/>
-                                            <div class="conteneur-infos-projet">
-                                                <h4 class="mt-2">Nom du projet</h4>
-                                                <p><i>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea.</i></p>
-                                                <p>Réalisé par: Anayees Sarkes, Francis Martel, Patrick Nguyen, Othmane Sedjari</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="carte-description p-4">
-                                            <p>Lorem ipsum dolor sit amet, oblique oporteat quaestio an his, no vis adipisci forensibus, admodum invidunt ea sea. Ut sed simul maiestatis. Ius ad dicant molestie delicatissimi. Semper mandamus ut nec, mei menandri inimicus aliquando ei, vim numquam omnesque offendit ea. Accusamus dignissim quo an, mel at admodum mandamus eloquentiam. Vel et dico dicat praesent, sit ad corpora mediocritatem.</p>
-                                        </div>
-                                    </div>
-                                </div>
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>

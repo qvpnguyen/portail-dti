@@ -1238,7 +1238,8 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         ConnexionBD.closeConnection();
         return listeNoteDeCours;
     }
-@Override
+
+    @Override
     public boolean createNotesDeCours(NoteDeCours notes) {
         boolean retour = false;
         int nbLigne = 0;
@@ -1252,6 +1253,18 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
             ps.setInt(2, notes.getCoursID());
             ps.setString(3, notes.getLien());
             nbLigne = ps.executeUpdate();
+             } catch (SQLException ex) {
+            // TODO Auto-generated catch block
+             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//        System.out.println("nb ligne " + nbLigne);
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
 
     @Override
     public NoteDeCours findNotesDeCoursById(int id) {

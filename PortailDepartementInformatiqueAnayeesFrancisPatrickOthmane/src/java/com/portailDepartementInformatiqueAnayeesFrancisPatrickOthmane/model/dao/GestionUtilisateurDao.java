@@ -100,6 +100,8 @@ public interface GestionUtilisateurDao {
 
     List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);
     
+    boolean createNotesDeCours(NoteDeCours notes);
+    
     
 
 }
