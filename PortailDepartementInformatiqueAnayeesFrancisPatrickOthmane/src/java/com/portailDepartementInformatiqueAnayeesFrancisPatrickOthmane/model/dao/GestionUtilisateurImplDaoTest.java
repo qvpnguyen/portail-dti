@@ -29,7 +29,8 @@ public class GestionUtilisateurImplDaoTest {
         testFindAllCours();
         testFindAllProf();
 //        testFindAllProjets();
-//        testFindAllNotesDeCours();
+        testFindAllNotesDeCours();
+        testFindNotesDeCoursByName();
 //        testFindAllVisiteurs();
 //        testFindAllAdministrateurs();
 //        testFindNotesDeCoursById();
@@ -450,11 +451,11 @@ public class GestionUtilisateurImplDaoTest {
             String professeurAuteur = lectureClavier.next();
             GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
             List<NoteDeCours> expResult = null;
-            List<NoteDeCours> result = instance.findNotesDeCoursByAuthor(professeurAuteur);
-            System.out.println(result.get(0).afficherTitreDesColonnes());
-            for (NoteDeCours noteDeCours : result) {
-                System.out.println(noteDeCours.toString());
-            }
+            NoteDeCours result = instance.findNotesDeCoursByName(professeurAuteur);
+            System.out.println(result.afficherTitreDesColonnes());
+            
+                System.out.println(result.toString());
+            
         } catch (Exception e) {
             System.out.println("Erreur: Le nom du professeur n'existe pas.");
         }

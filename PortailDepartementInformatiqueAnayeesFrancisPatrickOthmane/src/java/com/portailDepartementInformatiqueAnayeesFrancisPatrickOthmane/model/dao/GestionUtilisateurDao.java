@@ -92,5 +92,7 @@ public interface GestionUtilisateurDao {
     List<NoteDeCours> findNotesDeCoursByCoursID(int coursID);
 
     List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);
+    
+    boolean createNotesDeCours(NoteDeCours notes);
 
 }
