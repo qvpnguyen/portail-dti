@@ -6,14 +6,14 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controlle
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import jakarta.servlet.ServletException;
+//import jakarta.servlet.http.HttpServlet;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -31,6 +31,10 @@ public class ProjetsController extends HttpServlet {
         if (request.getRequestURI().endsWith("ProjetsController")){
             pageName = "Ensemble des projets";
         }
+        if (pageName.isEmpty()) {
+    pageName = "Ensemble des projets";
+}
+
         request.setAttribute("pageName", pageName);
         request.getRequestDispatcher("projets.jsp").include(request, response);
         

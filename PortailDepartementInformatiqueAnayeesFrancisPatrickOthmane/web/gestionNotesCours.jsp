@@ -1,5 +1,6 @@
 <%@page import="com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours"%>
 <%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 %>
 <html>
     <head>
-        <title>Gestion des notes de cours - Portail du département de l'informatique</title>
+        <title>Gestion des notes de cours - Portail du dÃ©partement de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -29,7 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
         <!-- Inclusion du stylesheet principal -->
         <link rel="stylesheet" href="css/style.css"/>
-        <!-- Script pour générer les données des utilisateurs avec jQuery dans DataTables -->
+        <!-- Script pour gÃ©nÃ©rer les donnÃ©es des utilisateurs avec jQuery dans DataTables -->
         <script>
             $(document).ready( function () {
                 $('#tableNotesCours').DataTable({
@@ -44,10 +45,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <header>
             <div class="d-flex justify-content-between mx-5 py-3">
                 <div class="d-flex">
-                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
+                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
                     <div class="ms-3">
                         <h1 class="titre">Ed.<br>volution</h1>
-                        <p class="sous-titre">Oser apprendre et évoluer</p>
+                        <p class="sous-titre">Oser apprendre et Ã©voluer</p>
                     </div>
                 </div>
                 <div class="d-flex header-utilisateur">
@@ -104,7 +105,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 
                 
                 
-                <a href="creationDepotNotesCours.jsp" class="btn bouton-mauve mb-5">Ajouter une note de cours</a>
+                <a href="creationNotesCoursController" class="btn bouton-mauve mb-5">Ajouter une note de cours</a>
                 <table id="tableNotesCours" class="display">
                     <thead>
                         <tr>
@@ -135,7 +136,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
  
      </tr>
    
-   <% }  %>
+   <% }else{  %>
                         <%  
      for( NoteDeCours user : listeNotesCours){%>
       <tr>
@@ -155,14 +156,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
  
      </tr>
    
-   <% }  %>
+   <% } } %>
                     </tbody>
                 </table>
             </div>
             
         </main>
         <footer>
-            <p>&copy; 2023 Département de l'informatique</p>
+            <p>&copy; 2023 DÃ©partement de l'informatique</p>
         </footer>
     </body>
 </html>

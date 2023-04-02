@@ -3,9 +3,10 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
-        <title>Création du dépôt du projet - Portail du département de l'informatique</title>
+        <title>CrÃ©ation du dÃ©pÃ´t du projet - Portail du dÃ©partement de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -22,10 +23,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <header class="border-0">
             <div class="d-flex justify-content-between mx-5 py-3">
                 <div class="d-flex">
-                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
+                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
                     <div class="ms-3">
                         <h1 class="titre">Ed.<br>volution</h1>
-                        <p class="sous-titre">Oser apprendre et évoluer</p>
+                        <p class="sous-titre">Oser apprendre et Ã©voluer</p>
                     </div>
                 </div>
                 <div class="d-flex header-utilisateur">
@@ -43,7 +44,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <div>
                 <nav class="navbar">
                     <div class="container-fluid mx-4">
-                        <a class="navbar-brand">Création du dépôt de notes de cours</a>
+                        <a class="navbar-brand">CrÃ©ation du dÃ©pÃ´t de notes de cours</a>
                         <div class="d-flex">
                             <!-- Logo GitLab -->
                             <a href="https://git.dti.crosemont.quebec/">
@@ -84,7 +85,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <div class="row">
                     <div class="boite-inscription mt-5">
                         
-                        <form action="" method="post">
+                        <% if( request.getAttribute("message")!=null) { %>
+                      <center><b><font color=red> <%=request.getAttribute("message")  %></font><b></center>
+               <%}%>
+                        
+                        <form action="creationNotesCoursController" method="get">
                             <div class="row mx-2 mt-4">
                                 <div class="col-10">
                                     <div class="form-group my-3">
@@ -95,7 +100,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                 <div class="col-10">
                                     <div class="form-group my-3">
                                         <label for="professeur">Professeur responsable:</label>
-                                        <input type="text" class="form-control" id="professeur" name="professeur" value="LE PROFESSEUR AUTHENTIFIÉ DYNAMIQUEMENT" disabled>
+                                        <input type="text" class="form-control" id="professeur" name="professeur" value="LE PROFESSEUR AUTHENTIFIÃ DYNAMIQUEMENT" disabled>
                                     </div>
                                 </div>
                                 <div class="col-10">
@@ -106,15 +111,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                 </div>
                                 <div class="col-10">
                                     <div class="form-group my-3">
-                                        <label for="cours">Cours associé:</label>
-                                        <select name="cours" id="cours" class="form-select">
-                                            <option value="COURS ASSOCIÉ AU PROF">Cours associé au prof affiché dynamiquement</option>
-                                      </select>
+                                        <label for="cours">Cours associÃ©:</label>
+                                       <input type="text" class="form-control" id="cours" name="cours">
                                     </div>
                                 </div>
                                 <div class="col-10">
                                     <div class="form-group my-3">
-                                        <label for="video">Téléversez votre document de notes de cours:</label>
+                                        <label for="video">TÃ©lÃ©versez votre document de notes de cours:</label>
                                         <div class="row">
                                             <div class="col-8">
                                             <input type="file" class="form-control mt-2" id="documentNotesCours" name="documentNotesCours">
@@ -125,7 +128,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                                     <path d="M8.54878 14.7195V1.87793M8.54878 1.87793L12.6883 6.34964M8.54878 1.87793L4.40921 6.34964" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                     <path d="M1.09756 12.3413V15.195C1.09756 16.989 1.09756 17.8851 1.58272 18.4425C2.06788 18.9999 2.84777 18.9999 4.40922 18.9999H12.6883C14.2498 18.9999 15.0297 18.9999 15.5148 18.4425C16 17.8851 16 16.989 16 15.195V12.3413" stroke="white" stroke-width="2" stroke-linecap="round"/>
                                                     </svg>
-                                                    Téléverser
+                                                    TÃ©lÃ©verser
                                                 </button>
                                             </div>
                                         </div>
@@ -134,7 +137,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             </div>
                             
                             <div class="d-grid gap-2 mt-4 mx-3">
-                                <button type="submit" class="btn bouton-mauve">
+                                <button  type="submit" class="btn bouton-mauve">
                                     <svg width="27" height="24" viewBox="0 0 27 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0H27V23.5161H0V0Z" fill="white" fill-opacity="0.01"/>
                                     <path d="M23.0625 1.95898H3.93748C3.0055 1.95898 2.24998 2.61701 2.24998 3.42874V20.086C2.24998 20.8977 3.0055 21.5557 3.93748 21.5557H23.0625C23.9945 21.5557 24.75 20.8977 24.75 20.086V3.42874C24.75 2.61701 23.9945 1.95898 23.0625 1.95898Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
@@ -155,7 +158,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             </div>
         </main>
         <footer>
-            <p>&copy; 2023 Département de l'informatique</p>
+            <p>&copy; 2023 DÃ©partement de l'informatique</p>
         </footer>
     </body>
 </html>

@@ -30,7 +30,8 @@ public class GestionUtilisateurImplDaoTest {
         testFindAllProf();
 //        testFindAllProjets();
         testFindAllNotesDeCours();
-        testFindNotesDeCoursByName();
+        testCreateNotes();
+        //testFindNotesDeCoursByName();
 //        testFindAllVisiteurs();
 //        testFindAllAdministrateurs();
 //        testFindNotesDeCoursById();
@@ -460,5 +461,27 @@ public class GestionUtilisateurImplDaoTest {
             System.out.println("Erreur: Le nom du professeur n'existe pas.");
         }
     }
+ public static void testCreateNotes() {
+        System.out.println("createNotes");
+        NoteDeCours notes = null;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        Scanner lectureClavier = new Scanner(System.in);
+//        System.out.println("Entrez le ID du professeur: ");
+//        int id = lectureClavier.nextInt();
+        System.out.println("Entrez le lien du cours: ");
+        String Lien = lectureClavier.next();
+        System.out.println("Entrez le nom du cours: ");
+        String nom = lectureClavier.next();
+        System.out.println("Entrez le coursId : ");
+        int coursId = lectureClavier.nextInt();
+        
+        notes = new NoteDeCours(Lien,coursId,nom);
 
+        boolean result = instance.createNotesDeCours(notes);
+        if (result) {
+            System.out.println("insertion reussite");
+        } else {
+            System.out.println("insertion echec ");
+        }
+    }
 }
