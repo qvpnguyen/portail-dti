@@ -4,22 +4,21 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
- * @author Anayees
+ * @author othma
  */
-public class EtudiantController extends HttpServlet {
+public class NotesDeCoursController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,20 +29,25 @@ public class EtudiantController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
+    private List<NoteDeCours> listeNotesCours;
+    NoteDeCours notes = null;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String pageName = "";
-
-         if (request.getRequestURI().endsWith("EtudiantController")){
-            pageName = "Portail du Département Informatique - Étudiant";
-        }
-        //System.out.println("Setting pageName to " + pageName);
-        request.setAttribute("pageName", pageName);
-        //System.out.println("pageName attribute set: " + request.getAttribute("pageName"));
-        request.getRequestDispatcher("etudiant.jsp").include(request, response);
-
-    }
+                response.setContentType("text/html;charset=UTF-8");
+       String note = request.getParameter("note");
+       if ( note != null && !note.equals("")) {
+            notes = dao.findNotesDeCoursByName(note);
+            request.setAttribute("notes", notes);
+            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+           }
+       else {
+       
+        
+        listeNotesCours = dao.findAllNotesDeCours();
+            request.setAttribute("listeNotesCours", listeNotesCours);
+            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+       }}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
