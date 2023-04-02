@@ -69,6 +69,8 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_SELECT_PROFESSEUR_PAR_ID = "select * from professeur where id = ?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_NOM = "select * from professeur where Nom = ?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_EMAIL = "select * from professeur where Email = ?";
+    private static final String SQL_INSERT_NOTES = "insert into notesdecours(Lien,CoursID,Nom) value(?,?,?)";
+
 
     @Override
     public List<Etudiant> findAllEtudiants() {
@@ -1236,6 +1238,20 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         ConnexionBD.closeConnection();
         return listeNoteDeCours;
     }
+@Override
+    public boolean createNotesDeCours(NoteDeCours notes) {
+        boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_INSERT_NOTES);
+            //   Insérer les données dans la table notedecours
+            
+            ps.setString(1, notes.getLien());
+            ps.setInt(2, notes.getCoursID());
+            ps.setString(3, notes.getNom());
+            nbLigne = ps.executeUpdate();
 
     @Override
     public NoteDeCours findNotesDeCoursById(int id) {
