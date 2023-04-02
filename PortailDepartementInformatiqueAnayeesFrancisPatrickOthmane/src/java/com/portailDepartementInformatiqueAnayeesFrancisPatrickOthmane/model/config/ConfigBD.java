@@ -16,7 +16,7 @@ public interface ConfigBD {
         //utilisateur de la bd
         public final static String USER ="root";
         //mot de passe de la bd
-        public final static String PASSWORD ="admin";
+        public final static String PASSWORD ="root";
          // le driver mysql
         public final static String DRIVER="com.mysql.cj.jdbc.Driver";
 }

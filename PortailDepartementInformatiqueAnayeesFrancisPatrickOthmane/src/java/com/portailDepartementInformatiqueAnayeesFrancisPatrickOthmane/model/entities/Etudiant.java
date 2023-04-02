@@ -6,22 +6,24 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
 
 import java.sql.Date;
 
-
 /**
  *
  * @author anayeesFrancisPatrickOthmane
  */
 public class Etudiant extends Utilisateur {
-    
-   
-    private Date  ddn;
+
+    private Date ddn;
     //private boolean active;
     //private String role;
     private boolean formationCompletee;
-    private int coursId; 
+    private int coursId;
     private boolean dispoTutorat;
 
     public Etudiant() {
+    }
+
+    public Etudiant(int id) {
+        this.id = id;
     }
 
     public Etudiant(Date ddn, boolean formationCompletee, int coursId, boolean dispoTutorat, int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, String photo) {
@@ -32,7 +34,7 @@ public class Etudiant extends Utilisateur {
         this.dispoTutorat = dispoTutorat;
     }
 
-    public Etudiant( int id,String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse,Date ddn, String role, boolean formationCompletee, int coursId, boolean dispoTutorat) {
+    public Etudiant(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String role, boolean formationCompletee, int coursId, boolean dispoTutorat) {
         super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
         this.ddn = ddn;
         this.role = role;
@@ -48,9 +50,6 @@ public class Etudiant extends Utilisateur {
     public void setDispoTutorat(boolean dispoTutorat) {
         this.dispoTutorat = dispoTutorat;
     }
-
-    
-    
 
     public Date getDdn() {
         return ddn;
@@ -84,9 +83,4 @@ public class Etudiant extends Utilisateur {
         this.coursId = coursId;
     }
 
-   
-
-
 }
-    
-
