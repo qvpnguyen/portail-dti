@@ -39,6 +39,10 @@ public class ProjetsController extends HttpServlet {
         } else if (pageName.isEmpty()){
             pageName = "Ensemble des projets";
         }
+        if (pageName.isEmpty()) {
+    pageName = "Ensemble des projets";
+}
+
         request.setAttribute("pageName", pageName);
         //request.getRequestDispatcher("projets.jsp").include(request, response);
 

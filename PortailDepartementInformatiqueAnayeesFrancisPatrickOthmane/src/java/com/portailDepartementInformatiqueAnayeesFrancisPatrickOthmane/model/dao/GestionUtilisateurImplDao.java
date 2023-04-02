@@ -1248,9 +1248,9 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
             ps = ConnexionBD.getConnection().prepareStatement(SQL_INSERT_NOTES);
             //   Insérer les données dans la table notedecours
             
-            ps.setString(1, notes.getLien());
+            ps.setString(1, notes.getNom());
             ps.setInt(2, notes.getCoursID());
-            ps.setString(3, notes.getNom());
+            ps.setString(3, notes.getLien());
             nbLigne = ps.executeUpdate();
 
     @Override
