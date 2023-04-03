@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ProjetsController extends HttpServlet {
 
     private List<Projet> listeProjets = null;
+    Projet projet = null;
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,12 +36,9 @@ public class ProjetsController extends HttpServlet {
         String pageName = "";
 
         if (request.getRequestURI().endsWith("ProjetsController")) {
-            pageName = "Ensemble des projets";
-        } else if (pageName.isEmpty()){
-            pageName = "Ensemble des projets";
-        }
-        if (pageName.isEmpty()) {
-            pageName = "Ensemble des projets";
+            pageName = "Portail du département informatique - Ensemble des projets";
+        } else if (pageName.isEmpty()) {
+            pageName = "Portail du département informatique - Ensemble des projets";
         }
 
         request.setAttribute("pageName", pageName);
@@ -51,6 +49,7 @@ public class ProjetsController extends HttpServlet {
         System.out.println(listeProjets);
         request.setAttribute("listeProjets", listeProjets);
         request.getRequestDispatcher("projets.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

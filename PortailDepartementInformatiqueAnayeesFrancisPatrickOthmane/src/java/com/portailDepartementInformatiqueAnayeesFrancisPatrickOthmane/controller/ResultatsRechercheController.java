@@ -6,37 +6,27 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controlle
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 //import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServlet;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
-//import java.util.List;
 
 /**
  *
- * @author othma
+ * @author Anayees
  */
-public class NotesDeCoursController extends HttpServlet {
+public class ResultatsRechercheController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    Projet projet = null;
+    NoteDeCours noteCours = null;
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-    private List<NoteDeCours> listeNotesCours;
-    NoteDeCours notes = null;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,22 +34,40 @@ public class NotesDeCoursController extends HttpServlet {
 
         String pageName = "";
 
-        if (request.getRequestURI().endsWith("notesDeCoursController")) {
-            pageName = "Portail du département informatique - Gestion des notes De Cours";
+        if (request.getRequestURI().endsWith("resultatsRechercheController")) {
+            pageName = "Portail du Département Informatique - Résultat(s) de votre recherche";
+        } else if (pageName.isEmpty()) {
+            pageName = "Portail du Département Informatique - Résultat(s) de votre recherche";
         }
-
+        //System.out.println("Setting pageName to " + pageName);
         request.setAttribute("pageName", pageName);
-        String note = request.getParameter("note");
-        if (note != null && !note.equals("")) {
-            notes = dao.findNotesDeCoursByName(note);
-            request.setAttribute("notes", notes);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        } else {
+        //System.out.println("pageName attribute set: " + request.getAttribute("pageName"));
 
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+        String query = request.getParameter("query");
+
+        if (query != null) {
+            projet = dao.findProjetByName(query);
+            noteCours = dao.findNotesDeCoursByName(query);
+//            if (projet != null) {
+//                request.setAttribute("results", projet);
+//                request.getRequestDispatcher("resultatRecherche.jsp").forward(request, response);
+//            } else {
+//                request.getRequestDispatcher("EtudiantController").forward(request, response);
+//
+//            }
+            
+            if (noteCours != null) {
+                request.setAttribute("results", noteCours);
+                request.getRequestDispatcher("resultatRecherche.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("EtudiantController").forward(request, response);
+
+            }
+
         }
+
+        request.getRequestDispatcher("resultatRecherche.jsp").include(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

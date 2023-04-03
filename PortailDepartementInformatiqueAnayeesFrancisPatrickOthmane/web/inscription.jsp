@@ -19,25 +19,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <link rel="stylesheet" href="css/style.css"/>
     </head>
     <body>
-        <header class="border-0">
-            <div class="container d-flex justify-content-center">
-                <div class="entete-logo">
-                    <div class="d-flex justify-content-between">
-                        <img class="logo-college-agrandi py-3" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
-                        <div class="mt-4">
-                            <h1 class="titre-agrandi">Ed.<br>volution</h1>
-                            <p class="sous-titre-agrandi">Oser apprendre et évoluer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        
+        <jsp:include page="/entete.jsp"/>
+
         <main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
             <div class="container px-5 d-flex justify-content-center">
                 <div class="row">
                     <div class="boite-inscription">
-                        
+
                         <form action="" method="post">
                             <div class="d-flex justify-content-center">
                                 <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
@@ -77,7 +65,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             <option value="">---</option>
                                             <option value="Programmation">Programmation</option>
                                             <option value="Réseautique">Réseautique</option>
-                                      </select>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -103,7 +91,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="text-center mt-4">
                                 <input type="submit" class="btn btn-dark" value="Soumettre"/>
                             </div>
@@ -116,8 +104,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
             </div>
         </main>
-        <footer>
-            <p>&copy; 2023 Département de l'informatique</p>
-        </footer>
+        <jsp:include page="/pied.jsp"/>
     </body>
 </html>

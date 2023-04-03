@@ -79,6 +79,7 @@ public class GestionUtilisateurImplDaoTest {
         //testDeleteEtudiant();
         //testFindAllEtudiants();
         //testUpdateEtudiant();
+        testFindProjetByName();
 
     }
 
@@ -130,6 +131,18 @@ public class GestionUtilisateurImplDaoTest {
         for (Projet projet : result) {
             System.out.println(projet.toString());
         }
+    }
+    
+    public static void testFindProjetByName() {
+        System.out.println("FindProjetByName");
+        String nom = "";
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez le nom du projet : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        nom = lectureClavier.next();
+        Projet result = instance.findProjetByName(nom);
+        System.out.println(result.toString());
+
     }
 
     public static void testFindAllNotesDeCours() {

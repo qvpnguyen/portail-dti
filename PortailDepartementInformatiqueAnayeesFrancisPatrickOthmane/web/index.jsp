@@ -32,7 +32,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
             </div>
         </header>
-        
+
         <main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
             <div class="container px-5 d-flex justify-content-center">
                 <div class="row">
@@ -72,8 +72,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
             </div>
         </main>
-        <footer>
-            <p>&copy; 2023 Département de l'informatique</p>
-        </footer>
+        <jsp:include page="/pied.jsp"/>
     </body>
 </html>
