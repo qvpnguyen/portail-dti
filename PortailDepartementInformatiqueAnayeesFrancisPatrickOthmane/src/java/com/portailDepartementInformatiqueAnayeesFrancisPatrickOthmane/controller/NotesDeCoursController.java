@@ -36,22 +36,30 @@ public class NotesDeCoursController extends HttpServlet {
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
     private List<NoteDeCours> listeNotesCours;
     NoteDeCours notes = null;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                response.setContentType("text/html;charset=UTF-8");
-       String note = request.getParameter("note");
-       if ( note != null && !note.equals("")) {
+        response.setContentType("text/html;charset=UTF-8");
+
+        String pageName = "";
+
+        if (request.getRequestURI().endsWith("notesDeCoursController")) {
+            pageName = "Portail du département informatique - Gestion des notes De Cours";
+        }
+
+        request.setAttribute("pageName", pageName);
+        String note = request.getParameter("note");
+        if (note != null && !note.equals("")) {
             notes = dao.findNotesDeCoursByName(note);
             request.setAttribute("notes", notes);
             request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-           }
-       else {
-       
-        
-        listeNotesCours = dao.findAllNotesDeCours();
+        } else {
+
+            listeNotesCours = dao.findAllNotesDeCours();
             request.setAttribute("listeNotesCours", listeNotesCours);
             request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-       }}
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

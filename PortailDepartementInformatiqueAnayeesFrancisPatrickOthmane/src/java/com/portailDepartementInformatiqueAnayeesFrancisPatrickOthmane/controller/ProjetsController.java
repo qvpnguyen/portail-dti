@@ -35,12 +35,9 @@ public class ProjetsController extends HttpServlet {
         String pageName = "";
 
         if (request.getRequestURI().endsWith("ProjetsController")) {
-            pageName = "Ensemble des projets";
+            pageName = "Portail du département informatique - Ensemble des projets";
         } else if (pageName.isEmpty()){
-            pageName = "Ensemble des projets";
-        }
-        if (pageName.isEmpty()) {
-            pageName = "Ensemble des projets";
+            pageName = "Portail du département informatique - Ensemble des projets";
         }
 
         request.setAttribute("pageName", pageName);
