@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
+<%-- 
+    Document   : modificationProjet
+    Created on : Mar 28, 2023, 8:40:28 AM
+    Author     : patri
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Création du dépôt du projet - Portail du département de l'informatique</title>
+        <title>Modification du projet - Portail du département de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -36,12 +37,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <div class="row">
                     <div class="boite-inscription mt-5">
                         
-                        <form action="sauvegardeProjetController" method="post">
+                        <form action="modificationProjetController" method="post">
                             <div class="row mx-2 mt-4">
                                 <div class="col-10">
                                     <div class="form-group my-3">
                                         <label for="nomProjet">Nom du projet:</label>
-                                        <input type="text" class="form-control" id="nomProjet" name="nomProjet">
+                                        <input type="text" class="form-control" id="nomProjet" name="nomProjet" value="${projet.nom}">
                                     </div>
                                 </div>
                                 <div class="col-10">
@@ -49,7 +50,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <label for="professeur">Professeur responsable:</label>
                                         <select name="professeur" id="professeur" class="form-select">
                                             <c:forEach var="unProf" items="${requestScope.listeProfesseurs}">
-                                                <option value="${unProf.id}">${unProf.prenom} ${unProf.nom}</option>
+                                                <option value="${unProf.id}" ${projet.professeur.id == unProf.id ? 'selected' : ''}>${unProf.prenom} ${unProf.nom}</option>
                                             </c:forEach>
                                       </select>
                                     </div>
@@ -59,7 +60,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <label for="cours">Cours associé:</label>
                                         <select name="cours" id="cours" class="form-select">
                                             <c:forEach var="unCours" items="${requestScope.listeCours}">
-                                                <option value="${unCours.id}">${unCours.nom}</option>
+                                                <option value="${unCours.id}" ${projet.cours.id == unCours.id ? 'selected' : ''}>${unCours.nom}</option>
                                             </c:forEach>
                                       </select>
                                     </div>
@@ -67,7 +68,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                 <div class="col-10">
                                     <div class="form-group my-3">
                                         <label for="membresEquipe">Membres de l'équipe:</label>
-                                        <input type="text" class="form-control" name="membresEquipe">
+                                        <p>${requestScope.projet}</p>
+                                        <c:forEach var="membre" items="${requestScope.projet.listeEquipeProjet}">
+                                            <input type="text" class="form-control" name="membresEquipe" value="${requestScope.projet}">
+                                        </c:forEach>
+                                        
                                     </div>
                                 </div>
                                 <div id="ajouterMembre" class="col-1 d-flex align-items-end mb-3">
@@ -80,7 +85,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                 <div class="col-10">
                                     <div class="form-group my-3">
                                         <label for="description">Brève description du projet:</label>
-                                        <textarea rows="5" class="form-control description-projet mt-2" id="description" name="description"></textarea>
+                                        <textarea rows="5" class="form-control description-projet mt-2" id="description" name="description">${projet.description}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-10">
@@ -90,7 +95,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <select name="annee" class="form-select">
                                             <option selected disabled>Choisir une année</option>
                                             <c:forEach var="annee" begin="2020" end="2030">
-                                                <option value="${annee}">${annee}</option>
+                                                <option value="${annee}" ${projet.annee == annee ? 'selected' : ''}>${annee}</option>
                                             </c:forEach>
                                       </select>
                                     </div>
@@ -100,7 +105,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <label for="video">Téléversez votre vidéo du projet:</label>
                                         <div class="row">
                                             <div class="col-8">
-                                            <input type="file" class="form-control mt-2" id="video" name="video">
+                                            <input type="file" class="form-control mt-2" id="video" name="video" value="${projet.video}">
+                                            <c:if test="${not empty projet.video}">
+                                            <p>${projet.video}</p>
+                                        </c:if>
                                             </div>
 <!--                                            <div class="col-4 mt-2">
                                                 <button type="button" class="btn bouton-mauve">
@@ -117,7 +125,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                 <div class="col-10">
                                     <div class="form-group my-3">
                                         <label for="lienGitlab">Lien Gitlab:</label>
-                                        <input type="text" class="form-control" id="lienGitlab" name="lienGitlab">
+                                        <input type="text" class="form-control" id="lienGitlab" name="lienGitlab" value="${projet.lienGitlab}">
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group my-3">
+                                        <label for="annee">Note:</label>
+                                        <select name="notes" class="form-select">
+                                            <c:forEach var="note" begin="0" end="100">
+                                                <option value="${note}" ${projet.notes == note ? 'selected' : ''}>${note}</option>
+                                            </c:forEach>
+                                      </select>
                                     </div>
                                 </div>
                             </div>

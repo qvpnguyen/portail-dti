@@ -4,12 +4,11 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
-//import jakarta.servlet.ServletException;
-//import jakarta.servlet.http.HttpServlet;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author othma
+ * @author patri
  */
-public class ProfesseurController extends HttpServlet {
+public class ModificationUtilisateurController extends HttpServlet {
+    private List listeUtilisateurs;
+    Utilisateur utilisateur = null;
+    boolean retour = false;
+    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,17 +36,37 @@ public class ProfesseurController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProfesseurController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProfesseurController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String id = request.getParameter("id");
+        int utilisateurId = Integer.parseInt(id);
+        String role = request.getParameter("btnradio");
+        String prenom = request.getParameter("prenom");
+        String nom = request.getParameter("nom");
+        String dateDeNaissance = request.getParameter("dateDeNaissance");
+        String profil = request.getParameter("profil");
+        String numeroUtilisateur = request.getParameter("numeroUtilisateur");
+        String courriel = request.getParameter("courriel");
+        String motDePasse = request.getParameter("motDePasse");
+        String confirmerMotDePasse = request.getParameter("confirmerMotDePasse");
+        String active = request.getParameter("active");
+        boolean status = Boolean.valueOf(active);
+        
+        switch (role) {
+            case "Étudiant":
+                utilisateur = dao.findEtudiantById(utilisateurId);
+                break;
+            case "Professeur":
+                utilisateur = dao.findProfById(utilisateurId);
+                break;
+            case "Visiteur":
+                utilisateur = dao.findVisiteurById(utilisateurId);
+                break;
+        }
+        utilisateur.setPrenom(prenom);
+        utilisateur.setNom(nom);
+        if (!motDePasse.equals(confirmerMotDePasse)) {
+            String message = "Le mot de passe doit être identique dans les deux champs";
+            request.setAttribute("message", message);
         }
     }
 

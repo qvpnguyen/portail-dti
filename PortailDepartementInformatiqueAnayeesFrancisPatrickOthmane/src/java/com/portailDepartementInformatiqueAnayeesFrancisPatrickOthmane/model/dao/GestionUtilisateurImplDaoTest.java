@@ -25,12 +25,22 @@ public class GestionUtilisateurImplDaoTest {
 
     public static void main(String[] args) {
 
+
+//        testFindAllEtudiants();
+//        testFindAllCours();
+        testFindAllProf();
+//        testFindAllProjets();
+//        testFindProjetById();
+//        testFindAllNotesDeCours();
+//        testFindAllVisiteurs();
+//        testFindAllAdministrateurs();
+
 //        testFindAllEtudiants();
 //        testFindAllCours();
 //        testFindAllProf();
 //        testFindAllProjets();
-        testFindAllNotesDeCours();
-        testCreateNotes();
+//        testFindAllNotesDeCours();
+//        testCreateNotes();
         //testFindNotesDeCoursByName();
 //        testFindAllVisiteurs();
 //        testFindAllAdministrateurs();
@@ -52,7 +62,7 @@ public class GestionUtilisateurImplDaoTest {
 //        testFindAllEtudiants();
 //        testFindAllCours();
 //        testFindAllProf();
-        testFindAllProjets();
+//        testFindAllProjets();
 //        testFindCoursById();
 //        testFindAllNotesDeCours();
 //        testFindAllVisiteurs();
@@ -175,7 +185,6 @@ public class GestionUtilisateurImplDaoTest {
         id = lectureClavier.nextInt();
         Etudiant result = instance.findEtudiantById(id);
         System.out.println(result.toString());
-
     }
 
     public static void testFindEtudiantByRole() {
@@ -193,121 +202,121 @@ public class GestionUtilisateurImplDaoTest {
 
     }
 
-    public static void testCreateEtudiant() {
-        System.out.println("create");
-        Etudiant utilisateur = null;
-        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
-        Scanner lectureClavier = new Scanner(System.in);
-        System.out.println("Entrez l'ID ");
-        int id = lectureClavier.nextInt();
-        System.out.println("Entrez email ");
-        String email = lectureClavier.next();
-        System.out.println("L'utilisateur est-il actif(oui/non)?");
-        String reponse = lectureClavier.next();
-        boolean active = reponse.equals("oui") ? true : false;
+//    public static void testCreateEtudiant() {
+//        System.out.println("create");
+//        Etudiant utilisateur = null;
+//        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+//        Scanner lectureClavier = new Scanner(System.in);
+//        System.out.println("Entrez l'ID ");
+//        int id = lectureClavier.nextInt();
+//        System.out.println("Entrez email ");
+//        String email = lectureClavier.next();
+//        System.out.println("L'utilisateur est-il actif(oui/non)?");
+//        String reponse = lectureClavier.next();
+//        boolean active = reponse.equals("oui") ? true : false;
+//
+//        System.out.println("Entrez le nom ");
+//        String nom = lectureClavier.next();
+//        System.out.println("Entrez le prenom ");
+//        String prenom = lectureClavier.next();
+//        System.out.println("Entrez le nom de l'utilisateur");
+//        String nomUtilisateur = lectureClavier.next();
+//        System.out.println("Entrez le mot de passe");
+//        String motDePasse = lectureClavier.next();
+//        System.out.println("Entrez le profil");
+//        String profil = lectureClavier.next();
+//        System.out.println("Entrez la date de naissance (au format jj-mm-aaaa)");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//        Date ddn = null;
+//        try {
+//            java.util.Date date = sdf.parse(lectureClavier.next());
+//            ddn = new java.sql.Date(date.getTime());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("Entrez le role");
+//        String role = lectureClavier.next();
+//        System.out.println("L'utilisateur est-il actif(oui/non)?");
+//        String reponse1 = lectureClavier.next();
+//        boolean formation = reponse1.equals("oui") ? true : false;
+//        System.out.println("Entrez l'ID du cours ");
+//        int coursID = lectureClavier.nextInt();
+//        System.out.println("L'utilisateur est-il disponible(oui/non)?");
+//        String reponse3 = lectureClavier.next();
+//        boolean dispo = reponse3.equals("oui") ? true : false;
+//
+//        utilisateur = new Etudiant(id, prenom, nom, email, profil, role, active, nomUtilisateur, motDePasse, ddn, formation, coursID, dispo);
+//
+//        boolean result = instance.createEtudiant(utilisateur);
+//        if (result) {
+//            System.out.println("insertion reussite");
+//        } else {
+//            System.out.println("insertion echec ");
+//        }
+//
+//    }
 
-        System.out.println("Entrez le nom ");
-        String nom = lectureClavier.next();
-        System.out.println("Entrez le prenom ");
-        String prenom = lectureClavier.next();
-        System.out.println("Entrez le nom de l'utilisateur");
-        String nomUtilisateur = lectureClavier.next();
-        System.out.println("Entrez le mot de passe");
-        String motDePasse = lectureClavier.next();
-        System.out.println("Entrez le profil");
-        String profil = lectureClavier.next();
-        System.out.println("Entrez la date de naissance (au format jj-mm-aaaa)");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        Date ddn = null;
-        try {
-            java.util.Date date = sdf.parse(lectureClavier.next());
-            ddn = new java.sql.Date(date.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Entrez le role");
-        String role = lectureClavier.next();
-        System.out.println("L'utilisateur est-il actif(oui/non)?");
-        String reponse1 = lectureClavier.next();
-        boolean formation = reponse1.equals("oui") ? true : false;
-        System.out.println("Entrez l'ID du cours ");
-        int coursID = lectureClavier.nextInt();
-        System.out.println("L'utilisateur est-il disponible(oui/non)?");
-        String reponse3 = lectureClavier.next();
-        boolean dispo = reponse3.equals("oui") ? true : false;
-
-        utilisateur = new Etudiant(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse, ddn, role, formation, coursID, dispo);
-
-        boolean result = instance.createEtudiant(utilisateur);
-        if (result) {
-            System.out.println("insertion reussite");
-        } else {
-            System.out.println("insertion echec ");
-        }
-
-    }
-
-    public static void testUpdateEtudiant() {
-        System.out.println("updateEtudiant");
-        Etudiant etudiant = null;
-        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
-        System.out.println("Entrez l'id de l'étudiant.e à mettre à jour: ");
-        Scanner lectureClavier = new Scanner(System.in);
-        int id = lectureClavier.nextInt();
-        etudiant = instance.findEtudiantById(id);
-        System.out.println("Entrez le prénom de l'étudiant.e: ");
-        String prenom = lectureClavier.next();
-        etudiant.setPrenom(prenom);
-        System.out.println("Entrez le nom de l'étudiant.e: ");
-        String nom = lectureClavier.next();
-        etudiant.setNom(nom);
-        System.out.println("Entrez le courriel de l'étudiant.e: ");
-        String email = lectureClavier.next();
-        etudiant.setEmail(email);
-        System.out.println("Entrez la date de naissance (au format jj-mm-aaaa)");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        Date ddn = null;
-        try {
-            java.util.Date date = sdf.parse(lectureClavier.next());
-            ddn = new java.sql.Date(date.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        etudiant.setDdn(ddn);
-        System.out.println("L'étudiant est-il actif (oui/non)? ");
-        String reponse = lectureClavier.next();
-        boolean active = reponse.equals("oui") ? true : false;
-        etudiant.setActive(active);
-        System.out.println("Entrez le rôle de l'étudiant.e (Étudiant/Tuteur/Tutoré):");
-        String role = lectureClavier.next();
-        etudiant.setRole(role);
-        System.out.println("L'étudiant a-t'il complété sa formation (oui/non)? ");
-        String reponseFormation = lectureClavier.next();
-        boolean formationCompletee = reponseFormation.equals("oui") ? true : false;
-        etudiant.setFormationCompletee(formationCompletee);
-        System.out.println("Entrez le profil de l'étudiant.e (Programmation/Réseautique): ");
-        String profil = lectureClavier.next();
-        etudiant.setProfil(profil);
-        System.out.println("Entrez le nom d'utilisateur: ");
-        String nomUtilisateur = lectureClavier.next();
-        etudiant.setNomUtilisateur(nomUtilisateur);
-        System.out.println("Entrez le mot de passe: ");
-        String motDePasse = lectureClavier.next();
-        etudiant.setMotDePasse(motDePasse);
-        System.out.println("Entrez l'ID du cours ");
-        int coursID = lectureClavier.nextInt();
-        etudiant.setCoursId(coursID);
-        System.out.println("L'utilisateur est-il disponible(oui/non)?");
-        String reponse3 = lectureClavier.next();
-        boolean dispo = reponse3.equals("oui") ? true : false;
-        etudiant.setDispoTutorat(dispo);
-        boolean result = instance.updateEtudiant(etudiant);
-        if (result) {
-            System.out.println(String.format("L'étudiant.e %s %s a été mis à jour dans la base de données", etudiant.getPrenom(), etudiant.getNom()));
-        } else {
-            System.out.println("L'étudiant.e dont l'id est " + id + " n'existe pas dans la base de données");
-        }
-    }
+//    public static void testUpdateEtudiant() {
+//        System.out.println("updateEtudiant");
+//        Etudiant etudiant = null;
+//        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+//        System.out.println("Entrez l'id de l'étudiant.e à mettre à jour: ");
+//        Scanner lectureClavier = new Scanner(System.in);
+//        int id = lectureClavier.nextInt();
+//        etudiant = instance.findEtudiantById(id);
+//        System.out.println("Entrez le prénom de l'étudiant.e: ");
+//        String prenom = lectureClavier.next();
+//        etudiant.setPrenom(prenom);
+//        System.out.println("Entrez le nom de l'étudiant.e: ");
+//        String nom = lectureClavier.next();
+//        etudiant.setNom(nom);
+//        System.out.println("Entrez le courriel de l'étudiant.e: ");
+//        String email = lectureClavier.next();
+//        etudiant.setEmail(email);
+//        System.out.println("Entrez la date de naissance (au format jj-mm-aaaa)");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//        Date ddn = null;
+//        try {
+//            java.util.Date date = sdf.parse(lectureClavier.next());
+//            ddn = new java.sql.Date(date.getTime());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        etudiant.setDdn(ddn);
+//        System.out.println("L'étudiant est-il actif (oui/non)? ");
+//        String reponse = lectureClavier.next();
+//        boolean active = reponse.equals("oui") ? true : false;
+//        etudiant.setActive(active);
+//        System.out.println("Entrez le rôle de l'étudiant.e (Étudiant/Tuteur/Tutoré):");
+//        String role = lectureClavier.next();
+//        etudiant.setRole(role);
+//        System.out.println("L'étudiant a-t'il complété sa formation (oui/non)? ");
+//        String reponseFormation = lectureClavier.next();
+//        boolean formationCompletee = reponseFormation.equals("oui") ? true : false;
+//        etudiant.setFormationCompletee(formationCompletee);
+//        System.out.println("Entrez le profil de l'étudiant.e (Programmation/Réseautique): ");
+//        String profil = lectureClavier.next();
+//        etudiant.setProfil(profil);
+//        System.out.println("Entrez le nom d'utilisateur: ");
+//        String nomUtilisateur = lectureClavier.next();
+//        etudiant.setNomUtilisateur(nomUtilisateur);
+//        System.out.println("Entrez le mot de passe: ");
+//        String motDePasse = lectureClavier.next();
+//        etudiant.setMotDePasse(motDePasse);
+//        System.out.println("Entrez l'ID du cours ");
+//        int coursID = lectureClavier.nextInt();
+//        etudiant.setCoursId(coursID);
+//        System.out.println("L'utilisateur est-il disponible(oui/non)?");
+//        String reponse3 = lectureClavier.next();
+//        boolean dispo = reponse3.equals("oui") ? true : false;
+//        etudiant.setDispoTutorat(dispo);
+//        boolean result = instance.updateEtudiant(etudiant);
+//        if (result) {
+//            System.out.println(String.format("L'étudiant.e %s %s a été mis à jour dans la base de données", etudiant.getPrenom(), etudiant.getNom()));
+//        } else {
+//            System.out.println("L'étudiant.e dont l'id est " + id + " n'existe pas dans la base de données");
+//        }
+//    }
 
     public static void testDeleteEtudiant() {
         System.out.println("deleteEtudiant");
@@ -348,38 +357,38 @@ public class GestionUtilisateurImplDaoTest {
         System.out.println(result.toString());
     }
 
-    public static void testCreateProf() {
-        System.out.println("createProf");
-        Professeur utilisateur = null;
-        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
-        Scanner lectureClavier = new Scanner(System.in);
-//        System.out.println("Entrez le ID du professeur: ");
-//        int id = lectureClavier.nextInt();
-        System.out.println("Entrez le prénom du professeur: ");
-        String prenom = lectureClavier.next();
-        System.out.println("Entrez le nom du professeur: ");
-        String nom = lectureClavier.next();
-        System.out.println("Entrez le courriel du professeur: ");
-        String courriel = lectureClavier.next();
-//        System.out.println("Entrez le rôle du professeur (Professeur): ");
-//        String role = lectureClavier.next();
-        String role = "Professeur";
-        System.out.println("Le professeur est-il actif (oui/non)? ");
-        String reponse = lectureClavier.next();
-        boolean active = reponse.equals("oui") ? true : false;
-        System.out.println("Entrez le nom d'utilisateur: ");
-        String nomUtilisateur = lectureClavier.next();
-        System.out.println("Entrez le mot de passe: ");
-        String motDePasse = lectureClavier.next();
-        utilisateur = new Professeur(prenom, nom, courriel, role, active, nomUtilisateur, motDePasse);
-
-        boolean result = instance.createProf(utilisateur);
-        if (result) {
-            System.out.println("insertion reussite");
-        } else {
-            System.out.println("insertion echec ");
-        }
-    }
+//    public static void testCreateProf() {
+//        System.out.println("createProf");
+//        Professeur utilisateur = null;
+//        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+//        Scanner lectureClavier = new Scanner(System.in);
+////        System.out.println("Entrez le ID du professeur: ");
+////        int id = lectureClavier.nextInt();
+//        System.out.println("Entrez le prénom du professeur: ");
+//        String prenom = lectureClavier.next();
+//        System.out.println("Entrez le nom du professeur: ");
+//        String nom = lectureClavier.next();
+//        System.out.println("Entrez le courriel du professeur: ");
+//        String courriel = lectureClavier.next();
+////        System.out.println("Entrez le rôle du professeur (Professeur): ");
+////        String role = lectureClavier.next();
+//        String role = "Professeur";
+//        System.out.println("Le professeur est-il actif (oui/non)? ");
+//        String reponse = lectureClavier.next();
+//        boolean active = reponse.equals("oui") ? true : false;
+//        System.out.println("Entrez le nom d'utilisateur: ");
+//        String nomUtilisateur = lectureClavier.next();
+//        System.out.println("Entrez le mot de passe: ");
+//        String motDePasse = lectureClavier.next();
+//        utilisateur = new Professeur(prenom, nom, courriel, role, active, nomUtilisateur, motDePasse);
+//
+//        boolean result = instance.createProf(utilisateur);
+//        if (result) {
+//            System.out.println("insertion reussite");
+//        } else {
+//            System.out.println("insertion echec ");
+//        }
+//    }
 
     public static void testUpdateProf() {
         System.out.println("updateProf");
@@ -401,6 +410,18 @@ public class GestionUtilisateurImplDaoTest {
         String role = lectureClavier.next();
         List<Etudiant> result = instance.findAllEtudiantsByDisponibilitéAndByRole(role, disponible);
         System.out.println(result.toString());
+    }
+    
+    public static void testFindProjetById() {
+        System.out.println("findProjetById");
+        int id = 0;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez l'id du projet : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        id = lectureClavier.nextInt();
+        Projet result = instance.findProjetById(id);
+        System.out.println(result.toString());
+
     }
 
     public static void testFindNotesDeCoursByName() {

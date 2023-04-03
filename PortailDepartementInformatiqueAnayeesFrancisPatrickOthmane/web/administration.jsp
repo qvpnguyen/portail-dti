@@ -5,7 +5,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
     <head>
-        <title>Administrateur - Portail du dÃ©partement de l'informatique</title>
+        <title>Administrateur - Portail du département de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -22,10 +22,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <header>
             <div class="d-flex justify-content-between mx-5 py-3">
                 <div class="d-flex">
-                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
+                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
                     <div class="ms-3">
                         <h1 class="titre">Ed.<br>volution</h1>
-                        <p class="sous-titre">Oser apprendre et Ã©voluer</p>
+                        <p class="sous-titre">Oser apprendre et évoluer</p>
                     </div>
                 </div>
                 <div class="d-flex header-utilisateur">
@@ -43,7 +43,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <div>
                 <nav class="navbar">
                     <div class="container-fluid mx-4">
-                        <a class="navbar-brand">Portail du dÃ©partement d'informatique</a>
+                        <a class="navbar-brand">Portail du département d'informatique</a>
                         <div class="d-flex">
                             <!-- Logo GitLab -->
                             <a href="https://git.dti.crosemont.quebec/">
@@ -74,8 +74,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <main>
             <div class="container px-5">
                 <div class="rangee-boites row gx-5 justify-content-evenly">
-                    <!-- GÃ©rer les projets des Ã©tudiants -->
-                    <a href="gestionProjets.html" class="text-dark boite-fonctionnalite d-grid col-4">
+                    <!-- Gérer les projets des étudiants -->
+                    <a href="gestionProjetsController" class="text-dark boite-fonctionnalite d-grid col-4">
                         <svg width="91" height="112" viewBox="0 0 91 112" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22.4445 87.2012H38.5833H54.7222" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M22.4445 66.4004H24.75H27.0556" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -84,9 +84,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <path d="M4 100.2V27.3996C4 23.0918 7.09668 19.5996 10.9167 19.5996H55.8819C56.6156 19.5996 57.3192 19.9283 57.838 20.5135L72.3565 36.8858C72.8753 37.4709 73.1667 38.2645 73.1667 39.092V100.2C73.1667 104.507 70.0699 108 66.25 108H10.9167C7.09668 108 4 104.507 4 100.2Z" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M54.7222 19.5996V37.2796C54.7222 39.0027 55.9608 40.3996 57.4889 40.3996H73.1667" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <h3 class="text-center">GÃ©rer les projets des Ã©tudiants</h3>
+                        <h3 class="text-center">Gérer les projets des étudiants</h3>
                     </a>
-                    <!-- GÃ©rer les notes de cours des professeurs -->
+                    <!-- Gérer les notes de cours des professeurs -->
                     <a href="gestionNotesCours.html" class="text-dark boite-fonctionnalite d-grid col-4">
                         <svg width="100" height="110" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 0H100V110H0V0Z" fill="white" fill-opacity="0.01"/>
@@ -95,20 +95,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <path d="M27.0833 64.166H52.0833" stroke="black" stroke-width="7" stroke-linecap="round"/>
                         <path d="M85.4148 13.751L60.4258 41.2391" stroke="black" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <h3 class="text-center">GÃ©rer les notes de cours des professeurs</h3>
+                        <h3 class="text-center">Gérer les notes de cours des professeurs</h3>
                     </a>
                     <!-- GÃ©rer les utilisateurs -->
-                    <a href="gestionUtilisateurs.html" class="text-dark boite-fonctionnalite d-grid col-4">
+                    <a href="gestionUtilisateursController" class="text-dark boite-fonctionnalite d-grid col-4">
                         <svg width="90" height="112" viewBox="0 0 90 112" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M86 108V99.6241C86 93.9804 86 91.1615 85.3823 88.8567C84.6206 86.003 83.1787 83.4036 81.1946 81.307C79.2105 79.2105 76.7505 77.6869 74.0499 76.882C71.8687 76.2293 69.2009 76.2293 63.86 76.2293H26.14C20.7991 76.2293 18.1313 76.2293 15.9501 76.882C13.2495 77.6869 10.7895 79.2105 8.80539 81.307C6.82128 83.4036 5.37942 86.003 4.61773 88.8567C4 91.1615 4 93.9804 4 99.6241V108M70.6933 27.4757C70.6933 40.4439 60.416 50.9571 47.7333 50.9571C35.0507 50.9571 24.7733 40.4439 24.7733 27.4757C24.7733 14.5074 35.0507 4 47.7333 4C60.416 4 70.6933 14.5132 70.6933 27.4757Z" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <h3 class="text-center">GÃ©rer les utilisateurs</h3>
+                        <h3 class="text-center">Gérer les utilisateurs</h3>
                     </a>
                 </div>
             </div>
         </main>
-        <footer>
-            <p>&copy; 2023 DÃ©partement de l'informatique</p>
-        </footer>
+        <jsp:include page="/pied.jsp"/>
     </body>
 </html>

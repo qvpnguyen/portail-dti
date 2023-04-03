@@ -3,9 +3,17 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
+<<<<<<< HEAD
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
         <title>Gestion des projets - Portail du d√©partement de l'informatique</title>
+=======
+<html>
+    <head>
+        <title>Administrateur - Portail du dÈpartement de l'informatique</title>
+>>>>>>> 2ed7e60a99a5a54eb4163327593aa319bdee4188
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -15,6 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+<<<<<<< HEAD
         <!-- Inclusion de jQuery -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
         <!-- Inclusion des fichiers pour le plugin DataTables -->
@@ -28,19 +37,71 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 $('#tableProjets').DataTable({
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-                    }
+                    },
+                    "searching": false
                 });
             } );
         </script>
     </head>
     <body class="fond-blanc">
+        <jsp:include page="/entete.jsp"/>
+        
+        <main>
+            <div class="container conteneur-table bg-light p-5 mt-5">
+                <a href="sauvegardeProjetController" class="btn bouton-mauve mb-5">Ajouter un projet</a>
+                <table id="tableProjets" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Ann√©e</th>
+                            <th>Cours</th>
+                            <th>√âquipe</th>
+                            <th>Professeur en charge</th>
+                            <th>Note</th>
+                            <th>Modifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="unProjet" items="${requestScope.listeProjets}">
+                            <tr>
+                                <td>${unProjet.id}</td>
+                                <td>${unProjet.nom}</td>
+                                <td>${unProjet.annee}</td>
+                                <td>${unProjet.cours.nom}</td>
+                                <td>
+                                    <c:forEach var="membre" items="${unProjet.listeEquipeProjet}">
+                                        ${membre}
+                                    </c:forEach>
+                                </td>
+                                <td>${unProjet.professeur.prenom} ${unProjet.professeur.nom}</td>
+                                <td>${unProjet.notes.noteObtenue}</td>
+                                <td>
+                                    <a href="modificationProjetController?id=${unProjet.id}">
+                                        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                        <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            
+=======
+        <!-- Inclusion du stylesheet principal -->
+        <link rel="stylesheet" href="css/style.css"/>
+    </head>
+    <body class="fond-blanc">
         <header>
             <div class="d-flex justify-content-between mx-5 py-3">
                 <div class="d-flex">
-                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du Coll√®ge de Rosemont"/>
+                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du CollËge de Rosemont"/>
                     <div class="ms-3">
                         <h1 class="titre">Ed.<br>volution</h1>
-                        <p class="sous-titre">Oser apprendre et √©voluer</p>
+                        <p class="sous-titre">Oser apprendre et Èvoluer</p>
                     </div>
                 </div>
                 <div class="d-flex header-utilisateur">
@@ -58,7 +119,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <div>
                 <nav class="navbar">
                     <div class="container-fluid mx-4">
-                        <a class="navbar-brand">Gestion des projets</a>
+                        <a class="navbar-brand">Portail du dÈpartement d'informatique</a>
                         <div class="d-flex">
                             <!-- Logo GitLab -->
                             <a href="https://git.dti.crosemont.quebec/">
@@ -87,97 +148,42 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         </header>
         
         <main>
-            <div class="container conteneur-table bg-light p-5 mt-5">
-                <a href="" class="btn bouton-mauve mb-5">Ajouter un projet</a>
-                <table id="tableProjets" class="display">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Ann√©e</th>
-                            <th>Cours</th>
-                            <th>√âquipe</th>
-                            <th>Professeur en charge</th>
-                            <th>Note</th>
-                            <th>Modifier</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Ed.volution</td>
-                            <td>2023</td>
-                            <td>Applications Web 2</td>
-                            <td>Anayees Sarkes, Francis Martel, Patrick Nguyen, Othmane Sedjari</td>
-                            <td>Dini Ahamada</td>
-                            <td>100</td>
-                            <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Site de rencontre B2B</td>
-                            <td>2023</td>
-                            <td>Applications Web 2</td>
-                            <td>Francis Martel, Anayees Sarkes, Patrick Nguyen, Othmane Sedjari</td>
-                            <td>Dini Ahamada</td>
-                            <td>85</td>
-                            <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Jobine</td>
-                            <td>2023</td>
-                            <td>Applications Web 2</td>
-                            <td>Patrick Nguyen, Francis Martel, Anayees Sarkes, Othmane Sedjari</td>
-                            <td>Dini Ahamada</td>
-                            <td>95</td>
-                            <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>R√©seau-Sant√©</td>
-                            <td>2023</td>
-                            <td>Applications Web 2</td>
-                            <td>Othmane Sedjari, Francis Martel, Patrick Nguyen, Anayees Sarkes</td>
-                            <td>Dini Ahamada</td>
-                            <td>90</td>
-                            <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="container px-5">
+                <div class="rangee-boites row gx-5 justify-content-evenly">
+                    <!-- GÈrer les projets des Ètudiants -->
+                    <a href="gestionProjetsController" class="text-dark boite-fonctionnalite d-grid col-4">
+                        <svg width="91" height="112" viewBox="0 0 91 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.4445 87.2012H38.5833H54.7222" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22.4445 66.4004H24.75H27.0556" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22.4445 45.5996H29.3611H36.2778" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22.4445 4H66.25L87 27.4V92.4" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 100.2V27.3996C4 23.0918 7.09668 19.5996 10.9167 19.5996H55.8819C56.6156 19.5996 57.3192 19.9283 57.838 20.5135L72.3565 36.8858C72.8753 37.4709 73.1667 38.2645 73.1667 39.092V100.2C73.1667 104.507 70.0699 108 66.25 108H10.9167C7.09668 108 4 104.507 4 100.2Z" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M54.7222 19.5996V37.2796C54.7222 39.0027 55.9608 40.3996 57.4889 40.3996H73.1667" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3 class="text-center">GÈrer les projets des Ètudiants</h3>
+                    </a>
+                    <!-- GÈrer les notes de cours des professeurs -->
+                    <a href="gestionNotesCours.html" class="text-dark boite-fonctionnalite d-grid col-4">
+                        <svg width="100" height="110" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0H100V110H0V0Z" fill="white" fill-opacity="0.01"/>
+                        <path d="M60.4166 9.16602H18.75C16.4488 9.16602 14.5833 11.218 14.5833 13.7493V96.2493C14.5833 98.7807 16.4488 100.833 18.75 100.833H77.0833C79.3846 100.833 81.25 98.7807 81.25 96.2493V45.8432" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M27.0833 41.249H43.75" stroke="black" stroke-width="7" stroke-linecap="round"/>
+                        <path d="M27.0833 64.166H52.0833" stroke="black" stroke-width="7" stroke-linecap="round"/>
+                        <path d="M85.4148 13.751L60.4258 41.2391" stroke="black" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3 class="text-center">GÈrer les notes de cours des professeurs</h3>
+                    </a>
+                    <!-- G√©rer les utilisateurs -->
+                    <a href="gestionUtilisateursController" class="text-dark boite-fonctionnalite d-grid col-4">
+                        <svg width="90" height="112" viewBox="0 0 90 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M86 108V99.6241C86 93.9804 86 91.1615 85.3823 88.8567C84.6206 86.003 83.1787 83.4036 81.1946 81.307C79.2105 79.2105 76.7505 77.6869 74.0499 76.882C71.8687 76.2293 69.2009 76.2293 63.86 76.2293H26.14C20.7991 76.2293 18.1313 76.2293 15.9501 76.882C13.2495 77.6869 10.7895 79.2105 8.80539 81.307C6.82128 83.4036 5.37942 86.003 4.61773 88.8567C4 91.1615 4 93.9804 4 99.6241V108M70.6933 27.4757C70.6933 40.4439 60.416 50.9571 47.7333 50.9571C35.0507 50.9571 24.7733 40.4439 24.7733 27.4757C24.7733 14.5074 35.0507 4 47.7333 4C60.416 4 70.6933 14.5132 70.6933 27.4757Z" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3 class="text-center">GÈrer les utilisateurs</h3>
+                    </a>
+                </div>
             </div>
-            
+>>>>>>> 2ed7e60a99a5a54eb4163327593aa319bdee4188
         </main>
-        <footer>
-            <p>&copy; 2023 D√©partement de l'informatique</p>
-        </footer>
+        <jsp:include page="/pied.jsp"/>
     </body>
 </html>

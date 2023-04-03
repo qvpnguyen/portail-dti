@@ -9,14 +9,14 @@ import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.enti
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import jakarta.servlet.ServletException;
+//import jakarta.servlet.http.HttpServlet;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -27,8 +27,8 @@ public class ProjetsController extends HttpServlet {
     private List<Projet> listeProjets = null;
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
-    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
-            throws jakarta.servlet.ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         //Assignation du titre de la page à l'uri correspondant
