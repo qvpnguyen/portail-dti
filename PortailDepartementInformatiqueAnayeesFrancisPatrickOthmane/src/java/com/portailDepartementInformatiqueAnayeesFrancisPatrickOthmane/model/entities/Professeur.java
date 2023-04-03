@@ -5,6 +5,7 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,23 +17,48 @@ public class Professeur extends Utilisateur{
     private List<Projet> projets;
 
     public Professeur() {
+        this.notesDeCours = new ArrayList();
+        this.projets = new ArrayList();
     }
 
-    public Professeur(int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, String photo) {
-        super(id, prenom, nom, email, profil, role, active, nomUtilisateur, motDePasse, photo);
-        this.notesDeCours = new ArrayList<>();
-        this.projets = new ArrayList<>();
+    public Professeur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String photo) {
+        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+        this.notesDeCours = new ArrayList();
+        this.projets = new ArrayList();
     }
+
+    public Professeur(String prenom, String nom) {
+        super(prenom, nom);
+        this.notesDeCours = new ArrayList();
+        this.projets = new ArrayList();
+    }
+
+    public Professeur(int id) {
+        super(id);
+        this.notesDeCours = new ArrayList();
+        this.projets = new ArrayList();
+    }  
     
-    public Professeur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
-        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse);
-        this.notesDeCours = new ArrayList<>();
-        this.projets = new ArrayList<>();
-    }
-    
-    public Professeur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
-        super(prenom, nom, email, role, active, nomUtilisateur, motDePasse);
-    }
+//    public Professeur(List<NoteDeCours> notesDeCours, List<Projet> projets, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
+//        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn);
+//        this.notesDeCours = notesDeCours;
+//        this.projets = projets;
+//
+//    public Professeur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String photo) {
+//        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+//        this.notesDeCours = new ArrayList<>();
+//        this.projets = new ArrayList<>();
+//    }
+//    
+//    public Professeur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
+//        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse);
+//        this.notesDeCours = new ArrayList<>();
+//        this.projets = new ArrayList<>();
+//    }
+//    
+//    public Professeur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
+//        super(prenom, nom, email, role, active, nomUtilisateur, motDePasse);
+//    }
 
     public List<NoteDeCours> getNotesDeCours() {
         return notesDeCours;

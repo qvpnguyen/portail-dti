@@ -5,7 +5,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
     <head>
-        <title>Inscription - Portail du dÃ©partement de l'informatique</title>
+        <title>Inscription - Portail du département de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -19,88 +19,81 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <link rel="stylesheet" href="css/style.css"/>
     </head>
     <body>
-        <header class="border-0">
-            <div class="container d-flex justify-content-center">
-                <div class="entete-logo">
-                    <div class="d-flex justify-content-between">
-                        <img class="logo-college-agrandi py-3" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
-                        <div class="mt-4">
-                            <h1 class="titre-agrandi">Ed.<br>volution</h1>
-                            <p class="sous-titre-agrandi">Oser apprendre et Ã©voluer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        
+        <jsp:include page="/entete.jsp"/>
+
         <main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
             <div class="container px-5 d-flex justify-content-center">
                 <div class="row">
                     <div class="boite-inscription">
-                        
+
                         <form action="" method="post">
                             <div class="d-flex justify-content-center">
                                 <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnetudiant" autocomplete="off" checked>
-                                    <label class="btn btn-outline-dark" for="btnetudiant">Ã‰tudiant</label>
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnetudiant" value="Étudiant" autocomplete="off" checked>
+                                    <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnprofesseur" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnprofesseur" value="Professeur" autocomplete="off">
                                     <label class="btn btn-outline-dark" for="btnprofesseur">Professeur</label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnvisiteur" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnvisiteur" value="Visiteur" autocomplete="off">
                                     <label class="btn btn-outline-dark" for="btnvisiteur">Visiteur</label>
                                 </div>
                             </div>
                             <div class="row gx-5 mx-2">
                                 <div class="col-6">
                                     <div class="form-group my-3">
-                                        <label for="prenom">PrÃ©nom:</label>
-                                        <input type="text" class="form-control" id="prenom">
+                                        <label for="prenom">Prénom:</label>
+                                        <input type="text" class="form-control" id="prenom" name="prenom">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group my-3">
                                         <label for="nom">Nom:</label>
-                                        <input type="text" class="form-control" id="nom">
+                                        <input type="text" class="form-control" id="nom" name="nom">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group my-3">
                                         <label for="dateDeNaissance">Date de naissance:</label>
-                                        <input type="date" class="form-control" id="dateDeNaissance">
+                                        <input type="date" class="form-control" id="dateDeNaissance" name="dateDeNaissance">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group my-3">
                                         <label for="profil">Profil:</label>
                                         <select name="profil" id="profil" class="form-select">
+                                            <option value="">---</option>
                                             <option value="Programmation">Programmation</option>
-                                            <option value="RÃ©seautique">RÃ©seautique</option>
-                                      </select>
+                                            <option value="Réseautique">Réseautique</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group my-3">
+                                        <label for="numeroUtilisateur">Numéro d'utilisateur:</label>
+                                        <input type="text" class="form-control" id="numeroUtilisateur" name="numeroUtilisateur">
+                                    </div>
+                                    <div class="form-group my-3">
                                         <label for="courriel">Courriel:</label>
-                                        <input type="email" class="form-control" id="courriel" placeholder="courriel@dti.crosemont.quebec">
+                                        <input type="email" class="form-control" id="courriel" name="courriel" placeholder="courriel@dti.crosemont.quebec">
                                     </div>
                                     <div class="form-group my-3">
                                         <label for="nomUtilisateur">Nom d'utilisateur:</label>
-                                        <input type="text" class="form-control" id="nomUtilisateur" placeholder="pNom">
+                                        <input type="text" class="form-control" id="nomUtilisateur" name="nomUtilisateur" placeholder="pNom">
                                     </div>
                                     <div class="form-group my-3">
                                         <label for="motDePasse">Mot de passe:</label>
-                                        <input type="password" class="form-control" id="motDePasse" placeholder="Entrez votre mot de passe">
+                                        <input type="password" class="form-control" id="motDePasse" name="motDePasse" placeholder="Entrez votre mot de passe">
                                     </div>
                                     <div class="form-group my-3">
                                         <label for="confirmerMotDePasse">Confirmer le mot de passe:</label>
-                                        <input type="password" class="form-control" id="confirmerMotDePasse" placeholder="Confirmez votre mot de passe">
+                                        <input type="password" class="form-control" id="confirmerMotDePasse" name="confirmerMotDePasse" placeholder="Confirmez votre mot de passe">
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-dark">Inscription</button>
+                                <input type="submit" class="btn btn-dark" value="Soumettre"/>
                             </div>
                         </form>
                         <div class="text-center mt-4">
@@ -111,8 +104,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
             </div>
         </main>
-        <footer>
-            <p>&copy; 2023 DÃ©partement de l'informatique</p>
-        </footer>
+        <jsp:include page="/pied.jsp"/>
     </body>
 </html>

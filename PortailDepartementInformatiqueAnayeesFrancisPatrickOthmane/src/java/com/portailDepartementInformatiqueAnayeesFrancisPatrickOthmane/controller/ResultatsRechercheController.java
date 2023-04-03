@@ -5,6 +5,7 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,6 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ResultatsRechercheController extends HttpServlet {
 
     Projet projet = null;
+    NoteDeCours noteCours = null;
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -45,12 +47,25 @@ public class ResultatsRechercheController extends HttpServlet {
 
         if (query != null) {
             projet = dao.findProjetByName(query);
+            noteCours = dao.findNotesDeCoursByName(query);
+//            if (projet != null) {
+//                request.setAttribute("results", projet);
+//                request.getRequestDispatcher("resultatRecherche.jsp").forward(request, response);
+//            } else {
+//                request.getRequestDispatcher("EtudiantController").forward(request, response);
+//
+//            }
+            
+            if (noteCours != null) {
+                request.setAttribute("results", noteCours);
+                request.getRequestDispatcher("resultatRecherche.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("EtudiantController").forward(request, response);
 
-            request.setAttribute("results", projet);
-            request.getRequestDispatcher("resultatRecherche.jsp").forward(request, response);
+            }
 
         }
-        
+
         request.getRequestDispatcher("resultatRecherche.jsp").include(request, response);
 
     }

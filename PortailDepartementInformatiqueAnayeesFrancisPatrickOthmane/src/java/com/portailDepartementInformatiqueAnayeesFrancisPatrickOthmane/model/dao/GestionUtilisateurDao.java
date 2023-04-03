@@ -45,6 +45,8 @@ public interface GestionUtilisateurDao {
     List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole(String role, boolean dispo);
     
     Etudiant findEtudiantById(int id);
+    
+    Etudiant findEtudiantByPrenomNom(String prenom, String nom);
 
     Etudiant findEtudiantByName(String nom);
 
@@ -78,14 +80,20 @@ public interface GestionUtilisateurDao {
 
     Projet findProjetByName(String nom);
     
+    Projet findProjetById(int id);
+    
     boolean createProjet(Projet projet);
+    
+    boolean updateProjet(Projet projet);
+    
+    boolean deleteProjet(int id);
     
     List<Cours> findAllCours();
     
     Cours findCoursById(int id);
     
     List<Cours> findAllCoursByNomProfesseur(String nomProfesseur);
-    
+
     List<Notes> findAllNotes();
     
     Notes findNoteById(int id);
@@ -98,10 +106,10 @@ public interface GestionUtilisateurDao {
     
     List<NoteDeCours> findNotesDeCoursByCoursID(int coursID);
 
-    List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);
-    
+    List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);  
+
     boolean createNotesDeCours(NoteDeCours notes);
     
-    
+   
 
 }

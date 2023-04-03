@@ -5,25 +5,30 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author othma
+ * @author patri
  */
-public class NotesDeCoursController extends HttpServlet {
+public class GestionProjetsController extends HttpServlet {
+    private List<Projet> listeProjets = null;
+    private List<Etudiant> listeEtudiants = null;
+    private List<Cours> listeCours = null;
+    private List<Professeur> listeProfesseurs = null;
+    private List<Notes> listeNotes = null;
+    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,32 +39,22 @@ public class NotesDeCoursController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-    private List<NoteDeCours> listeNotesCours;
-    NoteDeCours notes = null;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
+        //Assignation du titre de la page à l'uri correspondant
         String pageName = "";
-
-        if (request.getRequestURI().endsWith("notesDeCoursController")) {
-            pageName = "Portail du département informatique - Gestion des notes De Cours";
+        
+        if (request.getRequestURI().endsWith("gestionProjetsController")){
+            pageName = "Gestion des projets";
         }
-
+        
+        listeProjets = dao.findAllProjets();
+        request.setAttribute("listeProjets", listeProjets);
         request.setAttribute("pageName", pageName);
-        String note = request.getParameter("note");
-        if (note != null && !note.equals("")) {
-            notes = dao.findNotesDeCoursByName(note);
-            request.setAttribute("notes", notes);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        } else {
-
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        }
+        request.getRequestDispatcher("gestionProjets.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

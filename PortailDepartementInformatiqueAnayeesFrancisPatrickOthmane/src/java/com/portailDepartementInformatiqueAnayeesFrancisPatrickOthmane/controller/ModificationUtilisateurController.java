@@ -5,25 +5,24 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author othma
+ * @author patri
  */
-public class NotesDeCoursController extends HttpServlet {
+public class ModificationUtilisateurController extends HttpServlet {
+    private List listeUtilisateurs;
+    Utilisateur utilisateur = null;
+    boolean retour = false;
+    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,31 +33,40 @@ public class NotesDeCoursController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-    private List<NoteDeCours> listeNotesCours;
-    NoteDeCours notes = null;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String pageName = "";
-
-        if (request.getRequestURI().endsWith("notesDeCoursController")) {
-            pageName = "Portail du département informatique - Gestion des notes De Cours";
+        
+        String id = request.getParameter("id");
+        int utilisateurId = Integer.parseInt(id);
+        String role = request.getParameter("btnradio");
+        String prenom = request.getParameter("prenom");
+        String nom = request.getParameter("nom");
+        String dateDeNaissance = request.getParameter("dateDeNaissance");
+        String profil = request.getParameter("profil");
+        String numeroUtilisateur = request.getParameter("numeroUtilisateur");
+        String courriel = request.getParameter("courriel");
+        String motDePasse = request.getParameter("motDePasse");
+        String confirmerMotDePasse = request.getParameter("confirmerMotDePasse");
+        String active = request.getParameter("active");
+        boolean status = Boolean.valueOf(active);
+        
+        switch (role) {
+            case "Étudiant":
+                utilisateur = dao.findEtudiantById(utilisateurId);
+                break;
+            case "Professeur":
+                utilisateur = dao.findProfById(utilisateurId);
+                break;
+            case "Visiteur":
+                utilisateur = dao.findVisiteurById(utilisateurId);
+                break;
         }
-
-        request.setAttribute("pageName", pageName);
-        String note = request.getParameter("note");
-        if (note != null && !note.equals("")) {
-            notes = dao.findNotesDeCoursByName(note);
-            request.setAttribute("notes", notes);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        } else {
-
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+        utilisateur.setPrenom(prenom);
+        utilisateur.setNom(nom);
+        if (!motDePasse.equals(confirmerMotDePasse)) {
+            String message = "Le mot de passe doit être identique dans les deux champs";
+            request.setAttribute("message", message);
         }
     }
 

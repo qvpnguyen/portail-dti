@@ -20,6 +20,10 @@ public class Cours {
 
     public Cours() {
     }
+    
+    public Cours(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
