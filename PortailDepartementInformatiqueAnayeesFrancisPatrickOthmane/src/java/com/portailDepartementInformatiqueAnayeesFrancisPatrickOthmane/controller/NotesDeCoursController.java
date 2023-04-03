@@ -5,10 +5,9 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 //import jakarta.servlet.ServletException;
 //import jakarta.servlet.http.HttpServlet;
 //import jakarta.servlet.http.HttpServletRequest;
@@ -17,41 +16,42 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
- * @author Anayees
+ * @author othma
  */
-public class ProjetsController extends HttpServlet {
+public class NotesDeCoursController extends HttpServlet {
 
-    private List<Projet> listeProjets = null;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-
+    private List<NoteDeCours> listeNotesCours;
+    NoteDeCours notes = null;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        //Assignation du titre de la page à l'uri correspondant
-        String pageName = "";
-
-        if (request.getRequestURI().endsWith("ProjetsController")) {
-            pageName = "Ensemble des projets";
-        } else if (pageName.isEmpty()){
-            pageName = "Ensemble des projets";
-        }
-        if (pageName.isEmpty()) {
-            pageName = "Ensemble des projets";
-        }
-
-        request.setAttribute("pageName", pageName);
-        //request.getRequestDispatcher("projets.jsp").include(request, response);
-
-        //Affichage des projets
-        listeProjets = dao.findAllProjets();
-        System.out.println(listeProjets);
-        request.setAttribute("listeProjets", listeProjets);
-        request.getRequestDispatcher("projets.jsp").forward(request, response);
-    }
+                response.setContentType("text/html;charset=UTF-8");
+       String note = request.getParameter("note");
+       if ( note != null && !note.equals("")) {
+            notes = dao.findNotesDeCoursByName(note);
+            request.setAttribute("notes", notes);
+            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+           }
+       else {
+       
+        
+        listeNotesCours = dao.findAllNotesDeCours();
+            request.setAttribute("listeNotesCours", listeNotesCours);
+            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+       }}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

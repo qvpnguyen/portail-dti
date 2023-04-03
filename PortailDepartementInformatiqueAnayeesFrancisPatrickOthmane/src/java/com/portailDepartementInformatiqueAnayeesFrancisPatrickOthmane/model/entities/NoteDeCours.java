@@ -16,8 +16,15 @@ public class NoteDeCours {
     private String nom;
     private int coursID;
     private String lien;
+ 
     
     public NoteDeCours() {
+    }
+
+    public NoteDeCours(String nom, int coursID, String lien) {
+        this.nom = nom;
+        this.coursID = coursID;
+        this.lien = lien;
     }
     
     public NoteDeCours(int id, String nom, int coursID, String lien) {

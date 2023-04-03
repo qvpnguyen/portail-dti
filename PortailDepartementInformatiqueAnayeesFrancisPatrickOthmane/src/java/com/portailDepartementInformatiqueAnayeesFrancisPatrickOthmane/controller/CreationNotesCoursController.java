@@ -5,9 +5,10 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
 import java.util.List;
 //import jakarta.servlet.ServletException;
 //import jakarta.servlet.http.HttpServlet;
@@ -18,39 +19,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  *
- * @author Anayees
+ * @author othma
  */
-public class ProjetsController extends HttpServlet {
+public class CreationNotesCoursController extends HttpServlet {
 
-    private List<Projet> listeProjets = null;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-
+    //private List<NoteDeCours> listeNotesCours;
+    NoteDeCours notes = null;
+    boolean retour = false;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        //Assignation du titre de la page à l'uri correspondant
-        String pageName = "";
-
-        if (request.getRequestURI().endsWith("ProjetsController")) {
-            pageName = "Ensemble des projets";
-        } else if (pageName.isEmpty()){
-            pageName = "Ensemble des projets";
+       
+        String lien = request.getParameter("lien");
+        String coursId = request.getParameter("cours");
+        String nom = request.getParameter("nom");
+        if(lien!=null && coursId!=null && nom!=null){
+        
+         int cours = 0;
+        
+            cours = Integer.valueOf(coursId);
+        
+        notes = new NoteDeCours(lien,cours,nom);
+            System.out.println("Tessssssssssssssssssssssssssssssssst");
+            System.out.println(notes.toString());
+        retour = dao.createNotesDeCours(notes);
+        if (retour) {
+            String message = String.format("Le note de cours " +  nom + " a été créé avec succès");
+            request.setAttribute("message", message);
+            request.setAttribute("notes", notes);
+            request.getRequestDispatcher("creationDepotNotesCours.jsp").forward(request, response);
         }
-        if (pageName.isEmpty()) {
-            pageName = "Ensemble des projets";
+
         }
-
-        request.setAttribute("pageName", pageName);
-        //request.getRequestDispatcher("projets.jsp").include(request, response);
-
-        //Affichage des projets
-        listeProjets = dao.findAllProjets();
-        System.out.println(listeProjets);
-        request.setAttribute("listeProjets", listeProjets);
-        request.getRequestDispatcher("projets.jsp").forward(request, response);
+        request.getRequestDispatcher("creationDepotNotesCours.jsp").forward(request, response);
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

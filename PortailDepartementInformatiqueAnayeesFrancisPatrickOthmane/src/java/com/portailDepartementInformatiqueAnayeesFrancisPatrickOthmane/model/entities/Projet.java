@@ -13,7 +13,7 @@ import java.util.List;
  * @author anayeesFrancisPatrickOthmane
  */
 public class Projet {
-    
+
     private int id;
     private String nom;
     private int annee;
@@ -21,13 +21,13 @@ public class Projet {
     private String description;
     private String video;
     private String lienGitlab;
-    private Cours cours;  
+    private Cours cours;
     private Professeur professeur;
-    private Notes notes;  
+    private Notes notes;
 
     public Projet() {
     }
-    
+
     public Projet(String nom, int annee, Etudiant[] listeEquipeProjet, String description, String video, String lienGitlab, Cours cours, Professeur professeur) {
         this.nom = nom;
         this.annee = annee;
@@ -133,11 +133,7 @@ public class Projet {
         this.notes = notes;
     }
 
-    
-    
-    
-
-          public String afficherTitreDesColonnes() {
+    public String afficherTitreDesColonnes() {
         String message = "";
         message = String.format(" %-10s  %30s %15s %30s %15s %15s %15s %15s %15s %25s ", "Id", "Nom", "Annee", "Liste etudiants", "Description", "Video","LienGitlab",
                 "Cours","Professeur","Notes");
@@ -153,5 +149,4 @@ public class Projet {
        return message;
     }
 
-  
 }

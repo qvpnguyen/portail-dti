@@ -20,6 +20,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+//import jakarta.persistence.Entity;
+//import jakarta.servlet.ServletException;
+//import jakarta.servlet.http.HttpServlet;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -67,6 +72,7 @@ public class SauvegardeProjetController extends HttpServlet {
         }
         String[] membresEquipe = request.getParameterValues("membresEquipe");
         List<Etudiant> listeEtudiants = new ArrayList();
+
         if (membresEquipe != null) {
             for (int i = 0; i < membresEquipe.length; i++) {
                 String[] unEtudiant = membresEquipe[i].split(" ");
@@ -81,18 +87,6 @@ public class SauvegardeProjetController extends HttpServlet {
         for (int i = 0; i < listeEtudiants.size(); i++) {
             etudiantArray[i] = listeEtudiants.get(i);
         }
-//        Etudiant[] etudiantArray = Arrays.stream(membresEquipe)
-//                .map(s -> s.split(" "))
-//                .map(e -> new Etudiant(e[0], e[1]))
-//                .toArray(Etudiant[]::new);
-//        Etudiant[] membreEquipe = null;
-//        if (membresEquipe != null && membresEquipe.length > 0){
-//            membreEquipe = new Etudiant[membresEquipe.length];
-//            for (int i = 0; i < membresEquipe.length; i++){
-//                int etudiant = Integer.parseInt(membresEquipe[i]);
-//                membreEquipe[i] = new Etudiant(etudiant);
-//            }
-//        }
         String description = request.getParameter("description");
         String video = request.getParameter("video");
         String lienGitlab = request.getParameter("lienGitlab");

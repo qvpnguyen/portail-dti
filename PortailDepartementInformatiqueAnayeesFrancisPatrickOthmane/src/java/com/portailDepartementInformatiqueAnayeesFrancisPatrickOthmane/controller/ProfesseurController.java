@@ -4,11 +4,8 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 //import jakarta.servlet.ServletException;
 //import jakarta.servlet.http.HttpServlet;
 //import jakarta.servlet.http.HttpServletRequest;
@@ -20,37 +17,34 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Anayees
+ * @author othma
  */
-public class ProjetsController extends HttpServlet {
+public class ProfesseurController extends HttpServlet {
 
-    private List<Projet> listeProjets = null;
-    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        //Assignation du titre de la page à l'uri correspondant
-        String pageName = "";
-
-        if (request.getRequestURI().endsWith("ProjetsController")) {
-            pageName = "Ensemble des projets";
-        } else if (pageName.isEmpty()){
-            pageName = "Ensemble des projets";
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ProfesseurController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ProfesseurController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        if (pageName.isEmpty()) {
-            pageName = "Ensemble des projets";
-        }
-
-        request.setAttribute("pageName", pageName);
-        //request.getRequestDispatcher("projets.jsp").include(request, response);
-
-        //Affichage des projets
-        listeProjets = dao.findAllProjets();
-        System.out.println(listeProjets);
-        request.setAttribute("listeProjets", listeProjets);
-        request.getRequestDispatcher("projets.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

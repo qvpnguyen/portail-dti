@@ -63,6 +63,7 @@ public class ModificationUtilisateurController extends HttpServlet {
                 break;
         }
         utilisateur.setPrenom(prenom);
+        utilisateur.setNom(nom);
         if (!motDePasse.equals(confirmerMotDePasse)) {
             String message = "Le mot de passe doit être identique dans les deux champs";
             request.setAttribute("message", message);

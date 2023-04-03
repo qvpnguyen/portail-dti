@@ -10,7 +10,7 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.con
  * @author anayeesFrancisPatrickOthmane
  */
 public interface ConfigBD {
-           //  Définir l’url de connexion avec le nom de la base donné
+        //  Définir l’url de connexion avec le nom de la base donné
             
         public final static String URL = "jdbc:mysql://127.0.0.1:3306/portailDB?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
         //utilisateur de la bd

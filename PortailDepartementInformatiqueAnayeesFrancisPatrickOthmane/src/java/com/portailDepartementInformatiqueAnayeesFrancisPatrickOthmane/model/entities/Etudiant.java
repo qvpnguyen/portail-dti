@@ -6,30 +6,83 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
 
 import java.util.Date;
 
-
 /**
  *
  * @author anayeesFrancisPatrickOthmane
  */
 public class Etudiant extends Utilisateur {
+
     
    
 //    private Date ddn;
     //private boolean active;
 //    private String role;
     private boolean formationCompletee;
-    private Cours cours; 
+    private Cours cours;
     private boolean dispoTutorat;
+    private String profil;
 
     public Etudiant() {
     }
 
-    public Etudiant(int id,String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, boolean formationCompletee, Cours cours, boolean dispoTutorat) {
-        super(id, prenom, nom, email, role, profil, active, nomUtilisateur, motDePasse, ddn);
+//    public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat) {
+//        this.formationCompletee = formationCompletee;
+//        this.cours = cours;
+//        this.dispoTutorat = dispoTutorat;
+//    }
+
+    public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat, String profil, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String photo) {
+        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
         this.formationCompletee = formationCompletee;
         this.cours = cours;
         this.dispoTutorat = dispoTutorat;
+        this.profil = profil;
     }
+
+    public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat, String profil, String prenom, String nom) {
+        super(prenom, nom);
+        this.formationCompletee = formationCompletee;
+        this.cours = cours;
+        this.dispoTutorat = dispoTutorat;
+        this.profil = profil;
+    }
+
+    public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat, String profil, int id) {
+        super(id);
+        this.formationCompletee = formationCompletee;
+        this.cours = cours;
+        this.dispoTutorat = dispoTutorat;
+        this.profil = profil;
+    }
+    
+    
+
+
+//    public Etudiant(int id,String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, boolean formationCompletee, Cours cours, boolean dispoTutorat) {
+//        super(id, prenom, nom, email, role, profil, active, nomUtilisateur, motDePasse, ddn);
+//
+//    public Etudiant(int id) {
+//        this.id = id;
+//    }
+//
+//    public Etudiant(Date ddn, boolean formationCompletee, int coursId, boolean dispoTutorat, int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, String photo) {
+//        super(id, prenom, nom, email, profil, role, active, nomUtilisateur, motDePasse, photo);
+//        this.ddn = ddn;
+//        this.formationCompletee = formationCompletee;
+//        this.coursId = coursId;
+//        this.dispoTutorat = dispoTutorat;
+//    }
+//
+//    public Etudiant(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String role, boolean formationCompletee, int coursId, boolean dispoTutorat) {
+//        super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
+//        this.ddn = ddn;
+//        this.role = role;
+//
+//        this.formationCompletee = formationCompletee;
+//        this.cours = cours;
+//        this.dispoTutorat = dispoTutorat;
+//    }
+
     
     public Etudiant(String prenom, String nom) {
         super(prenom, nom);
@@ -46,6 +99,16 @@ public class Etudiant extends Utilisateur {
 //    public void setDdn(Date ddn) {
 //        this.ddn = ddn;
 //    }
+
+
+    public boolean isDispoTutorat() {
+        return dispoTutorat;
+    }
+
+    public void setDispoTutorat(boolean dispoTutorat) {
+        this.dispoTutorat = dispoTutorat;
+    }
+
 
 //    public String getRole() {
 //        return role;
@@ -70,14 +133,17 @@ public class Etudiant extends Utilisateur {
     public void setCours(Cours cours) {
         this.cours = cours;
     }
-    
-    public boolean isDispoTutorat() {
-        return dispoTutorat;
+
+    public String getProfil() {
+        return profil;
     }
 
-    public void setDispoTutorat(boolean dispoTutorat) {
-        this.dispoTutorat = dispoTutorat;
+    public void setProfil(String profil) {
+        this.profil = profil;
     }
+    
+    
+   
     
     @Override
        public String toString() {
@@ -85,8 +151,4 @@ public class Etudiant extends Utilisateur {
        message = String.format("%s %s",super.prenom, this.nom); 
        return message;
     }
-
-
 }
-    
-

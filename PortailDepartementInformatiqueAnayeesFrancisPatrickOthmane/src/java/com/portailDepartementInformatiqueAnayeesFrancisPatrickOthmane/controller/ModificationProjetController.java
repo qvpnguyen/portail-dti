@@ -78,7 +78,7 @@ public class ModificationProjetController extends HttpServlet {
         Notes notesModif = null;
         if (notes != null) {
             notesID = Integer.valueOf(notes);
-            notesModif = dao.findNotesById(notesID);
+//            notesModif = dao.findNotesById(notesID);
         }
         
         int projetID = Integer.parseInt(request.getParameter("id"));

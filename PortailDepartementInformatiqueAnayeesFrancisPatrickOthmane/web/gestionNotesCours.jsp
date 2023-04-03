@@ -1,11 +1,19 @@
+<%@page import="com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours"%>
+<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
+
+<%  
+    ArrayList<NoteDeCours> listeNotesCours = (ArrayList)request.getAttribute("listeNotesCours");
+    NoteDeCours tnotes = (NoteDeCours) request.getAttribute("notes");
+%>
 <html>
     <head>
-        <title>Gestion des notes de cours - Portail du département de l'informatique</title>
+        <title>Gestion des notes de cours - Portail du dÃ©partement de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -22,13 +30,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
         <!-- Inclusion du stylesheet principal -->
         <link rel="stylesheet" href="css/style.css"/>
-        <!-- Script pour générer les données des utilisateurs avec jQuery dans DataTables -->
+        <!-- Script pour gÃ©nÃ©rer les donnÃ©es des utilisateurs avec jQuery dans DataTables -->
         <script>
             $(document).ready( function () {
                 $('#tableNotesCours').DataTable({
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-                    }
+                    }, "searching": false
                 });
             } );
         </script>
@@ -37,10 +45,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <header>
             <div class="d-flex justify-content-between mx-5 py-3">
                 <div class="d-flex">
-                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
+                    <img class="logo-college" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
                     <div class="ms-3">
                         <h1 class="titre">Ed.<br>volution</h1>
-                        <p class="sous-titre">Oser apprendre et évoluer</p>
+                        <p class="sous-titre">Oser apprendre et Ã©voluer</p>
                     </div>
                 </div>
                 <div class="d-flex header-utilisateur">
@@ -88,53 +96,74 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         
         <main>
             <div class="container conteneur-table bg-light p-5 mt-5">
-                <a href="" class="btn bouton-mauve mb-5">Ajouter une note de cours</a>
+                 <h4>Chercher notes de cours par nom : </h4>
+                <form action="notesDeCoursController" method="get"> 
+                    <input type="search" name="note">
+                    <input type="submit"  value="rechercher" />
+                </form>
+
+                
+                
+                
+                <a href="creationNotesCoursController" class="btn bouton-mauve mb-5">Ajouter une note de cours</a>
                 <table id="tableNotesCours" class="display">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                             <th>ID</th>
                             <th>Nom</th>
-                            <th>Cours</th>
-                            <th>Professeur auteur</th>
+                            <th>CoursID</th>
+                            <th>Lien</th>
                             <th>Modifier</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Notes de cours sur les DAOs</td>
-                            <td>Applications Web 2</td>
-                            <td>Dini Ahamada</td>
-                            <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Exemple d'une dissertation</td>
-                            <td>Littérature québécoise</td>
-                            <td>Patrick Lafrance</td>
-                            <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
+                                                <%  
+     if(tnotes!=null ){%>
+      <tr>
+      <td> <%=tnotes.getId() %> </td>
+  
+      <td> <%=tnotes.getNom() %> </td>
+     <td> <%=tnotes.getCoursID() %> </td>
+      <td> <%=tnotes.getLien() %> </td>
+      <td>
+            <a href="">
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
+                </svg>
+            </a>
+       </td>
+ 
+     </tr>
+   
+   <% }else{  %>
+                        <%  
+     for( NoteDeCours user : listeNotesCours){%>
+      <tr>
+      <td> <%=user.getId() %> </td>
+  
+      <td> <%=user.getNom() %> </td>
+     <td> <%=user.getCoursID() %> </td>
+      <td> <%=user.getLien() %> </td>
+      <td>
+            <a href="">
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
+                </svg>
+            </a>
+       </td>
+ 
+     </tr>
+   
+   <% } } %>
                     </tbody>
                 </table>
             </div>
             
         </main>
         <footer>
-            <p>&copy; 2023 Département de l'informatique</p>
+            <p>&copy; 2023 DÃ©partement de l'informatique</p>
         </footer>
     </body>
 </html>
