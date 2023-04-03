@@ -25,13 +25,14 @@ public class GestionUtilisateurImplDaoTest {
 
     public static void main(String[] args) {
 
-//        testFindAllEtudiants();
-        testFindAllCours();
+        testFindAllEtudiants();
+//        testFindAllCours();
         testFindAllProf();
 //        testFindAllProjets();
+//        testFindProjetById();
 //        testFindAllNotesDeCours();
-//        testFindAllVisiteurs();
-//        testFindAllAdministrateurs();
+        testFindAllVisiteurs();
+        testFindAllAdministrateurs();
 //        testFindNotesDeCoursById();
 //        testProfById();
 //        testFindEtudiantByRole();
@@ -233,7 +234,7 @@ public class GestionUtilisateurImplDaoTest {
         String reponse3 = lectureClavier.next();
         boolean dispo = reponse3.equals("oui") ? true : false;
 
-        utilisateur = new Etudiant(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse, ddn, role, formation, coursID, dispo);
+        utilisateur = new Etudiant(id, prenom, nom, email, profil, role, active, nomUtilisateur, motDePasse, ddn, formation, coursID, dispo);
 
         boolean result = instance.createEtudiant(utilisateur);
         if (result) {
@@ -386,6 +387,18 @@ public class GestionUtilisateurImplDaoTest {
         String role = lectureClavier.next();
         List<Etudiant> result = instance.findAllEtudiantsByDisponibilitéAndByRole(role, disponible);
         System.out.println(result.toString());
+    }
+    
+    public static void testFindProjetById() {
+        System.out.println("findProjetById");
+        int id = 0;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez l'id du projet : ");
+        Scanner lectureClavier = new Scanner(System.in);
+        id = lectureClavier.nextInt();
+        Projet result = instance.findProjetById(id);
+        System.out.println(result.toString());
+
     }
 
     public static void testFindNotesDeCoursByName() {

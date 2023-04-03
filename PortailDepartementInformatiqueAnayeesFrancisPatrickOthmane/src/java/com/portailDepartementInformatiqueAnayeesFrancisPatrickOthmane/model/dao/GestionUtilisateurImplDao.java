@@ -36,8 +36,10 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_SELECT_VISITEURS_PAR_NOM = "select * from visiteur where Nom=?";
     private static final String SQL_SELECT_VISITEURS_PAR_EMAIL = "select * from visiteur where Email=?";
     private static final String SQL_SELECT_COURS = "SELECT * FROM cours";
+    private static final String SQL_SELECT_COURS_PAR_ID = "SELECT * FROM cours where id=?";
     private static final String SQL_SELECT_COURS_PAR_NOMPROF = "SELECT * FROM cours JOIN professeur ON cours.ProfesseurID = professeur.ID WHERE professeur.nom = ?";
     private static final String SQL_SELECT_PROJET = "SELECT * FROM projet";
+    private static final String SQL_SELECT_NOTES_PAR_ID = "SELECT * FROM notes where id=?";
     private static final String SQL_SELECT_NOTES = "SELECT * FROM notesdecours";
     private static final String SQL_SELECT_NOTESCOURS_PAR_ID = "SELECT * FROM notesdecours where ID = ?";
     private static final String SQL_SELECT_NOTESCOURS_PAR_NOM = "SELECT * FROM notesdecours where Nom = ?";
@@ -45,7 +47,9 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_SELECT_NOTESCOURS_PAR_AUTHOR = "SELECT * FROM notesdecours JOIN cours ON notesdecours.coursID = cours.ID JOIN professeur ON cours.ProfesseurID = professeur.ID WHERE professeur.nom = ?";
     private static final String SQL_SELECT_PROFESSEURS = "SELECT * FROM professeur";
     private static final String SQL_SELECT_ETUDIANT_PAR_NOM = "select * from étudiant where Nom = ?";
+    private static final String SQL_SELECT_ETUDIANT_PAR_PRENOM_NOM = "select * from étudiant where Prénom = ? and Nom = ?";
     private static final String SQL_SELECT_PROJET_PAR_NOM = "select * from projet where Nom = ?";
+    private static final String SQL_SELECT_PROJET_PAR_ID = "select * from projet where ID = ?";
     private static final String SQL_SELECT_ETUDIANT_PAR_NOM_AND_ROLE = "select * from étudiant where Nom = ? and Role = ?";
     private static final String SQL_SELECT_ETUDIANT_PAR_EMAIL = "select * from étudiant where Email = ?";
     private static final String SQL_SELECT_ETUDIANT_PAR_COURS = "select * from étudiant where CoursID = ?";
@@ -63,6 +67,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
     private static final String SQL_UPDATE_ETUDIANT = "update étudiant set Prénom=?, Nom=?, Email=?, DDN=?, Active=?, Role=?, FormationComplétée=?, Profil=?, NomUtilisateur=?, MotDePasse=?, CoursID=?,Disponibilité=? where id=?";
     private static final String SQL_UPDATE_PROF = "update professeur set Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=? where id=?";
     private static final String SQL_UPDATE_VISITEUR = "update visiteur set Prénom=?, Nom=?, Email=?, Active=?, Profil=?, NomUtilisateur=?, MotDePasse=? where id=?";
+    private static final String SQL_UPDATE_PROJET = "update projet set Nom=?, Annee=?, ListeEquipe=?, Description=?, Video=?, LienGitlab=?, CoursID=?, ProfesseurID=?, NotesID=? where id=?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_ID = "select * from professeur where id = ?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_NOM = "select * from professeur where Nom = ?";
     private static final String SQL_SELECT_PROFESSEUR_PAR_EMAIL = "select * from professeur where Email = ?";
@@ -91,12 +96,26 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setEmail(result.getString("Email"));
                 utilisateur.setDdn(result.getDate("DDN"));
                 utilisateur.setActive(result.getBoolean("Active"));
+                
                 utilisateur.setRole(result.getString("Role"));
                 utilisateur.setFormationCompletee(result.getBoolean("FormationComplétée"));
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
                 listeEtudiants.add(utilisateur);
             };
@@ -137,7 +156,20 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
                 listeEtudiants.add(utilisateur);
             };
@@ -178,7 +210,19 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCours(result.getInt("CoursID"));
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
                 listeEtudiants.add(utilisateur);
             };
@@ -220,7 +264,20 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
                 listeEtudiants.add(utilisateur);
             };
@@ -264,10 +321,23 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
                 utilisateur.setDispoTutorat(result.getBoolean("Disponibilité"));
                 listeEtudiants.add(utilisateur);
-            };
+            }
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -320,15 +390,98 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 projet.setId(result.getInt("ID"));
                 projet.setNom(result.getString("Nom"));
                 projet.setAnnee(result.getInt("Annee"));
+//                projet.setListeEquipeProjet(result.getString("ListeEquipe").split(","));
+                String[] stringListeEquipe = result.getString("ListeEquipe").split(",");
+                Etudiant[] etudiantListeEquipe = new Etudiant[stringListeEquipe.length];
+                for (int i = 0; i < stringListeEquipe.length; i++) {
+                    String[] stringEtudiant = stringListeEquipe[i].split(" ");
+                    String prenom = stringEtudiant[0];
+                    String nom = stringEtudiant[1];
+                    PreparedStatement psEtud = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ETUDIANT_PAR_PRENOM_NOM);
+                    psEtud.setString(1, prenom);
+                    psEtud.setString(2, nom);
+                    ResultSet resultEtud = psEtud.executeQuery();
+                    while (resultEtud.next()) {
+                        Etudiant etudiant = new Etudiant();
+                        etudiant.setId(resultEtud.getInt("ID"));
+                        etudiant.setPrenom(resultEtud.getString("Prénom"));
+                        etudiant.setNom(resultEtud.getString("Nom"));
+                        etudiant.setEmail(resultEtud.getString("Email"));
+                        etudiant.setProfil(resultEtud.getString("Profil"));
+                        etudiant.setRole(resultEtud.getString("Role"));
+                        etudiant.setActive(resultEtud.getBoolean("Active"));
+                        etudiant.setNomUtilisateur(resultEtud.getString("NomUtilisateur"));
+                        etudiant.setMotDePasse(resultEtud.getString("MotDePasse"));
+                        etudiant.setDdn(resultEtud.getDate("DDN"));
+                        etudiant.setFormationCompletee(resultEtud.getBoolean("FormationComplétée"));
+                        int coursID = result.getInt("CoursID");
+                        PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                        ps1.setInt(1, coursID);
+                        ResultSet result1 = ps1.executeQuery();
+                        while (result1.next()) {
+                            Cours cours = new Cours();
+                            cours.setId(result1.getInt("ID"));
+                            cours.setNom(result1.getString("Nom"));
+                            cours.setCredits(result1.getInt("Crédits"));
+                            cours.setGroupe(result1.getInt("Groupe"));
+                            cours.setProfID(result1.getInt("ProfesseurID"));
+                            etudiant.setCours(cours);
+                        }
+                        etudiant.setDispoTutorat(resultEtud.getBoolean("Disponibilité"));
+                        etudiantListeEquipe[i] = etudiant;
+                    }
+                }
+                projet.setListeEquipeProjet(etudiantListeEquipe);
                 projet.setDescription(result.getString("Description"));
                 projet.setVideo(result.getString("Video"));
                 projet.setLienGitlab(result.getString("LienGitlab"));
-                projet.setCours((Cours)result.getObject("CoursID"));
-                projet.setProfesseur((Professeur)result.getObject("ProfesseurID"));
-                projet.setNotes((Notes)result.getObject("NotesID"));
+                
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    projet.setCours(cours);
+                }
+                
+                int professeurID = result.getInt("ProfesseurID");
+                PreparedStatement ps2 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROFESSEUR_PAR_ID);
+                ps2.setInt(1, professeurID);
+                ResultSet result2 = ps2.executeQuery();
+                while (result2.next()) {
+                    Professeur professeur = new Professeur();
+                    professeur.setId(result2.getInt("ID"));
+                    professeur.setPrenom(result2.getString("Prénom"));
+                    professeur.setNom(result2.getString("Nom"));
+                    professeur.setEmail(result2.getString("Email"));
+                    professeur.setRole(result2.getString("Role"));
+                    professeur.setActive(result2.getBoolean("Active"));
+                    professeur.setNomUtilisateur(result2.getString("NomUtilisateur"));
+                    professeur.setMotDePasse(result2.getString("MotDePasse"));
+                    projet.setProfesseur(professeur);
+                }
+                
+                int notesID = result.getInt("NotesID");
+                PreparedStatement ps3 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTES_PAR_ID);
+                ps3.setInt(1, notesID);
+                ResultSet result3 = ps3.executeQuery();
+                while (result3.next()) {
+                    Notes notes = new Notes();
+                    notes.setId(result3.getInt("ID"));
+                    notes.setNoteObtenue(result3.getInt("NoteObtenue"));
+                    notes.setSession(result3.getString("Session"));
+                    notes.setAnnee(result3.getDate("Année"));
+                    notes.setCommentaire(result3.getString("Commentaire"));
+                    projet.setNotes(notes);
+                }
                 listeProjet.add(projet);
-
-            };
+            }
         } catch (SQLException ex) {
             Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -393,7 +546,75 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
+
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Fermeture de toutes les ressources ouvertes
+        ConnexionBD.closeConnection();
+        return utilisateur;
+    }
+    
+    @Override
+    public Etudiant findEtudiantByPrenomNom(String prenom, String nom) {
+        Etudiant utilisateur = null;
+        try {
+
+            //Initialise la requête préparée basée sur la connexion
+            // la requête SQL passé en argument pour construire l'objet preparedStatement
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_ETUDIANT_PAR_PRENOM_NOM);
+            
+            ps.setString(1, prenom);
+            ps.setString(2, nom);
+            //On execute la requête et on récupère les résultats dans la requête 
+            // dans ResultSet
+            ResultSet result = ps.executeQuery();
+
+            //// la méthode next() pour se déplacer sur l'enregistrement suivant
+            //on parcours ligne par ligne les résultas retournés
+            while (result.next()) {
+                utilisateur = new Etudiant();
+                utilisateur.setId(result.getInt("id"));
+                utilisateur.setPrenom(result.getString("Prénom"));
+                utilisateur.setNom(result.getString("Nom"));
+                utilisateur.setEmail(result.getString("Email"));
+                utilisateur.setDdn(result.getDate("DDN"));
+                utilisateur.setActive(result.getBoolean("Active"));
+                utilisateur.setRole(result.getString("Role"));
+                utilisateur.setFormationCompletee(result.getBoolean("FormationComplétée"));
+                utilisateur.setProfil(result.getString("Profil"));
+                utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
+                utilisateur.setMotDePasse(result.getString("MotDePasse"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
+                
 
             };
         } catch (SQLException ex) {
@@ -433,7 +654,20 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
 
             };
         } catch (SQLException ex) {
@@ -473,7 +707,20 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
 
             };
         } catch (SQLException ex) {
@@ -514,7 +761,20 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 utilisateur.setProfil(result.getString("Profil"));
                 utilisateur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 utilisateur.setMotDePasse(result.getString("MotDePasse"));
-                utilisateur.setCoursId(result.getInt("CoursID"));
+//                utilisateur.setCoursId(result.getInt("CoursID"));
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    utilisateur.setCours(cours);
+                }
 
             };
         } catch (SQLException ex) {
@@ -538,14 +798,14 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
             ps.setString(2, utilisateur.getPrenom());
             ps.setString(3, utilisateur.getNom());
             ps.setString(4, utilisateur.getEmail());
-            ps.setDate(5, utilisateur.getDdn());
+            ps.setDate(5, (Date) utilisateur.getDdn());
             ps.setBoolean(6, utilisateur.isActive());
             ps.setString(7, utilisateur.getRole());
             ps.setBoolean(8, utilisateur.isFormationCompletee());
             ps.setString(9, utilisateur.getProfil());
             ps.setString(10, utilisateur.getNomUtilisateur());
             ps.setString(11, utilisateur.getMotDePasse());
-            ps.setInt(12, utilisateur.getCoursId());
+            ps.setInt(12, utilisateur.getCours().getId());
             ps.setBoolean(13, utilisateur.isDispoTutorat());
 
             nbLigne = ps.executeUpdate();
@@ -576,14 +836,14 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
             ps.setString(1, utilisateur.getPrenom());
             ps.setString(2, utilisateur.getNom());
             ps.setString(3, utilisateur.getEmail());
-            ps.setDate(4, utilisateur.getDdn());
+            ps.setDate(4, (Date) utilisateur.getDdn());
             ps.setBoolean(5, utilisateur.isActive());
             ps.setString(6, utilisateur.getRole());
             ps.setBoolean(7, utilisateur.isFormationCompletee());
             ps.setString(8, utilisateur.getProfil());
             ps.setString(9, utilisateur.getNomUtilisateur());
             ps.setString(10, utilisateur.getMotDePasse());
-            ps.setInt(11, utilisateur.getCoursId());
+            ps.setInt(11, utilisateur.getCours().getId());
             ps.setBoolean(12, utilisateur.isDispoTutorat());
             ps.setInt(13, utilisateur.getId());
             nbLigne = ps.executeUpdate();
@@ -818,6 +1078,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 professeur.setNom(result.getString("Nom"));
                 professeur.setEmail(result.getString("Email"));
                 professeur.setActive(result.getBoolean("Active"));
+                professeur.setRole(result.getString("Role"));
                 professeur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 professeur.setMotDePasse(result.getString("MotDePasse"));
                 listeProfesseurs.add(professeur);
@@ -1031,6 +1292,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 visiteur.setNom(result.getString("Nom"));
                 visiteur.setEmail(result.getString("Email"));
                 visiteur.setActive(result.getBoolean("Active"));
+                visiteur.setRole(result.getString("Role"));
                 visiteur.setNomUtilisateur(result.getString("NomUtilisateur"));
                 visiteur.setMotDePasse(result.getString("MotDePasse"));
                 listeVisiteurs.add(visiteur);
@@ -1137,6 +1399,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 admin.setPrenom(result.getString("Prénom"));
                 admin.setNom(result.getString("Nom"));
                 admin.setEmail(result.getString("Email"));
+                admin.setRole(result.getString("Role"));
                 admin.setNomUtilisateur(result.getString("NomUtilisateur"));
                 admin.setMotDePasse(result.getString("MotDePasse"));
                 listeAdmins.add(admin);
@@ -1225,6 +1488,163 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         }
         ConnexionBD.closeConnection();
         return listeNoteDeCours;
+    }
+
+    @Override
+    public Cours findCoursById(int id) {
+        Cours cours = null;
+        try {
+
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+            ps.setInt(1, id);
+            ResultSet result = ps.executeQuery();
+
+            while (result.next()) {
+                cours = new Cours();
+                cours.setId(result.getInt("id"));
+                cours.setNom(result.getString("Nom"));
+                cours.setCredits(result.getInt("Crédits"));
+                cours.setGroupe(result.getInt("Groupe"));
+                cours.setProfID(result.getInt("ProfesseurID"));
+
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ConnexionBD.closeConnection();
+        return cours;
+    }
+
+    @Override
+    public Notes findNotesById(int id) {
+        Notes notes = null;
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTES_PAR_ID);
+            ps.setInt(1, id);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                notes = new Notes();
+                notes.setId(result.getInt("ID"));
+                notes.setNoteObtenue(result.getInt("NoteObtenue"));
+                notes.setSession(result.getString("Session"));
+                notes.setAnnee(result.getDate("Année"));
+                notes.setCommentaire(result.getString("Commentaire"));
+
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ConnexionBD.closeConnection();
+        return notes;
+    }
+
+    @Override
+    public Projet findProjetById(int id) {
+        Projet projet = null;
+        try {
+            PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROJET_PAR_ID);
+            ps.setInt(1, id);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                projet = new Projet();
+                projet.setId(result.getInt("ID"));
+                projet.setNom(result.getString("Nom"));
+                projet.setAnnee(result.getInt("Annee"));
+                projet.setDescription(result.getString("Description"));
+                projet.setVideo(result.getString("Video"));
+                projet.setLienGitlab(result.getString("LienGitlab"));
+                
+                int coursID = result.getInt("CoursID");
+                PreparedStatement ps1 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS_PAR_ID);
+                ps1.setInt(1, coursID);
+                ResultSet result1 = ps1.executeQuery();
+                while (result1.next()) {
+                    Cours cours = new Cours();
+                    cours.setId(result1.getInt("ID"));
+                    cours.setNom(result1.getString("Nom"));
+                    cours.setCredits(result1.getInt("Crédits"));
+                    cours.setGroupe(result1.getInt("Groupe"));
+                    cours.setProfID(result1.getInt("ProfesseurID"));
+                    projet.setCours(cours);
+                }
+                
+                int professeurID = result.getInt("ProfesseurID");
+                PreparedStatement ps2 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_PROFESSEUR_PAR_ID);
+                ps2.setInt(1, professeurID);
+                ResultSet result2 = ps2.executeQuery();
+                while (result2.next()) {
+                    Professeur professeur = new Professeur();
+                    professeur.setId(result2.getInt("ID"));
+                    professeur.setPrenom(result2.getString("Prénom"));
+                    professeur.setNom(result2.getString("Nom"));
+                    professeur.setEmail(result2.getString("Email"));
+                    professeur.setRole(result2.getString("Role"));
+                    professeur.setActive(result2.getBoolean("Active"));
+                    professeur.setNomUtilisateur(result2.getString("NomUtilisateur"));
+                    professeur.setMotDePasse(result2.getString("MotDePasse"));
+                    projet.setProfesseur(professeur);
+                }
+                
+                int notesID = result.getInt("NotesID");
+                PreparedStatement ps3 = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_NOTES_PAR_ID);
+                ps3.setInt(1, notesID);
+                ResultSet result3 = ps3.executeQuery();
+                while (result3.next()) {
+                    Notes notes = new Notes();
+                    notes.setId(result3.getInt("ID"));
+                    notes.setNoteObtenue(result3.getInt("NoteObtenue"));
+                    notes.setSession(result3.getString("Session"));
+                    notes.setAnnee(result3.getDate("Année"));
+                    notes.setCommentaire(result3.getString("Commentaire"));
+                    projet.setNotes(notes);
+                }
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ConnexionBD.closeConnection();
+        return projet;
+    }
+
+    @Override
+    public boolean updateProjet(Projet projet) {
+        boolean retour = false;
+        int nbLigne = 0;
+        PreparedStatement ps;
+
+        try {
+
+            ps = ConnexionBD.getConnection().prepareStatement(SQL_UPDATE_PROJET);
+            ps.setString(1, projet.getNom());
+            ps.setInt(2, projet.getAnnee());
+            ps.setString(3, Arrays.toString(projet.getListeEquipeProjet()));
+            ps.setString(4, projet.getDescription());
+            ps.setString(5, projet.getVideo());
+            ps.setString(6, projet.getLienGitlab());
+            ps.setInt(7, projet.getCours().getId());
+            ps.setInt(8, projet.getProfesseur().getId());
+            ps.setInt(9, projet.getNotes().getId());
+            ps.setInt(10, projet.getId());
+            nbLigne = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            Logger.getLogger(GestionUtilisateurImplDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        if (nbLigne > 0) {
+            retour = true;
+        }
+        ConnexionBD.closeConnection();
+        return retour;
+    }
+
+    @Override
+    public boolean deleteProjet(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

@@ -15,6 +15,22 @@
         <servlet-name>SauvegardeProjetController</servlet-name>
         <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.SauvegardeProjetController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GestionProjetsController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.GestionProjetsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificationProjetController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ModificationProjetController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestionUtilisateursController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.GestionUtilisateursController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificationUtilisateurController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ModificationUtilisateurController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProjetsController</servlet-name>
         <url-pattern>/ProjetsController</url-pattern>
@@ -26,6 +42,22 @@
     <servlet-mapping>
         <servlet-name>SauvegardeProjetController</servlet-name>
         <url-pattern>/sauvegardeProjetController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionProjetsController</servlet-name>
+        <url-pattern>/gestionProjetsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificationProjetController</servlet-name>
+        <url-pattern>/modificationProjetController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionUtilisateursController</servlet-name>
+        <url-pattern>/gestionUtilisateursController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificationUtilisateurController</servlet-name>
+        <url-pattern>/modificationUtilisateurController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

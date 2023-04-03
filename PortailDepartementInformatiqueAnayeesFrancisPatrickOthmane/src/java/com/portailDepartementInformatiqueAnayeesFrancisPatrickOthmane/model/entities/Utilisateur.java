@@ -4,39 +4,31 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
+import java.util.Date;
+
 /**
  *
  * @author anayeesFrancisPatrickOthmane
  */
-public class  Utilisateur {
+public class Utilisateur {
     
     int id;
     String prenom;
     String nom;
-    String email;
-    String profil;
-    String role;
-    boolean active;
-    String nomUtilisateur;
-    String motDePasse;
-    
+    private String email;
+    private String profil;
+    private String role;
+    private boolean active;
+    private String nomUtilisateur;
+    private String motDePasse;
+    private Date ddn;
     
 
     public Utilisateur() {
     }
 
-    public Utilisateur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
+    public Utilisateur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
         this.id = id;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-        this.profil = profil;
-        this.active = active;
-        this.nomUtilisateur = nomUtilisateur;
-        this.motDePasse = motDePasse;
-    }
-    
-    public Utilisateur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
@@ -44,7 +36,43 @@ public class  Utilisateur {
         this.active = active;
         this.nomUtilisateur = nomUtilisateur;
         this.motDePasse = motDePasse;
+        this.ddn = ddn;
     }
+    
+    public Utilisateur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.role = role;
+        this.active = active;
+        this.nomUtilisateur = nomUtilisateur;
+        this.motDePasse = motDePasse;
+        this.ddn = ddn;
+    }
+
+    public Utilisateur(int id, String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
+        this.id = id;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.profil = profil;
+        this.role = role;
+        this.active = active;
+        this.nomUtilisateur = nomUtilisateur;
+        this.motDePasse = motDePasse;
+        this.ddn = ddn;
+    }
+    
+    public Utilisateur(String prenom, String nom) {
+        this.prenom = prenom;
+        this.nom = nom;
+    }
+    
+    public Utilisateur(int id) {
+        this.id = id;
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -116,6 +144,14 @@ public class  Utilisateur {
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
+    }
+
+    public Date getDdn() {
+        return ddn;
+    }
+
+    public void setDdn(Date ddn) {
+        this.ddn = ddn;
     }
 
          public String afficherTitreDesColonnes() {

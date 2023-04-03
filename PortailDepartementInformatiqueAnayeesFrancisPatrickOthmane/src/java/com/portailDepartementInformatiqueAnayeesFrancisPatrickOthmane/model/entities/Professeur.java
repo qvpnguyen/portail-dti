@@ -5,6 +5,7 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,16 +18,22 @@ public class Professeur extends Utilisateur{
 
     public Professeur() {
     }
-    
-    public Professeur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
-        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse);
-        this.notesDeCours = new ArrayList<>();
-        this.projets = new ArrayList<>();
+
+    public Professeur(List<NoteDeCours> notesDeCours, List<Projet> projets, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
+        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn);
+        this.notesDeCours = notesDeCours;
+        this.projets = projets;
     }
-    
-    public Professeur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
-        super(prenom, nom, email, role, active, nomUtilisateur, motDePasse);
-    }
+
+//    public Professeur(int id, String prenom, String nom, String email, String role, String profil, boolean active, String nomUtilisateur, String motDePasse) {
+//        super(id, prenom, nom, email, role, profil, active, nomUtilisateur, motDePasse);
+//        this.notesDeCours = new ArrayList<>();
+//        this.projets = new ArrayList<>();
+//    }
+//    
+//    public Professeur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse) {
+//        super(prenom, nom, email, role, active, nomUtilisateur, motDePasse);
+//    }
 
     public List<NoteDeCours> getNotesDeCours() {
         return notesDeCours;

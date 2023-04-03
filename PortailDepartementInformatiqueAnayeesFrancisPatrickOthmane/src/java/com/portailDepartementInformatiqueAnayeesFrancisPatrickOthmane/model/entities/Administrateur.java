@@ -4,6 +4,8 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
+import java.util.Date;
+
 /**
  *
  * @author anayeesFrancisPatrickOthmane
@@ -14,10 +16,11 @@ private GestionUtilisateur gestion ;
     public Administrateur() {
     }
 
-    public Administrateur(int id, String prenom, String nom, String email, String profil, boolean active, String nomUtilisateur, String motDePasse) {
-        super(id, prenom, nom, email, profil, active, nomUtilisateur, motDePasse);
+    public Administrateur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
+        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn);
         gestion = new GestionUtilisateur();
     }
+
     public void activer(int id ){
         
         

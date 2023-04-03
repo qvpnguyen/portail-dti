@@ -8,6 +8,7 @@ import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.enti
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Utilisateur;
@@ -45,6 +46,8 @@ public interface GestionUtilisateurDao {
     List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole(String role, boolean dispo);
     
     Etudiant findEtudiantById(int id);
+    
+    Etudiant findEtudiantByPrenomNom(String prenom, String nom);
 
     Etudiant findEtudiantByName(String nom);
 
@@ -78,11 +81,19 @@ public interface GestionUtilisateurDao {
 
     Projet findProjetByName(String nom);
     
+    Projet findProjetById(int id);
+    
     boolean createProjet(Projet projet);
+    
+    boolean updateProjet(Projet projet);
+    
+    boolean deleteProjet(int id);
     
     List<Cours> findAllCours();
     
     List<Cours> findAllCoursByNomProfesseur(String nomProfesseur);
+    
+    Cours findCoursById(int id);
 
     List<NoteDeCours> findAllNotesDeCours();
 
@@ -93,5 +104,7 @@ public interface GestionUtilisateurDao {
     List<NoteDeCours> findNotesDeCoursByCoursID(int coursID);
 
     List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);
+    
+    Notes findNotesById(int id);    
 
 }
