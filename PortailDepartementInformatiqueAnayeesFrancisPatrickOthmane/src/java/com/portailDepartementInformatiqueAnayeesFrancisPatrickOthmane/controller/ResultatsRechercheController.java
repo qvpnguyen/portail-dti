@@ -8,7 +8,6 @@ import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,33 +21,37 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Anayees
  */
-public class ProjetsController extends HttpServlet {
+public class ResultatsRechercheController extends HttpServlet {
 
-    private List<Projet> listeProjets = null;
     Projet projet = null;
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
-    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
-            throws jakarta.servlet.ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //Assignation du titre de la page à l'uri correspondant
         String pageName = "";
 
-        if (request.getRequestURI().endsWith("ProjetsController")) {
-            pageName = "Portail du département informatique - Ensemble des projets";
+        if (request.getRequestURI().endsWith("resultatsRechercheController")) {
+            pageName = "Portail du Département Informatique - Résultat(s) de votre recherche";
         } else if (pageName.isEmpty()) {
-            pageName = "Portail du département informatique - Ensemble des projets";
+            pageName = "Portail du Département Informatique - Résultat(s) de votre recherche";
         }
-
+        //System.out.println("Setting pageName to " + pageName);
         request.setAttribute("pageName", pageName);
-        //request.getRequestDispatcher("projets.jsp").include(request, response);
+        //System.out.println("pageName attribute set: " + request.getAttribute("pageName"));
 
-        //Affichage des projets
-        listeProjets = dao.findAllProjets();
-        System.out.println(listeProjets);
-        request.setAttribute("listeProjets", listeProjets);
-        request.getRequestDispatcher("projets.jsp").forward(request, response);
+        String query = request.getParameter("query");
+
+        if (query != null) {
+            projet = dao.findProjetByName(query);
+
+            request.setAttribute("results", projet);
+            request.getRequestDispatcher("resultatRecherche.jsp").forward(request, response);
+
+        }
+        
+        request.getRequestDispatcher("resultatRecherche.jsp").include(request, response);
 
     }
 

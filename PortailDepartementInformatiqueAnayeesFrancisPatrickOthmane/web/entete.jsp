@@ -56,12 +56,12 @@
                                 <img width="40" src="images/logo-omnivox.png" alt="Logo Omnivox" class="align-right"/>
                             </a>
                             <!-- La barre de recherche -->
-                            <form class="d-flex">
+                            <form class="d-flex" action="resultatsRechercheController" method="get">
                                 <svg class="mt-2" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.25 17.5C13.8063 17.5 17.5 13.8063 17.5 9.25C17.5 4.69365 13.8063 1 9.25 1C4.69365 1 1 4.69365 1 9.25C1 13.8063 4.69365 17.5 9.25 17.5Z" stroke="#3B4394" stroke-width="2" stroke-linecap="round"/>
                                 <path d="M15.6662 15.6663L23 23.0001" stroke="#3B4394" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
-                                <input class="form-control ms-2" type="search" placeholder="Recherche" aria-label="Recherche">
+                                <input class="form-control ms-2" type="search" placeholder="Recherche" name="query" aria-label="Recherche">
                             </form>
                         </div>
                     </div>

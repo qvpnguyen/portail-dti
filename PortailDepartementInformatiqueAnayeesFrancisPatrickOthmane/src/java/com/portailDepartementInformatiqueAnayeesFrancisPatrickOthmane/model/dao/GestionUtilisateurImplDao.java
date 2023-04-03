@@ -806,9 +806,21 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
                 projet.setDescription(result.getString("Description"));
                 projet.setVideo(result.getString("Video"));
                 projet.setLienGitlab(result.getString("LienGitlab"));
-                projet.setCours((Cours) result.getObject("CoursID"));
-                projet.setProfesseur((Professeur) result.getObject("ProfesseurID"));
-                projet.setNotes((Notes) result.getObject("NotesID"));
+                //projet.setCours((Cours) result.getObject("CoursID"));
+                //projet.setProfesseur((Professeur) result.getObject("ProfesseurID"));
+                //projet.setNotes((Notes) result.getObject("NotesID"));
+                
+                int coursId = result.getInt("CoursID");
+                Cours cours = this.findCoursById(coursId);
+                projet.setCours(cours);
+
+                int professeurId = result.getInt("ProfesseurID");
+                Professeur professeur = this.findProfById(professeurId);
+                projet.setProfesseur(professeur);
+
+                int notesId = result.getInt("NotesID");
+                Notes notes = this.findNoteById(notesId);
+                projet.setNotes(notes);
 
             };
         } catch (SQLException ex) {
@@ -1052,7 +1064,7 @@ public class GestionUtilisateurImplDao implements GestionUtilisateurDao {
         try {
 
             PreparedStatement ps = ConnexionBD.getConnection().prepareStatement(SQL_SELECT_COURS);
-
+                           
             ResultSet result = ps.executeQuery();
 
             listeCours = new ArrayList<>();
