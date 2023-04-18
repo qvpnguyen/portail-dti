@@ -17,7 +17,7 @@ public class Projet {
     private int id;
     private String nom;
     private int annee;
-    private Etudiant[] listeEquipeProjet;
+    private List<Etudiant> listeEquipeProjet;
     private String description;
     private String video;
     private String lienGitlab;
@@ -28,29 +28,32 @@ public class Projet {
     public Projet() {
     }
 
-    public Projet(String nom, int annee, Etudiant[] listeEquipeProjet, String description, String video, String lienGitlab, Cours cours, Professeur professeur) {
+
+    public Projet(String nom, int annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur) {
         this.nom = nom;
         this.annee = annee;
-        this.listeEquipeProjet = listeEquipeProjet;
         this.description = description;
         this.video = video;
         this.lienGitlab = lienGitlab;
         this.cours = cours;
         this.professeur = professeur;
         this.notes = null;
+        listeEquipeProjet = new ArrayList<>();
+
     }
 
-    public Projet(int id, String nom, int annee, Etudiant[] listeEquipeProjet, String description, String video, String lienGitlab, Cours cours, Professeur professeur, Notes notes) {
+    public Projet(int id, String nom, int annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur, Notes notes) {
         this.id = id;
         this.nom = nom;
         this.annee = annee;
-        this.listeEquipeProjet = listeEquipeProjet;
         this.description = description;
         this.video = video;
         this.lienGitlab = lienGitlab;
         this.cours = cours;
         this.professeur = professeur;
         this.notes = notes;
+        listeEquipeProjet = new ArrayList<>();
+
     }
 
     public int getId() {
@@ -77,11 +80,11 @@ public class Projet {
         this.annee = annee;
     }
 
-    public Etudiant[] getListeEquipeProjet() {
+    public List<Etudiant> getListeEquipeProjet() {
         return listeEquipeProjet;
     }
 
-    public void setListeEquipeProjet(Etudiant[] listeEquipeProjet) {
+    public void setListeEquipeProjet(List<Etudiant> listeEquipeProjet) {
         this.listeEquipeProjet = listeEquipeProjet;
     }
 
@@ -135,18 +138,18 @@ public class Projet {
 
     public String afficherTitreDesColonnes() {
         String message = "";
-        message = String.format(" %-10s  %30s %15s %30s %15s %15s %15s %15s %15s %25s ", "Id", "Nom", "Annee", "Liste etudiants", "Description", "Video","LienGitlab",
-                "Cours","Professeur","Notes");
-       message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
-       return message;
-    }
-  
-    @Override
-       public String toString() {
-         String message = "";
-       message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15s %25s ",this.id,this.nom, this.annee, Arrays.toString(this.listeEquipeProjet),this.description,this.video,
-                   this.lienGitlab, this.cours,this.professeur,this.notes); 
-       return message;
+        message = String.format(" %-10s  %30s %15s %30s %15s %15s %15s %15s %15s %25s ", "Id", "Nom", "Annee", "Liste etudiants", "Description", "Video", "LienGitlab",
+                "Cours", "Professeur", "Notes");
+        message += "\n --------------------------------------------------------------------------------------------------------------------------------------";
+        return message;
     }
 
+    @Override
+    public String toString() {
+        String message = "";
+        message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15s %25s ", this.id, this.nom, this.annee, this.listeEquipeProjet, this.description, this.video,
+                this.lienGitlab, this.cours, this.professeur, this.notes);
+        return message;
+    }
+    
 }

@@ -5,7 +5,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="dao" class="com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao" />
+
 <html>
     <head>
         <title>Projets - Portail du dÃ©partement de l'informatique</title>
@@ -34,15 +37,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <p>${projet.nom}</p>
                     </c:forEach>
                 </c:otherwise>
-            </c:choose> --%>
+            </c:choose> 
+            <c:forEach var="teacher" items="${listeProfesseurs}">
+                <p>${listeProfesseurs.nom}</p>
+            </c:forEach>--%>
+            <c:choose>
+                <c:when test="${empty listeProjets}">
+                    <p class="navbar-brand">Aucun résultat trouvé.</p>
+                </c:when>
+                <c:otherwise>
+                    <div class="container px-5">
+                        <h2 class="p-5 text-center">Ces ensembles des projets sont rÃ©alisÃ©s par des étudiants en informatique au cours de leur parcours scolaire qui témoignent de la créativité et de l'ingéniosité de la prochaine gÃ©nÃ©ration de dÃ©veloppeurs. GrÃ¢ce Ã  ces projets, les Ã©tudiants en informatique ont acquis une expÃ©rience pratique en dÃ©veloppement des applications de Web et se sont positionnÃ©s pour rÃ©ussir dans l'industrie technologique rapide et en constante Ã©volution.</h2>
 
-            <h2 class="p-5 text-center">Ces ensembles des projets sont rÃ©alisÃ©s par des étudiants en informatique au cours de leur parcours scolaire qui témoignent de la créativité et de l'ingéniosité de la prochaine gÃ©nÃ©ration de dÃ©veloppeurs. GrÃ¢ce Ã  ces projets, les Ã©tudiants en informatique ont acquis une expÃ©rience pratique en dÃ©veloppement des applications de Web et se sont positionnÃ©s pour rÃ©ussir dans l'industrie technologique rapide et en constante Ã©volution.</h2>
-            <div class="container px-5">
-                <c:choose>
-                    <c:when test="${empty listeProjets}">
-                        <p>Aucun projet trouvé.</p>
-                    </c:when>
-                    <c:otherwise>
                         <c:forEach var="projet" items="${listeProjets}" varStatus="status">
                             <c:if test="${status.index % 2 == 0}">
                                 <div class="rangee-projet row gx-5">
@@ -50,9 +56,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <div class="carte-video">
                                             <img class="video-projet" src="images/play-button-icon.png" alt="Jouer"/>
                                             <div class="conteneur-infos-projet">
-                                                <h4 class="mt-2">${projet.nom}</h4>
+                                                <a href="ProjetEtudiantsController?nomProjet=${projet.nom}"><h4 class="mt-2">${projet.nom}</h4></a>
                                                 <p><i>${projet.description}</i></p>
-                                                <p>Réalisé par: Anayees Sarkes, Francis Martel, Patrick Nguyen, Othmane Sedjari</p>
+                                                <ul>
+                                                    <c:forEach var="etudiant" items="${dao.findEtudiantsParProjet(projet.nom)}" varStatus="status">
+                                                        <li>${fn:toUpperCase(etudiant.nom)} ${fn:toUpperCase(etudiant.prenom)}</li>
+                                                    </c:forEach>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -74,9 +84,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <div class="carte-video">
                                             <img class="video-projet" src="images/play-button-icon.png" alt="Jouer"/>
                                             <div class="conteneur-infos-projet">
-                                                <h4 class="mt-2">${projet.nom}</h4>
+                                                <a href="ProjetEtudiantsController?nomProjet=${projet.nom}"><h4 class="mt-2">${projet.nom}</h4></a>
                                                 <p><i>${projet.description}</i></p>
-                                                <p>Réalisé par: Anayees Sarkes, Francis Martel, Patrick Nguyen, Othmane Sedjari</p>
+                                                <ul>
+                                                    <c:forEach var="etudiant" items="${dao.findEtudiantsParProjet(projet.nom)}" varStatus="status">
+                                                        <li>${fn:toUpperCase(etudiant.nom)} ${fn:toUpperCase(etudiant.prenom)}</li>
+                                                        </c:forEach>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>

@@ -4,6 +4,7 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -20,7 +21,7 @@ private GestionUtilisateur gestion ;
         this.gestion = new GestionUtilisateur();
     }
 
-    public Administrateur(GestionUtilisateur gestion, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String photo) {
+    public Administrateur(GestionUtilisateur gestion, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
         super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
         this.gestion = new GestionUtilisateur();
     }

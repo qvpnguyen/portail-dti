@@ -8,12 +8,15 @@ import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.enti
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Visiteur;
 import java.text.ParseException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,25 +26,24 @@ import java.util.Scanner;
  */
 public class GestionUtilisateurImplDaoTest {
 
-    public static void main(String[] args) {
-
-
-//        testFindAllEtudiants();
-//        testFindAllCours();
-        testFindAllProf();
-//        testFindAllProjets();
-//        testFindProjetById();
-//        testFindAllNotesDeCours();
-//        testFindAllVisiteurs();
-//        testFindAllAdministrateurs();
+    public static void main(String[] args) throws ParseException {
 
 //        testFindAllEtudiants();
 //        testFindAllCours();
 //        testFindAllProf();
 //        testFindAllProjets();
+//        testFindProjetById();
+//        testFindAllNotesDeCours();
+//        testFindAllVisiteurs();
+//        testFindAllAdministrateurs();
+//        testFindAllEtudiants();
+//        testFindAllCours();
+//        testFindAllProf();
+//        testfindProfByProjectName();
+//        testFindAllProjets();
 //        testFindAllNotesDeCours();
 //        testCreateNotes();
-        //testFindNotesDeCoursByName();
+//        testFindNotesDeCoursByName();
 //        testFindAllVisiteurs();
 //        testFindAllAdministrateurs();
 //        testFindNotesDeCoursById();
@@ -52,13 +54,11 @@ public class GestionUtilisateurImplDaoTest {
 //        testCreateEtudiant();
 //        testFindAllEtudiants();
 //        testDeleteEtudiant();
-
 //        testUpdateEtudiant();
-//    testFindAllEtudiantsByDisponibilitéAndByRole();
-//    testFindNotesDeCoursByName();
+//        testFindAllEtudiantsByDisponibilitéAndByRole();
+//        testFindNotesDeCoursByName();
 //        testCreateProf();
 //        testUpdateProf();
-
 //        testFindAllEtudiants();
 //        testFindAllCours();
 //        testFindAllProf();
@@ -71,16 +71,19 @@ public class GestionUtilisateurImplDaoTest {
 //        testFindAllCoursByNomProfesseur();
 //        testFindNotesDeCoursByCoursID();
 //        testFindNotesDeCoursByAuthor();
-        //testProfById();
-        //testFindEtudiantByRole();
-        //testFindEtudiantByName();
-        //testFindEtudiantById();
-        //testCreateEtudiant();
-        //testDeleteEtudiant();
-        //testFindAllEtudiants();
-        //testUpdateEtudiant();
-        testFindProjetByName();
-
+//        testProfById();
+//        testFindEtudiantByRole();
+//        testFindEtudiantByName();
+//        testFindEtudiantById();
+//        testCreateEtudiant();
+//        testDeleteEtudiant();
+//        testFindAllEtudiants();
+//        testUpdateEtudiant();
+//        testFindProjetByName();
+//        testCreateEtudiantProjet();
+//        testCreateProjet();
+//        testFindEtudiantsProjet();
+//        testFindAllProjetsByNomPrenomProf();
     }
 
     public static void testFindAllEtudiants() {
@@ -132,7 +135,7 @@ public class GestionUtilisateurImplDaoTest {
             System.out.println(projet.toString());
         }
     }
-    
+
     public static void testFindProjetByName() {
         System.out.println("FindProjetByName");
         String nom = "";
@@ -268,7 +271,6 @@ public class GestionUtilisateurImplDaoTest {
 //        }
 //
 //    }
-
 //    public static void testUpdateEtudiant() {
 //        System.out.println("updateEtudiant");
 //        Etudiant etudiant = null;
@@ -330,7 +332,6 @@ public class GestionUtilisateurImplDaoTest {
 //            System.out.println("L'étudiant.e dont l'id est " + id + " n'existe pas dans la base de données");
 //        }
 //    }
-
     public static void testDeleteEtudiant() {
         System.out.println("deleteEtudiant");
         int id = 0;
@@ -357,7 +358,22 @@ public class GestionUtilisateurImplDaoTest {
         System.out.println(result.toString());
 
     }
-    
+
+    public static void testfindProfByProjectName() {
+
+        System.out.println("findProfByProjectName");
+        String nomProjet = "";
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+        System.out.println("Entrez le nom du projet : ");
+
+        Scanner lectureClavier = new Scanner(System.in);
+        nomProjet = lectureClavier.next();
+        Professeur expResult = null;
+        Professeur result = instance.findProfByProjectName(nomProjet);
+        System.out.println(result.toString());
+
+    }
+
     public static void testFindCoursById() {
         System.out.println("findCoursById");
         int id = 0;
@@ -402,7 +418,6 @@ public class GestionUtilisateurImplDaoTest {
 //            System.out.println("insertion echec ");
 //        }
 //    }
-
     public static void testUpdateProf() {
         System.out.println("updateProf");
         Professeur utilisateur = null;
@@ -424,7 +439,7 @@ public class GestionUtilisateurImplDaoTest {
         List<Etudiant> result = instance.findAllEtudiantsByDisponibilitéAndByRole(role, disponible);
         System.out.println(result.toString());
     }
-    
+
     public static void testFindProjetById() {
         System.out.println("findProjetById");
         int id = 0;
@@ -469,7 +484,6 @@ public class GestionUtilisateurImplDaoTest {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Erreur: Le nom du professeur n'existe pas.");
         }
-
     }
 
     public static void testFindNotesDeCoursByCoursID() {
@@ -488,7 +502,6 @@ public class GestionUtilisateurImplDaoTest {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Erreur: L'id du cours n'existe pas.");
         }
-
     }
 
     public static void testFindNotesDeCoursByAuthor() {
@@ -501,14 +514,33 @@ public class GestionUtilisateurImplDaoTest {
             List<NoteDeCours> expResult = null;
             NoteDeCours result = instance.findNotesDeCoursByName(professeurAuteur);
             System.out.println(result.afficherTitreDesColonnes());
-            
-                System.out.println(result.toString());
-            
+
+            System.out.println(result.toString());
+
         } catch (Exception e) {
             System.out.println("Erreur: Le nom du professeur n'existe pas.");
         }
     }
- public static void testCreateNotes() {
+
+    public static void testFindEtudiantsProjet() {
+        System.out.println("testFindEtudiantsProjet");
+        try {
+            Scanner lectureClavier = new Scanner(System.in);
+            System.out.println("Entrez le nom du projet ");
+            String nomProjet = lectureClavier.next();
+            GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+            List<Etudiant> result = instance.findEtudiantsParProjet(nomProjet);
+
+            for (Etudiant etudiant : result) {
+                System.out.println(etudiant.toString());
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erreur: Le nom du professeur n'existe pas.");
+        }
+    }
+
+    public static void testCreateNotes() {
         System.out.println("createNotes");
         NoteDeCours notes = null;
         GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
@@ -521,14 +553,103 @@ public class GestionUtilisateurImplDaoTest {
         String nom = lectureClavier.next();
         System.out.println("Entrez le coursId : ");
         int coursId = lectureClavier.nextInt();
-        
-        notes = new NoteDeCours(Lien,coursId,nom);
 
-        boolean result = instance.createNotesDeCours(notes);
+//        notes = new NoteDeCours(Lien, coursId, nom);
+//
+//        boolean result = instance.createNotesDeCours(notes);
+//        if (result) {
+//            System.out.println("insertion reussite");
+//        } else {
+//            System.out.println("insertion echec ");
+//        }
+    }
+
+    public static void testCreateEtudiantProjet() {
+        System.out.println("create role");
+        Etudiant etudiant = null;
+        //  Role role = null;
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+
+        Scanner lectureClavier = new Scanner(System.in);
+        System.out.println("Entrez le DA");
+        int id = lectureClavier.nextInt();
+
+        System.out.println("Choisir entre admin, vendeur, editeur, expediteur et assistant");
+        String projetEtudiant = lectureClavier.next();
+        String projetEtud = projetEtudiant.toLowerCase();
+
+        boolean result = instance.createEtudiantProjet(id, projetEtud);
         if (result) {
-            System.out.println("insertion reussite");
+            System.out.println("L'utilisateur est mis à jour ");
         } else {
-            System.out.println("insertion echec ");
+            System.out.println("Echec de mis à jour ");
         }
+    }
+
+    public static void testCreateProjet() {
+        System.out.println("createProjet");
+        Projet projet = null;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Entrez le nom du projet: ");
+        String nomProjet = "Pendu";
+
+        System.out.println("Entrez l'année du projet: ");
+        int annee = 2023;
+
+        System.out.println("Entrez la description du projet: ");
+        String description = "Jeu de Pendu";
+
+        System.out.println("Entrez le id du professeur: ");
+        Professeur prof = new Professeur();
+        prof.setId(1);
+
+//        System.out.println("Entrez la note: ");
+//        Notes note = new Notes();
+//        note.setId(3);
+        System.out.println("Entrez le cours: ");
+        Cours cours = new Cours();
+        cours.setId(2);
+
+        System.out.println("Entrez video: ");
+        String video = "www.video.com";
+
+        System.out.println("Entrez lienGit");
+        String git = "www.gitlab.com";
+
+        GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+
+        projet = new Projet(nomProjet, annee, description, video, git, cours, prof);
+        boolean expResult = false;
+        boolean result = instance.createProjet(projet);
+
+        if (result) {
+            System.out.println("Le projet a été ajouté");
+        } else {
+            System.out.println("Echec de mis à jour ");
+        }
+
+    }
+
+    public static void testFindAllProjetsByNomPrenomProf() {
+        System.out.println("findAllProjetsByNomPrenomProf");
+        try {
+
+            String nomProf = "";
+            System.out.println("Entrez le nom du prof: ");
+            Scanner sc = new Scanner(System.in);
+            nomProf = sc.next();
+
+            GestionUtilisateurImplDao instance = new GestionUtilisateurImplDao();
+            List<Projet> expResult = null;
+            List<Projet> result = instance.findAllProjetsByNomPrenomProf(nomProf);
+
+            for (Projet projet : result) {
+                System.out.println(projet.toString());
+            }
+        } catch (Exception e) {
+            System.out.println("Le nom du prof n'existe pas");
+        }
+
     }
 }

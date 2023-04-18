@@ -54,7 +54,9 @@ header {
 }
 
 .logo-college {
-    width: 15%;
+    width: 60px;
+    height: 80px;
+    margin-top: 20px;
 }
 
 .titre {
@@ -67,6 +69,7 @@ header {
 header .sous-titre {
     font-size: 0.75rem;
     bottom: 0;
+
 }
 
 header .header-utilisateur {
@@ -120,6 +123,81 @@ header p {
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+/* Style for active SVG icon */
+.active-svg-icon {
+    fill: #3B4394;
+}
+
+/* Style for dropdown list */
+.dropdown {
+    border-radius: 12px;
+    position: absolute;
+    top: 70px;
+    right: 100px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+.dropdown.active {
+    display: block;
+    height: 520px;
+    width: 500px;
+}
+
+.dropdown-list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.dropdown-list li {
+    padding: 10px;
+    cursor: pointer;
+    color: #3B4394;
+}
+
+.filtre-icon {
+    cursor: pointer;
+}
+
+/* --------- Section logo utilisateur ---------- */
+
+.my-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-svg {
+  width: 30px;
+  height: 30px;
+  fill: #4CAF50;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.show {
+  display: block;
 }
 
 /* --------- Section principale (Main) (gradient pour pages courtes) ----------- */
@@ -196,7 +274,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 
 /* --------- Classes pour les boîtes (cartes) de vidéo et la description de projets sur la page visiteur ----------- */
 .rangee-projet {
-    
+
     margin-top: 100px;
     padding: 3rem 0;
 }
@@ -309,18 +387,18 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
     display: flex;
     justify-content: space-evenly;
     padding-top: 60px;
-/*    margin: 0 250px 60px 250px;*/
+    /*    margin: 0 250px 60px 250px;*/
 
 }
 
 /* --------- Classes pour les boîtes (cartes) de fonctionnalités sur la page projets ----------- */
 
 hr {
-  height: 4px;
-  border-width: 0;
-  background-color: black;
-  margin: 10px auto;
-  width: 50%;
+    height: 4px;
+    border-width: 0;
+    background-color: black;
+    margin: 10px auto;
+    width: 50%;
 }
 
 .note-police{
@@ -337,3 +415,14 @@ hr {
     margin-top: 30px;
     text-align: center;
 }
+
+
+/*.dropdown-list li:hover {
+    background-color: #3B4394;
+    color: #fff;
+}*/
+
+/*.form-filtrage {
+    height: 100px;
+    width: 50px;
+}*/

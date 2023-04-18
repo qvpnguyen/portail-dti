@@ -4,8 +4,12 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,17 +25,36 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class ProfesseurController extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
+    private List<Professeur> listeProfesseurs;
+    Professeur prof = null;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         String pageName = "";
+        String pagePrincipale = "";
 
-        if (request.getRequestURI().endsWith("professeurController")) {
-            pageName = "Portail du département informatique - Professeur";
-        } 
-
+        if (request.getRequestURI().endsWith("professeurController")){
+            pageName = "Portail du Département Informatique - Professeur";
+        }
+        //System.out.println("Setting pageName to " + pageName);
         request.setAttribute("pageName", pageName);
+        //System.out.println("pageName attribute set: " + request.getAttribute("pageName"));
+//        if (request.getRequestURI().endsWith("EtudiantController")){
+//            pagePrincipale = request.getRequestDispatcher("etudiant.jsp").include(request, response);
+//        }
+        
         request.getRequestDispatcher("professeur.jsp").include(request, response);
     }
 

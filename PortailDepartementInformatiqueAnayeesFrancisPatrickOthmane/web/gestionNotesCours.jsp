@@ -56,32 +56,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
 
                 <a href="creationNotesCoursController" class="btn bouton-mauve mb-5">Ajouter une note de cours</a>
+
                 <table id="tableNotesCours" class="display">
+                    <% if (request.getAttribute("message") != null) {%>
+                    <center><b><font color=red> <%=request.getAttribute("message")%></font></b></center>
+                            <%}%>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
-                            <th>CoursID</th>
+                            <th>Cours</th>
                             <th>Lien</th>
-                            <th>Modifier</th>
+                            <th>Supprimer</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                                                    if (tnotes != null) {%>
+                            if (tnotes != null && !tnotes.equals("")) {%>
                         <tr>
                             <td> <%=tnotes.getId()%> </td>
 
                             <td> <%=tnotes.getNom()%> </td>
-                            <td> <%=tnotes.getCoursID()%> </td>
+                            <td> <%=tnotes.getCours().getNom()%> </td>
                             <td> <%=tnotes.getLien()%> </td>
                             <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
+                                <form method="get" action="notesDeCoursController">
+                                    <input type="hidden" name="supprimerNoteDeCours" value="<%= tnotes.getId()%>">
+                                    <button type="submit">
+                                        <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 8.94444L2.39757 18.7662C2.68429 20.7829 2.82829 21.7924 3.55471 22.3962C4.28243 23 5.35214 23 7.49414 23H12.5059C14.6479 23 15.7189 23 16.4453 22.3962C17.1717 21.7924 17.3157 20.7829 17.6024 18.7662L19 8.94444M6.14286 4.66667C6.14286 3.52756 6.14286 2.958 6.33829 2.50944C6.46752 2.21267 6.65701 1.94301 6.89593 1.71588C7.13485 1.48876 7.41852 1.30863 7.73071 1.18578C8.20257 1 8.80171 1 10 1C11.1983 1 11.7974 1 12.2693 1.18578C12.5815 1.30863 12.8651 1.48876 13.1041 1.71588C13.343 1.94301 13.5325 2.21267 13.6617 2.50944C13.8571 2.958 13.8571 3.52756 13.8571 4.66667M19 4.66667H1M6.78571 9.55556L7.42857 18.7222M13.2143 9.55556L12.5714 18.7222" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </form>
                             </td>
 
                         </tr>
@@ -93,21 +99,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             <td> <%=user.getId()%> </td>
 
                             <td> <%=user.getNom()%> </td>
-                            <td> <%=user.getCoursID()%> </td>
+                            <td> <%=user.getCours().getNom()%> </td>
                             <td> <%=user.getLien()%> </td>
                             <td>
-                                <a href="">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                    </svg>
-                                </a>
+                                <form method="get" action="notesDeCoursController">
+                                    <input type="hidden" name="supprimerNoteDeCours" value="<%= user.getId()%>">
+                                    <button type="submit">
+                                        <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 8.94444L2.39757 18.7662C2.68429 20.7829 2.82829 21.7924 3.55471 22.3962C4.28243 23 5.35214 23 7.49414 23H12.5059C14.6479 23 15.7189 23 16.4453 22.3962C17.1717 21.7924 17.3157 20.7829 17.6024 18.7662L19 8.94444M6.14286 4.66667C6.14286 3.52756 6.14286 2.958 6.33829 2.50944C6.46752 2.21267 6.65701 1.94301 6.89593 1.71588C7.13485 1.48876 7.41852 1.30863 7.73071 1.18578C8.20257 1 8.80171 1 10 1C11.1983 1 11.7974 1 12.2693 1.18578C12.5815 1.30863 12.8651 1.48876 13.1041 1.71588C13.343 1.94301 13.5325 2.21267 13.6617 2.50944C13.8571 2.958 13.8571 3.52756 13.8571 4.66667M19 4.66667H1M6.78571 9.55556L7.42857 18.7222M13.2143 9.55556L12.5714 18.7222" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </form>
                             </td>
 
                         </tr>
 
                         <% }
-       }%>
+                            }%>
                     </tbody>
                 </table>
             </div>

@@ -5,18 +5,22 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-//import jakarta.servlet.ServletException;
-//import jakarta.servlet.http.HttpServlet;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+//import javax.servlet.ServletException;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -25,12 +29,19 @@ import javax.servlet.http.HttpServletResponse;
 public class ProjetsController extends HttpServlet {
 
     private List<Projet> listeProjets = null;
-    Projet projet = null;
+    private Projet projet = null;
+    private List<Professeur> listeProfesseurs = null;
+    private List<Cours> listeCours = null;
+
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        String[] profsChoisi = request.getParameterValues("professeurs");
+        String[] coursChoisi = request.getParameterValues("cours");
+        String[] anneeChoisi = request.getParameterValues("annee");
 
         //Assignation du titre de la page à l'uri correspondant
         String pageName = "";
@@ -42,14 +53,51 @@ public class ProjetsController extends HttpServlet {
         }
 
         request.setAttribute("pageName", pageName);
-        //request.getRequestDispatcher("projets.jsp").include(request, response);
 
-        //Affichage des projets
         listeProjets = dao.findAllProjets();
-        System.out.println(listeProjets);
-        request.setAttribute("listeProjets", listeProjets);
+        listeCours = dao.findAllCours();
+        listeProfesseurs = dao.findAllProfesseurs();
+
+        if (listeProjets != null) {
+            request.setAttribute("listeProjets", listeProjets);
+
+        }
+
+        if (listeCours != null) {
+            request.setAttribute("listeCours", listeCours);
+
+        }
+
+        if (listeProfesseurs != null) {
+            request.setAttribute("listeProfesseurs", listeProfesseurs);
+        }
+
+        if (profsChoisi != null) {
+            for (String professor : profsChoisi) {
+                listeProjets = dao.findAllProjetsByNomPrenomProf(professor);
+                request.setAttribute("listeProjets", listeProjets);
+
+            }
+        }
+
+        if (coursChoisi != null) {
+            for (String cours : coursChoisi) {
+                listeProjets = dao.findAllProjetsByNomCours(cours);
+                request.setAttribute("listeProjets", listeProjets);
+            }
+        }
+
+        if (anneeChoisi != null) {
+            for (String annee : anneeChoisi) {
+                listeProjets = dao.findAllProjetsByAnnee(Integer.parseInt(annee));
+                request.setAttribute("listeProjets", listeProjets);
+            }
+        }
+
         request.getRequestDispatcher("projets.jsp").forward(request, response);
 
+        //listeCours = dao.findAllCoursByNomProfesseur(cours);
+        //request.getRequestDispatcher("projets.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

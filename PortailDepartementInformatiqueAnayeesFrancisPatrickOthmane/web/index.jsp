@@ -3,9 +3,10 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
-        <title>Bienvenue au Portail du d�partement de l'informatique</title>
+        <title>Bienvenue au Portail du département de l'informatique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Inclusion des fichiers Bootstrap -->
@@ -23,41 +24,49 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <div class="container d-flex justify-content-center">
                 <div class="entete-logo">
                     <div class="d-flex justify-content-between">
-                        <img class="logo-college-agrandi py-3" src="images/logo-rosemont.png" alt="Logo du Collège de Rosemont"/>
+                        <img class="logo-college-agrandi py-3" src="images/logo-rosemont.png" alt="Logo du CollÃ¨ge de Rosemont"/>
                         <div class="mt-4">
                             <h1 class="titre-agrandi">Ed.<br>volution</h1>
-                            <p class="sous-titre-agrandi">Oser apprendre et �voluer</p>
+                            <p class="sous-titre-agrandi">Oser apprendre et évoluer</p>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-
+        
         <main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
             <div class="container px-5 d-flex justify-content-center">
+              
                 <div class="row">
                     <div class="boite-login">
-                        <form action="" method="post">
+                            <% if( request.getAttribute("invalide")!=null) { %>
+                      <center><b><font color=red> <%=request.getAttribute("invalide")  %></font></b></center>
+               <%}%>
+                      <br>
+                      <% if( request.getAttribute("deconnexion")!=null) { %>
+                      <center><b><font color=red> <%=request.getAttribute("deconnexion")  %></font><b></center>
+               <%}%>
+                        <form action="connexionController" method="get">
                             <div class="d-flex justify-content-center">
                                 <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnetudiant" autocomplete="off" checked>
-                                    <label class="btn btn-outline-dark" for="btnetudiant">�tudiant</label>
+                                    <input type="radio" class="btn-check" name="btnradio" value="btnetudiant" id="btnetudiant" autocomplete="off" checked>
+                                    <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnprofesseur" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="btnradio" value="btnprofesseur" id="btnprofesseur" autocomplete="off">
                                     <label class="btn btn-outline-dark" for="btnprofesseur">Professeur</label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnvisiteur" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="btnradio" value="btnvisiteur" id="btnvisiteur" autocomplete="off">
                                     <label class="btn btn-outline-dark" for="btnvisiteur">Visiteur</label>
                                 </div>
                             </div>
                             <div class="col-8 mx-5">
                                 <div class="form-group my-5">
                                     <label for="nomUtilisateur">Nom d'utilisateur:</label>
-                                    <input type="text" class="form-control" id="nomUtilisateur" placeholder="Entrez votre nom d'utilisateur">
+                                    <input type="text" class="form-control" name = "nomUtilisateur" id="nomUtilisateur" placeholder="Entrez votre nom d'utilisateur">
                                 </div>
                                 <div class="form-group my-5">
                                     <label for="motDePasse">Mot de passe:</label>
-                                    <input type="password" class="form-control" id="motDePasse" placeholder="Entrez votre mot de passe">
+                                    <input type="password" class="form-control" name="motDePasse" id="motDePasse" placeholder="Entrez votre mot de passe">
                                 </div>
                             </div>
                             <div class="text-center">
@@ -65,13 +74,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             </div>
                         </form>
                         <div class="text-center mt-4">
-                            <p><a href="/projets" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
-                            <p>Pas de compte? <a href="inscription.html" class="text-dark">Cliquez ici</a></p>
+                            <p><a href="ProjetsController" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
+                            <p>Pas de compte? <a href="inscription.jsp" class="text-dark">Cliquez ici</a></p>
                         </div>              
                     </div>
                 </div>
             </div>
         </main>
-        <jsp:include page="/pied.jsp"/>
+        <footer>
+            <p>&copy; 2023 Département de l'informatique</p>
+        </footer>
     </body>
 </html>

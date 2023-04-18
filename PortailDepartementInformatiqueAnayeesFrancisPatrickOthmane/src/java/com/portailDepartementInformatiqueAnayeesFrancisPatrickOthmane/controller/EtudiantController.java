@@ -35,12 +35,16 @@ public class EtudiantController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String pageName = "";
 
-         if (request.getRequestURI().endsWith("EtudiantController")){
+        if (request.getRequestURI().endsWith("EtudiantController")){
             pageName = "Portail du Département Informatique - Étudiant";
         }
         //System.out.println("Setting pageName to " + pageName);
         request.setAttribute("pageName", pageName);
         //System.out.println("pageName attribute set: " + request.getAttribute("pageName"));
+//        if (request.getRequestURI().endsWith("EtudiantController")){
+//            pagePrincipale = request.getRequestDispatcher("etudiant.jsp").include(request, response);
+//        }
+        
         request.getRequestDispatcher("etudiant.jsp").include(request, response);
 
     }

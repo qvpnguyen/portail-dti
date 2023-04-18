@@ -7,6 +7,7 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Administrateur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.EtudiantProjet;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author anayeesFrancisPatrickOthmane
  */
 public interface GestionUtilisateurDao {
-    
+
     List<Visiteur> findAllVisiteurs();
 
     Visiteur findVisiteurById(int id);
@@ -27,13 +28,13 @@ public interface GestionUtilisateurDao {
     Visiteur findVisiteurByName(String nom);
 
     Visiteur findVisiteurByEmail(String email);
-    
-    boolean createVisiteur(Visiteur visiteur);   
+
+    boolean createVisiteur(Visiteur visiteur);
 
     boolean updateVisiteur(Visiteur visiteur);
 
     boolean deleteVisiteur(int id);
-    
+
     List<Etudiant> findAllEtudiants();
 
     List<Etudiant> findAllEtudiantsByRole(String nom);
@@ -43,9 +44,9 @@ public interface GestionUtilisateurDao {
     List<Etudiant> findAllEtudiantsByDisponibilité(boolean dispo);
 
     List<Etudiant> findAllEtudiantsByDisponibilitéAndByRole(String role, boolean dispo);
-    
+
     Etudiant findEtudiantById(int id);
-    
+
     Etudiant findEtudiantByPrenomNom(String prenom, String nom);
 
     Etudiant findEtudiantByName(String nom);
@@ -53,25 +54,27 @@ public interface GestionUtilisateurDao {
     Etudiant findEtudiantByEmail(String email);
 
     Etudiant findEtudiantByRole(String prenom, String nom, String role);
-    
+
     boolean createEtudiant(Etudiant etudiant);
-    
+
     boolean updateEtudiant(Etudiant etudiant);
-    
+
     boolean deleteEtudiant(int id);
-    
+
     List<Professeur> findAllProfesseurs();
-    
+
     Professeur findProfById(int id);
 
     Professeur findProfByName(String nom);
 
     Professeur findProfByEmail(String email);
-    
+
+    Professeur findProfByProjectName(String nomProjet);
+
     boolean createProf(Professeur prof);
-    
+
     boolean updateProf(Professeur prof);
-    
+
     boolean deleteProf(int id);
 
     List<Administrateur> findAllAdmins();
@@ -79,37 +82,63 @@ public interface GestionUtilisateurDao {
     List<Projet> findAllProjets();
 
     Projet findProjetByName(String nom);
-    
+
     Projet findProjetById(int id);
-    
+
     boolean createProjet(Projet projet);
-    
+
     boolean updateProjet(Projet projet);
-    
+
     boolean deleteProjet(int id);
-    
+
+    List<Projet> findAllProjetsByNomPrenomProf(String nomProf);
+
+    List<Projet> findAllProjetsByNomCours(String nomCours);
+
+    List<Projet> findAllProjetsByAnnee(int annee);
+
     List<Cours> findAllCours();
-    
+
     Cours findCoursById(int id);
-    
+
     List<Cours> findAllCoursByNomProfesseur(String nomProfesseur);
 
+    boolean createNotes(Notes note);
+
+    boolean deleteNotes(Notes utilisateur);
+
     List<Notes> findAllNotes();
-    
+
     Notes findNoteById(int id);
+
+    Notes findNoteByProjet(String nomProjet);
+
+    boolean updateNoteObtenue(Notes utilisateur);
 
     List<NoteDeCours> findAllNotesDeCours();
 
     NoteDeCours findNotesDeCoursById(int id);
-    
+
     NoteDeCours findNotesDeCoursByName(String nom);
-    
+
     List<NoteDeCours> findNotesDeCoursByCoursID(int coursID);
 
-    List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);  
+    List<NoteDeCours> findNotesDeCoursByAuthor(String professeurAuteur);
 
     boolean createNotesDeCours(NoteDeCours notes);
-    
-   
+
+    boolean deleteNotesDeCours(NoteDeCours utilisateur);
+
+    boolean createEtudiantProjet(int etudiant, String nomProjet);
+
+    List<Etudiant> findEtudiantsParProjet(String nomProjet);
+
+    Administrateur existsByEmailAndPasswordAdmin(String email, String motDePasse);
+
+    Visiteur existsByEmailAndPasswordVisiteur(String email, String motDePasse);
+
+    Professeur existsByEmailAndPasswordProf(String email, String motDePasse);
+
+    Etudiant existsByEmailAndPasswordEtudiant(String email, String motDePasse);
 
 }

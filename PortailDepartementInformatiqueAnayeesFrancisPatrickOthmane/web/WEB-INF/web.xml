@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <welcome-file-list>
-        <welcome-file>resultatsRechercheController</welcome-file>
+        <welcome-file>connexionController</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>ProjetsController</servlet-name>
@@ -32,6 +32,14 @@
         <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ModificationUtilisateurController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ResultatsRechercheController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ResultatsRechercheController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProjetEtudiantsController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ProjetEtudiantsController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ProfesseurController</servlet-name>
         <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ProfesseurController</servlet-class>
     </servlet>
@@ -44,8 +52,32 @@
         <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.CreationNotesCoursController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResultatsRechercheController</servlet-name>
-        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ResultatsRechercheController</servlet-class>
+        <servlet-name>NotesController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.NotesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificationNotesController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ModificationNotesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConnexionController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.ConnexionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreationNotesController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.CreationNotesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestionProfesseurController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.GestionProfesseurController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NotesDeCoursEtudiantController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.NotesDeCoursEtudiantController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeconnexionController</servlet-name>
+        <servlet-class>com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller.DeconnexionController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProjetsController</servlet-name>
@@ -76,6 +108,14 @@
         <url-pattern>/modificationUtilisateurController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ResultatsRechercheController</servlet-name>
+        <url-pattern>/resultatsRechercheController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProjetEtudiantsController</servlet-name>
+        <url-pattern>/ProjetEtudiantsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ProfesseurController</servlet-name>
         <url-pattern>/professeurController</url-pattern>
     </servlet-mapping>
@@ -88,8 +128,32 @@
         <url-pattern>/creationNotesCoursController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ResultatsRechercheController</servlet-name>
-        <url-pattern>/resultatsRechercheController</url-pattern>
+        <servlet-name>NotesController</servlet-name>
+        <url-pattern>/notesController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificationNotesController</servlet-name>
+        <url-pattern>/modificationNotesController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnexionController</servlet-name>
+        <url-pattern>/connexionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreationNotesController</servlet-name>
+        <url-pattern>/creationNotesController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionProfesseurController</servlet-name>
+        <url-pattern>/gestionProfesseurController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NotesDeCoursEtudiantController</servlet-name>
+        <url-pattern>/notesDeCoursEtudiantController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeconnexionController</servlet-name>
+        <url-pattern>/deconnexionController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
