@@ -4,6 +4,7 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -21,7 +22,7 @@ public class Utilisateur {
     private boolean active;
     private String nomUtilisateur;
     private String motDePasse;
-    private Date ddn;
+    private LocalDate ddn;
     private String photo;
     
 
@@ -29,7 +30,33 @@ public class Utilisateur {
     }
 
 
-    public Utilisateur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String photo) {
+    public Utilisateur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+
+        this.id = id;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        //this.profil = profil;
+        this.role = role;
+        this.active = active;
+        this.nomUtilisateur = nomUtilisateur;
+        this.motDePasse = motDePasse;
+        this.ddn = ddn;
+        this.photo = photo;
+    }
+    
+    public Utilisateur(int id, LocalDate ddn, String email, boolean active, String nom, String prenom, String password, String photo) {
+        this.ddn = ddn;
+        this.id = id;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.active = active;
+        this.email = email;
+        this.motDePasse = password;
+        this.photo = photo;
+    }
+    
+    public Utilisateur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
 
         this.id = id;
         this.prenom = prenom;
@@ -165,11 +192,11 @@ public class Utilisateur {
     }
 
 
-    public Date getDdn() {
+    public LocalDate getDdn() {
         return ddn;
     }
 
-    public void setDdn(Date ddn) {
+    public void setDdn(LocalDate ddn) {
         this.ddn = ddn;
     }
 

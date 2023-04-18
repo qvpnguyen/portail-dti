@@ -3,24 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/entities/Professeur.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/web/gestionUtilisateurs.jsp</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/web/gestionProjets.jsp</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/controller/GestionUtilisateursController.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/controller/SauvegardeProjetController.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/dao/GestionUtilisateurImplDaoTest.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/entities/Administrateur.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/entities/Utilisateur.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/entities/Visiteur.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/dao/GestionUtilisateurImplDao.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/controller/GestionProjetsController.java</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/web/administration.jsp</file>
-            <file>file:/C:/Users/patri/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/entities/Etudiant.java</file>
-=======
-            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/config/ConfigBD.java</file>
->>>>>>> 2ed7e60a99a5a54eb4163327593aa319bdee4188
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/controller/ResultatsRechercheController.java</file>
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/controller/ProjetsController.java</file>
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/dao/GestionUtilisateurImplDao.java</file>
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/web/css/style.css</file>
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/web/entete.jsp</file>
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/dao/GestionUtilisateurDao.java</file>
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/web/projets.jsp</file>
+            <file>file:/C:/Users/Anayees/portaildepartementinformatiqueanayeesfrancispatrickothmane/PortailDepartementInformatiqueAnayeesFrancisPatrickOthmane/src/java/com/portailDepartementInformatiqueAnayeesFrancisPatrickOthmane/model/dao/GestionUtilisateurImplDaoTest.java</file>
         </group>
     </open-files>
 </project-private>

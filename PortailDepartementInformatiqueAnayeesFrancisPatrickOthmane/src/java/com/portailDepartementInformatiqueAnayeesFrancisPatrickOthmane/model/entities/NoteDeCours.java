@@ -10,28 +10,53 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.ent
  */
 public class NoteDeCours {
 
- 
-    
     private int id;
     private String nom;
-    private int coursID;
     private String lien;
- 
-    
+    private Cours cours;
+    private Professeur professeur;
+    private String document;
+
     public NoteDeCours() {
     }
 
-    public NoteDeCours(String nom, int coursID, String lien) {
+    public NoteDeCours(String nom, String lien, Cours cours, Professeur professeur, String document) {
         this.nom = nom;
-        this.coursID = coursID;
         this.lien = lien;
+        this.cours = cours;
+        this.professeur = professeur;
+        this.document = document;
     }
-    
-    public NoteDeCours(int id, String nom, int coursID, String lien) {
-        this.id = id;
+
+    public NoteDeCours(String nom, String lien, Cours cours, Professeur professeur) {
         this.nom = nom;
-        this.coursID = coursID;
         this.lien = lien;
+        this.cours = cours;
+        this.professeur = professeur;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public Cours getCours() {
+        return cours;
+    }
+
+    public void setCours(Cours cours) {
+        this.cours = cours;
+    }
+
+    public Professeur getProfesseur() {
+        return professeur;
+    }
+
+    public void setProfesseur(Professeur professeur) {
+        this.professeur = professeur;
     }
 
     public int getId() {
@@ -50,14 +75,6 @@ public class NoteDeCours {
         this.nom = nom;
     }
 
-    public int getCoursID() {
-        return coursID;
-    }
-
-    public void setCoursID(int coursID) {
-        this.coursID = coursID;
-    }
-
     public String getLien() {
         return lien;
     }
@@ -65,23 +82,19 @@ public class NoteDeCours {
     public void setLien(String lien) {
         this.lien = lien;
     }
-    
-    
-  
 
-        public String afficherTitreDesColonnes() {
+    public String afficherTitreDesColonnes() {
         String message = "";
         message = String.format(" %-10s  %30s %15s  %25s ", "Id", "Lien", "CoursID", "Nom");
-       message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
-       return message;
+        message += "\n --------------------------------------------------------------------------------------------------------------------------------------";
+        return message;
     }
-  
+
     @Override
-       public String toString() {
-         String message = "";
-       message = String.format(" %-10d  %30s %15d  %25s ",this.id,this.lien, this.coursID, this.nom); 
-       return message;
+    public String toString() {
+        String message = "";
+        message = String.format(" %-10d  %30s %15d  %25s ", this.id, this.lien, this.cours.getId(), this.nom);
+        return message;
     }
-    
-    
+
 }

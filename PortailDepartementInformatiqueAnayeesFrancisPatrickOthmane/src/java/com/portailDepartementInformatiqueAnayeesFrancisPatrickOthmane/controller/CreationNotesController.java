@@ -6,11 +6,15 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controlle
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Projet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 //import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServlet;
@@ -23,14 +27,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author patri
+ * @author othma
  */
-public class ModificationProjetController extends HttpServlet {
-    private List<Professeur> listeProfesseurs = null;
-    private List<Cours> listeCours = null;
-    Projet projet = null;
-    boolean retour = false;
-    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
+public class CreationNotesController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,71 +40,85 @@ public class ModificationProjetController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
+    //private List<NoteDeCours> listeNotesCours;
+    Notes notes = null;
+    boolean retour = false;
+    List<Etudiant> listeEtudiants = new ArrayList();
+    List<Cours> listeCours = new ArrayList();
+    List<Projet> listeProjets = new ArrayList();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Assignation du titre de la page à l'uri correspondant
-        String pageName = "";
-        if (request.getRequestURI().startsWith("modificationProjetController")) {
-            pageName = "Portail du département informatique - Modification d'un projet";
+        String session = request.getParameter("session");
+        String commentaire = request.getParameter("commentaire");
+        String noteObtenueString = request.getParameter("noteObtenue");
+        int noteObtenue = 0;
+        if(noteObtenueString!=null){
+             noteObtenue = Integer.valueOf(noteObtenueString);
         }
         
-        String nom = request.getParameter("nomProjet");
-        String annee = request.getParameter("annee");
-        String[] membresEquipe = request.getParameterValues("membresEquipe");
-        String description = request.getParameter("description");
-        String video = request.getParameter("video");
-        String lienGitlab = request.getParameter("lienGitlab");
-        int anneeInt = 0;
-        if (annee != null) {
-            anneeInt = Integer.valueOf(annee);
+        String etudiant = request.getParameter("etudiant");
+         int etudiantID = 0;
+        if (etudiant != null) {
+            etudiantID = Integer.valueOf(etudiant);
         }
-        
-        String professeur = request.getParameter("professeur");
-        int professeurID = 0;
-        Professeur profModif = null;
-        if (professeur != null) {
-            professeurID = Integer.valueOf(professeur);
-            profModif = dao.findProfById(professeurID);
-        }
-      
         String cours = request.getParameter("cours");
         int coursID = 0;
-        Cours coursModif = null;
         if (cours != null) {
             coursID = Integer.valueOf(cours);
-            coursModif = dao.findCoursById(coursID);
+        }
+        String projet = request.getParameter("projet");
+        int  projetID = 0;
+        if (projet != null) {
+             projetID = Integer.valueOf(projet);
         }
         
-        String notes = request.getParameter("notes");
-        int notesID = 0;
-        Notes notesModif = null;
-        if (notes != null) {
-            notesID = Integer.valueOf(notes);
-//            notesModif = dao.findNotesById(notesID);
-        }
-        
-        int projetID = Integer.parseInt(request.getParameter("id"));
-        projet = dao.findProjetById(projetID);
-//        projet.setNom(nom);
-//        projet.setAnnee(anneeInt);
-//        projet.setListeEquipeProjet(membresEquipe);
-//        projet.setDescription(description);
-//        projet.setVideo(video);
-//        projet.setLienGitlab(lienGitlab);
-//        projet.setCours(coursModif);
-//        projet.setProfesseur(profModif);
-//        projet.setNotes(notesModif);
-        listeProfesseurs = dao.findAllProfesseurs();
-        listeCours = dao.findAllCours();
-        
-//        retour = dao.updateProjet(projet);
+        String dateString = request.getParameter("date");
+        int date = 0;
+        if(dateString!=null){
+        date = Integer.parseInt(dateString);
+}
 
-        request.setAttribute("projet", projet);
-        request.setAttribute("listeProfesseurs", listeProfesseurs);
-        request.setAttribute("listeCours", listeCours);
-        request.getRequestDispatcher("modificationProjet.jsp").forward(request, response);
+        listeEtudiants = dao.findAllEtudiants();
+        listeCours = dao.findAllCours();
+        listeProjets = dao.findAllProjets();
+        
+        Cours unCours = new Cours();
+        unCours.setId(coursID);
+        Etudiant unProf = new Etudiant();
+        unProf.setId(etudiantID);
+        Projet unProjet = new Projet();
+        unProjet.setId(projetID);
+        
+        notes = new Notes(noteObtenue,session,date,commentaire,unProf,unCours,unProjet);
+        
+        System.out.println("notessssssssssssssssssssssssssss");
+        System.out.println("noteObtenueeeeeee: " + notes.getNoteObtenue());
+        System.out.println("etudiantsssssssss: " + notes.getEtudiantID().getId());
+        System.out.println("Session: " + notes.getSession());
+        System.out.println("date: " + notes.getAnnee());
+        System.out.println("Commentaire: " + notes.getCommentaire());
+        System.out.println("cours: " + notes.getCoursID().getId());
+        System.out.println("Projet: " + notes.getProjetID().getId());
+        retour = dao.createNotes(notes);
+        if (retour) {
+            //String message = String.format("Le note de cours " +  nom + " a été créé avec succès");
+            //request.setAttribute("message", message);
+            request.setAttribute("listeEtudiants", listeEtudiants);
+            request.setAttribute("listeCours", listeCours);
+            request.setAttribute("notes", notes);
+            
+            request.getRequestDispatcher("notesController").forward(request, response);
+            
+        }
+            request.setAttribute("listeCours", listeCours);
+            request.setAttribute("listeEtudiants", listeEtudiants);
+            request.setAttribute("listeProjets", listeProjets);
+            request.getRequestDispatcher("creationDepotNotes.jsp").include(request, response);
+            
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

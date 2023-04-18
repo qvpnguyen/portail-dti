@@ -11,24 +11,36 @@ import java.util.Date;
  * @author anayeesFrancisPatrickOthmane
  */
 public class Notes {
-    
+
     private int id;
     private int noteObtenue;
     private String session;
-    private Date annee;
+    private int annee;
     private String commentaire;
-    private int etudiantID;
-    private int coursID;
-    
+    private Etudiant etudiantID;
+    private Cours coursID;
+    private Projet projetID;
+
     public Notes() {
     }
 
-    public Notes(int id, int noteObtenue, String session, Date annee, String commentaire) {
+    public Notes(int id, int noteObtenue, String session, int annee, String commentaire, Projet projetID) {
         this.id = id;
         this.noteObtenue = noteObtenue;
         this.session = session;
         this.annee = annee;
         this.commentaire = commentaire;
+        this.projetID = projetID;
+    }
+
+    public Notes(int noteObtenue, String session, int annee, String commentaire, Etudiant etudiantID, Cours coursID, Projet projetID) {
+        this.noteObtenue = noteObtenue;
+        this.session = session;
+        this.annee = annee;
+        this.commentaire = commentaire;
+        this.etudiantID = etudiantID;
+        this.coursID = coursID;
+        this.projetID = projetID;
     }
 
     public int getId() {
@@ -55,11 +67,11 @@ public class Notes {
         this.session = session;
     }
 
-    public Date getAnnee() {
+    public int getAnnee() {
         return annee;
     }
 
-    public void setAnnee(Date annee) {
+    public void setAnnee(int annee) {
         this.annee = annee;
     }
 
@@ -71,23 +83,28 @@ public class Notes {
         this.commentaire = commentaire;
     }
 
-    public int getEtudiantID() {
+    public Etudiant getEtudiantID() {
         return etudiantID;
     }
 
-    public void setEtudiantID(int etudiantID) {
+    public void setEtudiantID(Etudiant etudiantID) {
         this.etudiantID = etudiantID;
     }
 
-    public int getCoursID() {
+    public Cours getCoursID() {
         return coursID;
     }
 
-    public void setCoursID(int coursID) {
+    public void setCoursID(Cours coursID) {
         this.coursID = coursID;
     }
-    
-    
 
-    
+    public Projet getProjetID() {
+        return projetID;
+    }
+
+    public void setProjetID(Projet projetID) {
+        this.projetID = projetID;
+    }
+
 }

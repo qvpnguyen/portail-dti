@@ -5,10 +5,14 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Cours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Etudiant;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -29,41 +33,65 @@ public class CreationNotesCoursController extends HttpServlet {
     //private List<NoteDeCours> listeNotesCours;
     NoteDeCours notes = null;
     boolean retour = false;
+    List<Professeur> listeProfesseurs = new ArrayList();
+    List<Cours> listeCours = new ArrayList();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        //Assignation du titre de la page à l'uri correspondant
         String pageName = "";
 
-        if (request.getRequestURI().endsWith("creationNotesCoursController")) {
-            pageName = "Portail du département informatique - Création dépôt de notes de cours";
+        if (request.getRequestURI().endsWith("notesController")) {
+            pageName = "Portail du département informatique - Création note de cours";
+        } else if (pageName.isEmpty()) {
+            pageName = "Portail du département informatique - Création note de cours";
         }
 
         request.setAttribute("pageName", pageName);
 
         String lien = request.getParameter("lien");
-        String coursId = request.getParameter("cours");
         String nom = request.getParameter("nom");
-        if (lien != null && coursId != null && nom != null) {
 
-            int cours = 0;
+        String professeur = request.getParameter("professeur");
+        int professeurID = 0;
+        if (professeur != null) {
+            professeurID = Integer.valueOf(professeur);
+        }
+        String cours = request.getParameter("cours");
+        int coursID = 0;
+        if (cours != null) {
+            coursID = Integer.valueOf(cours);
+        }
 
-            cours = Integer.valueOf(coursId);
+        String document = request.getParameter("documentNotesCours");
 
-            notes = new NoteDeCours(lien, cours, nom);
-            System.out.println("Tessssssssssssssssssssssssssssssssst");
-            System.out.println(notes.toString());
-            retour = dao.createNotesDeCours(notes);
-            if (retour) {
-                String message = String.format("Le note de cours " + nom + " a été créé avec succès");
-                request.setAttribute("message", message);
-                request.setAttribute("notes", notes);
-                request.getRequestDispatcher("creationDepotNotesCours.jsp").forward(request, response);
-            }
+        listeProfesseurs = dao.findAllProfesseurs();
+        listeCours = dao.findAllCours();
+
+        Cours unCours = new Cours();
+        unCours.setId(coursID);
+        Professeur unProf = new Professeur();
+        unProf.setId(professeurID);
+        notes = new NoteDeCours(nom, lien, unCours, unProf, document);
+        System.out.println("Tessssssssssssssssssssssssssssssssst");
+        System.out.println(listeProfesseurs.get(0).toString());
+        System.out.println(listeCours.get(0).toString());
+        System.out.println(notes.toString());
+        retour = dao.createNotesDeCours(notes);
+        if (retour) {
+            String message = String.format("Le note de cours " + nom + " a été créé avec succès");
+            request.setAttribute("message", message);
+            request.setAttribute("listeProfesseurs", listeProfesseurs);
+            request.setAttribute("listeCours", listeCours);
+
+            request.getRequestDispatcher("notesDeCoursController").forward(request, response);
 
         }
-        request.getRequestDispatcher("creationDepotNotesCours.jsp").forward(request, response);
+        request.setAttribute("listeCours", listeCours);
+        request.setAttribute("listeProfesseurs", listeProfesseurs);
+        request.getRequestDispatcher("creationDepotNotesCours.jsp").include(request, response);
 
     }
 

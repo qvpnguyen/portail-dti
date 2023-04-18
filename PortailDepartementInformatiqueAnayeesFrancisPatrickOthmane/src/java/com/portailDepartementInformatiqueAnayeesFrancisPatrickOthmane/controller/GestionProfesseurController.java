@@ -6,70 +6,52 @@ package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controlle
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Professeur;
 import java.io.IOException;
 import java.io.PrintWriter;
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+//import javax.servlet.ServletException;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author othma
  */
-public class NotesDeCoursController extends HttpServlet {
+public class GestionProfesseurController extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-    private List<NoteDeCours> listeNotesCours;
-    NoteDeCours notes = null;
+    private List<Professeur> listeProfesseurs;
+    Professeur prof = null;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String supp1 = request.getParameter("supprimerNoteDeCours");   
-        //Assignation du titre de la page à l'uri correspondant
-        String pageName = "";
+        String proff = request.getParameter("nomProf");
+        if (proff != null && !proff.equals("")) {
+            prof = dao.findProfByName(proff);
+            request.setAttribute("prof", prof);
+            request.getRequestDispatcher("listeProfesseurs.jsp").forward(request, response);
+        } else {
 
-        if (request.getRequestURI().endsWith("notesDeCoursController")) {
-            pageName = "Portail du département informatique - Gestion des notes de cours";
-        } else if (pageName.isEmpty()) {
-            pageName = "Portail du département informatique - Gestion des notes de cours";
-        }
-
-        request.setAttribute("pageName", pageName);
-
-        String note = request.getParameter("note");
-        if (note != null && !note.equals("")) {
-            notes = dao.findNotesDeCoursByName(note);
-            request.setAttribute("notes", notes);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        } 
-        
-        if (supp1 != null) {
-            int idSupp = Integer.parseInt(supp1);
-            notes = dao.findNotesDeCoursById(idSupp);
-            dao.deleteNotesDeCours(notes);
-
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            
-            request.setAttribute("message", "Note de cours  avec ID : "+notes.getId() +" est supprimee");
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-            
-           
-        }
-        
-        else {
-
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+            listeProfesseurs = dao.findAllProfesseurs();
+            request.setAttribute("listeProfesseurs", listeProfesseurs);
+            request.getRequestDispatcher("listeProfesseurs.jsp").forward(request, response);
         }
     }
 

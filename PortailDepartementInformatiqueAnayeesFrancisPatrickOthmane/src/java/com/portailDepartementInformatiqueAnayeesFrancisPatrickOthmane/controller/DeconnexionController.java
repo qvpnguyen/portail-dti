@@ -4,8 +4,6 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
 import java.io.IOException;
 import java.io.PrintWriter;
 //import javax.servlet.ServletException;
@@ -16,61 +14,47 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author othma
+ * @author Anayees
  */
-public class NotesDeCoursController extends HttpServlet {
+public class DeconnexionController extends HttpServlet {
 
-    GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-    private List<NoteDeCours> listeNotesCours;
-    NoteDeCours notes = null;
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String supp1 = request.getParameter("supprimerNoteDeCours");   
-        //Assignation du titre de la page à l'uri correspondant
-        String pageName = "";
 
-        if (request.getRequestURI().endsWith("notesDeCoursController")) {
-            pageName = "Portail du département informatique - Gestion des notes de cours";
-        } else if (pageName.isEmpty()) {
-            pageName = "Portail du département informatique - Gestion des notes de cours";
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            String nom = (String) session.getAttribute("nom");
+            session.invalidate();
+
+            if (nom != null) {
+
+                //  out.println("<center><b><font color=red>" + "Fin de session de " + nom + "</font><b></center>");
+                nom = "Deconnexion réussie pour " + nom;
+                System.out.println("***********************************************");
+            } else {
+                System.out.println("nom is null");
+            }
+
+            request.setAttribute("deconnexion", nom);
+            request.getRequestDispatcher("connexionController").include(request, response);
+
         }
 
-        request.setAttribute("pageName", pageName);
-
-        String note = request.getParameter("note");
-        if (note != null && !note.equals("")) {
-            notes = dao.findNotesDeCoursByName(note);
-            request.setAttribute("notes", notes);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        } 
-        
-        if (supp1 != null) {
-            int idSupp = Integer.parseInt(supp1);
-            notes = dao.findNotesDeCoursById(idSupp);
-            dao.deleteNotesDeCours(notes);
-
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            
-            request.setAttribute("message", "Note de cours  avec ID : "+notes.getId() +" est supprimee");
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-            
-           
-        }
-        
-        else {
-
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,9 +5,10 @@
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.controller;
 
 import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.dao.GestionUtilisateurImplDao;
-import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.NoteDeCours;
+import com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities.Notes;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 //import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServlet;
 //import javax.servlet.http.HttpServletRequest;
@@ -16,60 +17,65 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author othma
  */
-public class NotesDeCoursController extends HttpServlet {
+public class ModificationNotesController extends HttpServlet {
 
+    private List<Notes> listeNotes = null;
+    Notes note = null;
     GestionUtilisateurImplDao dao = new GestionUtilisateurImplDao();
-    private List<NoteDeCours> listeNotesCours;
-    NoteDeCours notes = null;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String supp1 = request.getParameter("supprimerNoteDeCours");   
-        //Assignation du titre de la page à l'uri correspondant
+
         String pageName = "";
 
-        if (request.getRequestURI().endsWith("notesDeCoursController")) {
-            pageName = "Portail du département informatique - Gestion des notes de cours";
-        } else if (pageName.isEmpty()) {
-            pageName = "Portail du département informatique - Gestion des notes de cours";
+        if (request.getRequestURI().endsWith("modificationNotesController")) {
+            
+            pageName = "Portail du Département Informatique - Gestion des notes de projets";
+            request.setAttribute("pageName", pageName);
         }
 
-        request.setAttribute("pageName", pageName);
+        String noteOb = request.getParameter("noteObtenue");
+        String id = request.getParameter("id");
+        String supp = request.getParameter("supprimer");
 
-        String note = request.getParameter("note");
-        if (note != null && !note.equals("")) {
-            notes = dao.findNotesDeCoursByName(note);
-            request.setAttribute("notes", notes);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-        } 
-        
-        if (supp1 != null) {
-            int idSupp = Integer.parseInt(supp1);
-            notes = dao.findNotesDeCoursById(idSupp);
-            dao.deleteNotesDeCours(notes);
+        if (noteOb != null && id != null) {
+            
+            int not = Integer.parseInt(noteOb);
 
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            
-            request.setAttribute("message", "Note de cours  avec ID : "+notes.getId() +" est supprimee");
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
-            
-           
+            int idNote = Integer.parseInt(id);
+            note = dao.findNoteById(idNote);
+            note.setNoteObtenue(not);
+            boolean retour = dao.updateNoteObtenue(note);
+            if (retour) {
+                listeNotes = dao.findAllNotes();
+                request.setAttribute("listeNotes", listeNotes);
+                request.getRequestDispatcher("evaluationProjet.jsp").forward(request, response);
+            }
+
         }
-        
-        else {
+        if (supp != null) {
+            
+            int idSupp = Integer.parseInt(supp);
+            note = dao.findNoteById(idSupp);
+            dao.deleteNotes(note);
 
-            listeNotesCours = dao.findAllNotesDeCours();
-            request.setAttribute("listeNotesCours", listeNotesCours);
-            request.getRequestDispatcher("gestionNotesCours.jsp").forward(request, response);
+            listeNotes = dao.findAllNotes();
+
+            request.setAttribute("listeNotes", listeNotes);
+            request.setAttribute("message", "la note avec ID : " + note.getId() + " est supprimee");
+
+            request.getRequestDispatcher("evaluationProjet.jsp").forward(request, response);
+        } else {
+
+            listeNotes = dao.findAllNotes();
+            request.setAttribute("listeNotes", listeNotes);
+            request.getRequestDispatcher("evaluationProjet.jsp").forward(request, response);
         }
     }
 

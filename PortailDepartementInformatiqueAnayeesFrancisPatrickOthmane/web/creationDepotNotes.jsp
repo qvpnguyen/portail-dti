@@ -30,28 +30,44 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         
                        
                         
-                        <form action="creationNotesCoursController" method="get">
+                        <form action="creationNotesController" method="get">
                             <div class="row mx-2 mt-4">
                                 <div class="col-10">
                                     <div class="form-group my-3">
-                                        <label for="nomProjet">Nom de notes de cours:</label>
-                                        <input type="text" class="form-control" id="nom" name="nom">
+                                        <label for="noteObtenue">la note du projet:</label>
+                                        <input type="text" class="form-control" id="nom" name="noteObtenue">
                                     </div>
                                 </div>
                                 <div class="col-10">
                                     <div class="form-group my-3">
-                                        <label for="professeur">Professeur responsable:</label>
-                                        <select name="professeur" id="professeur" class="form-select">
-                                            <c:forEach var="unProf" items="${listeProfesseurs}">
-                                                <option value="${unProf.id}">${unProf.prenom} ${unProf.nom}</option>
+                                        <label for="etudiant">Etudiants responsable:</label>
+                                        <select name="etudiant" id="etudiant" class="form-select">
+                                            <c:forEach var="etud" items="${listeEtudiants}">
+                                                <option value="${etud.id}">${etud.prenom} ${etud.nom}</option>
                                             </c:forEach>
                                       </select>
                                     </div>
                                 </div>
                                 <div class="col-10">
                                     <div class="form-group my-3">
-                                        <label for="membresEquipe">Lien URL:</label>
-                                        <input type="text" class="form-control" id="lien" name="lien">
+                                        <label for="session">Session:</label>
+                                        <select name="session">
+                                          <option value="automne">Automne</option>
+                                          <option value="hiver">Hiver</option>
+                                          <option value="été">Été</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group my-3">
+                                        <label for="date">Date:</label>
+                                        <input type="date" id="date" name="date">
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group my-3">
+                                        <label for="commentaire">Commentaire :</label>
+                                        <input type="text" class="form-control" id="commentaire" name="commentaire">
                                     </div>
                                 </div>
                                 <div class="col-10">
@@ -66,23 +82,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                 </div>
                                 <div class="col-10">
                                     <div class="form-group my-3">
-                                        <label for="video">TÃ©lÃ©versez votre document de notes de cours:</label>
-                                        <div class="row">
-                                            <div class="col-8">
-                                            <input type="file" class="form-control mt-2" id="documentNotesCours" name="documentNotesCours">
-                                            </div>
-                                            <div class="col-4 mt-2">
-                                                <button type="button" class="btn bouton-mauve">
-                                                    <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.54878 14.7195V1.87793M8.54878 1.87793L12.6883 6.34964M8.54878 1.87793L4.40921 6.34964" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M1.09756 12.3413V15.195C1.09756 16.989 1.09756 17.8851 1.58272 18.4425C2.06788 18.9999 2.84777 18.9999 4.40922 18.9999H12.6883C14.2498 18.9999 15.0297 18.9999 15.5148 18.4425C16 17.8851 16 16.989 16 15.195V12.3413" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                                    </svg>
-                                                    TÃ©lÃ©verser
-                                                </button>
-                                            </div>
-                                        </div>
+                                        <label for="projet">Projet associé:</label>
+                                        <select name="projet" id="projet" class="form-select">
+                                            <c:forEach var="unProjet" items="${listeProjets}">
+                                                <option value="${unProjet.id}">${unProjet.nom}</option>
+                                            </c:forEach>
+                                      </select>
                                     </div>
                                 </div>
+                              
                             </div>
                             
                             <div class="d-grid gap-2 mt-4 mx-3">

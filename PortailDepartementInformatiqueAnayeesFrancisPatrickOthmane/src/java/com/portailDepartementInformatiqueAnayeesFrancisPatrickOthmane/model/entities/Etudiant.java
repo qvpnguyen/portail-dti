@@ -4,7 +4,10 @@
  */
 package com.portailDepartementInformatiqueAnayeesFrancisPatrickOthmane.model.entities;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -12,8 +15,6 @@ import java.util.Date;
  */
 public class Etudiant extends Utilisateur {
 
-    
-   
 //    private Date ddn;
     //private boolean active;
 //    private String role;
@@ -22,7 +23,11 @@ public class Etudiant extends Utilisateur {
     private boolean dispoTutorat;
     private String profil;
 
+    private List<Projet> projets;
+
     public Etudiant() {
+        projets = new ArrayList();
+
     }
 
 //    public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat) {
@@ -30,13 +35,34 @@ public class Etudiant extends Utilisateur {
 //        this.cours = cours;
 //        this.dispoTutorat = dispoTutorat;
 //    }
+    
+    public Etudiant(int id) {
+        
+        this.id = id;
+        projets = new ArrayList();
 
-    public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat, String profil, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, String photo) {
+    }
+    
+    public Etudiant(int id, String prenom, String nom, LocalDate ddn, String email, boolean active, String role, boolean formationCompletee, String profil, String nomUtilisateur, String motDePasse, Cours coursID, String photo, boolean dispoTutorat) {
+
         super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+        this.formationCompletee = formationCompletee;
+        this.cours = coursID;
+        this.dispoTutorat = dispoTutorat;
+        this.profil = profil;
+        projets = new ArrayList();
+
+    }
+
+    public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat, String profil, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+
+        super(prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
         this.formationCompletee = formationCompletee;
         this.cours = cours;
         this.dispoTutorat = dispoTutorat;
         this.profil = profil;
+        projets = new ArrayList();
+
     }
 
     public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat, String profil, String prenom, String nom) {
@@ -45,6 +71,8 @@ public class Etudiant extends Utilisateur {
         this.cours = cours;
         this.dispoTutorat = dispoTutorat;
         this.profil = profil;
+        projets = new ArrayList();
+
     }
 
     public Etudiant(boolean formationCompletee, Cours cours, boolean dispoTutorat, String profil, int id) {
@@ -53,10 +81,9 @@ public class Etudiant extends Utilisateur {
         this.cours = cours;
         this.dispoTutorat = dispoTutorat;
         this.profil = profil;
-    }
-    
-    
+        projets = new ArrayList();
 
+    }
 
 //    public Etudiant(int id,String prenom, String nom, String email, String profil, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn, boolean formationCompletee, Cours cours, boolean dispoTutorat) {
 //        super(id, prenom, nom, email, role, profil, active, nomUtilisateur, motDePasse, ddn);
@@ -82,16 +109,13 @@ public class Etudiant extends Utilisateur {
 //        this.cours = cours;
 //        this.dispoTutorat = dispoTutorat;
 //    }
-
-    
     public Etudiant(String prenom, String nom) {
         super(prenom, nom);
     }
-    
+
 //    public Etudiant(int id) {
 //        super(id);
 //    }
-
 //    public Date getDdn() {
 //        return ddn;
 //    }
@@ -99,8 +123,6 @@ public class Etudiant extends Utilisateur {
 //    public void setDdn(Date ddn) {
 //        this.ddn = ddn;
 //    }
-
-
     public boolean isDispoTutorat() {
         return dispoTutorat;
     }
@@ -109,7 +131,6 @@ public class Etudiant extends Utilisateur {
         this.dispoTutorat = dispoTutorat;
     }
 
-
 //    public String getRole() {
 //        return role;
 //    }
@@ -117,7 +138,6 @@ public class Etudiant extends Utilisateur {
 //    public void setRole(String role) {
 //        this.role = role;
 //    }
-
     public boolean isFormationCompletee() {
         return formationCompletee;
     }
@@ -141,14 +161,16 @@ public class Etudiant extends Utilisateur {
     public void setProfil(String profil) {
         this.profil = profil;
     }
-    
-    
-   
-    
+
+    //ajouter les projets
+    public void ajouter(Projet projet) {
+        this.projets.add(projet);
+    }
+
     @Override
-       public String toString() {
-         String message = "";
-       message = String.format("%s %s",super.prenom, this.nom); 
-       return message;
+    public String toString() {
+        String message = "";
+        message = String.format("%s %s", super.prenom, this.nom);
+        return message;
     }
 }
