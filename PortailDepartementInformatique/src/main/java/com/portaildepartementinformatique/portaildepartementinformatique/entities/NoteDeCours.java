@@ -1,4 +1,4 @@
-package com.portaildepartementinformatiqueanayeespatrickothmane.portaildepartementinformatiqueanayeespatrickothmane.entities;
+package com.portaildepartementinformatique.portaildepartementinformatique.entities;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

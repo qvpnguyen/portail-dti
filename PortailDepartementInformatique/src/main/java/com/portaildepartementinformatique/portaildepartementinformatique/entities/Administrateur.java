@@ -1,4 +1,4 @@
-package com.portaildepartementinformatiqueanayeespatrickothmane.portaildepartementinformatiqueanayeespatrickothmane.entities;
+package com.portaildepartementinformatique.portaildepartementinformatique.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
