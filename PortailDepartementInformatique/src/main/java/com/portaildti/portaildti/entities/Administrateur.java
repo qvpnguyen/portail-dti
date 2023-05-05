@@ -1,7 +1,6 @@
-package com.portaildepartementinformatique.portaildepartementinformatique.entities;
+package com.portaildti.portaildti.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 /**
