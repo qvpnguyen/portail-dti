@@ -16,7 +16,7 @@ public class Notes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private int noteObtenue;
     private String session;
     private int annee;
@@ -34,7 +34,7 @@ public class Notes {
     public Notes() {
     }
 
-    public Notes(int id, int noteObtenue, String session, int annee, String commentaire, Projet projetID) {
+    public Notes(Integer id, int noteObtenue, String session, int annee, String commentaire, Projet projetID) {
         this.id = id;
         this.noteObtenue = noteObtenue;
         this.session = session;
@@ -53,11 +53,11 @@ public class Notes {
         this.projetID = projetID;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

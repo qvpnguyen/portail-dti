@@ -17,7 +17,7 @@ public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    int id;
+    Integer id;
     String prenom;
     String nom;
     private String email;
@@ -34,7 +34,7 @@ public class Utilisateur {
     }
 
 
-    public Utilisateur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Utilisateur(Integer id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
 
         this.id = id;
         this.prenom = prenom;
@@ -49,7 +49,7 @@ public class Utilisateur {
         this.photo = photo;
     }
 
-    public Utilisateur(int id, LocalDate ddn, String email, boolean active, String nom, String prenom, String password, String photo) {
+    public Utilisateur(Integer id, LocalDate ddn, String email, boolean active, String nom, String prenom, String password, String photo) {
         this.ddn = ddn;
         this.id = id;
         this.prenom = prenom;
@@ -62,7 +62,7 @@ public class Utilisateur {
 
     public Utilisateur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
 
-        this.id = id;
+        //this.id = id;
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
@@ -117,17 +117,17 @@ public class Utilisateur {
         this.nom = nom;
     }
 
-    public Utilisateur(int id) {
+    public Utilisateur(Integer id) {
         this.id = id;
     }
 
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

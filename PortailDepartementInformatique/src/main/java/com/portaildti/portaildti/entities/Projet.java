@@ -16,7 +16,7 @@ public class Projet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String nom;
     private int annee;
     private String description;
@@ -48,7 +48,7 @@ public class Projet {
 
     }
 
-    public Projet(int id, String nom, int annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur, Notes notes) {
+    public Projet(Integer id, String nom, int annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur, Notes notes) {
         this.id = id;
         this.nom = nom;
         this.annee = annee;
@@ -61,11 +61,11 @@ public class Projet {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -18,7 +18,7 @@ public class ServiceTutorat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private Date dateTutorat;
     private LocalTime heure;
     private double duree;
@@ -37,7 +37,7 @@ public class ServiceTutorat {
 
     }
 
-    public ServiceTutorat(int id, Date dateTutorat, LocalTime heure, double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
+    public ServiceTutorat(Integer id, Date dateTutorat, LocalTime heure, double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
         this.id = id;
         this.dateTutorat = dateTutorat;
         this.heure = heure;
@@ -48,11 +48,11 @@ public class ServiceTutorat {
         this.cours = cours;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
