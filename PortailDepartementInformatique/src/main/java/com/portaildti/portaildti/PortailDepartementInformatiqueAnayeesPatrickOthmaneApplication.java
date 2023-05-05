@@ -1,4 +1,4 @@
-package com.portaildepartementinformatiqueanayeespatrickothmane.portaildepartementinformatiqueanayeespatrickothmane;
+package com.portaildti.portaildti;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

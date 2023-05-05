@@ -1,4 +1,4 @@
-package com.portaildepartementinformatique.portaildepartementinformatique.entities;
+package com.portaildti.portaildti.entities;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -6,9 +6,7 @@ package com.portaildepartementinformatique.portaildepartementinformatique.entiti
  */
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *
