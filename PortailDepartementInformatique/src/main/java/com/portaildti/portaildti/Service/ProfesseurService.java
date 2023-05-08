@@ -24,6 +24,67 @@ public class ProfesseurService {
     public Professeur ajouterProfesseur(Professeur utilisateur){
         return  repo.save(utilisateur);
     }
+    public Professeur rechercherProfesseurPaNom(String nom){
+        if (nom != null) {
+            return repo.getProfesseurParNom(nom);
+        }
+        return null;
+    }
+    public Professeur rechercherProfesseurParProjetNom(String nomProjet){
+        if (nomProjet != null) {
+            return repo.findProfesseursByProjetName(nomProjet);
+        }
+        return null;
+    }
+    public Professeur rechercherProfesseurParCoursNom(String nomCours){
+        if (nomCours != null) {
+            return repo.findProfesseursByCoursName(nomCours);
+        }
+        return null;
+    }
+    public Professeur rechercherProfesseurParNoteDeCoursNom(String nomNotesDeCours){
+        if (nomNotesDeCours != null) {
+            return repo.findProfesseursByNoteDeCoursName(nomNotesDeCours);
+        }
+        return null;
+    }
+
+
+    public boolean isEmailProfesseurUnique(String email) {
+
+        Professeur userByEmail = repo.getProfesseurByEmail(email);
+
+        if (userByEmail == null) return true;
+
+
+        return false;
+
+    }
+    public boolean professeurExistByEmailAndPassword(String email, String mdp) {
+
+        Professeur prof = repo.getProfesseurByEmailAndPassword(email,mdp);
+
+        if (prof != null) return true;
+
+
+        return false;
+
+    }
+    public void deleteProfesseur(Integer id) throws  ProfesseurNotFoundException {
+        Long countById = repo.countById(id);
+        if (countById == null || countById == 0) {
+            throw new ProfesseurNotFoundException("On ne peut pas trouver un utilisateur avec l'id" + id);
+        }
+
+        repo.deleteById(id);
+    }
+    public void updateActiveStatus(Integer id, boolean enabled) {
+        repo.updateActiveStatus(id, enabled);
+    }
+
+
+
+
 
 
 }
