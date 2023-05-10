@@ -1,6 +1,8 @@
 package com.portaildti.portaildti.repos;
 
 import com.portaildti.portaildti.entities.Etudiant;
+import com.portaildti.portaildti.entities.Professeur;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,5 +14,34 @@ import java.util.List;
 public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
 
     @Query("SELECT e FROM Etudiant e WHERE e.nom = :nom")
-    public List<Etudiant> getListeEtudiantParNom(@Param("nom") String nom);
+    public List<Etudiant> getEtudiantsByNom(@Param("nom") String nom);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.prenom LIKE %?1% OR e.nom LIKE %?1%")
+    public List<Etudiant> findEtudiantsByPrenomAndNom(String keyword);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.nom = :nom AND e.role = :role")
+    public List<Etudiant> findEtudiantsByNomAndRole(@Param("nom") String nom, @Param("role") String role);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.email = :email")
+    public Etudiant findEtudiantByEmail(@Param("email") String email);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.cours = :coursID")
+    public List<Etudiant> findEtudiantsByCoursID(@Param("coursID") Long coursID);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.dispoTutorat = :disponibilite")
+    public List<Etudiant> findEtudiantsByDisponibilite(@Param("disponibilite") String disponibilite);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.role = :role")
+    public List<Etudiant> findEtudiantsByRole(@Param("role") String role);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.role = :role AND e.dispoTutorat = :disponibilite")
+    public List<Etudiant> findEtudiantsByRoleAndDisponibilite(@Param("role") String role, @Param("disponibilite") String disponibilite);
+
+    @Query("SELECT e FROM Etudiant e WHERE e.email = :email and e.motDePasse=:motDePasse")
+    public Etudiant findEtudiantByEmailAndPassword(@Param("email") String email, @Param("motDePasse") String motDePasse);
+
+    @Query("UPDATE Etudiant e SET e.active = ?2 WHERE e.id = ?1")
+    @Modifying
+    public void updateActiveStatusEtudiant(Integer id, boolean active);
+
 }
