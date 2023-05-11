@@ -1,5 +1,6 @@
 package com.portaildti.portaildti.Service;
 
+import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.repos.ProfesseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,19 @@ public class ProfesseurService {
 
     public List<Professeur> afficherProfesseurs(){
 
-        return ( List<Professeur>)  repo.findAll();
+        return (List<Professeur>)  repo.findAll();
     }
 
-    public Professeur ajouterProfesseur(Professeur utilisateur){
-        return  repo.save(utilisateur);
+    public Professeur ajouterProfesseur(Professeur professeur) throws Exception {
+
+        Professeur professeurExistant = repo.getProfesseurByEmail(professeur.getEmail());
+
+        if (professeurExistant != null){
+            throw new Exception("Le professeur existe déjà");
+
+        } else {
+            return repo.save(professeurExistant);
+        }
     }
     public Professeur rechercherProfesseurPaNom(String nom){
         if (nom != null) {
@@ -81,10 +90,5 @@ public class ProfesseurService {
     public void updateActiveStatus(Integer id, boolean enabled) {
         repo.updateActiveStatus(id, enabled);
     }
-
-
-
-
-
 
 }

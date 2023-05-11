@@ -14,7 +14,7 @@ import java.util.List;
 public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
 
     @Query("SELECT e FROM Etudiant e WHERE e.nom = :nom")
-    public List<Etudiant> getEtudiantsByNom(@Param("nom") String nom);
+    public List<Etudiant> findEtudiantsByNom(@Param("nom") String nom);
 
     @Query("SELECT e FROM Etudiant e WHERE e.prenom LIKE %?1% OR e.nom LIKE %?1%")
     public List<Etudiant> findEtudiantsByPrenomAndNom(String keyword);
@@ -40,8 +40,11 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
     @Query("SELECT e FROM Etudiant e WHERE e.email = :email and e.motDePasse=:motDePasse")
     public Etudiant findEtudiantByEmailAndPassword(@Param("email") String email, @Param("motDePasse") String motDePasse);
 
-    @Query("UPDATE Etudiant e SET e.active = ?2 WHERE e.id = ?1")
     @Modifying
+    @Query("UPDATE Etudiant e SET e.active = ?2 WHERE e.id = ?1")
     public void updateActiveStatusEtudiant(Integer id, boolean active);
+
+    @Query("SELECT e.prenom, e.nom FROM Etudiant e JOIN e.projets p WHERE p.nom = :nomProjet")
+    public List<Object[]> findEtudiantsParProjet(@Param("nomProjet") String nomProjet);
 
 }

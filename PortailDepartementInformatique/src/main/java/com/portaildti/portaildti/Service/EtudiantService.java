@@ -28,12 +28,12 @@ public class EtudiantService {
         return  null;
     }
 
-    public Etudiant ajouterEtudiant(Etudiant etudiant){
+    public Etudiant ajouterEtudiant(Etudiant etudiant) throws Exception {
 
         Etudiant etudiantExistant = repo.findEtudiantByEmail(etudiant.getEmail());
 
         if (etudiantExistant != null){
-            return etudiantExistant;
+            throw new Exception("L'étudiant existe déjà");
 
         } else {
             return repo.save(etudiant);
@@ -68,7 +68,7 @@ public class EtudiantService {
 
         if (etudiant == null) {
             throw new Exception("L'étudiant n'existe pas");
-            
+
         } else {
             repo.delete(etudiant);
         }
