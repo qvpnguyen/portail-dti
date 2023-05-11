@@ -17,7 +17,7 @@ public class NoteDeCoursService {
 
     public List<NoteDeCours> afficherNoteDeCours(){
 
-        return ( List<NoteDeCours>)  repo.findAll();
+        return (List<NoteDeCours>)  repo.findAll();
     }
 
     public NoteDeCours ajouterNoteDeCours(NoteDeCours noteDeCours){

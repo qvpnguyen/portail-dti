@@ -1,0 +1,20 @@
+package com.portaildti.portaildti.repos;
+
+import com.portaildti.portaildti.entities.Projet;
+import com.portaildti.portaildti.entities.Visiteur;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ProjetRepository extends CrudRepository<Projet, Integer> {
+
+    @Query("SELECT p FROM Projet p WHERE p.nom = :nom")
+    public List<Projet> findProjetByNom(@Param("nom") String nom);
+
+    @Query("SELECT p FROM Projet p JOIN p.cours c WHERE c.nom = :nomCours")
+    public List<Projet> findProjetsByNomCours(@Param("nomCours") String nomCours);
+}
