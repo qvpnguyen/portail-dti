@@ -37,11 +37,4 @@ public interface ProfesseurRepository  extends CrudRepository<Professeur,Integer
     @Query("SELECT p FROM NoteDeCours nc JOIN nc.professeur p WHERE nc.nom = ?1")
     public Professeur findProfesseursByNoteDeCoursName(String nom);
 
-
-
-
-
-
-
-
 }
