@@ -1,7 +1,6 @@
 package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.Administrateur;
-import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.repos.AdministrateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,11 @@ public class AdministrateurService {
 
     @Autowired
     private AdministrateurRepository repo;
-    public boolean adminExistByEmailAndPassword(String email, String mdp) {
+    public List<Administrateur> afficherAdministrateurs(){
+
+        return (List<Administrateur>) repo.findAll();
+    }
+    public boolean professeurExistByEmailAndPassword(String email, String mdp) {
 
         Administrateur admin = repo.getAdministrateurByEmailAndPassword(email,mdp);
 
@@ -24,10 +27,6 @@ public class AdministrateurService {
 
         return false;
 
-    }
-    public List<Administrateur> afficherAdministrateurs(){
-
-        return (List<Administrateur>) repo.findAll();
     }
     public Administrateur ajouterAdmin(Administrateur admin) throws Exception {
 
