@@ -1,5 +1,6 @@
 package com.portaildti.portaildti.repos;
 
+import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,12 @@ public class EtudiantRepositoryTest {
     @Test
     public void testSaveEtudiant(){
 
-        Etudiant etudiant = new Etudiant("Anayees", "Sarkes");
+//        Etudiant etudiant = new Etudiant("Anayees", "Sarkes");
+//
+//        repo.save(etudiant);
 
-        repo.save(etudiant);
+        Etudiant etudiant2 = new Etudiant(false, null, false, "Programmation", "Patrick", "Nguyen", "0855068@crosemont.qc.ca", "Etudiant", true, "pnguyen", "password123", LocalDate.of(1900, 1, 1), null);
+        repo.save(etudiant2);
     }
 
     @Test
@@ -33,7 +38,7 @@ public class EtudiantRepositoryTest {
 
         for (Etudiant etudiant : listeEtudiants){
 
-            repo.getListeEtudiantParNom(etudiant.getNom());
+            System.out.println(etudiant);
 
         }
     }

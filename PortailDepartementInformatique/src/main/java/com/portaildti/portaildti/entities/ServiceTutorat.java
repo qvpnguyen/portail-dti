@@ -21,7 +21,7 @@ public class ServiceTutorat {
     private Integer id;
     private Date dateTutorat;
     private LocalTime heure;
-    private double duree;
+    private Double duree;
     private String typeDeRencontre;
     @ManyToOne
     @JoinColumn(name = "ÉtudiantTuteurID")
@@ -37,7 +37,7 @@ public class ServiceTutorat {
 
     }
 
-    public ServiceTutorat(Integer id, Date dateTutorat, LocalTime heure, double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
+    public ServiceTutorat(Integer id, Date dateTutorat, LocalTime heure, Double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
         this.id = id;
         this.dateTutorat = dateTutorat;
         this.heure = heure;
@@ -72,11 +72,11 @@ public class ServiceTutorat {
         this.heure = heure;
     }
 
-    public double getDuree() {
+    public Double getDuree() {
         return duree;
     }
 
-    public void setDuree(double duree) {
+    public void setDuree(Double duree) {
         this.duree = duree;
     }
 

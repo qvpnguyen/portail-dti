@@ -18,7 +18,7 @@ public class Projet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
-    private int annee;
+    private Integer annee;
     private String description;
     private String video;
     private String lienGitlab;
@@ -36,7 +36,7 @@ public class Projet {
     }
 
 
-    public Projet(String nom, int annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur) {
+    public Projet(String nom, Integer annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur) {
         this.nom = nom;
         this.annee = annee;
         this.description = description;
@@ -48,7 +48,7 @@ public class Projet {
 
     }
 
-    public Projet(Integer id, String nom, int annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur, Notes notes) {
+    public Projet(Integer id, String nom, Integer annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur, Notes notes) {
         this.id = id;
         this.nom = nom;
         this.annee = annee;
@@ -77,11 +77,11 @@ public class Projet {
         this.nom = nom;
     }
 
-    public int getAnnee() {
+    public Integer getAnnee() {
         return annee;
     }
 
-    public void setAnnee(int annee) {
+    public void setAnnee(Integer annee) {
         this.annee = annee;
     }
 

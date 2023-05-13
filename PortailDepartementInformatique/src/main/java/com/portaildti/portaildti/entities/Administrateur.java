@@ -18,7 +18,7 @@ public class Administrateur extends Utilisateur {
 //       // this.gestion = new GestionUtilisateur();
 //    }
 
-    public Administrateur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Administrateur(Integer id, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
         super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
         //this.gestion = new GestionUtilisateur();
     }
@@ -28,7 +28,7 @@ public class Administrateur extends Utilisateur {
         //this.gestion = new GestionUtilisateur();
     }
 
-    public Administrateur(int id) {
+    public Administrateur(Integer id) {
         super(id);
         //this.gestion = new GestionUtilisateur();
     }
