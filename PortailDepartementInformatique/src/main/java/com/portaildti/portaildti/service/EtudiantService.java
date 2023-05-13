@@ -77,8 +77,8 @@ public class EtudiantService {
             repo.delete(etudiant);
         }
     }
-    public List<Cours> afficherCours() {
+    public List<Cours> afficherCours(){
+
         return (List<Cours>) coursRepo.findAll();
     }
-
 }
