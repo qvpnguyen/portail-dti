@@ -1,9 +1,9 @@
 package com.portaildti.portaildti.repos;
 
 import com.portaildti.portaildti.entities.Cours;
+import org.springframework.data.repository.CrudRepository;
 import com.portaildti.portaildti.entities.Projet;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +17,5 @@ public interface CoursRepository extends CrudRepository<Cours, Integer> {
 
     @Query("SELECT c FROM Cours c JOIN c.profID p WHERE p.nom = :nomProf")
     List<Cours> findCoursParNomProf(@Param("nomProf") String nomProf);
+
 }

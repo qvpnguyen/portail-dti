@@ -1,11 +1,11 @@
 package com.portaildti.portaildti.repos;
 
-
 import com.portaildti.portaildti.entities.Professeur;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import com.portaildti.portaildti.entities.Projet;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

@@ -20,8 +20,8 @@ public class Cours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
-    private int credits;
-    private int groupe;
+    private Integer credits;
+    private Integer groupe;
 
     @ManyToMany
     @JoinTable(
@@ -57,7 +57,7 @@ public class Cours {
         this.nom = nom;
     }
 
-    public int getCredits() {
+    public Integer getCredits() {
         return credits;
     }
 
@@ -69,15 +69,15 @@ public class Cours {
         this.profID = profID;
     }
 
-    public void setCredits(int credits) {
+    public void setCredits(Integer credits) {
         this.credits = credits;
     }
 
-    public int getGroupe() {
+    public Integer getGroupe() {
         return groupe;
     }
 
-    public void setGroupe(int groupe) {
+    public void setGroupe(Integer groupe) {
         this.groupe = groupe;
     }
 

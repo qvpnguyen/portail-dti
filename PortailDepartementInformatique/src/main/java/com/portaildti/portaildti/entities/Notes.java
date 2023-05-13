@@ -17,9 +17,9 @@ public class Notes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private int noteObtenue;
+    private Integer noteObtenue;
     private String session;
-    private int annee;
+    private Integer annee;
     private String commentaire;
     @ManyToOne
     @JoinColumn(name = "ProfesseurID")
@@ -34,7 +34,7 @@ public class Notes {
     public Notes() {
     }
 
-    public Notes(Integer id, int noteObtenue, String session, int annee, String commentaire, Projet projetID) {
+    public Notes(Integer id, Integer noteObtenue, String session, Integer annee, String commentaire, Projet projetID) {
         this.id = id;
         this.noteObtenue = noteObtenue;
         this.session = session;
@@ -43,7 +43,7 @@ public class Notes {
         this.projetID = projetID;
     }
 
-    public Notes(int noteObtenue, String session, int annee, String commentaire, Etudiant etudiantID, Cours coursID, Projet projetID) {
+    public Notes(int noteObtenue, String session, Integer annee, String commentaire, Etudiant etudiantID, Cours coursID, Projet projetID) {
         this.noteObtenue = noteObtenue;
         this.session = session;
         this.annee = annee;
@@ -61,11 +61,11 @@ public class Notes {
         this.id = id;
     }
 
-    public int getNoteObtenue() {
+    public Integer getNoteObtenue() {
         return noteObtenue;
     }
 
-    public void setNoteObtenue(int noteObtenue) {
+    public void setNoteObtenue(Integer noteObtenue) {
         this.noteObtenue = noteObtenue;
     }
 
@@ -77,11 +77,11 @@ public class Notes {
         this.session = session;
     }
 
-    public int getAnnee() {
+    public Integer getAnnee() {
         return annee;
     }
 
-    public void setAnnee(int annee) {
+    public void setAnnee(Integer annee) {
         this.annee = annee;
     }
 

@@ -22,7 +22,7 @@ public class Professeur extends Utilisateur{
 //        this.projets = new ArrayList();
     }
 
-    public Professeur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Professeur(Integer id, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
         super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
 //        this.notesDeCours = new ArrayList();
 //        this.projets = new ArrayList();
@@ -34,7 +34,7 @@ public class Professeur extends Utilisateur{
 //        this.projets = new ArrayList();
     }
 
-    public Professeur(int id) {
+    public Professeur(Integer id) {
         super(id);
 //        this.notesDeCours = new ArrayList();
 //        this.projets = new ArrayList();

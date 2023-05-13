@@ -4,6 +4,8 @@
  */
 package com.portaildti.portaildti.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
@@ -18,15 +20,23 @@ public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     Integer id;
+    @Column(length = 64, nullable = false)
     String prenom;
+    @Column(length = 64, nullable = false)
     String nom;
+    @Column(length = 128, nullable = false, unique = true)
     private String email;
-    //private String profil;
-    private String role;
-    private boolean active;
-    private String nomUtilisateur;
+//    private String profil;
+    @Column(nullable = false)
+    String role;
+    Boolean active;
+    @Column(length = 64, nullable = false, unique = true)
+    String nomUtilisateur;
+    @Column(length = 64, nullable = false)
     private String motDePasse;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate ddn;
+    @Column(length = 64)
     private String photo;
 
 
@@ -34,13 +44,12 @@ public class Utilisateur {
     }
 
 
-    public Utilisateur(Integer id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
-
+    public Utilisateur(Integer id, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
         this.id = id;
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
-        //this.profil = profil;
+//        this.profil = profil;
         this.role = role;
         this.active = active;
         this.nomUtilisateur = nomUtilisateur;
@@ -49,7 +58,7 @@ public class Utilisateur {
         this.photo = photo;
     }
 
-    public Utilisateur(Integer id, LocalDate ddn, String email, boolean active, String nom, String prenom, String password, String photo) {
+    public Utilisateur(Integer id, LocalDate ddn, String email, Boolean active, String nom, String prenom, String password, String photo) {
         this.ddn = ddn;
         this.id = id;
         this.prenom = prenom;
@@ -60,13 +69,13 @@ public class Utilisateur {
         this.photo = photo;
     }
 
-    public Utilisateur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Utilisateur(String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
 
         //this.id = id;
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
-        //this.profil = profil;
+//        this.profil = profil;
         this.role = role;
         this.active = active;
         this.nomUtilisateur = nomUtilisateur;
@@ -171,11 +180,11 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
