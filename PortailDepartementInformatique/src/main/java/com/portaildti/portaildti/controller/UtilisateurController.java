@@ -58,43 +58,47 @@ public class UtilisateurController {
         return "inscription-visiteur";
     }
     @PostMapping("/admins/save")
-    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) throws Exception {
+    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
         admin.setPhoto(filename);
+        admin.setRole(role);
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         adminService.ajouterAdmin(admin);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/professeurs/save")
-    public String ajouterProf(Professeur prof, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) throws Exception {
+    public String ajouterProf(Professeur prof, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
         prof.setPhoto(filename);
+        prof.setRole(role);
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         profService.ajouterProfesseur(prof);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/etudiants/save")
-    public String ajouterEtudiant(Etudiant etudiant, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) throws Exception {
+    public String ajouterEtudiant(Etudiant etudiant, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
         etudiant.setPhoto(filename);
+        etudiant.setRole(role);
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         etudiantService.ajouterEtudiant(etudiant);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/visiteurs/save")
-    public String ajouterVisiteur(Visiteur visiteur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) throws Exception {
+    public String ajouterVisiteur(Visiteur visiteur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
         visiteur.setPhoto(filename);
+        visiteur.setRole(role);
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         visiteurService.ajouterVisiteur(visiteur);
         return "redirect:/utilisateurs";
     }
     @GetMapping("/admins/edit/{id}")
-    public String mettreAJourAdmin(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model, @RequestParam("fileImage") MultipartFile file) {
+    public String mettreAJourAdmin(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
             Administrateur admin = adminService.get(id);
             model.addAttribute("admin", admin);
@@ -105,7 +109,7 @@ public class UtilisateurController {
         }
     }
     @GetMapping("/professeurs/edit/{id}")
-    public String mettreAJourProf(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model, @RequestParam("fileImage") MultipartFile file) {
+    public String mettreAJourProf(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
             Professeur prof = profService.get(id);
             model.addAttribute("prof", prof);
@@ -116,7 +120,7 @@ public class UtilisateurController {
         }
     }
     @GetMapping("/etudiants/edit/{id}")
-    public String mettreAJourEtudiant(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model, @RequestParam("fileImage") MultipartFile file) {
+    public String mettreAJourEtudiant(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
             Etudiant etudiant = etudiantService.get(id);
             model.addAttribute("etudiant", etudiant);
@@ -129,7 +133,7 @@ public class UtilisateurController {
         }
     }
     @GetMapping("/visiteurs/edit/{id}")
-    public String mettreAJourVisiteur(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model, @RequestParam("fileImage") MultipartFile file) {
+    public String mettreAJourVisiteur(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
             Visiteur visiteur = visiteurService.get(id);
             model.addAttribute("visiteur", visiteur);
