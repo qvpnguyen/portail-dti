@@ -118,23 +118,17 @@
                     <td>[[${visiteur.role}]]</td>
                     <td>[[${visiteur.nomUtilisateur}]]</td>
                     <td>[[${visiteur.active == true? 'Oui' : 'Non'}]]</td>
-                    <form action="gestionUtilisateursController" method="get">
-                        <td>
-                            <div title="Dialog box">
-                                <input type="hidden" name="id" th:value="${visiteur.id}">
-                                <input type="hidden" name="role" th:value="${visiteur.role}">
-                            </div>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="modifier">
-                            <!-- SVG pour icône de crayon -->
-                            <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                                                        <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                                                        </svg>-->
-                        </td>
-                        <td>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="supprimer">
-                        </td>
-                    </form>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/visiteurs/edit/' + ${visiteur.id}}" title="Modifier" th:text="Modifier"></a>
+                        <!-- SVG pour icône de crayon -->
+                        <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
+                                                                    </svg>-->
+                    </td>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/visiteurs/delete/' + ${visiteur.id}}" title="Supprimer" th:text="Supprimer"></a>
+                    </td>
                 </tr>
                 <tr th:each="etudiant : ${etudiants}">
                     <td>[[${etudiant.id}]]</td>
@@ -144,23 +138,17 @@
                     <td>[[${etudiant.role}]]</td>
                     <td>[[${etudiant.nomUtilisateur}]]</td>
                     <td>[[${etudiant.active == true? 'Oui' : 'Non'}]]</td>
-                    <form action="gestionUtilisateursController" method="get">
-                        <td>
-                            <div title="Dialog box">
-                                <input type="hidden" name="id" th:value="${etudiant.id}">
-                                <input type="hidden" name="role" th:value="${etudiant.role}">
-                            </div>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="modifier">
-                            <!-- SVG pour icône de crayon -->
-                            <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                                                        <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                                                        </svg>-->
-                        </td>
-                        <td>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="supprimer">
-                        </td>
-                    </form>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/etudiants/edit/' + ${etudiant.id}}" title="Modifier" th:text="Modifier"></a>
+                        <!-- SVG pour icône de crayon -->
+                        <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
+                                                                    </svg>-->
+                    </td>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/etudiants/delete/' + ${etudiant.id}}" title="Supprimer" th:text="Supprimer"></a>
+                    </td>
                 </tr>
                 <tr th:each="professeur : ${professeurs}">
                     <td>[[${professeur.id}]]</td>
@@ -170,23 +158,17 @@
                     <td>[[${professeur.role}]]</td>
                     <td>[[${professeur.nomUtilisateur}]]</td>
                     <td>[[${professeur.active == true? 'Oui' : 'Non'}]]</td>
-                    <form action="gestionUtilisateursController" method="get">
-                        <td>
-                            <div title="Dialog box">
-                                <input type="hidden" name="id" th:value="${professeur.id}">
-                                <input type="hidden" name="role" th:value="${professeur.role}">
-                            </div>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="modifier">
-                            <!-- SVG pour icône de crayon -->
-                            <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                                                        <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                                                        </svg>-->
-                        </td>
-                        <td>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="supprimer">
-                        </td>
-                    </form>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/professeurs/edit/' + ${professeur.id}}" title="Modifier" th:text="Modifier"></a>
+                        <!-- SVG pour icône de crayon -->
+                        <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
+                                                                    </svg>-->
+                    </td>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/professeurs/delete/' + ${professeur.id}}" title="Supprimer" th:text="Supprimer"></a>
+                    </td>
                 </tr>
                 <tr th:each="admin : ${admins}">
                     <td>[[${admin.id}]]</td>
@@ -196,23 +178,17 @@
                     <td>[[${admin.role}]]</td>
                     <td>[[${admin.nomUtilisateur}]]</td>
                     <td>[[${admin.active == true? 'Oui' : 'Non'}]]</td>
-                    <form action="gestionUtilisateursController" method="get">
-                        <td>
-                            <div title="Dialog box">
-                                <input type="hidden" name="id" th:value="${admin.id}">
-                                <input type="hidden" name="role" th:value="${admin.role}">
-                            </div>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="modifier">
-                            <!-- SVG pour icône de crayon -->
-                            <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                                                        <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
-                                                                        </svg>-->
-                        </td>
-                        <td>
-                            <input class="btn bouton-mauve" type="submit" name="operation" value="supprimer">
-                        </td>
-                    </form>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/admins/edit/' + ${admin.id}}" title="Modifier" th:text="Modifier"></a>
+                        <!-- SVG pour icône de crayon -->
+                        <!--                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M14.8183 1.99162C15.1654 1.64454 15.3384 1.47153 15.5114 1.35548C15.8584 1.12371 16.2662 1 16.6835 1C17.1007 1 17.5086 1.12371 17.8555 1.35548C18.0285 1.47153 18.2015 1.64454 18.5486 1.99162C18.8946 2.33764 19.0677 2.5117 19.1837 2.68366C19.4157 3.03071 19.5395 3.43878 19.5395 3.85623C19.5395 4.27369 19.4157 4.68176 19.1837 5.02881C19.0677 5.20076 18.8946 5.37483 18.5486 5.72085L7.11932 17.1501C6.84082 17.4297 6.70051 17.569 6.5391 17.6797C6.37664 17.7905 6.19625 17.8696 5.83546 18.0279L4.8649 18.4551C2.76978 19.3771 1.72116 19.8381 1.21162 19.3286C0.70103 18.818 1.16204 17.7705 2.08407 15.6743L2.51132 14.7037C2.66956 14.3429 2.74974 14.1625 2.85945 14.0011C2.97128 13.8387 3.11053 13.6994 3.39009 13.4209L14.8183 1.99162Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                                                    <path d="M11.9246 4.84766L15.6549 8.57795" stroke="black" stroke-width="2"/>
+                                                                    </svg>-->
+                    </td>
+                    <td>
+                        <a class="btn bouton-mauve" th:href="@{'/admins/delete/' + ${admin.id}}" title="Supprimer" th:text="Supprimer"></a>
+                    </td>
                 </tr>
             </tbody>
         </table>
