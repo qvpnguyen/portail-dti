@@ -39,7 +39,7 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
 
     @Query("SELECT e FROM Etudiant e WHERE e.email = :email and e.motDePasse=:motDePasse")
     public Etudiant findEtudiantByEmailAndPassword(@Param("email") String email, @Param("motDePasse") String motDePasse);
-
+    public Long countById(Integer id);
     @Modifying
     @Query("UPDATE Etudiant e SET e.active = ?2 WHERE e.id = ?1")
     public void updateActiveStatusEtudiant(Integer id, boolean active);

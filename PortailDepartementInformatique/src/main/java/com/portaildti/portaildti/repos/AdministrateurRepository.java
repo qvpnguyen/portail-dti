@@ -1,6 +1,7 @@
 package com.portaildti.portaildti.repos;
 
 import com.portaildti.portaildti.entities.Administrateur;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import com.portaildti.portaildti.entities.Professeur;
@@ -12,4 +13,8 @@ public interface AdministrateurRepository extends CrudRepository<Administrateur,
     public Administrateur getAdministrateurByEmailAndPassword(@Param("email") String email, @Param("motDePasse") String motDePasse);
     @Query("SELECT a FROM Administrateur a WHERE a.email = :email")
     public Administrateur findAdministrateurByEmail(@Param("email") String email);
+    public Long countById(Integer id);
+    @Query("UPDATE Administrateur a SET a.active = ?2 WHERE a.id = ?1")
+    @Modifying
+    public void updateActiveStatus(Integer id, boolean active);
 }
