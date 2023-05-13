@@ -60,7 +60,7 @@ public class UtilisateurController {
         return "inscription-visiteur";
     }
     @PostMapping("/admins/save")
-    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) {
+    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) throws Exception {
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
         admin.setPhoto(filename);
@@ -69,7 +69,7 @@ public class UtilisateurController {
         return "redirect:/utilisateurs";
     }
     @PostMapping("/professeurs/save")
-    public String ajouterProf(Professeur prof, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) {
+    public String ajouterProf(Professeur prof, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) throws Exception {
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
         prof.setPhoto(filename);
@@ -78,7 +78,7 @@ public class UtilisateurController {
         return "redirect:/utilisateurs";
     }
     @PostMapping("/etudiants/save")
-    public String ajouterEtudiant(Etudiant etudiant, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) {
+    public String ajouterEtudiant(Etudiant etudiant, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file) throws Exception {
         String chemin = file.getOriginalFilename();
         System.out.println("chemin: " + chemin);
         System.out.println("typeContenu: " + file.getContentType());
@@ -89,7 +89,7 @@ public class UtilisateurController {
         return "redirect:/utilisateurs";
     }
     @PostMapping("/visiteurs/save")
-    public String ajouterVisiteur(Visiteur visiteur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("ddn") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public String ajouterVisiteur(Visiteur visiteur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("ddn") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws Exception {
         String chemin = file.getOriginalFilename();
         System.out.println("chemin: " + chemin);
         System.out.println("typeContenu: " + file.getContentType());

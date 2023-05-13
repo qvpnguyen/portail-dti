@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 public interface AdministrateurRepository extends CrudRepository<Administrateur,Integer> {
     @Query("SELECT a FROM Administrateur a WHERE a.email = :email and a.motDePasse=:motDePasse")
     public Administrateur getAdministrateurByEmailAndPassword(@Param("email") String email, @Param("motDePasse") String motDePasse);
-
-
+    @Query("SELECT a FROM Administrateur a WHERE a.email = :email")
+    public Administrateur findAdministrateurByEmail(@Param("email") String email);
 }
