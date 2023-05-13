@@ -1,7 +1,9 @@
 package com.portaildti.portaildti.service;
 
+import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Professeur;
+import com.portaildti.portaildti.repos.CoursRepository;
 import com.portaildti.portaildti.repos.EtudiantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import java.util.List;
 public class EtudiantService {
     @Autowired
     private EtudiantRepository repo;
+    @Autowired
+    private CoursRepository coursRepo;
 
     public List<Etudiant> afficherEtudiants(){
 
@@ -72,6 +76,9 @@ public class EtudiantService {
         } else {
             repo.delete(etudiant);
         }
+    }
+    public List<Cours> afficherCours() {
+        return (List<Cours>) coursRepo.findAll();
     }
 
 }

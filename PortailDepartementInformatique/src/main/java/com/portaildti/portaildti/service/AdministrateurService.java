@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -14,7 +15,7 @@ public class AdministrateurService {
 
     @Autowired
     private AdministrateurRepository repo;
-    public boolean professeurExistByEmailAndPassword(String email, String mdp) {
+    public boolean adminExistByEmailAndPassword(String email, String mdp) {
 
         Administrateur admin = repo.getAdministrateurByEmailAndPassword(email,mdp);
 
@@ -23,5 +24,20 @@ public class AdministrateurService {
 
         return false;
 
+    }
+    public List<Administrateur> afficherAdministrateurs(){
+
+        return (List<Administrateur>) repo.findAll();
+    }
+    public Administrateur ajouterAdmin(Administrateur admin) throws Exception {
+
+        Administrateur adminExistant = repo.findAdministrateurByEmail(admin.getEmail());
+
+        if (adminExistant != null){
+            throw new Exception("L'administrateur existe déjà");
+
+        } else {
+            return repo.save(admin);
+        }
     }
 }
