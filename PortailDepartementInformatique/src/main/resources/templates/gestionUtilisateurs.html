@@ -91,10 +91,10 @@
 <main>
     <div class="container conteneur-table bg-light p-5 mt-5">
         <div th:if="${message!=null}" class="alert alert-success text-center">[[${message}]]</div>
-        <a th:href="@{/inscription-visiteur}" class="btn bouton-mauve mb-5">Ajouter un visiteur</a>
-        <a th:href="@{/inscription-etudiant}" class="btn bouton-mauve mb-5">Ajouter un étudiant</a>
-        <a th:href="@{/inscription-professeur}" class="btn bouton-mauve mb-5">Ajouter un professeur</a>
-        <a th:href="@{/inscription-admin}" class="btn bouton-mauve mb-5">Ajouter un administrateur</a>
+        <a th:href="@{/visiteurs/new}" class="btn bouton-mauve mb-5">Ajouter un visiteur</a>
+        <a th:href="@{/etudiants/new}" class="btn bouton-mauve mb-5">Ajouter un étudiant</a>
+        <a th:href="@{/professeurs/new}" class="btn bouton-mauve mb-5">Ajouter un professeur</a>
+        <a th:href="@{/admins/new}" class="btn bouton-mauve mb-5">Ajouter un administrateur</a>
         <table id="tableUtilisateurs" class="display">
             <thead>
             <tr>
