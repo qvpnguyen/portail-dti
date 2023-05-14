@@ -1,4 +1,4 @@
-package com.portaildti.portaildti.service;
+package com.portaildti.portaildti.Service;
 
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.NoteDeCours;

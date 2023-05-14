@@ -1,13 +1,14 @@
-package com.portaildti.portaildti.service;
+package com.portaildti.portaildti.Service;
 
+import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Visiteur;
+import com.portaildti.portaildti.repos.EtudiantRepository;
 import com.portaildti.portaildti.repos.VisiteurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -74,20 +75,5 @@ public class VisiteurService {
         } else {
             repo.delete(visiteur);
         }
-    }
-    public Visiteur get(Integer id) throws UtilisateurNotFoundException {
-        try {
-            return repo.findById(id).get();
-        } catch (NoSuchElementException exception) {
-            throw new UtilisateurNotFoundException("On ne peut pas trouver l'utilisateur avec l'id " + id);
-        }
-    }
-    public void delete(Integer id) throws UtilisateurNotFoundException {
-        Long countById = repo.countById(id);
-        // S'il n'y a pas d'utilisateur dans la BD, on lance une exception avec un message explicatif
-        if (countById == null || countById == 0) {
-            throw new UtilisateurNotFoundException("On ne peut pas trouver l'utilisateur avec l'id " + id);
-        }
-        repo.deleteById(id);
     }
 }
