@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+    <title>Gestion des utilisateurs - Portail du département de l'informatique</title>
+    <!-- Inclusion des fichiers Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Importation des polices (fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+    <!-- Inclusion de jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+    <!-- Inclusion des fichiers pour le plugin DataTables -->
+    <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <!-- Inclusion du stylesheet principal -->
+    <link rel="stylesheet" href="css/style.css"/>
+    <script>
+        $(document).ready( function () {
+            $('#tableUtilisateurs').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                "searching": false,
+                "columnDefs": [{
+                    "targets": 'image-column',
+                    "render": function(data, type, row, meta) {
+                        return '<img src="' + data + '" alt="Image" width="25" height="25">';
+                    }
+                }]
+            });
+        } );
+    </script>
+</head>
+<body class="fond-blanc">
+<header>
+<body>
+<main>
+    <div class="container conteneur-table bg-light p-5 mt-5">
+        <h4>Chercher notes de cours par nom :</h4>
+        <form  method="get" th:action="@{/rechercher/noteDeCours}">
+            <input type="search" name="note" th:value="${note}">
+            <input type="submit" value="rechercher" />
+        </form>
+
+        <a href="#" class="btn bouton-mauve mb-5" th:href="@{/creationNotesCours}">Ajouter une note de cours</a>
+
+        <table id="tableNotesCours" class="display">
+            <div th:if="${message!=null}" class="alert alert-success text-center">
+                [[${message}]]
+            </div>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Cours</th>
+                <th>Lien</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:if="${tnote != null}">
+                <tr>
+                    <td th:text="${tnote.id}"></td>
+                    <td th:text="${tnote.nom}"></td>
+                    <td th:text="${tnote.cours.nom}"></td>
+                    <td th:text="${tnote.lien}"></td>
+                    <td>
+                        <a class="fa-solid fa-trash fa-2x icon-dark link-delete"
+                           th:href="@{/notesDeCours/supprimer}"
+                           th:userId="${tnote.id}" th:value="${tnote.id}"
+                           title="Supprimer cet note de cours"></a>
+                    </td>
+                </tr>
+            </div>
+            <div th:unless="${tnotes == null }">
+                <tr th:each="noteDeCours : ${listeNotesCoursProf}">
+                    <td th:text="${noteDeCours.id}"></td>
+                    <td th:text="${noteDeCours.nom}"></td>
+                    <td th:text="${noteDeCours.cours.nom}"></td>
+                    <td th:text="${noteDeCours.lien}"></td>
+                    <td>
+                        <a class="fa-solid fa-trash fa-2x icon-dark link-delete"
+                           th:href="@{/notesDeCours/supprimer}"
+                           th:userId="${noteDeCours.id}" th:value="${noteDeCours.id}"
+                           title="Supprimer cet note de cours"></a>
+
+                    </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+<footer>
+    <p>&copy; 2023 Département de l'informatique</p>
+</footer>
+</body>
+</html>
