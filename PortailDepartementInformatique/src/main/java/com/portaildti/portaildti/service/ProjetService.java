@@ -1,6 +1,7 @@
 package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.Cours;
+import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Projet;
 import com.portaildti.portaildti.entities.Visiteur;
 import com.portaildti.portaildti.repos.NoteDeCoursRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -30,5 +32,28 @@ public class ProjetService {
         }
 
         return  null;
+    }
+    public Projet ajouterProjet(Projet projet) throws Exception {
+        Projet projetExistant = repo.findProjetById(projet.getId());
+        if (projetExistant != null) {
+            throw new Exception("Le projet existe déjà");
+        } else {
+            return repo.save(projet);
+        }
+    }
+    public Projet get(Integer id) throws ProjetNotFoundException {
+        try {
+            return repo.findById(id).get();
+        } catch (NoSuchElementException exception) {
+            throw new ProjetNotFoundException("On ne peut pas trouver le projet avec l'id " + id);
+        }
+    }
+    public void delete(Integer id) throws UtilisateurNotFoundException {
+        Long countById = repo.countById(id);
+        // S'il n'y a pas d'utilisateur dans la BD, on lance une exception avec un message explicatif
+        if (countById == null || countById == 0) {
+            throw new UtilisateurNotFoundException("On ne peut pas trouver l'utilisateur avec l'id " + id);
+        }
+        repo.deleteById(id);
     }
 }

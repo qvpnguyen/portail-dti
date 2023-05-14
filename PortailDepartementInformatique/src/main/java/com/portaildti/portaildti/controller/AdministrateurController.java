@@ -1,10 +1,7 @@
 package com.portaildti.portaildti.controller;
 
 import com.portaildti.portaildti.entities.*;
-import com.portaildti.portaildti.service.AdministrateurService;
-import com.portaildti.portaildti.service.EtudiantService;
-import com.portaildti.portaildti.service.ProfesseurService;
-import com.portaildti.portaildti.service.VisiteurService;
+import com.portaildti.portaildti.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +24,8 @@ public class AdministrateurController {
     EtudiantService etudiantService;
     @Autowired
     VisiteurService visiteurService;
+    @Autowired
+    ProjetService projetService;
     @GetMapping("/administration")
     public String afficherPageAdmin(Model model) {
         return "administration";
@@ -48,5 +47,13 @@ public class AdministrateurController {
         model.addAttribute("professeurs", professeurs);
         model.addAttribute("admins", admins);
         return "gestionUtilisateurs";
+    }
+    @GetMapping("/gestion-projets")
+    public String afficherGestionProjets(Model model) {
+        List<Projet> projets = projetService.afficherProjet();
+        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
+        model.addAttribute("projets", projets);
+        model.addAttribute("listeEtudiants", listeEtudiants);
+        return "gestionProjets";
     }
 }

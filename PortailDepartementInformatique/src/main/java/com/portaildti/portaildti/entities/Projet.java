@@ -6,6 +6,8 @@ package com.portaildti.portaildti.entities;
  */
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -31,6 +33,13 @@ public class Projet {
     @OneToOne
     @JoinColumn(name = "NotesID")
     private Notes notes;
+    @ManyToMany
+    @JoinTable(
+            name = "étudiant_projet",
+            joinColumns = @JoinColumn(name = "ProjetID"),
+            inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
+    )
+    private Set<Etudiant> etudiants = new HashSet();
 
     public Projet() {
     }
@@ -131,6 +140,9 @@ public class Projet {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+    public void ajouter(Etudiant etudiant) {
+        this.etudiants.add(etudiant);
     }
 
     public String afficherTitreDesColonnes() {
