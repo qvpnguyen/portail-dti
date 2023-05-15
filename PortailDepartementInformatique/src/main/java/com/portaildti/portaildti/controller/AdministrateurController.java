@@ -26,6 +26,8 @@ public class AdministrateurController {
     VisiteurService visiteurService;
     @Autowired
     ProjetService projetService;
+    @Autowired
+    NoteDeCoursService noteDeCoursService;
     @GetMapping("/administration")
     public String afficherPageAdmin(Model model) {
         return "administration";
@@ -55,5 +57,11 @@ public class AdministrateurController {
         model.addAttribute("projets", projets);
         model.addAttribute("listeEtudiants", listeEtudiants);
         return "gestionProjets";
+    }
+    @GetMapping("/gestion-notes-de-cours")
+    public String afficherGestionNotesDeCours(Model model) {
+        List<NoteDeCours> notesDeCours = noteDeCoursService.afficherNoteDeCours();
+        model.addAttribute("notesDeCours", notesDeCours);
+        return "gestionNotesDeCours";
     }
 }

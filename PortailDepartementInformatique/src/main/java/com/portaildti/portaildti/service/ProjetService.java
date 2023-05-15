@@ -1,4 +1,4 @@
-package com.portaildti.portaildti.Service;
+package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Projet;
@@ -30,5 +30,8 @@ public class ProjetService {
         }
 
         return  null;
+    }
+    public Projet ajouterProjet(Projet projet) {
+        return repo.save(projet);
     }
 }

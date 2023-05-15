@@ -1,4 +1,4 @@
-package com.portaildti.portaildti.Service;
+package com.portaildti.portaildti.service;
 import com.portaildti.portaildti.entities.NoteDeCours;
 import com.portaildti.portaildti.entities.Notes;
 import com.portaildti.portaildti.repos.NotesRepository;
