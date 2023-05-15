@@ -31,4 +31,7 @@ public class ProjetService {
 
         return  null;
     }
+    public Projet ajouterProjet(Projet projet) {
+        return repo.save(projet);
+    }
 }

@@ -1,6 +1,8 @@
 package com.portaildti.portaildti.service;
 
+import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Visiteur;
+import com.portaildti.portaildti.repos.EtudiantRepository;
 import com.portaildti.portaildti.repos.VisiteurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

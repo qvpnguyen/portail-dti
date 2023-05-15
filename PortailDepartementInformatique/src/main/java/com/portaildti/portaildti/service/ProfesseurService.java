@@ -1,5 +1,6 @@
 package com.portaildti.portaildti.service;
 
+import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.repos.ProfesseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;

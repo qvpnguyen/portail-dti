@@ -30,7 +30,7 @@ public class EtudiantRepositoryTest {
 //
 //        repo.save(etudiant);
 
-        Etudiant etudiant2 = new Etudiant(false, null, false, "Programmation", "Patrick", "Nguyen", "0855068@crosemont.qc.ca", "Etudiant", true, "pnguyen", "password123", LocalDate.of(1900, 1, 1), null);
+        Etudiant etudiant2 = new Etudiant(false, null, false, "Programmation", "Patrick", "Nguyen", "0855068@crosemont.qc.ca", "Etudiant", true, "pnguyen", "password123", LocalDate.of(1900, 1, 1), "patrick.jpg");
         repo.save(etudiant2);
     }
 
