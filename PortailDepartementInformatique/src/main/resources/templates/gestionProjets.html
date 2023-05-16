@@ -113,7 +113,7 @@
 <!--                    </c:forEach>-->
                 </td>
                 <td>[[${projet.professeur.prenom}]] [[${projet.professeur.nom}]]</td>
-                <td>[[${projet.notes.noteObtenue}]]</td>
+                <td th:text="${projet.notes != null ? projet.notes.noteObtenue : 'N/D'}"></td>
                 <td>
                     <a class="fa-solid fa-pen-to-square icon-navy fa-2x" th:href="@{'/projets/edit/' + ${projet.id}}" title="Modifier"></a>
                     <a class="fa-solid fa-trash icon-navy fa-2x" th:href="@{'/projets/delete/' + ${projet.id}}" title="Supprimer"></a>
