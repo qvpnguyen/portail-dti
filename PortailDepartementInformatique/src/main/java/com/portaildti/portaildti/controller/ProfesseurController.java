@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class EtudiantController {
+public class ProfesseurController {
     @Autowired
     ProfesseurService profService;
     @Autowired
     CoursService coursService;
     @Autowired
     ProjetService projetService;
-    @GetMapping("/etudiant")
-    public String afficherPageEtudiant(Model model) {
+    @GetMapping("/professeur")
+    public String afficherPageProfesseur(Model model) {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
-        return "etudiant";
+        return "professeur";
     }
 }

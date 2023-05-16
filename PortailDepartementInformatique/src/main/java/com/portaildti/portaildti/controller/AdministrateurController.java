@@ -28,8 +28,16 @@ public class AdministrateurController {
     ProjetService projetService;
     @Autowired
     NoteDeCoursService noteDeCoursService;
+    @Autowired
+    CoursService coursService;
     @GetMapping("/administration")
     public String afficherPageAdmin(Model model) {
+        List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Projet> listeProjets = projetService.afficherProjet();
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("listeProjets", listeProjets);
         return "administration";
     }
     @GetMapping("/utilisateurs")
@@ -38,24 +46,34 @@ public class AdministrateurController {
         List<Etudiant> etudiants = etudiantService.afficherEtudiants();
         List<Professeur> professeurs = profService.afficherProfesseurs();
         List<Administrateur> admins = adminService.afficherAdministrateurs();
-        GestionUtilisateurs gestionUtilisateurs = new GestionUtilisateurs();
-        gestionUtilisateurs.setVisiteurs(visiteurs);
-        gestionUtilisateurs.setEtudiants(etudiants);
-        gestionUtilisateurs.setProfesseurs(professeurs);
-        gestionUtilisateurs.setAdmins(admins);
-        model.addAttribute("gestionUtilisateurs", gestionUtilisateurs);
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Projet> listeProjets = projetService.afficherProjet();
+//        GestionUtilisateurs gestionUtilisateurs = new GestionUtilisateurs();
+//        gestionUtilisateurs.setVisiteurs(visiteurs);
+//        gestionUtilisateurs.setEtudiants(etudiants);
+//        gestionUtilisateurs.setProfesseurs(professeurs);
+//        gestionUtilisateurs.setAdmins(admins);
+//        model.addAttribute("gestionUtilisateurs", gestionUtilisateurs);
         model.addAttribute("visiteurs", visiteurs);
         model.addAttribute("etudiants", etudiants);
-        model.addAttribute("professeurs", professeurs);
+        model.addAttribute("listeProfesseurs", professeurs);
         model.addAttribute("admins", admins);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("listeProjets", listeProjets);
         return "gestionUtilisateurs";
     }
     @GetMapping("/gestion-projets")
     public String afficherGestionProjets(Model model) {
         List<Projet> projets = projetService.afficherProjet();
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
+        List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Projet> listeProjets = projetService.afficherProjet();
         model.addAttribute("projets", projets);
         model.addAttribute("listeEtudiants", listeEtudiants);
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("listeProjets", listeProjets);
         return "gestionProjets";
     }
     @GetMapping("/gestion-notes-de-cours")
