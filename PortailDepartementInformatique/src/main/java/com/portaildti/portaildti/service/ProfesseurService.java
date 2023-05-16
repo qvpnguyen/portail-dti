@@ -31,7 +31,7 @@ public class ProfesseurService {
             throw new Exception("Le professeur existe déjà");
 
         } else {
-            return repo.save(professeurExistant);
+            return repo.save(professeur);
         }
     }
     public Professeur rechercherProfesseurPaNom(String nom){
