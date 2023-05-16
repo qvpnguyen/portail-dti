@@ -31,9 +31,9 @@ public class NoteDeCoursService {
         }
         return null;
     }
-    public Optional<NoteDeCours> rechercherNoteDeCoursParID(Integer id){
+    public NoteDeCours rechercherNoteDeCoursParID(Integer id){
 
-            return repo.findById(id);
+            return repo.findById(id).get();
 
     }
 
