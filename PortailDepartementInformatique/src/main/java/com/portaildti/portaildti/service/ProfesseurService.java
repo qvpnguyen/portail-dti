@@ -34,13 +34,13 @@ public class ProfesseurService {
             return repo.save(professeur);
         }
     }
-    public Professeur rechercherProfesseurPaNom(String nom){
+    public List<Professeur> rechercherProfesseurPaNom(String nom){
         if (nom != null) {
             return repo.getProfesseurParNom(nom);
         }
         return null;
     }
-    public Professeur rechercherProfesseurParProjetNom(String nomProjet){
+    public List<Professeur> rechercherProfesseurParProjetNom(String nomProjet){
         if (nomProjet != null) {
             return repo.findProfesseursByProjetName(nomProjet);
         }
@@ -70,14 +70,14 @@ public class ProfesseurService {
         return false;
 
     }
-    public boolean professeurExistByEmailAndPassword(String email, String mdp) {
+    public Professeur professeurExistByEmailAndPassword(String email, String mdp) {
 
         Professeur prof = repo.getProfesseurByEmailAndPassword(email,mdp);
 
-        if (prof != null) return true;
 
 
-        return false;
+
+        return prof;
 
     }
     public void deleteProfesseur(Integer id) throws  ProfesseurNotFoundException {

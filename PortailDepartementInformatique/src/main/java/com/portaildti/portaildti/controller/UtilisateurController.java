@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,13 +28,82 @@ public class UtilisateurController {
     EtudiantService etudiantService;
     @Autowired
     VisiteurService visiteurService;
-    @GetMapping("/admins/new")
+    @GetMapping("/utilisateur/connexion/")
+    public String connexionUtilisateurs(Model model,HttpSession session, @RequestParam("btnradio") String type, @RequestParam(name = "nomUtilisateur") String email, @RequestParam(name = "motDePasse") String password) {
+
+        Administrateur administrateur = adminService.adminExistByEmailAndPassword(email,password);
+        Visiteur visiteur = visiteurService.visiteurExistsByEmailAndPassword(email,password);
+        Etudiant etudiant = etudiantService.etudiantExistsByEmailAndPassword(email,password);
+        Professeur prof = profService.professeurExistByEmailAndPassword(email,password);
+
+        if(type.equals("btnetudiant")){
+            if(etudiant !=null){
+                session.setAttribute("nomEtudiant", etudiant.getNom());
+                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
+
+                return "redirect:/etudiant";
+
+            }
+            else if(administrateur!=null) {
+                session.setAttribute("nomAdmin", administrateur.getNom());
+                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+
+                return "redirect:/administration";
+            }else {
+                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
+                return "redirect:/";
+            }
+
+        } else if (type.equals("btnprofesseur")) {
+            if(prof !=null){
+                session.setAttribute("nomProf", prof.getNom());
+                session.setAttribute("prenomProf", prof.getPrenom());
+
+                return "redirect:/professeur";
+
+            }
+            else if(administrateur!=null) {
+                session.setAttribute("nomAdmin", administrateur.getNom());
+                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+
+                return "redirect:/administration";
+            }else {
+                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
+                return "redirect:/";
+            }
+
+        } else if (type.equals("btnvisiteur")) {
+            if(visiteur !=null){
+                session.setAttribute("nomVisiteur", visiteur.getNom());
+                session.setAttribute("prenomVisiteur", visiteur.getPrenom());
+
+                return "redirect:/gestionProjets";
+
+            }
+            else if(administrateur!=null) {
+                session.setAttribute("nomAdmin", administrateur.getNom());
+                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+
+                return "redirect:/administration";
+            }else {
+                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
+                return "redirect:/";
+            }
+        }
+        return "/";
+
+
+    }
+
+    @GetMapping("/admins/new/")
     public String afficherFormulaireAdmin(Model model) {
         Administrateur administrateur = new Administrateur();
         model.addAttribute("administrateur", administrateur);
         model.addAttribute("pageTitle", "Ajouter un nouveau utilisateur");
         return "inscription-admin";
     }
+
+
     @GetMapping("/professeurs/new")
     public String afficherFormulaireProf(Model model) {
         Professeur professeur = new Professeur();
@@ -111,6 +181,7 @@ public class UtilisateurController {
     @GetMapping("/professeurs/edit/{id}")
     public String mettreAJourProf(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
+
             Professeur prof = profService.get(id);
             model.addAttribute("prof", prof);
             return "inscription-professeur";

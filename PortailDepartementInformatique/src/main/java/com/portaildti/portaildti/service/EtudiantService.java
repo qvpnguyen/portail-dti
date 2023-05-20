@@ -57,15 +57,13 @@ public class EtudiantService {
         return false;
     }
 
-    public boolean etudiantExistsByEmailAndPassword(String email, String password){
+    public Etudiant etudiantExistsByEmailAndPassword(String email, String password){
 
         Etudiant etudiantEmailPassword = repo.findEtudiantByEmailAndPassword(email, password);
 
-        if (etudiantEmailPassword != null){
-            return true;
-        }
 
-        return false;
+
+        return etudiantEmailPassword;
     }
 
     public void supprimerEtudiant(Integer id) throws Exception {
