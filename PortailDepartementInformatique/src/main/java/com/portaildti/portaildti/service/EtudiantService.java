@@ -1,5 +1,6 @@
 package com.portaildti.portaildti.service;
 
+import com.portaildti.portaildti.entities.Administrateur;
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Professeur;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -34,16 +36,16 @@ public class EtudiantService {
         return  null;
     }
 
-    public Etudiant ajouterEtudiant(Etudiant etudiant) throws Exception {
+    public Etudiant ajouterEtudiant(Etudiant etudiant) {
 
-        Etudiant etudiantExistant = repo.findEtudiantByEmail(etudiant.getEmail());
-
-        if (etudiantExistant != null){
-            throw new Exception("L'étudiant existe déjà");
-
-        } else {
+//        Etudiant etudiantExistant = repo.findEtudiantByEmail(etudiant.getEmail());
+//
+//        if (etudiantExistant != null){
+//            throw new IOException("L'étudiant existe déjà");
+//
+//        } else {
             return repo.save(etudiant);
-        }
+//        }
     }
 
     public boolean isEmailEtudiantUnique(String email){
@@ -66,12 +68,12 @@ public class EtudiantService {
         return etudiantEmailPassword;
     }
 
-    public void supprimerEtudiant(Integer id) throws Exception {
+    public void supprimerEtudiant(Integer id) throws IOException {
 
         Etudiant etudiant = repo.findById(id).orElse(null);
 
         if (etudiant == null) {
-            throw new Exception("L'étudiant n'existe pas");
+            throw new IOException("L'étudiant n'existe pas");
 
         } else {
             repo.delete(etudiant);
@@ -96,5 +98,15 @@ public class EtudiantService {
         }
         repo.deleteById(id);
     }
+    public List<Etudiant> findByPhotoName(String photo) throws UtilisateurNotFoundException {
+        try{
+            return repo.findByFileName(photo);
+        }catch (NoSuchElementException exception){
+            throw new UtilisateurNotFoundException("On ne peut pas trouver un utilisateur avec la photo " + photo);
+        }
 
+    }
+    public String getPhotoByUserId(Integer id) {
+        return repo.findById(id).get().getPhoto();
+    }
 }

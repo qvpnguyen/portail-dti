@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -23,18 +24,20 @@ public class ProfesseurService {
         return (List<Professeur>)  repo.findAll();
     }
 
-    public Professeur ajouterProfesseur(Professeur professeur) throws Exception {
+    public Professeur ajouterProfesseur(Professeur professeur) {
 
-        Professeur professeurExistant = repo.getProfesseurByEmail(professeur.getEmail());
-
-        if (professeurExistant != null){
-            throw new Exception("Le professeur existe déjà");
-
-        } else {
+//        Professeur professeurExistant = repo.getProfesseurByEmail(professeur.getEmail());
+//
+//        if (professeurExistant != null){
+//            throw new IOException("Le professeur existe déjà");
+//
+//        } else {
             return repo.save(professeur);
-        }
+//        }
     }
-    public List<Professeur> rechercherProfesseurPaNom(String nom){
+
+    public List<Professeur> rechercherProfesseurParNom(String nom){
+
         if (nom != null) {
             return repo.getProfesseurParNom(nom);
         }
@@ -105,5 +108,16 @@ public class ProfesseurService {
             throw new UtilisateurNotFoundException("On ne peut pas trouver l'utilisateur avec l'id " + id);
         }
         repo.deleteById(id);
+    }
+    public List<Professeur> findByPhotoName(String photo) throws UtilisateurNotFoundException {
+        try{
+            return repo.findByFileName(photo);
+        }catch (NoSuchElementException exception){
+            throw new UtilisateurNotFoundException("On ne peut pas trouver un utilisateur avec la photo " + photo);
+        }
+
+    }
+    public String getPhotoByUserId(Integer id) {
+        return repo.findById(id).get().getPhoto();
     }
 }

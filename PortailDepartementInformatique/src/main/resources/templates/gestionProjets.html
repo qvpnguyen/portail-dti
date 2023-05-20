@@ -209,9 +209,9 @@
                 <td>[[${projet.annee}]]</td>
                 <td>[[${projet.cours.nom}]]</td>
                 <td>
-<!--                    <c:forEach var="membre" items="${dao.findEtudiantsParProjet(unProjet.nom)}">-->
-<!--                        ${membre.prenom} ${membre.nom}<br>-->
-<!--                    </c:forEach>-->
+                    <p th:each="membre : ${etudiantsParProjet[projet.id]}">
+                        [[${membre.prenom}]] [[${membre.nom}]]
+                    </p>
                 </td>
                 <td>[[${projet.professeur.prenom}]] [[${projet.professeur.nom}]]</td>
                 <td th:text="${projet.notes != null ? projet.notes.noteObtenue : 'N/D'}"></td>

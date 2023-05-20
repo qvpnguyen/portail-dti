@@ -92,6 +92,11 @@ public class ProjetController {
     @GetMapping("/projets/delete/{projetid}")
     public String supprimerProjet(@PathVariable(name = "projetid") Integer id, Model model, RedirectAttributes redirectAttributes) {
         try {
+            List<EtudiantProjet> listeEtudiantProjets = etudiantProjetService.rechercherEtudiantProjetsParProjetId(id);
+            System.out.println("listeEtudiantProjets: " + listeEtudiantProjets);
+            for (EtudiantProjet etudiantProjet : listeEtudiantProjets) {
+                etudiantProjetService.supprimerEtudiantProjetsParProjetId(id);
+            }
             projetService.delete(id);
             redirectAttributes.addFlashAttribute("message", "Le projet ID " + id + " a été supprimé avec succès");
         } catch (ProjetNotFoundException e) {

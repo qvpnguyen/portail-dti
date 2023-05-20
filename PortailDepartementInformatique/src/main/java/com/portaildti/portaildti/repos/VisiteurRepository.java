@@ -3,7 +3,6 @@ package com.portaildti.portaildti.repos;
 import com.portaildti.portaildti.entities.Visiteur;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.portaildti.portaildti.entities.Etudiant;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +25,6 @@ public interface VisiteurRepository extends CrudRepository<Visiteur, Integer> {
 
     @Query("SELECT v FROM Visiteur v WHERE v.email = :email and v.motDePasse=:motDePasse")
     public Visiteur findVisiteurByEmailAndPassword(@Param("email") String email, @Param("motDePasse") String motDePasse);
-
+    @Query("SELECT v FROM Visiteur v WHERE v.photo = :fileName")
+    public List<Visiteur> findByFileName(@Param("fileName") String fileName);
 }

@@ -1,7 +1,6 @@
 package com.portaildti.portaildti.repos;
 
 import com.portaildti.portaildti.entities.Etudiant;
-import com.portaildti.portaildti.entities.Professeur;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -46,5 +45,6 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
 
     @Query("SELECT e.prenom, e.nom FROM Etudiant e JOIN e.projets p WHERE p.nom = :nomProjet")
     public List<Object[]> findEtudiantsParProjet(@Param("nomProjet") String nomProjet);
-
+    @Query("SELECT e FROM Etudiant e WHERE e.photo = :fileName")
+    public List<Etudiant> findByFileName(@Param("fileName") String fileName);
 }
