@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface NotesRepository extends CrudRepository<Notes,Integer> {
 
     @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.nom = ?1")
-    public Notes findNotesByProjetName(String nom);
+    public List<Notes> findNotesByProjetName(String nom);
 
     @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.id = ?1")
     public Notes findNotesByProjetID(Integer id);

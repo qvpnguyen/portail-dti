@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
-    <title>Gestion des projets - Portail du département de l'informatique</title>
+    <title>Création de projet - Portail du département de l'informatique</title>
     <!-- Inclusion des fichiers Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -20,18 +20,7 @@
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
     <!-- Inclusion du stylesheet principal -->
     <link rel="stylesheet" href="/css/style.css"/>
-    <script>
-        $(document).ready(function () {
-            $('#tableProjets').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-                },
-                "searching": false
-            });
-        });
-    </script>
 </head>
-<html class="fond-blanc">
 <header>
     <div class="d-flex justify-content-between mx-5 py-3">
         <div class="d-flex">
@@ -83,55 +72,83 @@
         </nav>
     </div>
 </header>
-
 <body>
-<main>
-    <div class="container conteneur-table bg-light p-5 mt-5">
-        <h4>Chercher notes de cours par nom :</h4>
-        <form method="get" action="/rechercher/noteDeCours">
-            <input type="search" name="note" th:value="${note}">
-            <input type="submit" value="rechercher" />
-        </form>
+<div class="container px-5 d-flex justify-content-center">
+    <div class="row">
+        <div class="boite-inscription mt-5">
+            <form   th:action="@{/notes/save}" method="POST"  th:object="${note}">
+                <div class="row mx-2 mt-4">
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label >La note obtenue:</label>
+                            <input type="text" class="form-control" id="nom" name="nomNotesDeCours" th:field="*{noteObtenue}">
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="etudiant">Etudiants responsable:</label>
+                            <select name="etudiant" id="etudiant" class="form-select" th:field="*{etudiantID}">
+                                <option th:each="etud : ${listeEtudiants}" th:value="${etud.id}"
+                                        th:text="${etud.prenom} + ' ' + ${etud.nom}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label th:field="*{session}">Session:</label>
+                            <select name="session">
+                                <option value="automne">Automne</option>
+                                <option value="hiver">Hiver</option>
+                                <option value="été">Été</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="date">Date:</label>
+                            <input type="text" class="form-control" id="date" name="date" th:field="*{annee}">
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="commentaire">Commentaire :</label>
+                            <input type="text" class="form-control" id="commentaire" name="commentaire">
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="cours">Cours associé:</label>
+                            <select name="cours" id="cours" class="form-select" th:field="*{coursID}">
+                                <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="projet">Projet associé:</label>
+                            <select name="projet" id="projet" class="form-select" th:field="*{projetID}">
+                                <option th:each="unProjet : ${listeProjets}" th:value="${unProjet.id}"
+                                        th:text="${unProjet.nom}"></option>
+                            </select>
+                        </div>
+                    </div>
 
-        <a  class="btn bouton-mauve mb-5" th:href="@{/notesDeCours/new}">Ajouter une note de cours</a>
 
-        <div class="container conteneur-table bg-light p-5 mt-5">
-            <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
 
-            <table id="tableProjets" class="display">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Cours</th>
-                    <th>Lien</th>
-                    <th>Professeur</th>
-                    <th>Télécharger</th>
-                    <th>Supprimer</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="noteDeCours : ${listNotesDeCours}">
-                    <td th:text="${noteDeCours.id}"></td>
-                    <td th:text="${noteDeCours.nom}"></td>
-                    <td th:text="${noteDeCours.cours.nom}"></td>
-                    <td th:text="${noteDeCours.lien}"></td>
-                    <td th:text="${noteDeCours.professeur.prenom} + ' ' + ${noteDeCours.professeur.nom}"></td>
-                    <td>
-                        <a class="fa-solid fa-download icon-navy fa-2x" th:href="@{'/files/' + ${noteDeCours.document}}"  title="Télécharger"></a>
-                    </td>
-                    <td>
-                        <a class="fa-solid fa-trash icon-navy fa-2x" th:href="@{'/notesDeCours/supprimer/' + ${noteDeCours.id}}"  title="Supprimer"></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+                <div class="d-grid gap-2 mt-4 mx-3">
+                    <button type="submit" class="btn bouton-mauve">
+                        Sauvegarder
+                    </button>
+                    <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
+                        <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>
+                        OneDrive
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
-</main>
+</div>
 
-<footer>
-    <p>&copy; 2023 Département de l'informatique</p>
-</footer>
 </body>
 </html>

@@ -19,9 +19,9 @@ public class NotesService {
 
         return ( List<Notes>)  repo.findAll();
     }
-    public Optional<Notes> rechercherNotesParID(Integer id){
+    public Notes rechercherNotesParID(Integer id){
 
-        return repo.findById(id);
+        return repo.findById(id).get();
 
     }
     public Notes ajouterNotes(Notes notes){
@@ -32,7 +32,7 @@ public class NotesService {
          repo.deleteById(id);
     }
 
-    public Notes rechercherNotesParProjetNom(String nomProjet){
+    public List<Notes> rechercherNotesParProjetNom(String nomProjet){
         if (nomProjet != null) {
             return repo.findNotesByProjetName(nomProjet);
         }

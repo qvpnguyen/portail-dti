@@ -56,15 +56,12 @@ public class VisiteurService {
         return false;
     }
 
-    public boolean visiteurExistsByEmailAndPassword(String email, String password){
+    public Visiteur visiteurExistsByEmailAndPassword(String email, String password){
 
         Visiteur visiteurEmailPassword = repo.findVisiteurByEmailAndPassword(email, password);
 
-        if (visiteurEmailPassword != null){
-            return true;
-        }
 
-        return false;
+        return visiteurEmailPassword;
     }
 
     public void supprimerVisiteur(Integer id) throws IOException {

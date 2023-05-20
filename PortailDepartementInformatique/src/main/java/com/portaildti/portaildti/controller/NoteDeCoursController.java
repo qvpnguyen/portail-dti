@@ -59,9 +59,9 @@ public class NoteDeCoursController {
     public String rechercherNoteDeCours(
             Model model, @Param("note") String note)
     {
-        NoteDeCours noteDeCours = service.rechercherNoteDeCoursPaNom(note);
-        model.addAttribute("tnote", noteDeCours);
-        model.addAttribute("note", note);
+        List<NoteDeCours> listNotesDeCours = service.rechercherNoteDeCoursPaNom(note);
+        model.addAttribute("listNotesDeCours", listNotesDeCours);
+
         return "gestionNotesDeCours";
     }
     @GetMapping("/notesDeCours/supprimer/{id}")
@@ -82,7 +82,7 @@ public class NoteDeCoursController {
     }
 
     @PostMapping("/notesDeCours/save")
-    public String ajouterProjet(NoteDeCours noteDeCours, RedirectAttributes redirectAttributes, @RequestParam("documentNotesCours") MultipartFile file) throws Exception {
+    public String ajouterNoteDeCours(NoteDeCours noteDeCours, RedirectAttributes redirectAttributes, @RequestParam("documentNotesCours") MultipartFile file) throws Exception {
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
         noteDeCours.setDocument(filename);
@@ -91,7 +91,8 @@ public class NoteDeCoursController {
 
         return "redirect:/notesDeCours";
     }
-    
+
+
 
 
 

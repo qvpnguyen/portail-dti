@@ -21,14 +21,12 @@ public class AdministrateurService {
 
         return (List<Administrateur>) repo.findAll();
     }
-    public boolean adminExistByEmailAndPassword(String email, String mdp) {
+    public Administrateur adminExistByEmailAndPassword(String email, String mdp) {
 
         Administrateur admin = repo.getAdministrateurByEmailAndPassword(email,mdp);
 
-        if (admin != null) return true;
 
-
-        return false;
+        return admin;
 
     }
     public Administrateur ajouterAdmin(Administrateur admin) {

@@ -24,6 +24,8 @@ public class ProjetController {
     CoursService coursService;
     @Autowired
     EtudiantProjetService etudiantProjetService;
+    @Autowired
+    NotesService notesService;
     @GetMapping("/projets/new")
     public String afficherFormulaireProjet(Model model) {
         Projet projet = new Projet();
@@ -36,6 +38,21 @@ public class ProjetController {
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-form";
+    }
+    @GetMapping("/projets")
+    public String afficherProjet(Model model) {
+        Projet projet = new Projet();
+        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
+        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Projet> listeProjets = projetService.afficherProjet();
+        model.addAttribute("projet", projet);
+        model.addAttribute("listeEtudiants", listeEtudiants);
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("projets", listeProjets);
+        model.addAttribute("pageTitle", "Afficher les projets");
+        return "gestionProjets";
     }
     @PostMapping("/projets/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam("fileVideo") MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres) throws Exception {
@@ -86,5 +103,64 @@ public class ProjetController {
             redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver le projet avec l'id " + id);
         }
         return "redirect:/gestion-projets";
+    }
+
+    @GetMapping("/projets/evaluation")
+    public String evaluerProjet(Model model) {
+
+        List<Notes> listeNotesProjets = notesService.afficherNote();
+        model.addAttribute("listeNotes", listeNotesProjets);
+
+        return "evaluationProjets";
+    }
+    @GetMapping("/modifier/note/{id}")
+    public String modifierNote (Model model,@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
+    notesService.modifierNoteObtenue(id,noteObtenue);
+        return "redirect:/projets/evaluation";
+    }
+    @GetMapping("/rechercher/note_projet")
+    public String rechercherNoteParNomProjet (Model model,@RequestParam("note") String nomProjet) {
+        List<Notes> listNotesProjet = notesService.rechercherNotesParProjetNom(nomProjet);
+        model.addAttribute("listeNotes", listNotesProjet);
+        return "redirect:/projets/evaluation";
+    }
+    @GetMapping("/note/supprimer/{id}")
+    public String supprimerNote(@PathVariable(name = "id") Integer id,
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
+        Notes notes = notesService.rechercherNotesParID(id);
+        if(notes != null) {
+            notesService.deleteNotes(id);
+            redirectAttributes.addFlashAttribute("message",
+                    "Note avec  ID " + id + " a été supprimé avec succès ");
+        }else{
+            redirectAttributes.addFlashAttribute("message",
+                    "Note  avec  ID " + id + " n'existe pas");
+        }
+
+        return "redirect:/projets/evaluation";
+    }
+
+    @GetMapping("/note/new")
+    public String afficherFormNotesProjets(Model model) {
+        Notes note = new Notes();
+        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Projet> listeProjets = projetService.afficherProjet();
+        model.addAttribute("listeEtudiants", listeEtudiants);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("note",note);
+        model.addAttribute("listeProjets", listeProjets);
+
+
+        return "notes-form";
+    }
+    @PostMapping("/notes/save")
+    public String ajouterNoteDeCours(Notes notes, RedirectAttributes redirectAttributes) throws Exception {
+
+        redirectAttributes.addFlashAttribute("message","Le note du projet "+ notes.getProjetID().getNom()+" a été ajouté avec succès");
+        notesService.ajouterNotes(notes);
+
+        return "redirect:/projets/evaluation";
     }
 }

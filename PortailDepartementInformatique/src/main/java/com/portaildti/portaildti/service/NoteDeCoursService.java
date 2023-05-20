@@ -25,7 +25,7 @@ public class NoteDeCoursService {
     }
 
 
-    public NoteDeCours rechercherNoteDeCoursPaNom(String nom){
+    public List<NoteDeCours> rechercherNoteDeCoursPaNom(String nom){
         if (nom != null) {
             return repo.getNoteDeCoursByName(nom);
         }
@@ -53,9 +53,9 @@ public class NoteDeCoursService {
 
     public boolean isnomNoteDeCoursUnique(String nom) {
 
-        NoteDeCours noteDeCours = repo.getNoteDeCoursByName(nom);
+        List<NoteDeCours> noteDeCours = repo.getNoteDeCoursByName(nom);
 
-        if (noteDeCours == null) return true;
+        if (noteDeCours.get(0) == null) return true;
 
 
         return false;

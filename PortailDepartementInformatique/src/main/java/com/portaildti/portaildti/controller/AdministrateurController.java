@@ -76,6 +76,7 @@ public class AdministrateurController {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
+        System.out.println(listeProjets);
         model.addAttribute("projets", projets);
         model.addAttribute("listeEtudiants", listeEtudiants);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
