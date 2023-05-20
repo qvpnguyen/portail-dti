@@ -39,6 +39,8 @@ public class Utilisateur {
     @Column(length = 64)
     private String photo;
 
+    @Lob
+    private byte[] data;
 
     public Utilisateur() {
     }
@@ -221,7 +223,13 @@ public class Utilisateur {
         this.photo = photo;
     }
 
+    public byte[] getData() {
+        return data;
+    }
 
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 
     public String afficherTitreDesColonnes() {
         String message = "";

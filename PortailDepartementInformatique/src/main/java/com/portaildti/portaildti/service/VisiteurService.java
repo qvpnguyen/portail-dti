@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -32,16 +33,16 @@ public class VisiteurService {
         return  null;
     }
 
-    public Visiteur ajouterVisiteur(Visiteur visiteur) throws Exception {
+    public Visiteur ajouterVisiteur(Visiteur visiteur) {
 
-        Visiteur visiteurExistant = repo.findVisiteurByEmail(visiteur.getEmail());
-
-        if (visiteurExistant != null){
-            throw new Exception("Le visiteur existe déjà");
-
-        } else {
+//        Visiteur visiteurExistant = repo.findVisiteurByEmail(visiteur.getEmail());
+//
+//        if (visiteurExistant != null){
+//            throw new IOException("Le visiteur existe déjà");
+//
+//        } else {
             return repo.save(visiteur);
-        }
+//        }
     }
 
     public boolean isEmailVisiteurUnique(String email){
@@ -66,12 +67,12 @@ public class VisiteurService {
         return false;
     }
 
-    public void supprimerVisiteur(Integer id) throws Exception {
+    public void supprimerVisiteur(Integer id) throws IOException {
 
         Visiteur visiteur = repo.findById(id).orElse(null);
 
         if (visiteur == null) {
-            throw new Exception("Le visiteur n'existe pas");
+            throw new IOException("Le visiteur n'existe pas");
 
         } else {
             repo.delete(visiteur);
@@ -91,5 +92,16 @@ public class VisiteurService {
             throw new UtilisateurNotFoundException("On ne peut pas trouver l'utilisateur avec l'id " + id);
         }
         repo.deleteById(id);
+    }
+    public List<Visiteur> findByPhotoName(String photo) throws UtilisateurNotFoundException {
+        try{
+            return repo.findByFileName(photo);
+        }catch (NoSuchElementException exception){
+            throw new UtilisateurNotFoundException("On ne peut pas trouver un utilisateur avec la photo " + photo);
+        }
+
+    }
+    public String getPhotoByUserId(Integer id) {
+        return repo.findById(id).get().getPhoto();
     }
 }
