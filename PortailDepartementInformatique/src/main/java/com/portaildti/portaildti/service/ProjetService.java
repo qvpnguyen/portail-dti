@@ -1,12 +1,11 @@
 package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.*;
-import com.portaildti.portaildti.repos.NoteDeCoursRepository;
 import com.portaildti.portaildti.repos.ProjetRepository;
+import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;

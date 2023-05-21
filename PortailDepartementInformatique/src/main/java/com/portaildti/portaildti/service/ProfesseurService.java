@@ -1,8 +1,9 @@
 package com.portaildti.portaildti.service;
 
-import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.repos.ProfesseurRepository;
+import com.portaildti.portaildti.service.exception.ProfesseurNotFoundException;
+import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,7 +84,7 @@ public class ProfesseurService {
         return prof;
 
     }
-    public void deleteProfesseur(Integer id) throws  ProfesseurNotFoundException {
+    public void deleteProfesseur(Integer id) throws ProfesseurNotFoundException {
         Long countById = repo.countById(id);
         if (countById == null || countById == 0) {
             throw new ProfesseurNotFoundException("On ne peut pas trouver un utilisateur avec l'id" + id);
