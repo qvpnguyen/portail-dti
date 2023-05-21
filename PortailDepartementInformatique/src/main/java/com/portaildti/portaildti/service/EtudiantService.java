@@ -89,9 +89,16 @@ public class EtudiantService {
         repo.deleteById(id);
     }
 
-    public List<Etudiant> afficherEtudiantsParProjet(String projetNom) {
+    public List<Etudiant> afficherEtudiantsParProjetNom(String projetNom) {
         if (projetNom != null) {
-            return repo.findEtudiantsParProjet(projetNom);
+            return repo.findEtudiantsParProjetNom(projetNom);
+        }
+        return null;
+    }
+
+    public List<Etudiant> afficherEtudiantsParProjetId(Integer projetId) {
+        if (projetId != null) {
+            return repo.findEtudiantsParProjetId(projetId);
         }
         return null;
     }

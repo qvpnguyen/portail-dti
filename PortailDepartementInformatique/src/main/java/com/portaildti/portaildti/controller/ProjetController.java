@@ -42,7 +42,11 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-form";
     }
+<<<<<<< HEAD
     /*@GetMapping("/gestion-projets")
+=======
+    @GetMapping("/projets")
+>>>>>>> a8ecc3ddafe10e8271bf6f0c9525934f158bf04d
     public String afficherProjet(Model model) {
         Projet projet = new Projet();
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
@@ -58,7 +62,7 @@ public class ProjetController {
         return "gestionProjets";
     }*/
 
-    @GetMapping("/projets")
+    @GetMapping("/etudiants-projets")
     public String afficherEnsembleProjets(Model model){
 
         Iterable<Projet> listeProjets = projetService.afficherProjet();
@@ -66,7 +70,7 @@ public class ProjetController {
 
         for (Projet projet : listeProjets){
 
-            List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjet(projet.getNom());
+            List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
             etudiantsParProjet.put(projet.getNom(), listeEtudiants);
         }
 

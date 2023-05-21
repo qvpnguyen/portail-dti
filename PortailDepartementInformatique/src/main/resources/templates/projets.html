@@ -36,7 +36,7 @@
                     <a href="#">Logout</a>
                 </div>
 
-                <a href="deconnexionController">Déconnexion</a>
+                <a th:href="${pageContext.request.contextPath}/utilisateur/deconnexion">Déconnexion</a>
             </div>
         </div>
         <div>
@@ -149,7 +149,7 @@
                         <div class="carte-video mb-4">
                             <img class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
                             <div class="conteneur-infos-projet">
-                                <a th:href="${projet.nom}">
+                                <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}">
                                     <h4 class="mt-2" th:text="${projet.nom}"></h4>
                                 </a>
                                 <p>

@@ -44,7 +44,10 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
     public void updateActiveStatusEtudiant(Integer id, boolean active);
 
     @Query("SELECT DISTINCT e FROM Etudiant e JOIN e.projets p WHERE p.nom = :nomProjet")
-    public List<Etudiant> findEtudiantsParProjet(@Param("nomProjet") String nomProjet);
+    public List<Etudiant> findEtudiantsParProjetNom(@Param("nomProjet") String nomProjet);
+
+    @Query("SELECT DISTINCT e FROM Etudiant e JOIN e.projets p WHERE p.id = :idProjet")
+    public List<Etudiant> findEtudiantsParProjetId(@Param("idProjet") Integer idProjet);
 
     @Query("SELECT e FROM Etudiant e WHERE e.photo = :fileName")
     public List<Etudiant> findByFileName(@Param("fileName") String fileName);
