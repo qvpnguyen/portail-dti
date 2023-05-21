@@ -33,7 +33,7 @@ public class EtudiantProjetRepositoryTest {
         for (Projet projet : listeProjets){
 
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            listeEtudiants = etudiantRepository.findEtudiantsParProjet(projet.getNom());
+            listeEtudiants = etudiantRepository.findEtudiantsParProjetNom(projet.getNom());
             for (Etudiant etudiant : listeEtudiants) {
                 System.out.println(etudiant.getNom() + " " + etudiant.getPrenom());
             }

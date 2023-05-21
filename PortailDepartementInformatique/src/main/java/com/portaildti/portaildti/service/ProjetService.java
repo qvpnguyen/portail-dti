@@ -51,4 +51,9 @@ public class ProjetService {
             throw new ProjetNotFoundException("On ne peut pas trouver le projet avec la vidéo " + video);
         }
     }
+
+    public Projet afficherProjetParId(Integer id) {
+
+        return repo.findProjetById(id);
+    }
 }
