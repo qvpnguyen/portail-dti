@@ -40,6 +40,8 @@ public class Projet {
             inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
     )
     private Set<Etudiant> etudiants = new HashSet();
+    @Lob
+    private byte[] data;
 
     public Projet() {
     }
@@ -145,6 +147,14 @@ public class Projet {
         this.etudiants.add(etudiant);
     }
 
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
     public String afficherTitreDesColonnes() {
         String message = "";
         message = String.format(" %-10s  %30s %15s %30s %15s %15s %15s %15s %15s %25s ", "Id", "Nom", "Annee", "Liste etudiants", "Description", "Video", "LienGitlab",
@@ -156,7 +166,7 @@ public class Projet {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15s %25s ", this.id, this.nom, this.annee, this.description, this.video,
+        message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15s ", this.id, this.nom, this.annee, this.description, this.video,
                 this.lienGitlab, this.cours, this.professeur, this.notes);
         return message;
     }

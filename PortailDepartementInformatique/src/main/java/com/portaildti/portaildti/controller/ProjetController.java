@@ -10,7 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProjetController {
@@ -20,6 +29,8 @@ public class ProjetController {
     EtudiantService etudiantService;
     @Autowired
     ProfesseurService professeurService;
+    @Autowired
+    VisiteurService visiteurService;
     @Autowired
     CoursService coursService;
     @Autowired
@@ -39,6 +50,13 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-form";
     }
+    @GetMapping("/projets-visiteur/new")
+    public String afficherFormulaireProjetVisiteur(Model model) {
+        Projet projet = new Projet();
+        model.addAttribute("projet", projet);
+        model.addAttribute("pageTitle", "Ajouter un nouveau projet");
+        return "projets-visiteur-form";
+    }
     @GetMapping("/projets")
     public String afficherProjet(Model model) {
         Projet projet = new Projet();
@@ -55,10 +73,32 @@ public class ProjetController {
         return "gestionProjets";
     }
     @PostMapping("/projets/save")
-    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam("fileVideo") MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres) throws Exception {
+    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
+        // On spécifie une limite de taille de fichier
+        long maxSize = 10000000; // 10MB
+        // On vérifie si la taille du fichier ne dépasse pas la limite
+        long fileSize = file.getSize();
+        System.out.println(" fileSize : " + fileSize);
+        if (fileSize > maxSize) {
+            model.addAttribute("message","La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + " soit 10MB ");
+            return "utilisateurs_form";
+        }
         String chemin = file.getOriginalFilename();
         String filename = StringUtils.cleanPath(chemin);
+        // Association du nom de fichier à l'utilisateur enregistré
         projet.setVideo(filename);
+        // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+        projet.setData(file.getBytes());
+        // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+        File directory = new File("src/main/resources/static/videos/utilisateur");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+        File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+        //en utilisant la méthode transferTo() de l'objet MultipartFile
+        file.transferTo(serverFile);
         redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
         projetService.ajouterProjet(projet);
         for (Etudiant membre : membres) {
@@ -68,6 +108,60 @@ public class ProjetController {
         redirectAttributes.addFlashAttribute("membresEquipe", membres);
         return "redirect:/gestion-projets";
     }
+    @PostMapping("/projets-visiteur/save")
+    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
+        projetService.ajouterProjet(projet);
+        return "redirect:/visiteur";
+    }
+    @GetMapping("/videos/utilisateurs/{fileId}")
+    public void telechargerFichier(@PathVariable String fileId, HttpServletResponse response, HttpServletRequest request) throws IOException, ProjetNotFoundException {
+        HttpSession session = request.getSession();
+        File directory = new File("src/main/resources/static/videos/utilisateur");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //On crée un fichier correspondant à l'ID passé en paramètre
+        File file = new File(directory.getAbsolutePath() + File.separator + fileId);
+
+        List<Projet> listeProjets = projetService.findByVideoName(fileId);
+        for(Projet projet: listeProjets){
+            if (projet.getData()!=null) {
+                // Si le fichier existe sur le serveur
+                if (file.exists()) {
+                    // On spécifie le type de contenu de la réponse HTTP
+                    response.setContentType("video/mp4");
+
+                    // On spécifie le nom du fichier à télécharger dans la réponse HTTP
+                    response.setHeader("Content-Disposition", "inline; filename=\"" + fileId + "\"");
+                    // On lit le contenu du fichier à télécharger
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    // On écrit le contenu du fichier dans la réponse HTTP
+                    OutputStream outputStream = response.getOutputStream();
+                    //on déclare un tableau de bytes (byte[]) appelé buffer de taille 1024,
+                    //qui servira de tampon pour la lecture du fichier.
+                    byte[] buffer = new byte[1024];
+                    //On initialise une variable bytesRead à -1,
+                    //qui sera utilisée pour stocker le nombre de bytes
+                    //lus à chaque lecture dans le tampon.
+                    int bytesRead = -1;
+                    //Dans la boucle while, on lit les bytes du fichier
+                    //dans le tampon à l'aide de la méthode read()
+                    //de l'objet fileInputStream.
+                    while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                        //on écrit ces bytes dans le flux de sortie (outputStream)
+                        //à l'aide de la méthode write()
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    fileInputStream.close();
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            }
+
+        }
+
+    }
     @GetMapping("projets/edit/{projetid}")
     public String mettreAJourProjet(@PathVariable(name = "projetid") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
@@ -76,9 +170,14 @@ public class ProjetController {
                 List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
                 List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
                 List<Cours> listeCours = coursService.afficherCours();
-//                List<EtudiantProjet> membresEquipe = etudiantProjetService.rechercherEtudiantsParProjet(id);
+                List<Projet> projets = projetService.afficherProjet();
+                Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+                for (Projet unProjet : projets) {
+                    List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(unProjet.getId());
+                    etudiantsParProjet.put(unProjet.getId(), etudiants);
+                }
+                model.addAttribute("etudiantsParProjet", etudiantsParProjet);
                 model.addAttribute("projet", projet);
-//                model.addAttribute("membresEquipe", membres);
                 model.addAttribute("listeEtudiants", listeEtudiants);
                 model.addAttribute("listeProfesseurs", listeProfesseurs);
                 model.addAttribute("listeCours", listeCours);

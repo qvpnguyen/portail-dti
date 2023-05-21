@@ -59,7 +59,7 @@
                 <label for="membresEquipe">Membres de l'équipe:</label>
                 <select multiple name="membresEquipe" id="membresEquipe" class="form-select">
                   <option value="" disabled>---</option>
-                  <option th:each="unEtudiant : ${listeEtudiants}" th:value="${unEtudiant.id}">[[${unEtudiant.prenom}]] [[${unEtudiant.nom}]]</option>
+                  <option th:each="unEtudiant : ${listeEtudiants}" th:value="${unEtudiant.id}" th:selected="${etudiantsParProjet[projet.id].contains(unEtudiant)}">[[${unEtudiant.prenom}]] [[${unEtudiant.nom}]]</option>
                 </select>
               </div>
             </div>

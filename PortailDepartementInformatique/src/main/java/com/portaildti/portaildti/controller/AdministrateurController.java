@@ -36,6 +36,8 @@ public class AdministrateurController {
     CoursService coursService;
     @Autowired
     EtudiantProjetService etudiantProjetService;
+    @Autowired
+    NotesService notesService;
     @GetMapping("/administration")
     public String afficherPageAdmin(Model model) {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
@@ -76,12 +78,13 @@ public class AdministrateurController {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
-        System.out.println(listeProjets);
+        List<Notes> listeNotesProjets = notesService.afficherNote();
         model.addAttribute("projets", projets);
         model.addAttribute("listeEtudiants", listeEtudiants);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("listeNotes", listeNotesProjets);
         Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
         for (Projet projet : projets) {
             List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());

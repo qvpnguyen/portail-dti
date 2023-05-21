@@ -34,7 +34,7 @@
       <div class="boite-inscription">
         <div th:if="${message!=null}" class="alert alert-danger text-center">[[${message}]]</div>
         <form th:action="@{/admins/save}" method="post" enctype="multipart/form-data"
-              th:object="${admin}">
+              th:object="${administrateur}">
           <input type="hidden" th:field="*{id}" />
           <div class="d-flex justify-content-center">
             <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
@@ -103,7 +103,7 @@
               <div class="form-group my-3">
                 <label for="fileImage">Téléversez votre photo:</label>
                 <input type="file" class="form-control mt-2" id="fileImage" name="fileImage">
-                <img th:src="@{${'/images/utilisateur/' + admin.photo}}" th:alt="${admin.prenom + ' ' + admin.nom}" width="100">
+                <img th:if="${administrateur.photo != null}" th:src="@{${'/images/utilisateur/' + administrateur.photo}}" th:alt="${administrateur.prenom + ' ' + administrateur.nom}" width="100">
               </div>
             </div>
           </div>

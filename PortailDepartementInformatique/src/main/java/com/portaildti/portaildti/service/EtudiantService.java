@@ -38,14 +38,8 @@ public class EtudiantService {
 
     public Etudiant ajouterEtudiant(Etudiant etudiant) {
 
-//        Etudiant etudiantExistant = repo.findEtudiantByEmail(etudiant.getEmail());
-//
-//        if (etudiantExistant != null){
-//            throw new IOException("L'étudiant existe déjà");
-//
-//        } else {
-            return repo.save(etudiant);
-//        }
+        return repo.save(etudiant);
+
     }
 
     public boolean isEmailEtudiantUnique(String email){
@@ -62,8 +56,6 @@ public class EtudiantService {
     public Etudiant etudiantExistsByEmailAndPassword(String email, String password){
 
         Etudiant etudiantEmailPassword = repo.findEtudiantByEmailAndPassword(email, password);
-
-
 
         return etudiantEmailPassword;
     }

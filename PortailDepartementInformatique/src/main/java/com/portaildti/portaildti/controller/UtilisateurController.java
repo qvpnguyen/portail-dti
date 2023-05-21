@@ -106,7 +106,7 @@ public class UtilisateurController {
 
     }
 
-    @GetMapping("/admins/new/")
+    @GetMapping("/admins/new")
     public String afficherFormulaireAdmin(Model model) {
         Administrateur administrateur = new Administrateur();
         model.addAttribute("administrateur", administrateur);
@@ -482,8 +482,8 @@ public class UtilisateurController {
     @GetMapping("/admins/edit/{id}")
     public String mettreAJourAdmin(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
-            Administrateur admin = adminService.get(id);
-            model.addAttribute("admin", admin);
+            Administrateur administrateur = adminService.get(id);
+            model.addAttribute("administrateur", administrateur);
             return "inscription-admin";
         } catch (UtilisateurNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver l'utilisateur avec l'id " + id);
@@ -494,8 +494,8 @@ public class UtilisateurController {
     public String mettreAJourProf(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
 
-            Professeur prof = profService.get(id);
-            model.addAttribute("prof", prof);
+            Professeur professeur = profService.get(id);
+            model.addAttribute("professeur", professeur);
             return "inscription-professeur";
         } catch (UtilisateurNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver l'utilisateur avec l'id " + id);

@@ -42,7 +42,7 @@ public class ProfesseurController {
     }
     @GetMapping("/rechercher/professeur")
     public String rechercherProfesseur(Model model,@Param("nom") String nom) {
-        List<Professeur> listeProfesseurs = profService.rechercherProfesseurPaNom(nom);
+        List<Professeur> listeProfesseurs = profService.rechercherProfesseurParNom(nom);
 
         model.addAttribute("listeProfesseurs", listeProfesseurs);
 

@@ -103,7 +103,7 @@
               <div class="form-group my-3">
                 <label for="fileImage">Téléversez votre photo:</label>
                 <input type="file" class="form-control mt-2" id="fileImage" name="fileImage">
-                <img th:src="@{${'/images/utilisateur/' + visiteur.photo}}" th:alt="${visiteur.prenom + ' ' + visiteur.nom}" width="100">
+                <img th:if="${visiteur.photo != null}" th:src="@{${'/images/utilisateur/' + visiteur.photo}}" th:alt="${visiteur.prenom + ' ' + visiteur.nom}" width="100">
               </div>
             </div>
           </div>

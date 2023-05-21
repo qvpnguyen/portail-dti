@@ -114,7 +114,7 @@
               <div class="form-group my-3">
                 <label for="fileImage">Téléversez votre photo:</label>
                 <input type="file" class="form-control mt-2" id="fileImage" name="fileImage">
-                <img th:src="@{${'/images/utilisateur/' + etudiant.photo}}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" width="100">
+                <img th:if="${etudiant.photo != null}" th:src="@{${'/images/utilisateur/' + etudiant.photo}}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" width="100">
               </div>
               <div class="form-group my-3">
                 <label for="cours">Cours associé:</label>

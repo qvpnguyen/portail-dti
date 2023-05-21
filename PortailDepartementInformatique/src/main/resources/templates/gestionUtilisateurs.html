@@ -214,7 +214,7 @@
             <tbody>
                 <tr th:each="visiteur : ${visiteurs}">
                     <td>[[${visiteur.id}]]</td>
-                    <td class="image-column"><img th:src="@{${'/images/visiteurs/' + visiteur.photo}}" th:alt="${visiteur.prenom + ' ' + visiteur.nom}" width="100"></td>
+                    <td class="image-column"><img th:if="${visiteur.photo != null}" th:src="@{${'/images/visiteurs/' + visiteur.photo}}" th:alt="${visiteur.prenom + ' ' + visiteur.nom}" width="100"></td>
                     <td>[[${visiteur.prenom}]]</td>
                     <td>[[${visiteur.nom}]]</td>
                     <td>[[${visiteur.role}]]</td>
@@ -232,7 +232,7 @@
                 </tr>
                 <tr th:each="etudiant : ${etudiants}">
                     <td>[[${etudiant.id}]]</td>
-                    <td class="image-column"><img th:src="@{${'/images/etudiants/' + etudiant.photo}}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" width="100"></td>
+                    <td class="image-column"><img th:if="${etudiant.photo != null}" th:src="@{${'/images/etudiants/' + etudiant.photo}}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" width="100"></td>
                     <td>[[${etudiant.prenom}]]</td>
                     <td>[[${etudiant.nom}]]</td>
                     <td>[[${etudiant.role}]]</td>
@@ -250,7 +250,7 @@
                 </tr>
                 <tr th:each="professeur : ${professeurs}">
                     <td>[[${professeur.id}]]</td>
-                    <td class="image-column"><img th:src="@{${'/images/professeurs/' + professeur.photo}}" th:alt="${professeur.prenom + ' ' + professeur.nom}" width="100"></td>
+                    <td class="image-column"><img th:if="${professeur.photo != null}" th:src="@{${'/images/professeurs/' + professeur.photo}}" th:alt="${professeur.prenom + ' ' + professeur.nom}" width="100"></td>
                     <td>[[${professeur.prenom}]]</td>
                     <td>[[${professeur.nom}]]</td>
                     <td>[[${professeur.role}]]</td>
@@ -268,7 +268,7 @@
                 </tr>
                 <tr th:each="admin : ${admins}">
                     <td>[[${admin.id}]]</td>
-                    <td class="image-column"><img th:src="@{${'/images/admins/' + admin.photo}}" th:alt="${admin.prenom + ' ' + admin.nom}" width="100"></td>
+                    <td class="image-column"><img th:if="${admin.photo != null}" th:src="@{${'/images/admins/' + admin.photo}}" th:alt="${admin.prenom + ' ' + admin.nom}" width="100"></td>
                     <td>[[${admin.prenom}]]</td>
                     <td>[[${admin.nom}]]</td>
                     <td>[[${admin.role}]]</td>
