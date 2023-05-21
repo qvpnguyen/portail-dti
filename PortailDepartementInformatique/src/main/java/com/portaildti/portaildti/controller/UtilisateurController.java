@@ -243,6 +243,7 @@ public class UtilisateurController {
         } else {
             String photo = etudiantService.getPhotoByUserId(etudiant.getId());
             etudiant.setPhoto(photo);
+
         }
 
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");

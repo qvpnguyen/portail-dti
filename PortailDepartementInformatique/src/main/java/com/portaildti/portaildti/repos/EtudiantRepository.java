@@ -46,4 +46,7 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
     @Query("SELECT DISTINCT e FROM Etudiant e JOIN e.projets p WHERE p.nom = :nomProjet")
     public List<Etudiant> findEtudiantsParProjet(@Param("nomProjet") String nomProjet);
 
+    @Query("SELECT e FROM Etudiant e WHERE e.photo = :fileName")
+    public List<Etudiant> findByFileName(@Param("fileName") String fileName);
+
 }
