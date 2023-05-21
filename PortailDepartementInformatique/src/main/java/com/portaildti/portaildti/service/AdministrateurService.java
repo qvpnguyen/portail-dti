@@ -1,8 +1,8 @@
 package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.Administrateur;
-import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.repos.AdministrateurRepository;
+import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

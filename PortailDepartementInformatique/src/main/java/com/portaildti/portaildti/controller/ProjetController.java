@@ -2,6 +2,7 @@ package com.portaildti.portaildti.controller;
 
 import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
+import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

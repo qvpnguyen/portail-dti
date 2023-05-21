@@ -1,8 +1,8 @@
 package com.portaildti.portaildti.service;
 
-import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.EtudiantProjet;
 import com.portaildti.portaildti.repos.EtudiantProjetRepository;
+import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +36,5 @@ public class EtudiantProjetService {
         }
         return null;
     }
+    
 }
