@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -20,26 +21,24 @@ public class AdministrateurService {
 
         return (List<Administrateur>) repo.findAll();
     }
-    public boolean adminExistByEmailAndPassword(String email, String mdp) {
+    public Administrateur adminExistByEmailAndPassword(String email, String mdp) {
 
         Administrateur admin = repo.getAdministrateurByEmailAndPassword(email,mdp);
 
-        if (admin != null) return true;
 
-
-        return false;
+        return admin;
 
     }
-    public Administrateur ajouterAdmin(Administrateur admin) throws Exception {
+    public Administrateur ajouterAdmin(Administrateur admin) {
 
-        Administrateur adminExistant = repo.findAdministrateurByEmail(admin.getEmail());
-
-        if (adminExistant != null){
-            throw new Exception("L'administrateur existe déjà");
-
-        } else {
+//        Administrateur adminExistant = repo.findAdministrateurByEmail(admin.getEmail());
+//
+//        if (adminExistant != null){
+//            throw new IOException("L'administrateur existe déjà");
+//
+//        } else {
             return repo.save(admin);
-        }
+//        }
     }
     public Administrateur get(Integer id) throws UtilisateurNotFoundException {
         try {
@@ -55,5 +54,23 @@ public class AdministrateurService {
             throw new UtilisateurNotFoundException("On ne peut pas trouver l'utilisateur avec l'id " + id);
         }
         repo.deleteById(id);
+    }
+    public List<Administrateur> findByPhotoName(String photo) throws UtilisateurNotFoundException {
+        try{
+            return repo.findByFileName(photo);
+        }catch (NoSuchElementException exception){
+            throw new UtilisateurNotFoundException("On ne peut pas trouver un utilisateur avec la photo " + photo);
+        }
+
+    }
+    public String getPhotoFromDatabase(Integer id) {
+        Administrateur admin = repo.findById(id).get();
+        if (admin != null) {
+            return admin.getPhoto();
+        }
+        return null;
+    }
+    public String getPhotoByUserId(Integer id) {
+        return repo.findById(id).get().getPhoto();
     }
 }

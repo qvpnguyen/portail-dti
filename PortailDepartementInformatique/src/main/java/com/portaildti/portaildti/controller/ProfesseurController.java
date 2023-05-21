@@ -7,6 +7,7 @@ import com.portaildti.portaildti.service.CoursService;
 import com.portaildti.portaildti.service.ProfesseurService;
 import com.portaildti.portaildti.service.ProjetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,4 +32,21 @@ public class ProfesseurController {
         model.addAttribute("listeProjets", listeProjets);
         return "professeur";
     }
+    @GetMapping("/professeurs")
+    public String afficherListProfesseur(Model model) {
+        List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
+
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
+
+        return "listProfesseurs";
+    }
+    @GetMapping("/rechercher/professeur")
+    public String rechercherProfesseur(Model model,@Param("nom") String nom) {
+        List<Professeur> listeProfesseurs = profService.rechercherProfesseurPaNom(nom);
+
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
+
+        return "redirect:/professeurs";
+    }
+
 }

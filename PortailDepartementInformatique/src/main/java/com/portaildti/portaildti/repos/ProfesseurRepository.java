@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProfesseurRepository  extends CrudRepository<Professeur,Integer> {
 
     @Query("SELECT p FROM Professeur p WHERE p.nom = :nom")
-    public Professeur getProfesseurParNom(@Param("nom") String nom);
+    public List<Professeur> getProfesseurParNom(@Param("nom") String nom);
 
     @Query("SELECT p FROM Professeur p WHERE p.email = :email ")
     public Professeur getProfesseurByEmail(@Param("email") String email);
@@ -29,12 +29,13 @@ public interface ProfesseurRepository  extends CrudRepository<Professeur,Integer
     public void updateActiveStatus(Integer id, boolean active);
 
     @Query("SELECT p FROM Projet pr JOIN pr.professeur p WHERE pr.nom = ?1")
-    public Professeur findProfesseursByProjetName(String nom);
+    public List<Professeur> findProfesseursByProjetName(String nom);
 
     @Query("SELECT p FROM Cours  c JOIN c.profID p WHERE c.nom = ?1")
     public Professeur findProfesseursByCoursName(String nom);
 
     @Query("SELECT p FROM NoteDeCours nc JOIN nc.professeur p WHERE nc.nom = ?1")
     public Professeur findProfesseursByNoteDeCoursName(String nom);
-
+    @Query("SELECT p FROM Professeur p WHERE p.photo = :fileName")
+    public List<Professeur> findByFileName(@Param("fileName") String fileName);
 }

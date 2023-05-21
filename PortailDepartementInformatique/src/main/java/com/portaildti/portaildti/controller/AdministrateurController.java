@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdministrateurController {
@@ -30,6 +34,8 @@ public class AdministrateurController {
     NoteDeCoursService noteDeCoursService;
     @Autowired
     CoursService coursService;
+    @Autowired
+    EtudiantProjetService etudiantProjetService;
     @GetMapping("/administration")
     public String afficherPageAdmin(Model model) {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
@@ -56,8 +62,9 @@ public class AdministrateurController {
 //        model.addAttribute("gestionUtilisateurs", gestionUtilisateurs);
         model.addAttribute("visiteurs", visiteurs);
         model.addAttribute("etudiants", etudiants);
-        model.addAttribute("listeProfesseurs", professeurs);
+        model.addAttribute("professeurs", professeurs);
         model.addAttribute("admins", admins);
+        model.addAttribute("listeProfesseurs", professeurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
         return "gestionUtilisateurs";
@@ -69,11 +76,18 @@ public class AdministrateurController {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
+        System.out.println(listeProjets);
         model.addAttribute("projets", projets);
         model.addAttribute("listeEtudiants", listeEtudiants);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
+        Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        for (Projet projet : projets) {
+            List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+            etudiantsParProjet.put(projet.getId(), etudiants);
+        }
+        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
         return "gestionProjets";
     }
     @GetMapping("/gestion-notes-de-cours")

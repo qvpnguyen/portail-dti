@@ -118,7 +118,7 @@
                     <td th:text="${noteDeCours.lien}"></td>
                     <td th:text="${noteDeCours.professeur.prenom} + ' ' + ${noteDeCours.professeur.nom}"></td>
                     <td>
-                        <a class="fa-solid fa-download icon-navy fa-2x" th:href="@{'/notesDeCours/telecharger/' + ${noteDeCours.id}}"  title="Télécharger"></a>
+                        <a class="fa-solid fa-download icon-navy fa-2x" th:href="@{'/files/' + ${noteDeCours.document}}"  title="Télécharger"></a>
                     </td>
                     <td>
                         <a class="fa-solid fa-trash icon-navy fa-2x" th:href="@{'/notesDeCours/supprimer/' + ${noteDeCours.id}}"  title="Supprimer"></a>

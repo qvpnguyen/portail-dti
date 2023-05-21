@@ -30,11 +30,21 @@ public class EtudiantProjetService {
         }
         repo.deleteById(id);
     }
-    public List<EtudiantProjet> rechercherEtudiantsParProjet(Integer projetId) {
+    public List<Etudiant> rechercherEtudiantsParProjet(Integer projetId) {
         if (projetId != null) {
             return repo.findEtudiantsByProjetId(projetId);
         }
         return null;
     }
-    
+    public List<EtudiantProjet> rechercherEtudiantProjetsParProjetId(Integer projetId) {
+        if (projetId != null) {
+            return repo.findEtudiantProjetsByProjetId(projetId);
+        }
+        return null;
+    }
+    public void supprimerEtudiantProjetsParProjetId(Integer projetId) {
+        if (projetId != null) {
+            repo.deleteEtudiantProjetsByProjetId(projetId);
+        }
+    }
 }

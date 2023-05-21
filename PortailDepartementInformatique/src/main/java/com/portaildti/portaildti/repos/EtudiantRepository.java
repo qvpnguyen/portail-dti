@@ -1,7 +1,6 @@
 package com.portaildti.portaildti.repos;
 
 import com.portaildti.portaildti.entities.Etudiant;
-import com.portaildti.portaildti.entities.Professeur;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -14,7 +14,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class UtilisateurController {
@@ -26,13 +39,82 @@ public class UtilisateurController {
     EtudiantService etudiantService;
     @Autowired
     VisiteurService visiteurService;
-    @GetMapping("/admins/new")
+    @GetMapping("/utilisateur/connexion/")
+    public String connexionUtilisateurs(Model model,HttpSession session, @RequestParam("btnradio") String type, @RequestParam(name = "nomUtilisateur") String email, @RequestParam(name = "motDePasse") String password) {
+
+        Administrateur administrateur = adminService.adminExistByEmailAndPassword(email,password);
+        Visiteur visiteur = visiteurService.visiteurExistsByEmailAndPassword(email,password);
+        Etudiant etudiant = etudiantService.etudiantExistsByEmailAndPassword(email,password);
+        Professeur prof = profService.professeurExistByEmailAndPassword(email,password);
+
+        if(type.equals("btnetudiant")){
+            if(etudiant !=null){
+                session.setAttribute("nomEtudiant", etudiant.getNom());
+                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
+
+                return "redirect:/etudiant";
+
+            }
+            else if(administrateur!=null) {
+                session.setAttribute("nomAdmin", administrateur.getNom());
+                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+
+                return "redirect:/administration";
+            }else {
+                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
+                return "redirect:/";
+            }
+
+        } else if (type.equals("btnprofesseur")) {
+            if(prof !=null){
+                session.setAttribute("nomProf", prof.getNom());
+                session.setAttribute("prenomProf", prof.getPrenom());
+
+                return "redirect:/professeur";
+
+            }
+            else if(administrateur!=null) {
+                session.setAttribute("nomAdmin", administrateur.getNom());
+                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+
+                return "redirect:/administration";
+            }else {
+                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
+                return "redirect:/";
+            }
+
+        } else if (type.equals("btnvisiteur")) {
+            if(visiteur !=null){
+                session.setAttribute("nomVisiteur", visiteur.getNom());
+                session.setAttribute("prenomVisiteur", visiteur.getPrenom());
+
+                return "redirect:/gestionProjets";
+
+            }
+            else if(administrateur!=null) {
+                session.setAttribute("nomAdmin", administrateur.getNom());
+                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+
+                return "redirect:/administration";
+            }else {
+                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
+                return "redirect:/";
+            }
+        }
+        return "/";
+
+
+    }
+
+    @GetMapping("/admins/new/")
     public String afficherFormulaireAdmin(Model model) {
         Administrateur administrateur = new Administrateur();
         model.addAttribute("administrateur", administrateur);
         model.addAttribute("pageTitle", "Ajouter un nouveau utilisateur");
         return "inscription-admin";
     }
+
+
     @GetMapping("/professeurs/new")
     public String afficherFormulaireProf(Model model) {
         Professeur professeur = new Professeur();
@@ -57,45 +139,346 @@ public class UtilisateurController {
         return "inscription-visiteur";
     }
     @PostMapping("/admins/save")
-    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
-        String chemin = file.getOriginalFilename();
-        String filename = StringUtils.cleanPath(chemin);
-        admin.setPhoto(filename);
-        admin.setRole(role);
+    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            // On spécifie une limite de taille de fichier
+            long maxSize = 10000000; // 10MB
+            // On vérifie si la taille du fichier ne dépasse pas la limite
+            long fileSize = file.getSize();
+            if (fileSize > maxSize) {
+                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                return "inscription-admin";
+            }
+            String chemin = file.getOriginalFilename();
+            System.out.println("chemin: " + chemin);
+            String filename = StringUtils.cleanPath(chemin);
+            admin.setPhoto(filename);
+            admin.setRole(role);
+            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+            admin.setData(file.getBytes());
+            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+            File directory = new File("src/main/resources/static/images/utilisateur");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+            //en utilisant la méthode transferTo() de l'objet MultipartFile
+            file.transferTo(serverFile);
+        } else {
+            String photo = adminService.getPhotoByUserId(admin.getId());
+            admin.setPhoto(photo);
+        }
+
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         adminService.ajouterAdmin(admin);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/professeurs/save")
-    public String ajouterProf(Professeur prof, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
-        String chemin = file.getOriginalFilename();
-        String filename = StringUtils.cleanPath(chemin);
-        prof.setPhoto(filename);
-        prof.setRole(role);
+    public String ajouterProf(Professeur prof, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            // On spécifie une limite de taille de fichier
+            long maxSize = 10000000; // 10MB
+            // On vérifie si la taille du fichier ne dépasse pas la limite
+            long fileSize = file.getSize();
+            if (fileSize > maxSize) {
+                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                return "inscription-admin";
+            }
+            String chemin = file.getOriginalFilename();
+            System.out.println("chemin: " + chemin);
+            String filename = StringUtils.cleanPath(chemin);
+            prof.setPhoto(filename);
+            prof.setRole(role);
+            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+            prof.setData(file.getBytes());
+            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+            File directory = new File("src/main/resources/static/images/utilisateur");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+            //en utilisant la méthode transferTo() de l'objet MultipartFile
+            file.transferTo(serverFile);
+        } else {
+            String photo = profService.getPhotoByUserId(prof.getId());
+            prof.setPhoto(photo);
+        }
+
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         profService.ajouterProfesseur(prof);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/etudiants/save")
-    public String ajouterEtudiant(Etudiant etudiant, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
-        String chemin = file.getOriginalFilename();
-        String filename = StringUtils.cleanPath(chemin);
-        etudiant.setPhoto(filename);
-        etudiant.setRole(role);
+    public String ajouterEtudiant(Etudiant etudiant, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            // On spécifie une limite de taille de fichier
+            long maxSize = 10000000; // 10MB
+            // On vérifie si la taille du fichier ne dépasse pas la limite
+            long fileSize = file.getSize();
+            if (fileSize > maxSize) {
+                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                return "inscription-admin";
+            }
+            String chemin = file.getOriginalFilename();
+            System.out.println("chemin: " + chemin);
+            String filename = StringUtils.cleanPath(chemin);
+            etudiant.setPhoto(filename);
+            etudiant.setRole(role);
+            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+            etudiant.setData(file.getBytes());
+            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+            File directory = new File("src/main/resources/static/images/utilisateur");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+            //en utilisant la méthode transferTo() de l'objet MultipartFile
+            file.transferTo(serverFile);
+        } else {
+            String photo = etudiantService.getPhotoByUserId(etudiant.getId());
+            etudiant.setPhoto(photo);
+        }
+
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         etudiantService.ajouterEtudiant(etudiant);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/visiteurs/save")
-    public String ajouterVisiteur(Visiteur visiteur, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile file, @RequestParam("role") String role) throws Exception {
-        String chemin = file.getOriginalFilename();
-        String filename = StringUtils.cleanPath(chemin);
-        visiteur.setPhoto(filename);
-        visiteur.setRole(role);
+    public String ajouterVisiteur(Visiteur visiteur, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws Exception {
+        if (file != null && !file.isEmpty()) {
+            // On spécifie une limite de taille de fichier
+            long maxSize = 10000000; // 10MB
+            // On vérifie si la taille du fichier ne dépasse pas la limite
+            long fileSize = file.getSize();
+            if (fileSize > maxSize) {
+                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                return "inscription-admin";
+            }
+            String chemin = file.getOriginalFilename();
+            System.out.println("chemin: " + chemin);
+            String filename = StringUtils.cleanPath(chemin);
+            visiteur.setPhoto(filename);
+            visiteur.setRole(role);
+            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+            visiteur.setData(file.getBytes());
+            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+            File directory = new File("src/main/resources/static/images/utilisateur");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+            //en utilisant la méthode transferTo() de l'objet MultipartFile
+            file.transferTo(serverFile);
+        } else {
+            String photo = visiteurService.getPhotoByUserId(visiteur.getId());
+            visiteur.setPhoto(photo);
+        }
+
         redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
         visiteurService.ajouterVisiteur(visiteur);
         return "redirect:/utilisateurs";
     }
+    @GetMapping("/images/admins/{fileId}")
+    public void telechargerFichierAdmin(@PathVariable String fileId, HttpServletResponse response, HttpServletRequest request) throws IOException, UtilisateurNotFoundException {
+        HttpSession session = request.getSession();
+        File directory = new File("src/main/resources/static/images/utilisateur");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //On crée un fichier correspondant à l'ID passé en paramètre
+        File file = new File(directory.getAbsolutePath() + File.separator + fileId);
+
+        List<Administrateur> listeAdmins = adminService.findByPhotoName(fileId);
+        for (Administrateur admin : listeAdmins) {
+            if(admin.getData()!=null){
+                // Si le fichier existe sur le serveur
+                if (file.exists()) {
+                    // On spécifie le type de contenu de la réponse HTTP
+                    response.setContentType("image/jpeg");
+
+                    // On spécifie le nom du fichier à télécharger dans la réponse HTTP
+                    response.setHeader("Content-Disposition", "inline; filename=\"" + fileId + "\"");
+                    // On lit le contenu du fichier à télécharger
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    // On écrit le contenu du fichier dans la réponse HTTP
+                    OutputStream outputStream = response.getOutputStream();
+                    //on déclare un tableau de bytes (byte[]) appelé buffer de taille 1024,
+                    //qui servira de tampon pour la lecture du fichier.
+                    byte[] buffer = new byte[1024];
+                    //On initialise une variable bytesRead à -1,
+                    //qui sera utilisée pour stocker le nombre de bytes
+                    //lus à chaque lecture dans le tampon.
+                    int bytesRead = -1;
+                    //Dans la boucle while, on lit les bytes du fichier
+                    //dans le tampon à l'aide de la méthode read()
+                    //de l'objet fileInputStream.
+                    while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                        //on écrit ces bytes dans le flux de sortie (outputStream)
+                        //à l'aide de la méthode write()
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    fileInputStream.close();
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            }
+
+        }
+
+    }
+    @GetMapping("/images/professeurs/{fileId}")
+    public void telechargerFichierProf(@PathVariable String fileId, HttpServletResponse response, HttpServletRequest request) throws IOException, UtilisateurNotFoundException {
+        HttpSession session = request.getSession();
+        File directory = new File("src/main/resources/static/images/utilisateur");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //On crée un fichier correspondant à l'ID passé en paramètre
+        File file = new File(directory.getAbsolutePath() + File.separator + fileId);
+
+        List<Professeur> listeProfesseurs = profService.findByPhotoName(fileId);
+        for (Professeur prof : listeProfesseurs) {
+            if(prof.getData()!=null){
+                // Si le fichier existe sur le serveur
+                if (file.exists()) {
+                    // On spécifie le type de contenu de la réponse HTTP
+                    response.setContentType("image/jpeg");
+
+                    // On spécifie le nom du fichier à télécharger dans la réponse HTTP
+                    response.setHeader("Content-Disposition", "inline; filename=\"" + fileId + "\"");
+                    // On lit le contenu du fichier à télécharger
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    // On écrit le contenu du fichier dans la réponse HTTP
+                    OutputStream outputStream = response.getOutputStream();
+                    //on déclare un tableau de bytes (byte[]) appelé buffer de taille 1024,
+                    //qui servira de tampon pour la lecture du fichier.
+                    byte[] buffer = new byte[1024];
+                    //On initialise une variable bytesRead à -1,
+                    //qui sera utilisée pour stocker le nombre de bytes
+                    //lus à chaque lecture dans le tampon.
+                    int bytesRead = -1;
+                    //Dans la boucle while, on lit les bytes du fichier
+                    //dans le tampon à l'aide de la méthode read()
+                    //de l'objet fileInputStream.
+                    while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                        //on écrit ces bytes dans le flux de sortie (outputStream)
+                        //à l'aide de la méthode write()
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    fileInputStream.close();
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            }
+
+        }
+
+    }
+    @GetMapping("/images/etudiants/{fileId}")
+    public void telechargerFichierEtudiant(@PathVariable String fileId, HttpServletResponse response, HttpServletRequest request) throws IOException, UtilisateurNotFoundException {
+        HttpSession session = request.getSession();
+        File directory = new File("src/main/resources/static/images/utilisateur");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //On crée un fichier correspondant à l'ID passé en paramètre
+        File file = new File(directory.getAbsolutePath() + File.separator + fileId);
+
+        List<Etudiant> listeEtudiants = etudiantService.findByPhotoName(fileId);
+        for (Etudiant etudiant : listeEtudiants) {
+            if(etudiant.getData()!=null){
+                // Si le fichier existe sur le serveur
+                if (file.exists()) {
+                    // On spécifie le type de contenu de la réponse HTTP
+                    response.setContentType("image/jpeg");
+
+                    // On spécifie le nom du fichier à télécharger dans la réponse HTTP
+                    response.setHeader("Content-Disposition", "inline; filename=\"" + fileId + "\"");
+                    // On lit le contenu du fichier à télécharger
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    // On écrit le contenu du fichier dans la réponse HTTP
+                    OutputStream outputStream = response.getOutputStream();
+                    //on déclare un tableau de bytes (byte[]) appelé buffer de taille 1024,
+                    //qui servira de tampon pour la lecture du fichier.
+                    byte[] buffer = new byte[1024];
+                    //On initialise une variable bytesRead à -1,
+                    //qui sera utilisée pour stocker le nombre de bytes
+                    //lus à chaque lecture dans le tampon.
+                    int bytesRead = -1;
+                    //Dans la boucle while, on lit les bytes du fichier
+                    //dans le tampon à l'aide de la méthode read()
+                    //de l'objet fileInputStream.
+                    while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                        //on écrit ces bytes dans le flux de sortie (outputStream)
+                        //à l'aide de la méthode write()
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    fileInputStream.close();
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            }
+
+        }
+
+    }
+    @GetMapping("/images/visiteurs/{fileId}")
+    public void telechargerFichierVisiteur(@PathVariable String fileId, HttpServletResponse response, HttpServletRequest request) throws IOException, UtilisateurNotFoundException {
+        HttpSession session = request.getSession();
+        File directory = new File("src/main/resources/static/images/utilisateur");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //On crée un fichier correspondant à l'ID passé en paramètre
+        File file = new File(directory.getAbsolutePath() + File.separator + fileId);
+
+        List<Visiteur> listeVisiteurs = visiteurService.findByPhotoName(fileId);
+        for (Visiteur visiteur : listeVisiteurs) {
+            if(visiteur.getData()!=null){
+                // Si le fichier existe sur le serveur
+                if (file.exists()) {
+                    // On spécifie le type de contenu de la réponse HTTP
+                    response.setContentType("image/jpeg");
+
+                    // On spécifie le nom du fichier à télécharger dans la réponse HTTP
+                    response.setHeader("Content-Disposition", "inline; filename=\"" + fileId + "\"");
+                    // On lit le contenu du fichier à télécharger
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    // On écrit le contenu du fichier dans la réponse HTTP
+                    OutputStream outputStream = response.getOutputStream();
+                    //on déclare un tableau de bytes (byte[]) appelé buffer de taille 1024,
+                    //qui servira de tampon pour la lecture du fichier.
+                    byte[] buffer = new byte[1024];
+                    //On initialise une variable bytesRead à -1,
+                    //qui sera utilisée pour stocker le nombre de bytes
+                    //lus à chaque lecture dans le tampon.
+                    int bytesRead = -1;
+                    //Dans la boucle while, on lit les bytes du fichier
+                    //dans le tampon à l'aide de la méthode read()
+                    //de l'objet fileInputStream.
+                    while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                        //on écrit ces bytes dans le flux de sortie (outputStream)
+                        //à l'aide de la méthode write()
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    fileInputStream.close();
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            }
+
+        }
+
+    }
+
     @GetMapping("/admins/edit/{id}")
     public String mettreAJourAdmin(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
@@ -110,6 +493,7 @@ public class UtilisateurController {
     @GetMapping("/professeurs/edit/{id}")
     public String mettreAJourProf(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
+
             Professeur prof = profService.get(id);
             model.addAttribute("prof", prof);
             return "inscription-professeur";

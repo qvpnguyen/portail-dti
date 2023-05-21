@@ -44,4 +44,11 @@ public class ProjetService {
         }
         repo.deleteById(id);
     }
+    public List<Projet> findByVideoName(String video) throws ProjetNotFoundException {
+        try {
+            return repo.findByFileName(video);
+        } catch (NoSuchElementException exception) {
+            throw new ProjetNotFoundException("On ne peut pas trouver le projet avec la vidéo " + video);
+        }
+    }
 }

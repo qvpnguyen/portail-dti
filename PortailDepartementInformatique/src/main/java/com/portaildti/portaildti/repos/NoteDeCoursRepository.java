@@ -11,7 +11,7 @@ import java.util.List;
 public interface NoteDeCoursRepository extends CrudRepository<NoteDeCours,Integer> {
 
     @Query("SELECT n FROM NoteDeCours n WHERE n.nom = :nom")
-    public NoteDeCours getNoteDeCoursByName(@Param("nom") String nom);
+    public List<NoteDeCours> getNoteDeCoursByName(@Param("nom") String nom);
 
     @Query("SELECT n FROM NoteDeCours n  JOIN n.cours c WHERE c.nom = ?1")
     public List<NoteDeCours> findAllNoteDeCoursByNameCours(String nom);
