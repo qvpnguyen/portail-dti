@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProjetController {
@@ -40,7 +42,7 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-form";
     }
-    @GetMapping("/projets")
+    @GetMapping("/gestion-projets")
     public String afficherProjet(Model model) {
         Projet projet = new Projet();
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
@@ -55,6 +57,26 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Afficher les projets");
         return "gestionProjets";
     }
+
+    @GetMapping("/projets")
+    public String afficherEnsembleProjets(Model model){
+
+        Iterable<Projet> listeProjets = projetService.afficherProjet();
+        Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+
+        for (Projet projet : listeProjets){
+
+            List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjet(projet.getNom());
+            etudiantsParProjet.put(projet.getNom(), listeEtudiants);
+        }
+
+        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+        model.addAttribute("listeProjets", listeProjets);
+
+
+        return "projets";
+    }
+
     @PostMapping("/projets/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam("fileVideo") MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres) throws Exception {
         String chemin = file.getOriginalFilename();
