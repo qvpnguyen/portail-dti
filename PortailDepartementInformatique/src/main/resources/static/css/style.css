@@ -428,3 +428,25 @@ hr {
     height: 100px;
     width: 50px;
 }*/
+/* Styles pour la photo et le nom */
+.profil1 {
+    display: flex;
+    align-items: center;
+}
+
+.profil1 img {
+    width: 180px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.profil1 h1 {
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+    margin-right: 0;
+}
+
+
+
+

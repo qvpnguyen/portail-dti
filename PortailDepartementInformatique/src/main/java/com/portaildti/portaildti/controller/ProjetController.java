@@ -42,7 +42,7 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-form";
     }
-    @GetMapping("/gestion-projets")
+    /*@GetMapping("/gestion-projets")
     public String afficherProjet(Model model) {
         Projet projet = new Projet();
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
@@ -56,7 +56,7 @@ public class ProjetController {
         model.addAttribute("projets", listeProjets);
         model.addAttribute("pageTitle", "Afficher les projets");
         return "gestionProjets";
-    }
+    }*/
 
     @GetMapping("/projets")
     public String afficherEnsembleProjets(Model model){
