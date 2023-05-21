@@ -51,6 +51,7 @@ public class UtilisateurController {
             if(etudiant !=null){
                 session.setAttribute("nomEtudiant", etudiant.getNom());
                 session.setAttribute("prenomEtudiant", etudiant.getPrenom());
+                session.setAttribute("nomUtilisateur", etudiant.getNom());
 
                 return "redirect:/etudiant";
 
@@ -58,6 +59,8 @@ public class UtilisateurController {
             else if(administrateur!=null) {
                 session.setAttribute("nomAdmin", administrateur.getNom());
                 session.setAttribute("prenomAdmin", administrateur.getPrenom());
+                session.setAttribute("nomUtilisateur", administrateur.getNom());
+
 
                 return "redirect:/administration";
             }else {
@@ -69,6 +72,8 @@ public class UtilisateurController {
             if(prof !=null){
                 session.setAttribute("nomProf", prof.getNom());
                 session.setAttribute("prenomProf", prof.getPrenom());
+                session.setAttribute("nomUtilisateur", prof.getNom());
+
 
                 return "redirect:/professeur";
 
@@ -76,6 +81,8 @@ public class UtilisateurController {
             else if(administrateur!=null) {
                 session.setAttribute("nomAdmin", administrateur.getNom());
                 session.setAttribute("prenomAdmin", administrateur.getPrenom());
+                session.setAttribute("nomUtilisateur", administrateur.getNom());
+
 
                 return "redirect:/administration";
             }else {
@@ -87,6 +94,8 @@ public class UtilisateurController {
             if(visiteur !=null){
                 session.setAttribute("nomVisiteur", visiteur.getNom());
                 session.setAttribute("prenomVisiteur", visiteur.getPrenom());
+                session.setAttribute("nomUtilisateur", visiteur.getNom());
+
 
                 return "redirect:/gestionProjets";
 
@@ -94,6 +103,8 @@ public class UtilisateurController {
             else if(administrateur!=null) {
                 session.setAttribute("nomAdmin", administrateur.getNom());
                 session.setAttribute("prenomAdmin", administrateur.getPrenom());
+                session.setAttribute("nomUtilisateur", administrateur.getNom());
+
 
                 return "redirect:/administration";
             }else {
@@ -104,6 +115,15 @@ public class UtilisateurController {
         return "/";
 
 
+    }
+
+    @GetMapping("/utilisateur/deconnexion")
+    public String deconnexionUtilisateurs(HttpSession session, RedirectAttributes redirectAttributes) {
+        String nomUtilisateur = (String) session.getAttribute("nomUtilisateur");
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("message", "Vous êtes maintenant déconnecté(e), " + nomUtilisateur); // Add the logout message
+
+        return "redirect:/";
     }
 
     @GetMapping("/admins/new/")
