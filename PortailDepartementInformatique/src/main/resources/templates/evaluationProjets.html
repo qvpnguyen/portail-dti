@@ -45,7 +45,7 @@
       <input type="submit" value="rechercher" />
     </form>
 
-    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomProf})}">
+    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">
       Ajouter une note à un projet
     </a>
 
@@ -81,12 +81,9 @@
           <td>
             <a th:href="@{/note/supprimer/{id}(id=${user.id})}" class="fa-solid fa-trash icon-navy fa-2x" title="Supprimer"></a>
           </td>
-
           <td>
-
-            <a onclick="showForm('${user.id}')" class="fa-solid fa-pen-to-square icon-navy fa-2x"  title="Modifier"></a>
-
-            <form id="form-${user.id}" style="display:none;" th:action="@{'/modifier/note/' + ${user.id} }" method="get">
+            <a onclick="showForm(this)" class="fa-solid fa-pen-to-square icon-navy fa-2x"  title="Modifier"></a>
+            <form style="display:none;" th:action="@{'/modifier/note/' + ${user.id} }" method="get">
               <input type="hidden" name="id" th:value="${user.id}">
               <input type="text" name="noteObtenue">
               <input type="submit" value="Envoyer" />
@@ -103,20 +100,15 @@
 
 </body>
 <script>
-  function showForm(id) {
-    var form = document.getElementById("form-" + id);
-    if (form.style.display === "none") {
-      form.style.display = "block";
+  function showForm(element) {
+    var form = $(element).closest('tr').find('form');
+    if (form.css('display') === 'none') {
+      form.css('display', 'block');
     } else {
-      form.style.display = "none";
+      form.css('display', 'none');
     }
   }
-  $(document).ready( function () {
-    $('#tableNotesCours').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-      }, "searching": false
-    });
-  } );
+
+
 </script>
 </html>
