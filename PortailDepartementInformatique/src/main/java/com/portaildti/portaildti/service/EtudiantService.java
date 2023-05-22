@@ -2,7 +2,6 @@ package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
-import com.portaildti.portaildti.entities.EtudiantProjet;
 import com.portaildti.portaildti.repos.CoursRepository;
 import com.portaildti.portaildti.repos.EtudiantRepository;
 import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
@@ -36,8 +35,7 @@ public class EtudiantService {
     }
 
     public Etudiant ajouterEtudiant(Etudiant etudiant){
-
-            return repo.save(etudiant);
+        return repo.save(etudiant);
     }
 
     public boolean isEmailEtudiantUnique(String email){
@@ -88,7 +86,6 @@ public class EtudiantService {
         }
         repo.deleteById(id);
     }
-
     public List<Etudiant> afficherEtudiantsParProjetNom(String projetNom) {
         if (projetNom != null) {
             return repo.findEtudiantsParProjetNom(projetNom);
@@ -102,7 +99,6 @@ public class EtudiantService {
         }
         return null;
     }
-
     public List<Etudiant> findByPhotoName(String photo) throws UtilisateurNotFoundException {
         try{
             return repo.findByFileName(photo);

@@ -50,9 +50,9 @@ public class Etudiant extends Utilisateur {
 
     }
 
-    public Etudiant(Integer id, String prenom, String nom, LocalDate ddn, String email, Boolean active, String role, Boolean formationCompletee, String profil, String nomUtilisateur, String motDePasse, Cours coursID, String photo, Boolean dispoTutorat) {
+    public Etudiant(Integer id, String prenom, String nom, LocalDate ddn, String email, Boolean active, String role, Boolean formationCompletee, String profil, String motDePasse, Cours coursID, String photo, Boolean dispoTutorat) {
 
-        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+        super(id, prenom, nom, email, role, active, motDePasse, ddn, photo);
         this.formationCompletee = formationCompletee;
         this.cours = coursID;
         this.dispoTutorat = dispoTutorat;
@@ -60,9 +60,9 @@ public class Etudiant extends Utilisateur {
 
     }
 
-    public Etudiant(Boolean formationCompletee, Cours cours, Boolean dispoTutorat, String profil, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Etudiant(Boolean formationCompletee, Cours cours, Boolean dispoTutorat, String profil, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
 
-        super(prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+        super(prenom, nom, email, role, active, motDePasse, ddn, photo);
         this.formationCompletee = formationCompletee;
         this.cours = cours;
         this.dispoTutorat = dispoTutorat;
@@ -173,7 +173,7 @@ public class Etudiant extends Utilisateur {
     @Override
     public String toString() {
         String message = "";
-        message = String.format("%s %s %s %s %b", super.prenom, super.nom, super.role, super.nomUtilisateur, super.active);
+        message = String.format("%s %s %s %s %b", super.prenom, super.nom, super.role, super.active);
         return message;
     }
 }

@@ -18,8 +18,8 @@ public class Administrateur extends Utilisateur {
 //       // this.gestion = new GestionUtilisateur();
 //    }
 
-    public Administrateur(Integer id, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
-        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+    public Administrateur(Integer id, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
+        super(id, prenom, nom, email, role, active, motDePasse, ddn, photo);
         //this.gestion = new GestionUtilisateur();
     }
 

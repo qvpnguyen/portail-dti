@@ -7,10 +7,12 @@ import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class EtudiantProjetService {
     @Autowired
     EtudiantProjetRepository repo;
@@ -43,9 +45,16 @@ public class EtudiantProjetService {
         }
         return null;
     }
+    // Suppression d'une entree EtudiantProjet comptant tous ses etudiants
     public void supprimerEtudiantProjetsParProjetId(Integer projetId) {
         if (projetId != null) {
             repo.deleteEtudiantProjetsByProjetId(projetId);
+        }
+    }
+    // Suppression d'une entree EtudiantProjet selon un etudiant deselectionnee dans le formulaire Projet
+    public void supprimerEtudiantProjetParEtudiantId(Integer projetId, Integer etudiantId) {
+        if (projetId != null) {
+            repo.deleteEtudiantFromEtudiantProjet(projetId, etudiantId);
         }
     }
 }
