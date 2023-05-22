@@ -222,7 +222,7 @@ public class ProjetController {
     }
 
     @GetMapping("/modifier/note/{id}")
-    public String modifierNote (Model model,@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
+    public String modifierNote (@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
     notesService.modifierNoteObtenue(id,noteObtenue);
         return "redirect:/projets/evaluation";
     }
