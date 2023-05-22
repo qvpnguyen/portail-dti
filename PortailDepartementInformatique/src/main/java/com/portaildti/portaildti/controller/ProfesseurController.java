@@ -47,7 +47,7 @@ public class ProfesseurController {
 
         model.addAttribute("listeProfesseurs", listeProfesseurs);
 
-        return "redirect:/professeurs";
+        return "listProfesseurs";
     }
     @GetMapping("/professeur/profil/{id}")
     public String afficherProfilProfesseur(Model model,@PathVariable(name = "id") Integer id) {

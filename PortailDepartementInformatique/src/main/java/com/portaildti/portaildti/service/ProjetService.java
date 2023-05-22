@@ -32,6 +32,12 @@ public class ProjetService {
         }
         return null;
     }
+    public List<Projet> rechercherProjetParProf(String id) {
+        if (id != null) {
+            return  repo.findProjetsByNomProf(id);
+        }
+        return null;
+    }
     public Projet ajouterProjet(Projet projet) {
         return repo.save(projet);
     }

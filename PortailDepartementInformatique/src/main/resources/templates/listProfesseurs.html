@@ -89,7 +89,7 @@
   <div class="container conteneur-table bg-light p-5 mt-5">
     <h4>Chercher Professeur par nom :</h4>
     <form method="get" th:action="@{'/rechercher/professeur'}">
-      <input type="search" name="nom" id="nom" >
+      <input type="search" name="nom" id="nom" th:value="${nom}" >
       <input type="submit" value="rechercher" />
     </form>
 

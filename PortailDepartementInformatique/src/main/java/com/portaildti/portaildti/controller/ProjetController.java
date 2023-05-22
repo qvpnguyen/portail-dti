@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-form";
     }
-<<<<<<< HEAD
+
     /*@GetMapping("/gestion-projets")
 =======
     @GetMapping("/projets")
@@ -145,11 +146,12 @@ public class ProjetController {
     notesService.modifierNoteObtenue(id,noteObtenue);
         return "redirect:/projets/evaluation";
     }
-    @GetMapping("/rechercher/note_projet")
+    @GetMapping("/rechercher/note_projet/")
     public String rechercherNoteParNomProjet (Model model,@RequestParam("note") String nomProjet) {
         List<Notes> listNotesProjet = notesService.rechercherNotesParProjetNom(nomProjet);
+        System.out.println(listNotesProjet);
         model.addAttribute("listeNotes", listNotesProjet);
-        return "redirect:/projets/evaluation";
+        return "evaluationProjets";
     }
     @GetMapping("/note/supprimer/{id}")
     public String supprimerNote(@PathVariable(name = "id") Integer id,
@@ -168,17 +170,18 @@ public class ProjetController {
         return "redirect:/projets/evaluation";
     }
 
-    @GetMapping("/note/new")
-    public String afficherFormNotesProjets(Model model) {
+    @GetMapping("/note/new/{nomProfSession}")
+    public String afficherFormNotesProjets(Model model, @PathVariable("nomProfSession") String nomProf) {
         Notes note = new Notes();
+
+        System.out.println(nomProf);
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
-        List<Cours> listeCours = coursService.afficherCours();
-        List<Projet> listeProjets = projetService.afficherProjet();
+        List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);
+        List<Projet> listeProjets = projetService.rechercherProjetParProf(nomProf);
         model.addAttribute("listeEtudiants", listeEtudiants);
         model.addAttribute("listeCours", listeCours);
-        model.addAttribute("note",note);
+        model.addAttribute("note", note);
         model.addAttribute("listeProjets", listeProjets);
-
 
         return "notes-form";
     }
