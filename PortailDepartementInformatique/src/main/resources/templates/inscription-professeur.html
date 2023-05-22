@@ -15,18 +15,7 @@
   <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
-<header class="border-0">
-  <div class="container d-flex justify-content-center">
-    <div class="entete-logo">
-      <div class="d-flex justify-content-between">
-        <img class="logo-college-agrandi py-3" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/>
-        <div class="mt-4">
-          <h1 class="titre-agrandi">Ed.<br>volution</h1>
-          <p class="sous-titre-agrandi">Oser apprendre et évoluer</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<header th:replace="fragments/enteteInscription :: enteteInscription" >
 </header>
 <main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
   <div class="container px-5 d-flex justify-content-center">
@@ -120,8 +109,6 @@
     </div>
   </div>
 </main>
-<footer>
-  <p>&copy; 2023 Département de l'informatique</p>
-</footer>
+<footer th:replace="fragments/pieds :: pieds"></footer>
 </body>
 </html>
