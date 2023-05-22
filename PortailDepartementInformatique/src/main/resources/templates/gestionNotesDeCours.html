@@ -44,7 +44,7 @@
             <input type="submit" value="rechercher" />
         </form>
 
-        <a  class="btn bouton-mauve mb-5" th:href="@{/notesDeCours/new}">Ajouter une note de cours</a>
+        <a  class="btn bouton-mauve mb-5" th:href="@{/notesDeCours/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">Ajouter une note de cours</a>
 
         <div class="container conteneur-table bg-light p-5 mt-5">
             <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
@@ -71,8 +71,11 @@
                     <td>
                         <a class="fa-solid fa-download icon-navy fa-2x" th:href="@{'/files/' + ${noteDeCours.document}}"  title="Télécharger"></a>
                     </td>
-                    <td>
+                    <td th:if="${noteDeCours.professeur.nom == session.nomUtilisateur}">
                         <a class="fa-solid fa-trash icon-navy fa-2x" th:href="@{'/notesDeCours/supprimer/' + ${noteDeCours.id}}"  title="Supprimer"></a>
+                    </td>
+                    <td th:unless="${noteDeCours.professeur.nom == session.nomUtilisateur}">
+                        <!-- Remplacer par une cellule vide pour aligner les autres colonnes -->
                     </td>
                 </tr>
                 </tbody>

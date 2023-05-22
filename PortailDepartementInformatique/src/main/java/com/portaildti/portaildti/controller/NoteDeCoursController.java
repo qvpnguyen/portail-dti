@@ -44,11 +44,11 @@ public class NoteDeCoursController {
 
         return "gestionNotesDeCours";
     }
-    @GetMapping("/notesDeCours/new")
-    public String afficherFormNoteDeCours(Model model) {
+    @GetMapping("/notesDeCours/new/{nomProfSession}")
+    public String afficherFormNoteDeCours(Model model, @PathVariable("nomProfSession") String nomProf) {
         NoteDeCours noteDeCours = new NoteDeCours();
-        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
-        List<Cours> listeCours = coursService.afficherCours();
+        List<Professeur> listeProfesseurs = professeurService.rechercherProfesseurParNom(nomProf);
+        List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("noteDeCours",noteDeCours);
