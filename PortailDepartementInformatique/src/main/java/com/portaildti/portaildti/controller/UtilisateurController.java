@@ -49,8 +49,8 @@ public class UtilisateurController {
 
         if(type.equals("btnetudiant")){
             if(etudiant !=null){
-                session.setAttribute("nomEtudiant", etudiant.getNom());
-                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
+//                session.setAttribute("nomEtudiant", etudiant.getNom());
+//                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
                 session.setAttribute("nomUtilisateur", etudiant.getNom());
                 session.setAttribute("prenomUtilisateur", etudiant.getPrenom());
 
@@ -58,8 +58,8 @@ public class UtilisateurController {
 
             }
             else if(administrateur!=null) {
-                session.setAttribute("nomAdmin", administrateur.getNom());
-                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+//                session.setAttribute("nomAdmin", administrateur.getNom());
+//                session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
                 session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
 
@@ -73,8 +73,8 @@ public class UtilisateurController {
 
         } else if (type.equals("btnprofesseur")) {
             if(prof !=null){
-                session.setAttribute("nomProf", prof.getNom());
-                session.setAttribute("prenomProf", prof.getPrenom());
+//                session.setAttribute("nomProf", prof.getNom());
+//                session.setAttribute("prenomProf", prof.getPrenom());
                 session.setAttribute("nomUtilisateur", prof.getNom());
                 session.setAttribute("prenomUtilisateur", prof.getPrenom());
 
@@ -84,8 +84,8 @@ public class UtilisateurController {
 
             }
             else if(administrateur!=null) {
-                session.setAttribute("nomAdmin", administrateur.getNom());
-                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+//                session.setAttribute("nomAdmin", administrateur.getNom());
+//                session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
                 session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
 
@@ -99,8 +99,8 @@ public class UtilisateurController {
 
         } else if (type.equals("btnvisiteur")) {
             if(visiteur !=null){
-                session.setAttribute("nomVisiteur", visiteur.getNom());
-                session.setAttribute("prenomVisiteur", visiteur.getPrenom());
+//                session.setAttribute("nomVisiteur", visiteur.getNom());
+//                session.setAttribute("prenomVisiteur", visiteur.getPrenom());
                 session.setAttribute("nomUtilisateur", visiteur.getNom());
                 session.setAttribute("prenomUtilisateur", visiteur.getPrenom());
 
@@ -110,8 +110,8 @@ public class UtilisateurController {
 
             }
             else if(administrateur!=null) {
-                session.setAttribute("nomAdmin", administrateur.getNom());
-                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+//                session.setAttribute("nomAdmin", administrateur.getNom());
+//                session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
                 session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
 

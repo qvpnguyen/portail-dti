@@ -22,7 +22,7 @@ public class ProjetService {
 
     public List<Projet> rechercherProjet(String keyword) {
         if (keyword != null) {
-            return (List<Projet>) repo.findAll();
+            return repo.findProjetByNom(keyword);
         }
         return null;
     }

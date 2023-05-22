@@ -4,6 +4,7 @@ import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
 import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -45,8 +46,19 @@ public class ProjetController {
         return "projets-form";
     }
 
+//    @GetMapping("/etudiants-projets/rechercher")
+//    public String rechercherUtilisateur(
+//            Model model, @Param("keyword") String keyword)
+//    {
+//        List<Projet> listeProjets = projetService.rechercherProjet(keyword);
+//
+//        model.addAttribute("listeProjets",listeProjets);
+//        model.addAttribute("keyword", keyword);
+//        return "projets";
+//    }
+
     @GetMapping("/etudiants-projets")
-    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, Model model) throws ProjetNotFoundException {
+    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours,  @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
 
         List<Projet> listeProjets = new ArrayList<>();
         List<Cours> listeCours = coursService.afficherCours();
@@ -87,6 +99,19 @@ public class ProjetController {
         model.addAttribute("listeProjets", listeProjets);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
+
+        if (keyword != null){
+            List<Projet> listeProjetsParNom = projetService.rechercherProjet(keyword);
+            List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
+            List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
+            List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
+
+            model.addAttribute("listeProjets",listeProjetsParNom);
+            model.addAttribute("listeProjets",listeProjetsParCours);
+            model.addAttribute("listeProjets",listeProjetsParProf);
+            model.addAttribute("listeProjets",listeProjetsParAnnee);
+            model.addAttribute("keyword", keyword);
+        }
 
         return "projets";
     }
