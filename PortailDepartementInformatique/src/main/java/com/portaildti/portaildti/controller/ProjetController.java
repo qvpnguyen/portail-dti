@@ -163,23 +163,21 @@ public class ProjetController {
             //en utilisant la méthode transferTo() de l'objet MultipartFile
             file.transferTo(serverFile);
         } else {
-//            System.out.println("projet: " + projet);
-//            String video = projetService.getVideoByProjetId(projet.getId());
-//            projet.setVideo(video);
+            String video = projetService.getVideoByProjetId(projet.getId());
+            projet.setVideo(video);
         }
 
-        redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
-        projetService.ajouterProjet(projet);
-        for (Etudiant membre : membres) {
-            if (!membres.contains(membre)) {
-                etudiantProjetService.supprimerEtudiantProjetParEtudiantId(projet.getId(), membre.getId());
-            } else {
+        System.out.println("projetid: " + projet.getId());
+        // Dans un formulaire d'edition, si un projet est existant en allant chercher son id, on va iterer parmi la liste des membres et mettre a jour la liste des membres de l'equipe en faisant les ajouts/suppressions des membres necessaires
+        if (projet.getId() != null) {
+            etudiantProjetService.supprimerEtudiantProjetsParProjetId(projet.getId());
+            for (Etudiant membre : membres) {
                 EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
                 etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
             }
-//            EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
-//            etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
         }
+        projetService.ajouterProjet(projet);
+        redirectAttributes.addFlashAttribute("message","Le projet a été ajouté/mis à jour avec succès");
         redirectAttributes.addFlashAttribute("membresEquipe", membres);
         return "redirect:/gestion-projets";
     }
@@ -240,7 +238,7 @@ public class ProjetController {
     @GetMapping("projets/edit/{projetid}")
     public String mettreAJourProjet(@PathVariable(name = "projetid") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
-            while (true) {
+//            while (true) {
                 Projet projet = projetService.get(id);
                 List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
                 List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
@@ -257,7 +255,7 @@ public class ProjetController {
                 model.addAttribute("listeProfesseurs", listeProfesseurs);
                 model.addAttribute("listeCours", listeCours);
                 return "projets-edit-form";
-            }
+//            }
         } catch (ProjetNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver le projet avec l'id " + id);
             return "redirect:/gestion-projets";
