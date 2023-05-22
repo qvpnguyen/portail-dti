@@ -36,7 +36,7 @@
                     <a href="#">Logout</a>
                 </div>
 
-                <a th:href="${pageContext.request.contextPath}/utilisateur/deconnexion">Déconnexion</a>
+                <a th:href="@{/utilisateur/deconnexion}">Déconnexion</a>
             </div>
         </div>
         <div>
@@ -64,14 +64,14 @@
                         <a class="ms-3 mt-1" href="https://crosemont.omnivox.ca/">
                             <img width="40" th:src="@{'images/logo-omnivox.png'}" alt="Logo Omnivox" class="align-right"/>
                         </a>
-                        <!-- Filtrage -->
 
+                        <!-- Filtrage -->
                         <svg id="svg-icon" class="me-2 mt-2 filtre-icon" width="30" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.90337 1H16.3573C16.8563 1 17.2607 1.55577 17.2607 2.24139L17.2609 4.21027C17.261 4.53963 17.1657 4.85549 16.9963 5.08837L11.2016 13.0519C11.0322 13.2847 10.937 13.6005 10.937 13.9298V21.7578C10.937 22.5655 10.3847 23.1582 9.8146 22.9623L8.00786 22.3415C7.60568 22.2034 7.32357 21.7067 7.32357 21.137V13.9298C7.32357 13.6005 7.22839 13.2847 7.05898 13.0519L1.26459 5.0883C1.09517 4.85547 1 4.53967 1 4.21039V2.24155C1 1.55587 1.40445 1 1.90337 1Z" stroke="#3B4394" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-
+                        <!-- Filtre -->
                         <div id="dropdown" class="dropdown">
-                            <form action="ProjetsController" method="get">
+                            <form th:action="@{/etudiants-projets}" method="get">
                                 <ul class="dropdown-list ms-3 mt-3">
                                     <li><b>Professeurs : </b> <br>
                                         <th:block th:if="${#lists.isEmpty(listeProfesseurs)}">
@@ -79,36 +79,12 @@
                                         </th:block>
                                         <th:block th:unless="${#lists.isEmpty(listeProfesseurs)}">
                                             <div th:each="prof : ${listeProfesseurs}">
-                                                <input type="checkbox" name="professeurs" th:value="${prof.nom}">
+                                                <input type="checkbox" name="professeur" th:value="${prof.nom}" multiple>
                                                 <label th:for="${prof.nom}" th:text="${prof.nom} + ' ' + ${prof.prenom}"></label><br>
                                             </div>
                                         </th:block>
                                     </li>
                                     <br>
-                                    <li><b>Cours :</b> <br>
-                                        <th:block th:if="${#lists.isEmpty(listeCours)}">
-                                            <p class="navbar-brand">Aucun cours trouvé.</p>
-                                        </th:block>
-                                        <th:block th:unless="${#lists.isEmpty(listeCours)}">
-                                            <div th:each="cours : ${listeCours}">
-                                                <input type="checkbox" name="${cours}" th:value="${cours.nom}">
-                                                <label th:for="${cours.nom}" th:text="${cours.nom}"></label><br>
-                                            </div>
-                                        </th:block>
-                                    </li>
-                                    <br>
-                                    <li><b>L'année du projet :</b> <br>
-                                        <th:block th:if="${#lists.isEmpty(listeProjets)}">
-                                            <p class="navbar-brand">Aucun projet trouvé.</p>
-                                        </th:block>
-                                        <th:block th:unless="${#lists.isEmpty(listeProjets)}">
-                                            <div th:each="projet : ${listeProjets}">
-                                                <input type="checkbox" name="annee" th:value="${projet.annee}">
-                                                <label th:for="${projet.annee}" th:text="${projet.annee}"></label><br>
-                                            </div>
-                                        </th:block>
-                                    </li>
-
                                 </ul>
                                 <input class="btn bouton-mauve ms-3 mt-3" type="submit" value="Filtrer">
                             </form>
@@ -144,34 +120,71 @@
         <div th:unless="${#lists.isEmpty(listeProjets)}">
             <div class="container px-5">
                 <h2 class="p-5 text-center text-sm">Ces ensembles des projets sont réalisés par des étudiants en informatique au cours de leur parcours scolaire qui témoignent de la créativité et de l'ingéniosité de la prochaine génération de développeurs. Grâce à ces projets, les étudiants en informatique ont acquis une expérience pratique en développement des applications de Web et se sont positionnés pour réussir dans l'industrie technologique rapide et en constante évolution.</h2>
-                <div th:each="projet, iterStat : ${listeProjets}" class="row gx-5 mb-4">
-                    <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
-                        <div class="carte-video mb-4">
-                            <img class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
-                            <div class="conteneur-infos-projet">
-                                <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}">
-                                    <h4 class="mt-2" th:text="${projet.nom}"></h4>
-                                </a>
-                                <p>
-                                    <i th:text="${projet.description}"></i>
-                                </p>
-                                <ul>
-                                    <li th:each="etudiant : ${etudiantsParProjet[projet.nom]}" class="list-inline-item">
-                                        <span th:text="${etudiant.prenom}"></span>
-                                        <span th:text="${etudiant.nom}"></span>
-                                    </li>
-                                </ul>
+
+                <div th:unless="${nomProfesseur == null}">
+                    <p class="navbar-brand">Aucun Projet de professeur trouvé.</p>
+                </div>
+                <div th:unless="${nomProfesseur != null}">
+                    <div th:each="projet, iterStat : ${listeProjets}" class="row gx-5 mb-4">
+                        <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
+                            <div class="carte-video mb-4">
+                                <img class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
+                                <div class="conteneur-infos-projet">
+                                    <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}">
+                                        <h4 class="mt-2" th:text="${projet.nom}"></h4>
+                                    </a>
+                                    <p>
+                                        <i th:text="${projet.description}"></i>
+                                    </p>
+                                    <ul>
+                                        <li th:each="etudiant : ${etudiantsParProjet[projet.nom]}" class="list-inline-item">
+                                            <span th:text="${etudiant.prenom}"></span>
+                                            <span th:text="${etudiant.nom}"></span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div th:classappend="${iterStat.odd}? 'col-8 order-md-2' : 'col-8 order-md-1'">
-                        <div class="carte-description p-4">
-                            <p th:text="${projet.description}"></p>
+                        <div th:classappend="${iterStat.odd}? 'col-8 order-md-2' : 'col-8 order-md-1'">
+                            <div class="carte-description p-4">
+                                <p th:text="${projet.description}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <script>
+        const svgIcon = document.getElementById("svg-icon");
+        const dropdown = document.getElementById("dropdown");
+
+        svgIcon.addEventListener("click", () => {
+            svgIcon.classList.toggle("active-svg-icon");
+            dropdown.classList.toggle("active");
+        });
+
+        dropdown.addEventListener("click", (event) => {
+            console.log(`Clicked on ${event.target.textContent}`);
+        });
+
+        function toggleDropdown() {
+            document.getElementById("myDropdownContent").classList.toggle("show");
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropdown-svg')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html>

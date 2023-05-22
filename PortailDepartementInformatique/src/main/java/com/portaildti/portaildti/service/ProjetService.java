@@ -56,4 +56,38 @@ public class ProjetService {
 
         return repo.findProjetById(id);
     }
+
+    public List<Projet> afficherProjetsParProfesseurNom(String nomProfesseur) throws ProjetNotFoundException{
+
+        try {
+            return repo.findProjetsByProfesseurNom(nomProfesseur);
+        } catch (NoSuchElementException exception) {
+            throw new ProjetNotFoundException("On ne peut pas trouver le projet avec le nom du professeur " + nomProfesseur);
+        }
+    }
+
+    public Projet afficherProjetParProfesseurNom(String nomProfesseur) throws ProjetNotFoundException{
+
+        try {
+            return repo.findProjetByProfesseurNom(nomProfesseur);
+        } catch (NoSuchElementException exception) {
+            throw new ProjetNotFoundException("On ne peut pas trouver le projet avec le nom du professeur " + nomProfesseur);
+        }
+    }
+
+    public List<Projet> afficherProjetsParCoursNom(String nomCours) throws ProjetNotFoundException{
+
+        try {
+            return repo.findProjetsByNomCours(nomCours);
+        } catch (NoSuchElementException exception) {
+            throw new ProjetNotFoundException("On ne peut pas trouver le projet avec le nom du cours " + nomCours);
+        }
+    }    public List<Projet> afficherProjetsParAnnee(Integer annee) throws ProjetNotFoundException{
+
+        try {
+            return repo.findProjetByAnnee(annee);
+        } catch (NoSuchElementException exception) {
+            throw new ProjetNotFoundException("On ne peut pas trouver le projet avec l'année' " + annee);
+        }
+    }
 }

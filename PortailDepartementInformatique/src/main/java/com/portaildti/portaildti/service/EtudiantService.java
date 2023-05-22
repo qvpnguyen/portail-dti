@@ -103,10 +103,6 @@ public class EtudiantService {
         return null;
     }
 
-    public String getPhotoByUserId(Integer id) {
-        return repo.findById(id).get().getPhoto();
-    }
-
     public List<Etudiant> findByPhotoName(String photo) throws UtilisateurNotFoundException {
         try{
             return repo.findByFileName(photo);
@@ -114,6 +110,10 @@ public class EtudiantService {
             throw new UtilisateurNotFoundException("On ne peut pas trouver un utilisateur avec la photo " + photo);
         }
 
+    }
+
+    public String getPhotoByUserId(Integer id) {
+        return repo.findById(id).get().getPhoto();
     }
 
 }

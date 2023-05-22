@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,20 +60,36 @@ public class ProjetController {
     }
 
     @GetMapping("/etudiants-projets")
-    public String afficherEnsembleProjets(Model model){
+    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, Model model) throws ProjetNotFoundException {
 
-        Iterable<Projet> listeProjets = projetService.afficherProjet();
+        Iterable<Projet> listeProjets = null;
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
         Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
 
-        for (Projet projet : listeProjets){
+        if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
 
-            List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
-            etudiantsParProjet.put(projet.getNom(), listeEtudiants);
+            List<Projet> projetsFiltres = new ArrayList<>();
+
+            for (String nomProfesseur : nomsProfesseurs) {
+                List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
+                projetsFiltres.addAll(projetsProfesseur);
+            }
+
+            listeProjets = projetsFiltres;
+        } else {
+            listeProjets = projetService.afficherProjet();
+
+            for (Projet projet : listeProjets) {
+                List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
+                etudiantsParProjet.put(projet.getNom(), listeEtudiants);
+            }
         }
 
         model.addAttribute("etudiantsParProjet", etudiantsParProjet);
         model.addAttribute("listeProjets", listeProjets);
-
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
 
         return "projets";
     }
@@ -136,17 +153,20 @@ public class ProjetController {
 
         return "evaluationProjets";
     }
+
     @GetMapping("/modifier/note/{id}")
     public String modifierNote (Model model,@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
     notesService.modifierNoteObtenue(id,noteObtenue);
         return "redirect:/projets/evaluation";
     }
+
     @GetMapping("/rechercher/note_projet")
     public String rechercherNoteParNomProjet (Model model,@RequestParam("note") String nomProjet) {
         List<Notes> listNotesProjet = notesService.rechercherNotesParProjetNom(nomProjet);
         model.addAttribute("listeNotes", listNotesProjet);
-        return "redirect:/projets/evaluation";
+        return "evaluationProjets";
     }
+
     @GetMapping("/note/supprimer/{id}")
     public String supprimerNote(@PathVariable(name = "id") Integer id,
                                 Model model,
