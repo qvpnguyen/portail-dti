@@ -43,6 +43,13 @@ public class ProfesseurService {
         }
         return null;
     }
+    public Professeur rechercherProfesseurParID(Integer id){
+
+        if (id != null) {
+            return repo.findById(id).get();
+        }
+        return null;
+    }
     public List<Professeur> rechercherProfesseurParProjetNom(String nomProjet){
         if (nomProjet != null) {
             return repo.findProfesseursByProjetName(nomProjet);

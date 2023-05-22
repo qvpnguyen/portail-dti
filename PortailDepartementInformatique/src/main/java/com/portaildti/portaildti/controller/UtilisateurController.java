@@ -3,6 +3,7 @@ package com.portaildti.portaildti.controller;
 import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
 import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,15 +45,21 @@ public class UtilisateurController {
 
         if(type.equals("btnetudiant")){
             if(etudiant !=null){
-                session.setAttribute("nomEtudiant", etudiant.getNom());
-                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
+//                session.setAttribute("nomEtudiant", etudiant.getNom());
+//                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
+                session.setAttribute("nomUtilisateur", etudiant.getNom());
+                session.setAttribute("prenomUtilisateur", etudiant.getPrenom());
 
                 return "redirect:/etudiant";
 
             }
             else if(administrateur!=null) {
-                session.setAttribute("nomAdmin", administrateur.getNom());
-                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+//                session.setAttribute("nomAdmin", administrateur.getNom());
+//                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+                session.setAttribute("nomUtilisateur", administrateur.getNom());
+                session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
+
+
 
                 return "redirect:/administration";
             }else {
@@ -62,15 +69,23 @@ public class UtilisateurController {
 
         } else if (type.equals("btnprofesseur")) {
             if(prof !=null){
-                session.setAttribute("nomProf", prof.getNom());
-                session.setAttribute("prenomProf", prof.getPrenom());
+//                session.setAttribute("nomProf", prof.getNom());
+//                session.setAttribute("prenomProf", prof.getPrenom());
+                session.setAttribute("nomUtilisateur", prof.getNom());
+                session.setAttribute("prenomUtilisateur", prof.getPrenom());
+
+
 
                 return "redirect:/professeur";
 
             }
             else if(administrateur!=null) {
-                session.setAttribute("nomAdmin", administrateur.getNom());
-                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+//                session.setAttribute("nomAdmin", administrateur.getNom());
+//                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+                session.setAttribute("nomUtilisateur", administrateur.getNom());
+                session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
+
+
 
                 return "redirect:/administration";
             }else {
@@ -80,15 +95,23 @@ public class UtilisateurController {
 
         } else if (type.equals("btnvisiteur")) {
             if(visiteur !=null){
-                session.setAttribute("nomVisiteur", visiteur.getNom());
-                session.setAttribute("prenomVisiteur", visiteur.getPrenom());
+//                session.setAttribute("nomVisiteur", visiteur.getNom());
+//                session.setAttribute("prenomVisiteur", visiteur.getPrenom());
+                session.setAttribute("nomUtilisateur", visiteur.getNom());
+                session.setAttribute("prenomUtilisateur", visiteur.getPrenom());
+
+
 
                 return "redirect:/gestionProjets";
 
             }
             else if(administrateur!=null) {
-                session.setAttribute("nomAdmin", administrateur.getNom());
-                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+//                session.setAttribute("nomAdmin", administrateur.getNom());
+//                session.setAttribute("prenomAdmin", administrateur.getPrenom());
+                session.setAttribute("nomUtilisateur", administrateur.getNom());
+                session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
+
+
 
                 return "redirect:/administration";
             }else {
@@ -106,8 +129,7 @@ public class UtilisateurController {
 
         return "redirect:/";
     }
-
-    @GetMapping("/admins/new")
+    @GetMapping("/admins/new/")
     public String afficherFormulaireAdmin(Model model) {
         Administrateur administrateur = new Administrateur();
         model.addAttribute("administrateur", administrateur);
@@ -264,6 +286,7 @@ public class UtilisateurController {
                     if (!directory.exists()) {
                         directory.mkdirs();
                     }
+
 
                     // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
                     File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);

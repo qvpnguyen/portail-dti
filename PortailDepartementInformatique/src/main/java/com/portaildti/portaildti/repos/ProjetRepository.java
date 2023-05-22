@@ -19,7 +19,23 @@ public interface ProjetRepository extends CrudRepository<Projet, Integer> {
 
     @Query("SELECT p FROM Projet p JOIN p.cours c WHERE c.nom = :nomCours")
     public List<Projet> findProjetsByNomCours(@Param("nomCours") String nomCours);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr WHERE pr.id = :idProf")
+    public List<Projet> findProjetsByIdProf(@Param("idProf") Integer idProf);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr WHERE pr.nom = :nomProf")
+    public List<Projet> findProjetsByNomProf(@Param("nomProf") String nomProf);
     public Long countById(Integer id);
     @Query("SELECT p FROM Projet p WHERE p.video = :fileVideo")
     public List<Projet> findByFileName(@Param("fileVideo") String fileVideo);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr WHERE pr.nom = :professeurNom")
+    public List<Projet> findProjetsByProfesseurNom(@Param("professeurNom") String professeurNom);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr WHERE pr.id = :professeurId")
+    public List<Projet> findProjetsByProfesseurId(@Param("professeurId") Integer professeurId);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr WHERE pr.nom = :professeurNom")
+    public Projet findProjetByProfesseurNom(@Param("professeurNom") String professeurNom);
+    @Query("SELECT p FROM Projet p WHERE p.annee = :annee")
+    public List<Projet> findProjetByAnnee(@Param("annee") Integer annee);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr JOIN p.cours c WHERE pr.nom = :nomProf AND c.nom = :nomCours")
+    public List<Projet> findProjetsByProfesseurEtCours(@Param("nomProf") String nomProf, @Param("nomCours") String nomCours);
+
+
 }

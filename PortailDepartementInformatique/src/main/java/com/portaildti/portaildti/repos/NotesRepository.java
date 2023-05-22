@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface NotesRepository extends CrudRepository<Notes,Integer> {
 
-    @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.nom = ?1")
-    public List<Notes> findNotesByProjetName(String nom);
+    @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.nom = :nom")
+    public List<Notes> findNotesByProjetName(@Param("nom") String nom);
 
     @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.id = ?1")
     public Notes findNotesByProjetID(Integer id);

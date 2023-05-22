@@ -38,85 +38,55 @@
 <body>
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
-    <h4>Chercher note par nom du projet :</h4>
+    <div class="profil1">
+      <img th:src="@{${'/images/utilisateur/jane.jpg' }}" alt="Photo du professeur">
+      <h1 th:text="${professeur.prenom + ' ' + professeur.nom}"></h1>
+    </div>
 
-    <form method="get" th:action="@{/rechercher/note_projet/}">
-      <input type="search" name="note" id="note" th:value="${note}">
-      <input type="submit" value="rechercher" />
-    </form>
-
-    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomProf})}">
-      Ajouter une note à un projet
-    </a>
-
-
+    <!-- Afficher les projets responsables -->
     <div class="container conteneur-table bg-light p-5 mt-5">
-      <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
-
+      <h2>Projets Responsable</h2>
       <table id="tableProjets" class="display">
         <thead>
         <tr>
           <th>ID</th>
-          <th>nom du Projet</th>
-          <th>Session</th>
+          <th>Nom</th>
           <th>Année</th>
-          <th>Nom de l'étudiant</th>
           <th>Cours</th>
-          <th>Note obtenue</th>
-          <th>Commentaire</th>
-          <th>Supprimer la note</th>
-          <th>Modifier la note</th>
+
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${listeNotes}">
-          <td th:text="${user.id}"></td>
-          <td th:text="${user.projetID.nom}"></td>
-          <td th:text="${user.session}"></td>
-          <td th:text="${user.annee}"></td>
-          <td th:text="${user.etudiantID.prenom+ ' ' + user.etudiantID.nom}"></td>
-          <td th:text="${user.coursID.nom}"></td>
-          <td th:text="${user.noteObtenue + '%'}"></td>
-          <td th:text="${user.commentaire}"></td>
-          <td>
-            <a th:href="@{/note/supprimer/{id}(id=${user.id})}" class="fa-solid fa-trash icon-navy fa-2x" title="Supprimer"></a>
-          </td>
+        <tr th:each="projet : ${projetsProf}">
+          <td th:text="${projet.id}"></td>
+          <td th:text="${projet.nom}"></td>
+          <td th:text="${projet.annee}"></td>
+          <td th:text="${projet.cours.nom}"></td>
 
-          <td>
-
-            <a onclick="showForm('${user.id}')" class="fa-solid fa-pen-to-square icon-navy fa-2x"  title="Modifier"></a>
-
-            <form id="form-${user.id}" style="display:none;" th:action="@{'/modifier/note/' + ${user.id} }" method="get">
-              <input type="hidden" name="id" th:value="${user.id}">
-              <input type="text" name="noteObtenue">
-              <input type="submit" value="Envoyer" />
-            </form>
-          </td>
         </tr>
         </tbody>
       </table>
     </div>
+
+    <!-- Afficher les cours donnés et le formulaire de contact -->
+    <div class="conteneur-cours-contact">
+      <div class="container conteneur-table bg-light p-5 mt-5">
+        <section class="cours1">
+          <h2>Cours Donnés</h2>
+          <ul th:each="cours : ${coursProf}">
+            <li th:text="${cours.nom}"></li>
+          </ul>
+        </section>
+
+
+      </div>
+    </div>
   </div>
 </main>
 
-<footer th:replace="fragments/pieds :: pieds"></footer>
-
+<footer>
+  <p>&copy; 2023 Département de l'informatique</p>
+</footer>
 </body>
-<script>
-  function showForm(id) {
-    var form = document.getElementById("form-" + id);
-    if (form.style.display === "none") {
-      form.style.display = "block";
-    } else {
-      form.style.display = "none";
-    }
-  }
-  $(document).ready( function () {
-    $('#tableNotesCours').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-      }, "searching": false
-    });
-  } );
-</script>
+<footer th:replace="fragments/pieds :: pieds"></footer>
 </html>

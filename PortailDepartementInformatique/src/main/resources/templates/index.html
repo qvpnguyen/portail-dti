@@ -35,7 +35,8 @@
             <div class="boite-login">
                 <div th:if="${invalide!=null}" class="alert alert-danger text-center">[[${invalide}]]</div>
                 <br>
-                <div th:if="${message}" class="message alert alert-danger text-center">
+                <div th:if="${deconnexion!=null}" class="alert alert-danger text-center">[[${deconnexion}]]</div>
+                <div th:if="${message}" class="alert alert-danger text-center">
                     <p th:text="${message}"></p>
                 </div>
                 <!-- TODO: Implémenter le connexionController pour le form action -->
@@ -76,8 +77,6 @@
         </div>
     </div>
 </main>
-<footer>
-    <p>&copy; 2023 Département de l'informatique</p>
-</footer>
+<footer th:replace="fragments/pieds :: pieds"></footer>
 </body>
 </html>

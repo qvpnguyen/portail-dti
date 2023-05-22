@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -35,10 +34,8 @@ public class EtudiantService {
         return  null;
     }
 
-    public Etudiant ajouterEtudiant(Etudiant etudiant) {
-
+    public Etudiant ajouterEtudiant(Etudiant etudiant){
         return repo.save(etudiant);
-
     }
 
     public boolean isEmailEtudiantUnique(String email){
@@ -59,12 +56,12 @@ public class EtudiantService {
         return etudiantEmailPassword;
     }
 
-    public void supprimerEtudiant(Integer id) throws IOException {
+    public void supprimerEtudiant(Integer id) throws Exception {
 
         Etudiant etudiant = repo.findById(id).orElse(null);
 
         if (etudiant == null) {
-            throw new IOException("L'étudiant n'existe pas");
+            throw new Exception("L'étudiant n'existe pas");
 
         } else {
             repo.delete(etudiant);
@@ -110,7 +107,9 @@ public class EtudiantService {
         }
 
     }
+
     public String getPhotoByUserId(Integer id) {
         return repo.findById(id).get().getPhoto();
     }
+
 }

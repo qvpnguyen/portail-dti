@@ -4,12 +4,14 @@ import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
 import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +56,7 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-form";
     }
+
     @GetMapping("/projets-visiteur/new")
     public String afficherFormulaireProjetVisiteur(Model model) {
         Projet projet = new Projet();
@@ -58,39 +64,76 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-visiteur-form";
     }
-    @GetMapping("/projets")
-    public String afficherProjet(Model model) {
-        Projet projet = new Projet();
-        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
-        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
-        List<Cours> listeCours = coursService.afficherCours();
-        List<Projet> listeProjets = projetService.afficherProjet();
-        model.addAttribute("projet", projet);
-        model.addAttribute("listeEtudiants", listeEtudiants);
-        model.addAttribute("listeProfesseurs", listeProfesseurs);
-        model.addAttribute("listeCours", listeCours);
-        model.addAttribute("projets", listeProjets);
-        model.addAttribute("pageTitle", "Afficher les projets");
-        return "gestionProjets";
-    }
+
+//    @GetMapping("/etudiants-projets/rechercher")
+//    public String rechercherUtilisateur(
+//            Model model, @Param("keyword") String keyword)
+//    {
+//        List<Projet> listeProjets = projetService.rechercherProjet(keyword);
+//
+//        model.addAttribute("listeProjets",listeProjets);
+//        model.addAttribute("keyword", keyword);
+//        return "projets";
+//    }
+
     @GetMapping("/etudiants-projets")
-    public String afficherEnsembleProjets(Model model){
+        public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
 
-        Iterable<Projet> listeProjets = projetService.afficherProjet();
-        Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+            List<Projet> listeProjets = new ArrayList<>();
+            List<Cours> listeCours = coursService.afficherCours();
+            List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
+            Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+            List<Projet> projetsFiltres = new ArrayList<>();
 
-        for (Projet projet : listeProjets){
+            if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
+                for (String nomProfesseur : nomsProfesseurs) {
+                    List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
+                    projetsFiltres.addAll(projetsProfesseur);
+                }
+                listeProjets.addAll(projetsFiltres);
+            }
 
-            List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
-            etudiantsParProjet.put(projet.getNom(), listeEtudiants);
+            if (nomsCours != null && !nomsCours.isEmpty()) {
+                for (String nomCours : nomsCours) {
+                    List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
+                    projetsFiltres.addAll(projetsCours);
+                }
+                listeProjets.addAll(projetsFiltres);
+            }
+
+            if ((nomsProfesseurs == null || nomsProfesseurs.isEmpty()) && (nomsCours == null || nomsCours.isEmpty())) {
+                listeProjets = projetService.afficherProjet();
+            }
+
+            if (listeProjets.isEmpty()) {
+                model.addAttribute("aucunResultat", true);
+            } else {
+                for (Projet projet : listeProjets) {
+                    List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
+                    etudiantsParProjet.put(projet.getNom(), listeEtudiants);
+                }
+            }
+
+            model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+            model.addAttribute("listeProjets", listeProjets);
+            model.addAttribute("listeCours", listeCours);
+            model.addAttribute("listeProfesseurs", listeProfesseurs);
+
+            if (keyword != null){
+                List<Projet> listeProjetsParNom = projetService.rechercherProjet(keyword);
+// List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
+// List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
+// List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
+
+                model.addAttribute("listeProjets",listeProjetsParNom);
+// model.addAttribute("listeProjets",listeProjetsParCours);
+// model.addAttribute("listeProjets",listeProjetsParProf);
+// model.addAttribute("listeProjets",listeProjetsParAnnee);
+                model.addAttribute("keyword", keyword);
+            }
+
+            return "projets";
         }
-
-        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
-        model.addAttribute("listeProjets", listeProjets);
-
-
-        return "projets";
-    }
     @PostMapping("/projets/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
         if (file != null && !file.isEmpty()) {
@@ -244,17 +287,21 @@ public class ProjetController {
 
         return "evaluationProjets";
     }
+
     @GetMapping("/modifier/note/{id}")
     public String modifierNote (Model model,@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
     notesService.modifierNoteObtenue(id,noteObtenue);
         return "redirect:/projets/evaluation";
     }
-    @GetMapping("/rechercher/note_projet")
+
+    @GetMapping("/rechercher/note_projet/")
     public String rechercherNoteParNomProjet (Model model,@RequestParam("note") String nomProjet) {
         List<Notes> listNotesProjet = notesService.rechercherNotesParProjetNom(nomProjet);
+        System.out.println(listNotesProjet);
         model.addAttribute("listeNotes", listNotesProjet);
-        return "redirect:/projets/evaluation";
+        return "evaluationProjets";
     }
+
     @GetMapping("/note/supprimer/{id}")
     public String supprimerNote(@PathVariable(name = "id") Integer id,
                                 Model model,
@@ -272,17 +319,18 @@ public class ProjetController {
         return "redirect:/projets/evaluation";
     }
 
-    @GetMapping("/note/new")
-    public String afficherFormNotesProjets(Model model) {
+    @GetMapping("/note/new/{nomProfSession}")
+    public String afficherFormNotesProjets(Model model, @PathVariable("nomProfSession") String nomProf) {
         Notes note = new Notes();
+
+        System.out.println(nomProf);
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
-        List<Cours> listeCours = coursService.afficherCours();
-        List<Projet> listeProjets = projetService.afficherProjet();
+        List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);
+        List<Projet> listeProjets = projetService.rechercherProjetParProf(nomProf);
         model.addAttribute("listeEtudiants", listeEtudiants);
         model.addAttribute("listeCours", listeCours);
-        model.addAttribute("note",note);
+        model.addAttribute("note", note);
         model.addAttribute("listeProjets", listeProjets);
-
 
         return "notes-form";
     }

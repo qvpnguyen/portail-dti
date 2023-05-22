@@ -1,6 +1,7 @@
 package com.portaildti.portaildti.repos;
 
 import com.portaildti.portaildti.entities.Cours;
+import com.portaildti.portaildti.entities.Notes;
 import com.portaildti.portaildti.entities.Projet;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ProjetRepositoryTest {
 
     @Autowired
     private ProjetRepository repo;
+
+    @Autowired
+    NotesRepository reposNotes ;
 
     @Autowired
     private CoursRepository repo1;
@@ -48,5 +52,13 @@ public class ProjetRepositoryTest {
         assertEquals(2, result.size());
         assertTrue(result.contains(projet1));
         assertTrue(result.contains(projet2));
+    }
+    @Test
+    public void testFindProjetsParNom() {
+
+
+        List<Notes>  notesList = reposNotes.findNotesByProjetName("Projet1");
+
+        System.out.println("la listee est xhcghfjcjdjfn"+notesList);
     }
 }
