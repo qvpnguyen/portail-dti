@@ -33,7 +33,11 @@
                     <div th:each="projet, iterStat : ${listeProjets}" class="row gx-5 mb-4">
                         <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
                             <div class="carte-video mb-4">
-                                <img class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
+                                <img id="play-button" class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
+                                <video id="project-video" controls class="projet-video hidden video-frame">
+                                    <source src="images/othmane.mp4" type="video/mp4">
+                                    Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+                                </video>
                                 <div class="conteneur-infos-projet">
                                     <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}">
                                         <h4 class="mt-2" th:text="${projet.nom}"></h4>
@@ -90,6 +94,38 @@
                 }
             }
         }
+
+
+        // Sélectionnez l'image et la vidéo par leur identifiant
+        const playButton = document.getElementById('play-button');
+        const projectVideo = document.getElementById('project-video');
+
+        // Ajoutez une variable pour suivre l'état de la vidéo
+        let videoVisible = false;
+
+        // Ajoutez un écouteur d'événement pour le clic sur l'image
+        playButton.addEventListener('click', () => {
+            if (videoVisible) {
+                // Masquez la vidéo en ajoutant la classe 'hidden'
+                projectVideo.classList.add('hidden');
+                videoVisible = false;
+            } else {
+                // Affichez la vidéo et supprimez la classe 'hidden' pour la rendre visible
+                projectVideo.classList.remove('hidden');
+                videoVisible = true;
+            }
+        });
+
+        // Ajoutez un écouteur d'événement pour le clic en dehors de la vidéo
+        window.addEventListener('click', (event) => {
+            // Vérifiez si l'élément cliqué n'est pas la vidéo ou l'image
+            if (event.target !== projectVideo && event.target !== playButton) {
+                // Masquez la vidéo en ajoutant la classe 'hidden'
+                projectVideo.classList.add('hidden');
+                videoVisible = false;
+            }
+        });
+
     </script>
 </body>
 <footer th:replace="fragments/pieds :: pieds"></footer>
