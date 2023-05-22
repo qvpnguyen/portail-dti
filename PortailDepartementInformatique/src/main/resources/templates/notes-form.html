@@ -23,7 +23,7 @@
 </head>
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
-<body>
+<body class="fond-blanc">
 <div class="container px-5 d-flex justify-content-center">
     <div class="row">
         <div class="boite-inscription mt-5">
@@ -83,18 +83,17 @@
                             </select>
                         </div>
                     </div>
-
-
-
-
-                <div class="d-grid gap-2 mt-4 mx-3">
-                    <button type="submit" class="btn bouton-mauve">
-                        Sauvegarder
-                    </button>
-                    <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
-                        <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>
-                        OneDrive
-                    </a>
+                <div>
+                    <div class="d-grid gap-2 mt-4 mx-3">
+                        <button type="submit" class="btn bouton-mauve">
+                            Sauvegarder
+                        </button>
+                        <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
+                            <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>
+                            OneDrive
+                        </a>
+                    </div>
+                </div>
                 </div>
             </form>
         </div>

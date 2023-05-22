@@ -102,14 +102,14 @@ public class ProjetController {
 
         if (keyword != null){
             List<Projet> listeProjetsParNom = projetService.rechercherProjet(keyword);
-            List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
-            List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
-            List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
+//            List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
+//            List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
+           // List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
 
             model.addAttribute("listeProjets",listeProjetsParNom);
-            model.addAttribute("listeProjets",listeProjetsParCours);
-            model.addAttribute("listeProjets",listeProjetsParProf);
-            model.addAttribute("listeProjets",listeProjetsParAnnee);
+//            model.addAttribute("listeProjets",listeProjetsParCours);
+//            model.addAttribute("listeProjets",listeProjetsParProf);
+           // model.addAttribute("listeProjets",listeProjetsParAnnee);
             model.addAttribute("keyword", keyword);
         }
 

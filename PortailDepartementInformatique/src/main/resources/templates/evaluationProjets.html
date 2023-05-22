@@ -35,7 +35,7 @@
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
 
-<body>
+<body class="fond-blanc">
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
     <h4>Chercher note par nom du projet :</h4>
@@ -45,7 +45,7 @@
       <input type="submit" value="rechercher" />
     </form>
 
-    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomProf})}">
+    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">
       Ajouter une note à un projet
     </a>
 
