@@ -50,20 +50,12 @@ public class NoteDeCoursController {
         return "gestionNotesDeCours";
     }
 
-//    @GetMapping("/notesDeCours/professeur")
-//    public String afficherListeNotesDeCoursParProfesseur(Model model, @RequestParam(name = "nomProfesseur", required = false) String nomProfesseur) {
-//
-//        Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.rechercherNoteDeCoursParProfesseurNom(nomProfesseur);
-//        model.addAttribute("listNotesDeCours",listNotesDeCours);
-//
-//        return "noteDeCours";
-//    }
+    @GetMapping("/notesDeCours/new/{nomProfSession}")
+    public String afficherFormNoteDeCours(Model model, @PathVariable("nomProfSession") String nomProf) {
 
-    @GetMapping("/notesDeCours/new")
-    public String afficherFormNoteDeCours(Model model) {
         NoteDeCours noteDeCours = new NoteDeCours();
-        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
-        List<Cours> listeCours = coursService.afficherCours();
+        List<Professeur> listeProfesseurs = professeurService.rechercherProfesseurParNom(nomProf);
+        List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("noteDeCours",noteDeCours);
@@ -129,8 +121,4 @@ public class NoteDeCoursController {
 
         return "gestionNotesDeCours";
     }
-
-
-
-
 }
