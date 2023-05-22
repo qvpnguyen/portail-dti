@@ -52,6 +52,7 @@ public class UtilisateurController {
                 session.setAttribute("nomEtudiant", etudiant.getNom());
                 session.setAttribute("prenomEtudiant", etudiant.getPrenom());
                 session.setAttribute("nomUtilisateur", etudiant.getNom());
+                session.setAttribute("prenomUtilisateur", etudiant.getPrenom());
 
                 return "redirect:/etudiant";
 
@@ -60,6 +61,8 @@ public class UtilisateurController {
                 session.setAttribute("nomAdmin", administrateur.getNom());
                 session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
+                session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
+
 
 
                 return "redirect:/administration";
@@ -73,6 +76,8 @@ public class UtilisateurController {
                 session.setAttribute("nomProf", prof.getNom());
                 session.setAttribute("prenomProf", prof.getPrenom());
                 session.setAttribute("nomUtilisateur", prof.getNom());
+                session.setAttribute("prenomUtilisateur", prof.getPrenom());
+
 
 
                 return "redirect:/professeur";
@@ -82,6 +87,8 @@ public class UtilisateurController {
                 session.setAttribute("nomAdmin", administrateur.getNom());
                 session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
+                session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
+
 
 
                 return "redirect:/administration";
@@ -95,6 +102,8 @@ public class UtilisateurController {
                 session.setAttribute("nomVisiteur", visiteur.getNom());
                 session.setAttribute("prenomVisiteur", visiteur.getPrenom());
                 session.setAttribute("nomUtilisateur", visiteur.getNom());
+                session.setAttribute("prenomUtilisateur", visiteur.getPrenom());
+
 
 
                 return "redirect:/gestionProjets";
@@ -104,6 +113,8 @@ public class UtilisateurController {
                 session.setAttribute("nomAdmin", administrateur.getNom());
                 session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
+                session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
+
 
 
                 return "redirect:/administration";

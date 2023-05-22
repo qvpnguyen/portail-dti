@@ -94,12 +94,18 @@ public class ProjetService {
         } catch (NoSuchElementException exception) {
             throw new ProjetNotFoundException("On ne peut pas trouver le projet avec le nom du cours " + nomCours);
         }
-    }    public List<Projet> afficherProjetsParAnnee(Integer annee) throws ProjetNotFoundException{
+    }
+    public List<Projet> afficherProjetsParAnnee(Integer annee) throws ProjetNotFoundException{
 
         try {
             return repo.findProjetByAnnee(annee);
         } catch (NoSuchElementException exception) {
             throw new ProjetNotFoundException("On ne peut pas trouver le projet avec l'année' " + annee);
         }
+    }
+
+    public List<Projet> afficherProjetsParProfesseursEtCours(String nomProfesseur, String nomCours){
+
+        return repo.findProjetsByProfesseurEtCours(nomProfesseur, nomCours);
     }
 }

@@ -46,26 +46,37 @@ public class ProjetController {
     }
 
     @GetMapping("/etudiants-projets")
-    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, Model model) throws ProjetNotFoundException {
+    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, Model model) throws ProjetNotFoundException {
 
-        Iterable<Projet> listeProjets = null;
+        List<Projet> listeProjets = new ArrayList<>();
         List<Cours> listeCours = coursService.afficherCours();
         List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
         Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        List<Projet> projetsFiltres = new ArrayList<>();
 
         if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
-
-            List<Projet> projetsFiltres = new ArrayList<>();
-
             for (String nomProfesseur : nomsProfesseurs) {
                 List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
                 projetsFiltres.addAll(projetsProfesseur);
             }
+            listeProjets.addAll(projetsFiltres);
+        }
 
-            listeProjets = projetsFiltres;
-        } else {
+        if (nomsCours != null && !nomsCours.isEmpty()) {
+            for (String nomCours : nomsCours) {
+                List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
+                projetsFiltres.addAll(projetsCours);
+            }
+            listeProjets.addAll(projetsFiltres);
+        }
+
+        if ((nomsProfesseurs == null || nomsProfesseurs.isEmpty()) && (nomsCours == null || nomsCours.isEmpty())) {
             listeProjets = projetService.afficherProjet();
+        }
 
+        if (listeProjets.isEmpty()) {
+            model.addAttribute("aucunResultat", true);
+        } else {
             for (Projet projet : listeProjets) {
                 List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
                 etudiantsParProjet.put(projet.getNom(), listeEtudiants);
@@ -79,6 +90,51 @@ public class ProjetController {
 
         return "projets";
     }
+
+
+//    @GetMapping("/etudiants-projets")
+//    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, Model model) throws ProjetNotFoundException {
+//
+//        Iterable<Projet> listeProjets = null;
+//        List<Cours> listeCours = coursService.afficherCours();
+//        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
+//        Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+//        List<Projet> projetsFiltres = new ArrayList<>();
+//
+//        if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
+//
+//            for (String nomProfesseur : nomsProfesseurs) {
+//                List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
+//                projetsFiltres.addAll(projetsProfesseur);
+//            }
+//
+//            listeProjets = projetsFiltres;
+//
+//        } else if (nomsCours != null && !nomsCours.isEmpty()) {
+//
+//            for (String nomCours : nomsCours) {
+//                List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
+//                projetsFiltres.addAll(projetsCours);
+//            }
+//
+//            listeProjets = projetsFiltres;
+//
+//        }else {
+//            listeProjets = projetService.afficherProjet();
+//
+//            for (Projet projet : listeProjets) {
+//                List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
+//                etudiantsParProjet.put(projet.getNom(), listeEtudiants);
+//            }
+//        }
+//
+//        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+//        model.addAttribute("listeProjets", listeProjets);
+//        model.addAttribute("listeCours", listeCours);
+//        model.addAttribute("listeProfesseurs", listeProfesseurs);
+//
+//        return "projets";
+//    }
 
     @PostMapping("/projets/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam("fileVideo") MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres) throws Exception {
