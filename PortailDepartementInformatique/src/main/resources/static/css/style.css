@@ -454,6 +454,13 @@ hr {
     flex-grow: 1;
     margin-right: 0;
 }
+.hidden {
+    display: none;
+}
+.video-frame {
+    width: 350px;
+    height: 300px;
+}
 
 
 

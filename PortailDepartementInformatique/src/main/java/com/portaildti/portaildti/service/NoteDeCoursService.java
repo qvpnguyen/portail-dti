@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -63,6 +62,11 @@ public class NoteDeCoursService {
     }
     public void deleteNoteDeCours(Integer id)  {
         repo.deleteById(id);
+    }
+
+    public List<NoteDeCours> rechercherNoteDeCoursParCoursId (Integer id) {
+
+        return repo.findAllNoteDeCoursByIdCours(id);
     }
 
 
