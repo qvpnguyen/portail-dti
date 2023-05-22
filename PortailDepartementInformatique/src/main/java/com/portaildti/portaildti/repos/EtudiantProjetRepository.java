@@ -20,4 +20,7 @@ public interface EtudiantProjetRepository extends CrudRepository<EtudiantProjet,
     @Modifying
     public void deleteEtudiantProjetsByProjetId(@Param("projetid") Integer projetid);
     public Long countById(Integer id);
+    @Query("DELETE FROM EtudiantProjet ep WHERE ep.projet.id = :projetid AND ep.etudiant.id = :etudiantid")
+    @Modifying
+    public void deleteEtudiantFromEtudiantProjet(@Param("projetid") Integer projetid, @Param("etudiantid") Integer etudiantid);
 }

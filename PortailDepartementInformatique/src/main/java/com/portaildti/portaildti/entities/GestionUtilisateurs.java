@@ -56,7 +56,6 @@ public class GestionUtilisateurs extends Utilisateur {
                 "id=" + super.id +
                 ", prenom='" + super.prenom + '\'' +
                 ", nom='" + super.nom + '\'' +
-                ", nomUtilisateur='" + super.nomUtilisateur + '\'' +
                 ", active='" + super.active + '\'' +
                 '}';
     }

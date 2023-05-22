@@ -44,8 +44,14 @@ public class NoteDeCoursController {
 
         return "gestionNotesDeCours";
     }
+<<<<<<< HEAD
     @GetMapping("/notesDeCours/new/{nomProfSession}")
     public String afficherFormNoteDeCours(Model model, @PathVariable("nomProfSession") String nomProf) {
+=======
+
+    @GetMapping("/notesDeCours/new")
+    public String afficherFormNoteDeCours(Model model) {
+>>>>>>> c99cae5362cdc0b0499f5f60e5481a226db2f085
         NoteDeCours noteDeCours = new NoteDeCours();
         List<Professeur> listeProfesseurs = professeurService.rechercherProfesseurParNom(nomProf);
         List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);

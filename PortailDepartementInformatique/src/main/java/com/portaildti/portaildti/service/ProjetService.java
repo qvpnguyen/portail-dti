@@ -69,6 +69,11 @@ public class ProjetService {
         return repo.findProjetById(id);
     }
 
+    public String getVideoByProjetId(Integer id) {
+        return repo.findById(id).get().getVideo();
+    }
+
+
     public List<Projet> afficherProjetsParProfesseurNom(String nomProfesseur) throws ProjetNotFoundException{
 
         try {
@@ -107,5 +112,6 @@ public class ProjetService {
     public List<Projet> afficherProjetsParProfesseursEtCours(String nomProfesseur, String nomCours){
 
         return repo.findProjetsByProfesseurEtCours(nomProfesseur, nomCours);
+
     }
 }
