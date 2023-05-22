@@ -15,6 +15,8 @@ public interface NoteDeCoursRepository extends CrudRepository<NoteDeCours,Intege
 
     @Query("SELECT n FROM NoteDeCours n  JOIN n.cours c WHERE c.nom = ?1")
     public List<NoteDeCours> findAllNoteDeCoursByNameCours(String nom);
+    @Query("SELECT n FROM NoteDeCours n  JOIN n.cours c WHERE c.id = ?1")
+    public List<NoteDeCours> findAllNoteDeCoursByIdCours(Integer id);
 
     @Query("SELECT n FROM NoteDeCours n  JOIN n.professeur p WHERE p.nom = ?1")
     public List<NoteDeCours> findAllNoteDeCoursByNameProfesseur(String nom);
