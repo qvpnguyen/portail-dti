@@ -6,6 +6,7 @@ import com.portaildti.portaildti.repos.NoteDeCoursRepository;
 import com.portaildti.portaildti.service.CoursService;
 import com.portaildti.portaildti.service.NoteDeCoursService;
 import com.portaildti.portaildti.service.ProfesseurService;
+import com.portaildti.portaildti.service.ProjetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -18,32 +19,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class NoteDeCoursController {
     @Autowired
-    NoteDeCoursService service;
+    NoteDeCoursService serviceNoteDeCours;
     @Autowired
     ProfesseurService professeurService;
     @Autowired
     CoursService coursService;
+    @Autowired
+    ProjetService projetService;
 
     @Autowired
     NoteDeCoursRepository repos;
 
     @GetMapping("/notesDeCours")
-    public String afficherListeNotesDeCours(Model model) {
+    public String afficherListeNotesDeCours(Model model, @RequestParam(name = "nomProfesseur", required = false) String nomProfesseur) {
 
-        Iterable<NoteDeCours> listNotesDeCours = service.afficherNoteDeCours();
-        System.out.println("teesssssssssst  "+listNotesDeCours);
+        if (nomProfesseur != null) {
+
+            Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.rechercherNoteDeCoursParProfesseurNom(nomProfesseur);
+            model.addAttribute("listNotesDeCours",listNotesDeCours);
+
+        }
+        Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.afficherNoteDeCours();
         model.addAttribute("listNotesDeCours",listNotesDeCours);
-
 
         return "gestionNotesDeCours";
     }
+
+//    @GetMapping("/notesDeCours/professeur")
+//    public String afficherListeNotesDeCoursParProfesseur(Model model, @RequestParam(name = "nomProfesseur", required = false) String nomProfesseur) {
+//
+//        Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.rechercherNoteDeCoursParProfesseurNom(nomProfesseur);
+//        model.addAttribute("listNotesDeCours",listNotesDeCours);
+//
+//        return "noteDeCours";
+//    }
 
     @GetMapping("/notesDeCours/new")
     public String afficherFormNoteDeCours(Model model) {
@@ -60,7 +74,7 @@ public class NoteDeCoursController {
     public String rechercherNoteDeCours(
             Model model, @Param("note") String note)
     {
-        List<NoteDeCours> listNotesDeCours = service.rechercherNoteDeCoursPaNom(note);
+        List<NoteDeCours> listNotesDeCours = serviceNoteDeCours.rechercherNoteDeCoursPaNom(note);
         model.addAttribute("listNotesDeCours", listNotesDeCours);
 
         return "gestionNotesDeCours";
@@ -69,9 +83,9 @@ public class NoteDeCoursController {
     public String supprimerNoteDeCours(@PathVariable(name = "id") Integer id,
                                        Model model,
                                        RedirectAttributes redirectAttributes) {
-       NoteDeCours noteDeCours = service.rechercherNoteDeCoursParID(id);
+       NoteDeCours noteDeCours = serviceNoteDeCours.rechercherNoteDeCoursParID(id);
         if(noteDeCours != null) {
-            service.deleteNoteDeCours(id);
+            serviceNoteDeCours.deleteNoteDeCours(id);
             redirectAttributes.addFlashAttribute("message",
                     "Note de cours avec  ID " + id + " a été supprimé avec succès ");
         }else{
@@ -88,12 +102,33 @@ public class NoteDeCoursController {
         String filename = StringUtils.cleanPath(chemin);
         noteDeCours.setDocument(filename);
         redirectAttributes.addFlashAttribute("message","Le note de cours a été ajouté avec succès");
-        service.ajouterNoteDeCours(noteDeCours);
+        serviceNoteDeCours.ajouterNoteDeCours(noteDeCours);
 
         return "redirect:/notesDeCours";
     }
 
+    @GetMapping("/professeur/profil/{id}/{coursId}")
+    public String afficherProfilProfesseur(Model model, @PathVariable(name = "id") Integer id,  @PathVariable(name = "coursId") Integer coursId) {
 
+        Professeur professeur = professeurService.rechercherProfesseurParID(id);
+        List<Projet> projetsProf = projetService.rechercherProjetParProfID(id);
+        List<Cours> coursProf = coursService.rechercherCoursParProfId(id);
+
+        model.addAttribute("professeur", professeur);
+        model.addAttribute("projetsProf", projetsProf);
+        model.addAttribute("coursProf", coursProf);
+
+//        if (coursId != null) {
+
+        Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.rechercherNoteDeCoursParCoursId(coursId);
+        model.addAttribute("listNotesDeCours",listNotesDeCours);
+
+//        }
+//        Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.afficherNoteDeCours();
+//        model.addAttribute("listNotesDeCours",listNotesDeCours);
+
+        return "gestionNotesDeCours";
+    }
 
 
 
