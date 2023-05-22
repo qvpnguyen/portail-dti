@@ -38,4 +38,6 @@ public interface ProfesseurRepository  extends CrudRepository<Professeur,Integer
     public Professeur findProfesseursByNoteDeCoursName(String nom);
     @Query("SELECT p FROM Professeur p WHERE p.photo = :fileName")
     public List<Professeur> findByFileName(@Param("fileName") String fileName);
+    @Query("SELECT p FROM Professeur p WHERE p.email = :email")
+    public Professeur getUtilisateurByEmail(@Param("email") String email);
 }

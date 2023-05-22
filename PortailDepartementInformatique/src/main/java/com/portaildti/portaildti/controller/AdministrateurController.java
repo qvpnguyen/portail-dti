@@ -43,9 +43,11 @@ public class AdministrateurController {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
+        String pageTitle = "Administration";
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("pageTitle", pageTitle);
         return "administration";
     }
     @GetMapping("/utilisateurs")
@@ -56,6 +58,7 @@ public class AdministrateurController {
         List<Administrateur> admins = adminService.afficherAdministrateurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
+        String pageTitle = "Gestion des utilisateurs";
 //        GestionUtilisateurs gestionUtilisateurs = new GestionUtilisateurs();
 //        gestionUtilisateurs.setVisiteurs(visiteurs);
 //        gestionUtilisateurs.setEtudiants(etudiants);
@@ -69,6 +72,7 @@ public class AdministrateurController {
         model.addAttribute("listeProfesseurs", professeurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("pageTitle", pageTitle);
         return "gestionUtilisateurs";
     }
     @GetMapping("/gestion-projets")
@@ -79,6 +83,7 @@ public class AdministrateurController {
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
         List<Notes> listeNotesProjets = notesService.afficherNote();
+        String pageTitle = "Gestion des projets";
         model.addAttribute("projets", projets);
         model.addAttribute("listeEtudiants", listeEtudiants);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
@@ -91,12 +96,15 @@ public class AdministrateurController {
             etudiantsParProjet.put(projet.getId(), etudiants);
         }
         model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+        model.addAttribute("pageTitle", pageTitle);
         return "gestionProjets";
     }
     @GetMapping("/gestion-notes-de-cours")
     public String afficherGestionNotesDeCours(Model model) {
         List<NoteDeCours> notesDeCours = noteDeCoursService.afficherNoteDeCours();
+        String pageTitle = "Gestion des notes de cours";
         model.addAttribute("notesDeCours", notesDeCours);
+        model.addAttribute("pageTitle", pageTitle);
         return "gestionNotesDeCours";
     }
 }

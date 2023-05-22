@@ -34,6 +34,12 @@ $(document).ready(function() {
                 required: true,
                 minlength: 8,
                 equalTo: "#motDePasse"
+            },
+            nomProjet: {
+                required: true
+            },
+            description: {
+                required: true
             }
         },
         messages: {
@@ -56,6 +62,12 @@ $(document).ready(function() {
                 required: "Confirmez votre mot de passe",
                 minlength: "Le mot de passe doit avoir 8 caractères minimum",
                 equalTo: "Les mots ne passe ne correspondent pas"
+            },
+            nomProjet: {
+                required: "Entrez le nom du projet"
+            },
+            description: {
+                required: "Entrez une description du projet"
             }
         },
         submitHandler: function(form) {
