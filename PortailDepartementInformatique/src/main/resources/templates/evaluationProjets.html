@@ -88,6 +88,7 @@
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
     <h4>Chercher note par nom du projet :</h4>
+
     <form method="get" th:action="@{/rechercher/note_projet/}">
       <input type="search" name="note" id="note" th:value="${note}">
       <input type="submit" value="rechercher" />
