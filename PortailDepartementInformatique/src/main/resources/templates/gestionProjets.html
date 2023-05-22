@@ -79,6 +79,7 @@
                 <th>Équipe</th>
                 <th>Professeur en charge</th>
                 <th>Note</th>
+                <th>Télécharger</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -98,6 +99,9 @@
                     <p th:each="user : ${listeNotes}">
                         <span th:if="${user.projetID.id == projet.id}" th:text="${user.noteObtenue + '%'}"></span>
                     </p>
+                </td>
+                <td>
+                    <a th:if="${projet.video != null}" class="fa-solid fa-download icon-navy fa-2x" th:href="@{'/videos/utilisateur/' + ${projet.video}}" title="Télécharger" download></a>
                 </td>
                 <td>
                     <a class="fa-solid fa-pen-to-square icon-navy fa-2x" th:href="@{'/projets/edit/' + ${projet.id}}" title="Modifier"></a>
