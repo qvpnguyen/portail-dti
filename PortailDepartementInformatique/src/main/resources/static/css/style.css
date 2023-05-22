@@ -418,6 +418,14 @@ hr {
 
 .icon-navy {color: #3B4394}
 
+/* --------- Classes pour les validations de formulaire ----------- */
+.error {
+    color: red;
+}
+
+.valid {
+    color: green;
+}
 
 /*.dropdown-list li:hover {
     background-color: #3B4394;

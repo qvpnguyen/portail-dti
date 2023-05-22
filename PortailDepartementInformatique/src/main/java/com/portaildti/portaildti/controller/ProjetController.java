@@ -2,6 +2,7 @@ package com.portaildti.portaildti.controller;
 
 import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
+import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,38 +73,69 @@ public class ProjetController {
         model.addAttribute("pageTitle", "Afficher les projets");
         return "gestionProjets";
     }
-    @PostMapping("/projets/save")
-    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
-        // On spécifie une limite de taille de fichier
-        long maxSize = 10000000; // 10MB
-        // On vérifie si la taille du fichier ne dépasse pas la limite
-        long fileSize = file.getSize();
-        System.out.println(" fileSize : " + fileSize);
-        if (fileSize > maxSize) {
-            model.addAttribute("message","La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + " soit 10MB ");
-            return "utilisateurs_form";
-        }
-        String chemin = file.getOriginalFilename();
-        String filename = StringUtils.cleanPath(chemin);
-        // Association du nom de fichier à l'utilisateur enregistré
-        projet.setVideo(filename);
-        // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
-        projet.setData(file.getBytes());
-        // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
-        File directory = new File("src/main/resources/static/videos/utilisateur");
-        if (!directory.exists()) {
-            directory.mkdirs();
+    @GetMapping("/etudiants-projets")
+    public String afficherEnsembleProjets(Model model){
+
+        Iterable<Projet> listeProjets = projetService.afficherProjet();
+        Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+
+        for (Projet projet : listeProjets){
+
+            List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
+            etudiantsParProjet.put(projet.getNom(), listeEtudiants);
         }
 
-        // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
-        File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
-        //en utilisant la méthode transferTo() de l'objet MultipartFile
-        file.transferTo(serverFile);
+        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+        model.addAttribute("listeProjets", listeProjets);
+
+
+        return "projets";
+    }
+    @PostMapping("/projets/save")
+    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
+        if (file != null && !file.isEmpty()) {
+            // On spécifie une limite de taille de fichier
+            long maxSize = 10000000; // 10MB
+            // On vérifie si la taille du fichier ne dépasse pas la limite
+            long fileSize = file.getSize();
+            System.out.println(" fileSize : " + fileSize);
+            if (fileSize > maxSize) {
+                model.addAttribute("message","La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + " soit 10MB ");
+                return "utilisateurs_form";
+            }
+            String chemin = file.getOriginalFilename();
+            String filename = StringUtils.cleanPath(chemin);
+            // Association du nom de fichier à l'utilisateur enregistré
+            projet.setVideo(filename);
+            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+            projet.setData(file.getBytes());
+            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+            File directory = new File("src/main/resources/static/videos/utilisateur");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+            //en utilisant la méthode transferTo() de l'objet MultipartFile
+            file.transferTo(serverFile);
+        } else {
+//            System.out.println("projet: " + projet);
+//            String video = projetService.getVideoByProjetId(projet.getId());
+//            projet.setVideo(video);
+        }
+
         redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
         projetService.ajouterProjet(projet);
         for (Etudiant membre : membres) {
-            EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
-            etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
+            if (!membres.contains(membre)) {
+                etudiantProjetService.supprimerEtudiantProjetParEtudiantId(projet.getId(), membre.getId());
+            } else {
+                EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
+                etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
+            }
+//            EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
+//            etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
         }
         redirectAttributes.addFlashAttribute("membresEquipe", membres);
         return "redirect:/gestion-projets";
@@ -114,7 +146,7 @@ public class ProjetController {
         projetService.ajouterProjet(projet);
         return "redirect:/visiteur";
     }
-    @GetMapping("/videos/utilisateurs/{fileId}")
+    @GetMapping("/videos/utilisateur/{fileId}")
     public void telechargerFichier(@PathVariable String fileId, HttpServletResponse response, HttpServletRequest request) throws IOException, ProjetNotFoundException {
         HttpSession session = request.getSession();
         File directory = new File("src/main/resources/static/videos/utilisateur");

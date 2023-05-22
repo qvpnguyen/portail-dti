@@ -30,8 +30,6 @@ public class Utilisateur {
     @Column(nullable = false)
     String role;
     Boolean active;
-    @Column(length = 64, nullable = false, unique = true)
-    String nomUtilisateur;
     @Column(length = 64, nullable = false)
     private String motDePasse;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -46,7 +44,7 @@ public class Utilisateur {
     }
 
 
-    public Utilisateur(Integer id, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Utilisateur(Integer id, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
         this.id = id;
         this.prenom = prenom;
         this.nom = nom;
@@ -54,7 +52,6 @@ public class Utilisateur {
 //        this.profil = profil;
         this.role = role;
         this.active = active;
-        this.nomUtilisateur = nomUtilisateur;
         this.motDePasse = motDePasse;
         this.ddn = ddn;
         this.photo = photo;
@@ -71,7 +68,7 @@ public class Utilisateur {
         this.photo = photo;
     }
 
-    public Utilisateur(String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Utilisateur(String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
 
         //this.id = id;
         this.prenom = prenom;
@@ -80,7 +77,6 @@ public class Utilisateur {
 //        this.profil = profil;
         this.role = role;
         this.active = active;
-        this.nomUtilisateur = nomUtilisateur;
         this.motDePasse = motDePasse;
         this.ddn = ddn;
         this.photo = photo;
@@ -189,15 +185,6 @@ public class Utilisateur {
     public void setActive(Boolean active) {
         this.active = active;
     }
-
-    public String getNomUtilisateur() {
-        return nomUtilisateur;
-    }
-
-    public void setNomUtilisateur(String nomUtilisateur) {
-        this.nomUtilisateur = nomUtilisateur;
-    }
-
     public String getMotDePasse() {
         return motDePasse;
     }
@@ -233,7 +220,7 @@ public class Utilisateur {
 
     public String afficherTitreDesColonnes() {
         String message = "";
-        message = String.format(" %-10s  %30s %15s %15s %15s %15s %15s %25s ", "Id", "nomUtilisateur", "Active", "Nom", "Prenom","Date de naissance", "Role",
+        message = String.format(" %-10s %15s %15s %15s %15s %15s %25s ", "Id", "Active", "Nom", "Prenom","Date de naissance", "Role",
                 "MotDePasse");
         message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
         return message;
@@ -242,7 +229,7 @@ public class Utilisateur {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15b %15s %15s %15s %15s %25s ",this.id,this.nomUtilisateur, this.active,this.nom,this.prenom,
+        message = String.format(" %-10d %15b %15s %15s %15s %15s %25s ",this.id, this.active,this.nom,this.prenom,
                 this.ddn, this.role, this.motDePasse);
         return message;
     }

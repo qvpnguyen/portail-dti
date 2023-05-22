@@ -1,12 +1,11 @@
 package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.*;
-import com.portaildti.portaildti.repos.NoteDeCoursRepository;
 import com.portaildti.portaildti.repos.ProjetRepository;
+import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -51,5 +50,12 @@ public class ProjetService {
         } catch (NoSuchElementException exception) {
             throw new ProjetNotFoundException("On ne peut pas trouver le projet avec la vidéo " + video);
         }
+    }
+    public Projet afficherProjetParId(Integer id) {
+
+        return repo.findProjetById(id);
+    }
+    public String getVideoByProjetId(Integer id) {
+        return repo.findById(id).get().getVideo();
     }
 }

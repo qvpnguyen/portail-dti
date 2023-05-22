@@ -22,4 +22,6 @@ public interface AdministrateurRepository extends CrudRepository<Administrateur,
     public void updateActiveStatus(Integer id, boolean active);
     @Query("SELECT a FROM Administrateur a WHERE a.photo = :fileName")
     public List<Administrateur> findByFileName(@Param("fileName") String fileName);
+    @Query("SELECT a FROM Administrateur a WHERE a.email = :email")
+    public Administrateur getUtilisateurByEmail(@Param("email") String email);
 }

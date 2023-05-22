@@ -19,8 +19,8 @@ public class Visiteur extends Utilisateur {
     public Visiteur() {
     }
 
-    public Visiteur(Integer id, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
-        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+    public Visiteur(Integer id, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
+        super(id, prenom, nom, email, role, active, motDePasse, ddn, photo);
     }
 
 

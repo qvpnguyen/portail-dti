@@ -1,11 +1,10 @@
 package com.portaildti.portaildti.service;
 
-import com.portaildti.portaildti.entities.Administrateur;
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
-import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.repos.CoursRepository;
 import com.portaildti.portaildti.repos.EtudiantRepository;
+import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +88,19 @@ public class EtudiantService {
             throw new UtilisateurNotFoundException("On ne peut pas trouver l'utilisateur avec l'id " + id);
         }
         repo.deleteById(id);
+    }
+    public List<Etudiant> afficherEtudiantsParProjetNom(String projetNom) {
+        if (projetNom != null) {
+            return repo.findEtudiantsParProjetNom(projetNom);
+        }
+        return null;
+    }
+
+    public List<Etudiant> afficherEtudiantsParProjetId(Integer projetId) {
+        if (projetId != null) {
+            return repo.findEtudiantsParProjetId(projetId);
+        }
+        return null;
     }
     public List<Etudiant> findByPhotoName(String photo) throws UtilisateurNotFoundException {
         try{

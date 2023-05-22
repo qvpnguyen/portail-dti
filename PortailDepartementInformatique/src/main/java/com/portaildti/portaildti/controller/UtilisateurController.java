@@ -2,8 +2,9 @@ package com.portaildti.portaildti.controller;
 
 import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
+import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -21,13 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class UtilisateurController {
@@ -102,8 +97,14 @@ public class UtilisateurController {
             }
         }
         return "/";
+    }
+    @GetMapping("/utilisateur/deconnexion")
+    public String deconnexionUtilisateurs(HttpSession session, RedirectAttributes redirectAttributes) {
+        String nomUtilisateur = (String) session.getAttribute("nomUtilisateur");
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("message", "Vous êtes maintenant déconnecté(e), " + nomUtilisateur); // Add the logout message
 
-
+        return "redirect:/";
     }
 
     @GetMapping("/admins/new")
@@ -139,151 +140,205 @@ public class UtilisateurController {
         return "inscription-visiteur";
     }
     @PostMapping("/admins/save")
-    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws IOException {
-        if (file != null && !file.isEmpty()) {
-            // On spécifie une limite de taille de fichier
-            long maxSize = 10000000; // 10MB
-            // On vérifie si la taille du fichier ne dépasse pas la limite
-            long fileSize = file.getSize();
-            if (fileSize > maxSize) {
-                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
-                return "inscription-admin";
-            }
-            String chemin = file.getOriginalFilename();
-            System.out.println("chemin: " + chemin);
-            String filename = StringUtils.cleanPath(chemin);
-            admin.setPhoto(filename);
-            admin.setRole(role);
-            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
-            admin.setData(file.getBytes());
-            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
-            File directory = new File("src/main/resources/static/images/utilisateur");
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+    public String ajouterAdmin(Administrateur admin, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws IOException, Exception {
+        try {
+            if (admin != null) {
+                if (file != null && !file.isEmpty()) {
+                    // On spécifie une limite de taille de fichier
+                    long maxSize = 10000000; // 10MB
+                    // On vérifie si la taille du fichier ne dépasse pas la limite
+                    long fileSize = file.getSize();
+                    if (fileSize > maxSize) {
+                        model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                        return "inscription-admin";
+                    }
+                    String chemin = file.getOriginalFilename();
+                    System.out.println("chemin: " + chemin);
+                    String filename = StringUtils.cleanPath(chemin);
+                    admin.setPhoto(filename);
+                    admin.setRole(role);
+                    // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+                    admin.setData(file.getBytes());
+                    // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+                    File directory = new File("src/main/resources/static/images/utilisateur");
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
 
-            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
-            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
-            //en utilisant la méthode transferTo() de l'objet MultipartFile
-            file.transferTo(serverFile);
-        } else {
-            String photo = adminService.getPhotoByUserId(admin.getId());
-            admin.setPhoto(photo);
+                    // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+                    File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+                    //en utilisant la méthode transferTo() de l'objet MultipartFile
+                    file.transferTo(serverFile);
+                } else {
+                    try {
+                        if (admin.getId() != null) {
+                            String photo = adminService.getPhotoByUserId(admin.getId());
+                            admin.setPhoto(photo);
+                        }
+                    } catch (Exception e) {
+                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + admin.getEmail());
+                        return "redirect:/admins/new";
+                    }
+                }
+                redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
+                adminService.ajouterAdmin(admin);
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + admin.getEmail());
+            return "redirect:/admins/new";
         }
-
-        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
-        adminService.ajouterAdmin(admin);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/professeurs/save")
     public String ajouterProf(Professeur prof, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws IOException {
-        if (file != null && !file.isEmpty()) {
-            // On spécifie une limite de taille de fichier
-            long maxSize = 10000000; // 10MB
-            // On vérifie si la taille du fichier ne dépasse pas la limite
-            long fileSize = file.getSize();
-            if (fileSize > maxSize) {
-                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
-                return "inscription-admin";
-            }
-            String chemin = file.getOriginalFilename();
-            System.out.println("chemin: " + chemin);
-            String filename = StringUtils.cleanPath(chemin);
-            prof.setPhoto(filename);
-            prof.setRole(role);
-            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
-            prof.setData(file.getBytes());
-            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
-            File directory = new File("src/main/resources/static/images/utilisateur");
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+        try {
+            if (prof != null) {
+                if (file != null && !file.isEmpty()) {
+                    // On spécifie une limite de taille de fichier
+                    long maxSize = 10000000; // 10MB
+                    // On vérifie si la taille du fichier ne dépasse pas la limite
+                    long fileSize = file.getSize();
+                    if (fileSize > maxSize) {
+                        model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                        return "inscription-admin";
+                    }
+                    String chemin = file.getOriginalFilename();
+                    System.out.println("chemin: " + chemin);
+                    String filename = StringUtils.cleanPath(chemin);
+                    prof.setPhoto(filename);
+                    prof.setRole(role);
+                    // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+                    prof.setData(file.getBytes());
+                    // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+                    File directory = new File("src/main/resources/static/images/utilisateur");
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
 
-            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
-            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
-            //en utilisant la méthode transferTo() de l'objet MultipartFile
-            file.transferTo(serverFile);
-        } else {
-            String photo = profService.getPhotoByUserId(prof.getId());
-            prof.setPhoto(photo);
+                    // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+                    File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+                    //en utilisant la méthode transferTo() de l'objet MultipartFile
+                    file.transferTo(serverFile);
+                } else {
+                    try {
+                        if (prof.getId() != null) {
+                            String photo = profService.getPhotoByUserId(prof.getId());
+                            prof.setPhoto(photo);
+                        }
+                    } catch (Exception e) {
+                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + prof.getEmail());
+                        return "redirect:/professeurs/new";
+                    }
+                }
+                redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
+                profService.ajouterProfesseur(prof);
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + prof.getEmail());
+            return "redirect:/professeurs/new";
         }
-
-        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
-        profService.ajouterProfesseur(prof);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/etudiants/save")
     public String ajouterEtudiant(Etudiant etudiant, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws IOException {
-        if (file != null && !file.isEmpty()) {
-            // On spécifie une limite de taille de fichier
-            long maxSize = 10000000; // 10MB
-            // On vérifie si la taille du fichier ne dépasse pas la limite
-            long fileSize = file.getSize();
-            if (fileSize > maxSize) {
-                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
-                return "inscription-admin";
-            }
-            String chemin = file.getOriginalFilename();
-            System.out.println("chemin: " + chemin);
-            String filename = StringUtils.cleanPath(chemin);
-            etudiant.setPhoto(filename);
-            etudiant.setRole(role);
-            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
-            etudiant.setData(file.getBytes());
-            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
-            File directory = new File("src/main/resources/static/images/utilisateur");
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+        try {
+            if (etudiant != null) {
+                if (file != null && !file.isEmpty()) {
+                    // On spécifie une limite de taille de fichier
+                    long maxSize = 10000000; // 10MB
+                    // On vérifie si la taille du fichier ne dépasse pas la limite
+                    long fileSize = file.getSize();
+                    if (fileSize > maxSize) {
+                        model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                        return "inscription-admin";
+                    }
+                    String chemin = file.getOriginalFilename();
+                    System.out.println("chemin: " + chemin);
+                    String filename = StringUtils.cleanPath(chemin);
+                    etudiant.setPhoto(filename);
+                    etudiant.setRole(role);
+                    // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+                    etudiant.setData(file.getBytes());
+                    // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+                    File directory = new File("src/main/resources/static/images/utilisateur");
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
 
-            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
-            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
-            //en utilisant la méthode transferTo() de l'objet MultipartFile
-            file.transferTo(serverFile);
-        } else {
-            String photo = etudiantService.getPhotoByUserId(etudiant.getId());
-            etudiant.setPhoto(photo);
+                    // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+                    File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+                    //en utilisant la méthode transferTo() de l'objet MultipartFile
+                    file.transferTo(serverFile);
+                } else {
+                    try {
+                        if (etudiant.getId() != null) {
+                            String photo = etudiantService.getPhotoByUserId(etudiant.getId());
+                            etudiant.setPhoto(photo);
+                        }
+                    } catch (Exception e) {
+                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + etudiant.getEmail());
+                        return "redirect:/etudiants/new";
+                    }
+                }
+                redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
+                etudiantService.ajouterEtudiant(etudiant);
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + etudiant.getEmail());
+            return "redirect:/etudiants/new";
         }
-
-        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
-        etudiantService.ajouterEtudiant(etudiant);
         return "redirect:/utilisateurs";
     }
     @PostMapping("/visiteurs/save")
     public String ajouterVisiteur(Visiteur visiteur, RedirectAttributes redirectAttributes, @RequestParam(value = "fileImage", required = false) MultipartFile file, @RequestParam("role") String role, Model model) throws Exception {
-        if (file != null && !file.isEmpty()) {
-            // On spécifie une limite de taille de fichier
-            long maxSize = 10000000; // 10MB
-            // On vérifie si la taille du fichier ne dépasse pas la limite
-            long fileSize = file.getSize();
-            if (fileSize > maxSize) {
-                model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
-                return "inscription-admin";
-            }
-            String chemin = file.getOriginalFilename();
-            System.out.println("chemin: " + chemin);
-            String filename = StringUtils.cleanPath(chemin);
-            visiteur.setPhoto(filename);
-            visiteur.setRole(role);
-            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
-            visiteur.setData(file.getBytes());
-            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
-            File directory = new File("src/main/resources/static/images/utilisateur");
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+        try {
+            if (visiteur != null) {
+                if (file != null && !file.isEmpty()) {
+                    // On spécifie une limite de taille de fichier
+                    long maxSize = 10000000; // 10MB
+                    // On vérifie si la taille du fichier ne dépasse pas la limite
+                    long fileSize = file.getSize();
+                    if (fileSize > maxSize) {
+                        model.addAttribute("message", "La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + ", soit 10MB.");
+                        return "inscription-admin";
+                    }
+                    String chemin = file.getOriginalFilename();
+                    System.out.println("chemin: " + chemin);
+                    String filename = StringUtils.cleanPath(chemin);
+                    visiteur.setPhoto(filename);
+                    visiteur.setRole(role);
+                    // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+                    visiteur.setData(file.getBytes());
+                    // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+                    File directory = new File("src/main/resources/static/images/utilisateur");
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
 
-            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
-            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
-            //en utilisant la méthode transferTo() de l'objet MultipartFile
-            file.transferTo(serverFile);
-        } else {
-            String photo = visiteurService.getPhotoByUserId(visiteur.getId());
-            visiteur.setPhoto(photo);
+                    // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+                    File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+                    //en utilisant la méthode transferTo() de l'objet MultipartFile
+                    file.transferTo(serverFile);
+                } else {
+                    try {
+                        if (visiteur.getId() != null) {
+                            String photo = visiteurService.getPhotoByUserId(visiteur.getId());
+                            visiteur.setPhoto(photo);
+                        }
+                    } catch (Exception e) {
+                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + visiteur.getEmail());
+                        return "redirect:/visiteurs/new";
+                    }
+                }
+                redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
+                visiteurService.ajouterVisiteur(visiteur);
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + visiteur.getEmail());
+            return "redirect:/visiteurs/new";
         }
 
-        redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté avec succès");
-        visiteurService.ajouterVisiteur(visiteur);
+
         return "redirect:/utilisateurs";
     }
     @GetMapping("/images/admins/{fileId}")

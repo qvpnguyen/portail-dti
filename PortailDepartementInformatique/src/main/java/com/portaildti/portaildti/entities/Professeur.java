@@ -22,8 +22,8 @@ public class Professeur extends Utilisateur{
 //        this.projets = new ArrayList();
     }
 
-    public Professeur(Integer id, String prenom, String nom, String email, String role, Boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
-        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn, photo);
+    public Professeur(Integer id, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
+        super(id, prenom, nom, email, role, active, motDePasse, ddn, photo);
 //        this.notesDeCours = new ArrayList();
 //        this.projets = new ArrayList();
     }
