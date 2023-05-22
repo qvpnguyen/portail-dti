@@ -35,7 +35,7 @@
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
 
-<body>
+<body class="fond-blanc">
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
     <div class="profil1">
@@ -68,13 +68,13 @@
       </table>
     </div>
 
-    <!-- Afficher les cours donnés et le formulaire de contact -->
+    <!-- Afficher les cours donnés-->
     <div class="conteneur-cours-contact">
       <div class="container conteneur-table bg-light p-5 mt-5">
         <section class="cours1">
           <h2>Cours Donnés</h2>
           <ul th:each="cours : ${coursProf}">
-            <li th:text="${cours.nom}"></li>
+            <a href="@{/noteDeCours}"><li th:text="${cours.nom}"></li></a>
           </ul>
         </section>
 
@@ -83,10 +83,6 @@
     </div>
   </div>
 </main>
-
-<footer>
-  <p>&copy; 2023 Département de l'informatique</p>
-</footer>
 </body>
 <footer th:replace="fragments/pieds :: pieds"></footer>
 </html>

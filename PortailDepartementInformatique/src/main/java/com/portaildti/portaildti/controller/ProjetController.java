@@ -102,14 +102,14 @@ public class ProjetController {
 
         if (keyword != null){
             List<Projet> listeProjetsParNom = projetService.rechercherProjet(keyword);
-            List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
-            List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
-            List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
+//            List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
+//            List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
+           // List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
 
             model.addAttribute("listeProjets",listeProjetsParNom);
-            model.addAttribute("listeProjets",listeProjetsParCours);
-            model.addAttribute("listeProjets",listeProjetsParProf);
-            model.addAttribute("listeProjets",listeProjetsParAnnee);
+//            model.addAttribute("listeProjets",listeProjetsParCours);
+//            model.addAttribute("listeProjets",listeProjetsParProf);
+           // model.addAttribute("listeProjets",listeProjetsParAnnee);
             model.addAttribute("keyword", keyword);
         }
 
@@ -222,7 +222,7 @@ public class ProjetController {
     }
 
     @GetMapping("/modifier/note/{id}")
-    public String modifierNote (Model model,@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
+    public String modifierNote (@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
     notesService.modifierNoteObtenue(id,noteObtenue);
         return "redirect:/projets/evaluation";
     }

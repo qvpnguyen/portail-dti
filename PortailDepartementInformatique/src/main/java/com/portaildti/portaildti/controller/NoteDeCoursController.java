@@ -44,6 +44,7 @@ public class NoteDeCoursController {
 
         return "gestionNotesDeCours";
     }
+
     @GetMapping("/notesDeCours/new")
     public String afficherFormNoteDeCours(Model model) {
         NoteDeCours noteDeCours = new NoteDeCours();
