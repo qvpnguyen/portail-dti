@@ -173,7 +173,7 @@ public class Etudiant extends Utilisateur {
     @Override
     public String toString() {
         String message = "";
-        message = String.format("%s %s %s %s %b", super.prenom, super.nom, super.role, super.active);
+        message = String.format("%s %s %s %b", super.prenom, super.nom, super.role, super.active);
         return message;
     }
 }

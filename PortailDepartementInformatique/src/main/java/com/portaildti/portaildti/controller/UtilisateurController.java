@@ -129,7 +129,7 @@ public class UtilisateurController {
 
         return "redirect:/";
     }
-    @GetMapping("/admins/new/")
+    @GetMapping("/admins/new")
     public String afficherFormulaireAdmin(Model model) {
         Administrateur administrateur = new Administrateur();
         model.addAttribute("administrateur", administrateur);

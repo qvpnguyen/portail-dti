@@ -27,4 +27,6 @@ public interface VisiteurRepository extends CrudRepository<Visiteur, Integer> {
     public Visiteur findVisiteurByEmailAndPassword(@Param("email") String email, @Param("motDePasse") String motDePasse);
     @Query("SELECT v FROM Visiteur v WHERE v.photo = :fileName")
     public List<Visiteur> findByFileName(@Param("fileName") String fileName);
+    @Query("SELECT v FROM Visiteur v WHERE v.email = :email")
+    public Visiteur getUtilisateurByEmail(@Param("email") String email);
 }
