@@ -19,6 +19,10 @@ public interface ProjetRepository extends CrudRepository<Projet, Integer> {
 
     @Query("SELECT p FROM Projet p JOIN p.cours c WHERE c.nom = :nomCours")
     public List<Projet> findProjetsByNomCours(@Param("nomCours") String nomCours);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr WHERE pr.id = :idProf")
+    public List<Projet> findProjetsByIdProf(@Param("idProf") Integer idProf);
+    @Query("SELECT p FROM Projet p JOIN p.professeur pr WHERE pr.nom = :nomProf")
+    public List<Projet> findProjetsByNomProf(@Param("nomProf") String nomProf);
     public Long countById(Integer id);
     @Query("SELECT p FROM Projet p WHERE p.video = :fileVideo")
     public List<Projet> findByFileName(@Param("fileVideo") String fileVideo);

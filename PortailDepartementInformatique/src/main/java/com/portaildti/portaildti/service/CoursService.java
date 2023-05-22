@@ -31,4 +31,20 @@ public class CoursService {
 
         return  null;
     }
+    public List<Cours> rechercherCoursParProfId(Integer id) {
+
+        if (id != null) {
+            return repo.findCoursParProfID(id);
+        }
+
+        return  null;
+    }
+    public List<Cours> rechercherCoursParProf(String nom) {
+
+        if (nom != null) {
+            return repo.findCoursParProf(nom);
+        }
+
+        return  null;
+    }
 }

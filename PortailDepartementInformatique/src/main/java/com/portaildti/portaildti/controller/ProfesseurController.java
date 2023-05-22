@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -46,7 +47,19 @@ public class ProfesseurController {
 
         model.addAttribute("listeProfesseurs", listeProfesseurs);
 
-        return "redirect:/professeurs";
+        return "listProfesseurs";
+    }
+    @GetMapping("/professeur/profil/{id}")
+    public String afficherProfilProfesseur(Model model,@PathVariable(name = "id") Integer id) {
+        Professeur professeur = profService.rechercherProfesseurParID(id);
+        List<Projet> projetsProf = projetService.rechercherProjetParProfID(id);
+        List<Cours> coursProf = coursService.rechercherCoursParProfId(id);
+        model.addAttribute("professeur", professeur);
+        model.addAttribute("projetsProf", projetsProf);
+        model.addAttribute("coursProf", coursProf);
+
+
+        return "profilProfesseur";
     }
 
 }

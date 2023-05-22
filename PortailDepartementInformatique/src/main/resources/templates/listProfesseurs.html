@@ -89,7 +89,7 @@
   <div class="container conteneur-table bg-light p-5 mt-5">
     <h4>Chercher Professeur par nom :</h4>
     <form method="get" th:action="@{'/rechercher/professeur'}">
-      <input type="search" name="nom" id="nom" >
+      <input type="search" name="nom" id="nom" th:value="${nom}" >
       <input type="submit" value="rechercher" />
     </form>
 
@@ -114,7 +114,7 @@
           <td th:text="${user.email}"></td>
           <td th:text="${user.role}"></td>
           <td>
-            <a class="fa-solid fa-eye icon-navy fa-2x" th:href="@{'/professeur/profil/' + ${user.id}}" title="Profil"></a>
+            <a class="fa-solid fa-eye icon-navy fa-2x" th:href="@{'/professeur/profil/' + ${user.id} }" title="Profil"></a>
           </td>
         </tr>
         </tbody>

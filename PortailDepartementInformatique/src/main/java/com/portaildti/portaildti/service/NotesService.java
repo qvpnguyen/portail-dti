@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class NotesService {
 
     public List<Notes> rechercherNotesParProjetNom(String nomProjet){
         if (nomProjet != null) {
+            System.out.println(nomProjet);
             return repo.findNotesByProjetName(nomProjet);
         }
         return null;
