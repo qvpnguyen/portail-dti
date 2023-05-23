@@ -20,6 +20,29 @@
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
     <!-- Inclusion du stylesheet principal -->
     <link rel="stylesheet" href="/css/style.css"/>
+    <script>
+        function checkEmailUnique(form) {
+            //  alert("Vérifier email");
+            // $("#modalDialog").modal();
+            //   jQuery("#modalDialog").modal();
+            // return false;
+
+            $.ajax({
+                type : 'POST',
+                url :  '[[@{/note/check_note}]]',
+                data: {projetID: $("#projetID").val()},
+                success : function(data) {
+                    if(data==='OK'){
+                        form.submit();
+                    } else {
+                        $("#error").text("Il y a déjà une note pour ce projet");
+                    }
+                }
+            });
+
+            return false;
+        }
+    </script>
 </head>
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
@@ -27,9 +50,10 @@
 <div class="container px-5 d-flex justify-content-center">
     <div class="row">
         <div class="boite-inscription mt-5">
-            <form   th:action="@{/notes/save}" method="POST"  th:object="${note}">
+            <form   th:action="@{/notes/save}" method="POST"  th:object="${note}" onsubmit="return checkEmailUnique(this);">
                 <div class="row mx-2 mt-4">
                     <div class="col-10">
+                        <span id="error" style="color:red;"></span>
                         <div class="form-group my-3">
                             <label >La note obtenue:</label>
                             <input type="text" class="form-control" id="nom" name="nomNotesDeCours" th:field="*{noteObtenue}">
@@ -76,8 +100,8 @@
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
-                            <label for="projet">Projet associé:</label>
-                            <select name="projet" id="projet" class="form-select" th:field="*{projetID}">
+                            <label for="projetID">Projet associé:</label>
+                            <select name="projet" id="projetID" class="form-select" th:field="*{projetID}">
                                 <option th:each="unProjet : ${listeProjets}" th:value="${unProjet.id}"
                                         th:text="${unProjet.nom}"></option>
                             </select>

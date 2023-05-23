@@ -20,6 +20,35 @@
   <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
   <!-- Inclusion du stylesheet principal -->
   <link rel="stylesheet" href="/css/style.css"/>
+  <script>
+    function checkEmailUnique(form) {
+      //  alert("Vérifier email");
+      // $("#modalDialog").modal();
+      //   jQuery("#modalDialog").modal();
+      // return false;
+
+      $.ajax({
+
+        type : 'POST',
+        url :  '[[@{/noteDeCours/check_note}]]',
+        data: {nom:$("#nom").val()},
+
+        success : function(data) {
+
+
+          if(data==='OK'){
+            form.submit();
+          }else{
+            //alert("Il y a déjà un utilisateur avec le même email : " + $("#nom").val());
+            $("#error").text("Il y a déjà un note de cours avec le meme nom :  : " + $("#nom").val());
+
+          }
+        }
+      });
+
+      return false;
+    }
+  </script>
 </head>
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
@@ -27,12 +56,13 @@
 <div class="container px-5 d-flex justify-content-center">
   <div class="row">
     <div class="boite-inscription mt-5">
-<form   th:action="@{/notesDeCours/save}" method="POST" enctype="multipart/form-data" th:object="${noteDeCours}">
+<form   th:action="@{/notesDeCours/save}" method="POST" enctype="multipart/form-data" th:object="${noteDeCours}" onsubmit="return checkEmailUnique(this);">
   <div class="row mx-2 mt-4">
     <div class="col-10">
+      <span id="error" style="color:red;"></span>
       <div class="form-group my-3">
         <label >Nom de notes de cours:</label>
-        <input type="text" class="form-control" id="nom" name="nomNotesDeCours" th:field="*{nom}">
+        <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
       </div>
     </div>
     <div class="col-10">
