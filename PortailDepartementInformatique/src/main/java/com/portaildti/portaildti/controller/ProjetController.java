@@ -4,7 +4,6 @@ import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
 import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,7 +21,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import java.util.ArrayList;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,21 +117,29 @@ public class ProjetController {
             model.addAttribute("listeCours", listeCours);
             model.addAttribute("listeProfesseurs", listeProfesseurs);
 
-            if (keyword != null){
-                List<Projet> listeProjetsParNom = projetService.rechercherProjet(keyword);
-// List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
-// List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
-// List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
+        if (keyword != null) {
+            List<Projet> listeProjets1 = new ArrayList<>();
 
-                model.addAttribute("listeProjets",listeProjetsParNom);
-// model.addAttribute("listeProjets",listeProjetsParCours);
-// model.addAttribute("listeProjets",listeProjetsParProf);
-// model.addAttribute("listeProjets",listeProjetsParAnnee);
-                model.addAttribute("keyword", keyword);
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.rechercherProjet(keyword);
             }
 
-            return "projets";
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.afficherProjetsParCoursNom(keyword);
+            }
+
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.rechercherProjetParProf(keyword);
+            }
+
+            model.addAttribute("listeProjets", listeProjets1);
+            model.addAttribute("keyword", keyword);
         }
+
+
+        return "projets";
+    }
+
     @PostMapping("/projets/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
         if (file != null && !file.isEmpty()) {
