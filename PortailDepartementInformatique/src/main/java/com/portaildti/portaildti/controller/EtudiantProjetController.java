@@ -68,7 +68,9 @@ public class EtudiantProjetController {
         }
 
         int nombreVotes = listeVotes.size();
+
         double moyenneRating = calculateAverageRating(listeVotes);
+        System.out.println(moyenneRating);
 
         model.addAttribute("moyenneRating", moyenneRating);
         model.addAttribute("nombreVotes", nombreVotes);

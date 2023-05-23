@@ -46,6 +46,10 @@ public class Projet {
 //    @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
 //    private List<Vote> votes = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "RatingID")
+    private Vote rating;
+
     public Projet() {
     }
 
@@ -157,10 +161,19 @@ public class Projet {
 //        this.votes = votes;
 //    }
 
+
+    public Vote getRating() {
+        return rating;
+    }
+
+    public void setRating(Vote rating) {
+        this.rating = rating;
+    }
+
     public String afficherTitreDesColonnes() {
         String message = "";
         message = String.format(" %-10s  %30s %15s %30s %15s %15s %15s %15s %15s %25s ", "Id", "Nom", "Annee", "Liste etudiants", "Description", "Video", "LienGitlab",
-                "Cours", "Professeur", "Notes");
+                "Cours", "Professeur", "Rating");
         message += "\n --------------------------------------------------------------------------------------------------------------------------------------";
         return message;
     }
@@ -168,7 +181,7 @@ public class Projet {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15s", this.id, this.nom, this.annee, this.description, this.video, this.lienGitlab, this.cours, this.professeur);
+        message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15d", this.id, this.nom, this.annee, this.description, this.video, this.lienGitlab, this.cours, this.professeur, this.rating);
         return message;
     }
 
