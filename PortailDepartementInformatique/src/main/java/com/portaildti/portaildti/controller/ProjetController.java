@@ -138,7 +138,7 @@ public class ProjetController {
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
         if (file != null && !file.isEmpty()) {
             // On spécifie une limite de taille de fichier
-            long maxSize = 10000000; // 10MB
+            long maxSize = 30000000; // 30MB
             // On vérifie si la taille du fichier ne dépasse pas la limite
             long fileSize = file.getSize();
             System.out.println(" fileSize : " + fileSize);
