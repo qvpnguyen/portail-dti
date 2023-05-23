@@ -1,0 +1,50 @@
+package com.portaildti.portaildti.entities;
+
+import javax.persistence.*;
+
+@Entity
+public class Vote {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private int rating;
+
+    @ManyToOne
+    @JoinColumn(name = "ProjetID")
+    private Projet projetID;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public Projet getProjetID() {
+        return projetID;
+    }
+
+    public void setProjetID(Projet projetID) {
+        this.projetID = projetID;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id=" + id +
+                ", rating=" + rating +
+                ", projetID=" + projetID +
+                '}';
+    }
+}
+
