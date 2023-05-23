@@ -455,6 +455,22 @@ hr {
     margin-right: 0;
 }
 
+.stars {
+    display: inline-block;
+    font-size: 24px;
+    color: gold;
+    text-shadow: 0 0 2px black;
+}
+
+.stars-container {
+    display: flex;
+}
+
+.stars-container .star {
+    margin-right: 5px;
+}
+
+
 
 
 
