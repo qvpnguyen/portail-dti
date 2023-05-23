@@ -13,8 +13,8 @@ public interface NotesRepository extends CrudRepository<Notes,Integer> {
     @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.nom = :nom")
     public List<Notes> findNotesByProjetName(@Param("nom") String nom);
 
-    @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.id = ?1")
-    public Notes findNotesByProjetID(Integer id);
+    @Query("SELECT n FROM  Notes n JOIN n.projetID p  WHERE p.id = :projetId")
+    public Notes findNotesByProjetID(@Param("projetId") Integer projetId);
 
     @Query("UPDATE Notes n SET n.noteObtenue = ?2 WHERE n.id = ?1")
     @Modifying
