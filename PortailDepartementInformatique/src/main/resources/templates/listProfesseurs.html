@@ -28,6 +28,26 @@
         },
         "searching": false
       });
+      $('#tableNotesDeCours').DataTable({
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+        },
+        "searching": false
+      });
+      $("#tableauProfesseur").hide();
+      $("#tableauEtudiant").hide();
+
+      // Lorsque le bouton des professeurs est cliqué, afficher/cacher le tableau des professeurs
+      $("#showProfesseur").click(function(){
+        $("#tableauProfesseur").toggle();
+        $("#tableauEtudiant").hide();
+      });
+
+      // Lorsque le bouton des étudiants est cliqué, afficher/cacher le tableau des étudiants
+      $("#showEtudiant").click(function(){
+        $("#tableauEtudiant").toggle();
+        $("#tableauProfesseur").hide();
+      });
     });
   </script>
 </head>
@@ -38,10 +58,15 @@
 <body class="fond-blanc">
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
+    <button class="btn bouton-mauve" id="showProfesseur">Voir les  professeurs</button>
+    <button class="btn bouton-mauve" id="showEtudiant">Voir les  étudiants</button>
+
+
+    <div id="tableauProfesseur" class="container conteneur-table bg-light p-5 mt-5">
     <h4>Chercher Professeur par nom :</h4>
     <form method="get" th:action="@{'/rechercher/professeur'}">
       <input type="search" name="nom" id="nom" th:value="${nom}" >
-      <input type="submit" value="rechercher" />
+      <input type="submit" class="btn bouton-mauve" value="rechercher" />
     </form>
 
 
@@ -71,6 +96,42 @@
         </tbody>
       </table>
     </div>
+  </div>
+  <div  id="tableauEtudiant" class="container conteneur-table bg-light p-5 mt-5">
+    <h4>Chercher Etudiant par nom :</h4>
+    <form method="get" th:action="@{'/rechercher/etudiantList'}">
+      <input type="search" name="nom1" id="nom1" th:value="${nom1}" >
+      <input type="submit" class="btn bouton-mauve" value="rechercher" />
+    </form>
+
+
+    <div  class="container conteneur-table bg-light p-5 mt-5">
+      <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
+
+      <table id="tableNotesDeCours" class="display">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Departement</th>
+          <th>Voir Profil</th>
+        </tr>
+        </thead>
+
+        <tr th:each="user : ${listeEtudiants}">
+          <td th:text="${user.id}"></td>
+          <td th:text="${user.nom + ' ' + user.prenom}"></td>
+          <td th:text="${user.email}"></td>
+          <td th:text="${user.profil}"></td>
+          <td>
+            <a class="fa-solid fa-eye icon-navy fa-2x" th:href="@{'/etudiant/profil/' + ${user.id} }" title="Profil"></a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   </div>
 </main>
 

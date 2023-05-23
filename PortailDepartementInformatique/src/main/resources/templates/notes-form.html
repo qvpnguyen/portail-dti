@@ -22,11 +22,42 @@
     <link rel="stylesheet" href="/css/style.css"/>
     <script>
         function checkEmailUnique(form) {
-            //  alert("Vérifier email");
-            // $("#modalDialog").modal();
-            //   jQuery("#modalDialog").modal();
-            // return false;
+            $("#error").text("");
+            $("#errorNote").text("");
+            $("#errorDate").text("");
+            $("#errorCommentaire").text("");
 
+            var note = document.getElementById('nom').value;
+            var date = document.getElementById('date').value;
+            var commentaire = document.getElementById('commentaire').value;
+            var currentYear = new Date().getFullYear();
+
+            if (note == "" || date == "" || commentaire == "") {
+                $("#error").text("Tous les champs doivent être remplis");
+                return false;
+            }
+
+            else if (parseInt(note) > 100) {
+                $("#errorNote").text("La note ne peut pas être supérieure à 100");
+                return false;
+            }
+
+            else if (date.length > 4) {
+                $("#errorDate").text("La date ne peut pas contenir plus de 4 chiffres");
+                return false;
+            }
+
+        else if (parseInt(date) > currentYear) {
+                $("#errorDate").text("La date ne peut pas dépasser l'année en cours");
+                return false;
+            }
+
+           else  if (typeof commentaire !== 'string' || commentaire.trim() === '') {
+                $("#errorCommentaire").text("Le commentaire doit être une chaîne non vide");
+                return false;
+            }
+
+            // Si toutes les validations sont passées, alors nous envoyons la requête AJAX
             $.ajax({
                 type : 'POST',
                 url :  '[[@{/note/check_note}]]',
@@ -40,8 +71,10 @@
                 }
             });
 
+            // On retourne false pour empêcher la soumission du formulaire par défaut
             return false;
         }
+
     </script>
 </head>
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
@@ -57,17 +90,19 @@
                         <div class="form-group my-3">
                             <label >La note obtenue:</label>
                             <input type="text" class="form-control" id="nom" name="nomNotesDeCours" th:field="*{noteObtenue}">
+                            <span id="errorNote" style="color:red;"></span>
                         </div>
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
-                            <label for="etudiant">Etudiants responsable:</label>
-                            <select name="etudiant" id="etudiant" class="form-select" th:field="*{etudiantID}">
-                                <option th:each="etud : ${listeEtudiants}" th:value="${etud.id}"
-                                        th:text="${etud.prenom} + ' ' + ${etud.nom}"></option>
+                            <label for="professeur">Professeur responsable:</label>
+                            <select name="professeur" id="professeur" class="form-select" th:field="*{professeurID}">
+                                <option th:value="${professeur.id}"
+                                        th:text="${professeur.prenom} + ' ' + ${professeur.nom}"></option>
                             </select>
                         </div>
                     </div>
+
                     <div class="col-10">
                         <div class="form-group my-3">
                             <label th:field="*{session}">Session:</label>
@@ -80,14 +115,16 @@
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
-                            <label for="date">Date:</label>
+                            <label for="date">Annee:</label>
                             <input type="text" class="form-control" id="date" name="date" th:field="*{annee}">
+                            <span id="errorDate" style="color:red;"></span>
                         </div>
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
                             <label for="commentaire">Commentaire :</label>
                             <input type="text" class="form-control" id="commentaire" name="commentaire" th:field="${note.commentaire}">
+                            <span id="errorCommentaire" style="color:red;"></span>
                         </div>
                     </div>
                     <div class="col-10">

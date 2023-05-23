@@ -326,10 +326,10 @@ public class ProjetController {
         Notes note = new Notes();
 
         System.out.println(nomProf);
-        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
+        Professeur professeur = professeurService.rechercherProfesseurSeulParNom(nomProf);
         List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);
         List<Projet> listeProjets = projetService.rechercherProjetParProf(nomProf);
-        model.addAttribute("listeEtudiants", listeEtudiants);
+        model.addAttribute("professeur", professeur);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("note", note);
         model.addAttribute("listeProjets", listeProjets);
@@ -340,6 +340,7 @@ public class ProjetController {
     public String ajouterNoteDeCours(Notes notes, RedirectAttributes redirectAttributes) throws Exception {
 
         redirectAttributes.addFlashAttribute("message","Le note du projet "+ notes.getProjetID().getNom()+" a été ajouté avec succès");
+        System.out.println(notes.getProfesseurID());
         notesService.ajouterNotes(notes);
 
         return "redirect:/projets/evaluation";

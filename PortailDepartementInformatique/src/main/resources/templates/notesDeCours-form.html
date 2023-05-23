@@ -22,32 +22,50 @@
   <link rel="stylesheet" href="/css/style.css"/>
   <script>
     function checkEmailUnique(form) {
-      //  alert("Vérifier email");
-      // $("#modalDialog").modal();
-      //   jQuery("#modalDialog").modal();
-      // return false;
+      $("#error").text("");
+      $("#errorNom").text("");
+      $("#errorLien").text("");
 
+      var nom = document.getElementById('nom').value;
+      var lien = document.getElementById('lien').value;
+
+      // Vérifier si le nom ou le lien est vide
+      if (nom.trim() === "" || lien.trim() === "") {
+        $("#error").text("Le nom et/ou le lien ne peuvent pas être vides");
+        return false;
+      }
+
+      // Vérifier si le nom est uniquement un nombre
+      if (!isNaN(nom)) {
+        $("#errorNom").text("Le nom ne peut pas être uniquement un nombre");
+        return false;
+      }
+
+      // Vérifier si le lien est une URL valide
+      var urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+      if (!urlRegex.test(lien)) {
+        $("#errorLien").text("Veuillez entrer un lien URL valide");
+        return false;
+      }
+
+      // Si toutes les validations sont passées, alors nous envoyons la requête AJAX
       $.ajax({
-
         type : 'POST',
         url :  '[[@{/noteDeCours/check_note}]]',
-        data: {nom:$("#nom").val()},
-
+        data: {nom: $("#nom").val()},
         success : function(data) {
-
-
           if(data==='OK'){
             form.submit();
-          }else{
-            //alert("Il y a déjà un utilisateur avec le même email : " + $("#nom").val());
-            $("#error").text("Il y a déjà un note de cours avec le meme nom :  : " + $("#nom").val());
-
+          } else {
+            $("#error").text("Il y a déjà un note de cours avec le meme nom : " + $("#nom").val());
           }
         }
       });
 
+      // On retourne false pour empêcher la soumission du formulaire par défaut
       return false;
     }
+
   </script>
 </head>
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
@@ -63,6 +81,7 @@
       <div class="form-group my-3">
         <label >Nom de notes de cours:</label>
         <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
+        <span id="errorNom" style="color:red;"></span>
       </div>
     </div>
     <div class="col-10">
@@ -77,6 +96,7 @@
       <div class="form-group my-3">
         <label >Lien URL:</label>
         <input type="text" class="form-control" id="lien" name="lien" th:field="*{lien}">
+        <span id="errorLien" style="color:red;"></span>
       </div>
     </div>
     <div class="col-10">

@@ -14,6 +14,8 @@ public interface ProfesseurRepository  extends CrudRepository<Professeur,Integer
 
     @Query("SELECT p FROM Professeur p WHERE p.nom = :nom")
     public List<Professeur> getProfesseurParNom(@Param("nom") String nom);
+    @Query("SELECT p FROM Professeur p WHERE p.nom = :nom")
+    public Professeur getProfesseurSeulParNom(@Param("nom") String nom);
 
     @Query("SELECT p FROM Professeur p WHERE p.email = :email ")
     public Professeur getProfesseurByEmail(@Param("email") String email);

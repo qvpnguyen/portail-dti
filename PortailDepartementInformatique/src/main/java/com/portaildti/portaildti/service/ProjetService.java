@@ -35,6 +35,12 @@ public class ProjetService {
         }
         return null;
     }
+    public List<Projet> rechercherProjetParEtudiantID(Integer id) {
+        if (id != null) {
+            return  repo.findProjetsByIdEtudiant(id);
+        }
+        return null;
+    }
     public boolean isProjetDejaNote(Integer projetID) {
 
         Notes projet = notesRepo.findNotesSeulByProjetID(projetID);
