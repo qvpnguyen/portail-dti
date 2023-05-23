@@ -117,8 +117,12 @@ public class ProjetController {
             model.addAttribute("listeCours", listeCours);
             model.addAttribute("listeProfesseurs", listeProfesseurs);
 
-        if (keyword != null) {
+
             List<Projet> listeProjets1 = new ArrayList<>();
+
+            String pageTitle = "Ensemble des projets";
+            model.addAttribute("pageTitle", pageTitle);
+            if (keyword != null){
 
             if (listeProjets1.isEmpty()) {
                 listeProjets1 = projetService.rechercherProjet(keyword);
@@ -144,7 +148,7 @@ public class ProjetController {
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
         if (file != null && !file.isEmpty()) {
             // On spécifie une limite de taille de fichier
-            long maxSize = 10000000; // 10MB
+            long maxSize = 30000000; // 30MB
             // On vérifie si la taille du fichier ne dépasse pas la limite
             long fileSize = file.getSize();
             System.out.println(" fileSize : " + fileSize);
@@ -169,23 +173,21 @@ public class ProjetController {
             //en utilisant la méthode transferTo() de l'objet MultipartFile
             file.transferTo(serverFile);
         } else {
-//            System.out.println("projet: " + projet);
-//            String video = projetService.getVideoByProjetId(projet.getId());
-//            projet.setVideo(video);
+            String video = projetService.getVideoByProjetId(projet.getId());
+            projet.setVideo(video);
         }
 
-        redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
-        projetService.ajouterProjet(projet);
-        for (Etudiant membre : membres) {
-            if (!membres.contains(membre)) {
-                etudiantProjetService.supprimerEtudiantProjetParEtudiantId(projet.getId(), membre.getId());
-            } else {
+        System.out.println("projetid: " + projet.getId());
+        // Dans un formulaire d'edition, si un projet est existant en allant chercher son id, on va iterer parmi la liste des membres et mettre a jour la liste des membres de l'equipe en faisant les ajouts/suppressions des membres necessaires
+        if (projet.getId() != null) {
+            etudiantProjetService.supprimerEtudiantProjetsParProjetId(projet.getId());
+            for (Etudiant membre : membres) {
                 EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
                 etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
             }
-//            EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
-//            etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
         }
+        projetService.ajouterProjet(projet);
+        redirectAttributes.addFlashAttribute("message","Le projet a été ajouté/mis à jour avec succès");
         redirectAttributes.addFlashAttribute("membresEquipe", membres);
         return "redirect:/gestion-projets";
     }
@@ -246,7 +248,7 @@ public class ProjetController {
     @GetMapping("projets/edit/{projetid}")
     public String mettreAJourProjet(@PathVariable(name = "projetid") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
-            while (true) {
+//            while (true) {
                 Projet projet = projetService.get(id);
                 List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
                 List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
@@ -263,7 +265,7 @@ public class ProjetController {
                 model.addAttribute("listeProfesseurs", listeProfesseurs);
                 model.addAttribute("listeCours", listeCours);
                 return "projets-edit-form";
-            }
+//            }
         } catch (ProjetNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver le projet avec l'id " + id);
             return "redirect:/gestion-projets";
@@ -290,7 +292,8 @@ public class ProjetController {
 
         List<Notes> listeNotesProjets = notesService.afficherNote();
         model.addAttribute("listeNotes", listeNotesProjets);
-
+        String pageTitle = "Évaluation des projets";
+        model.addAttribute("pageTitle", pageTitle);
         return "evaluationProjets";
     }
 
@@ -305,6 +308,8 @@ public class ProjetController {
         List<Notes> listNotesProjet = notesService.rechercherNotesParProjetNom(nomProjet);
         System.out.println(listNotesProjet);
         model.addAttribute("listeNotes", listNotesProjet);
+        String pageTitle = "Évaluation des projets";
+        model.addAttribute("pageTitle", pageTitle);
         return "evaluationProjets";
     }
 

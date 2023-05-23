@@ -1,24 +1,73 @@
+<!-- Importation de FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 <div th:fragment="entete">
   <header>
     <div class="d-flex justify-content-between mx-5 py-3">
       <div class="d-flex">
-        <a href=""><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
+        <span th:switch="${session.roleUtilisateur}">
+          <span th:case="'Administrateur'">
+            <a th:href="@{/administration}"><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
+          </span>
+          <span th:case="'Professeur'">
+            <a th:href="@{/professeur}"><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
+          </span>
+          <span th:case="'Etudiant'">
+            <a th:href="@{/etudiant}"><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
+          </span>
+          <span th:case="'Administrateur'">
+            <a th:href="@{/visiteur}"><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
+          </span>
+        </span>
+
         <div class="ms-3">
           <h1 class="titre">Ed.<br>volution</h1>
           <p class="sous-titre">Oser apprendre et évoluer</p>
         </div>
+
       </div>
       <div class="d-flex header-utilisateur">
         <h2 class="titre-utilisateur me-2 mt-2">[[${session.nomUtilisateur}]] [[${session.prenomUtilisateur}]]</h2>
-        <svg id="svg-user-icon" class="filtre-icon" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M36.6923 37.216V34.6326C36.6923 32.892 36.6923 32.0225 36.4785 31.3116C36.2148 30.4314 35.7157 29.6297 35.0289 28.983C34.3421 28.3364 33.4905 27.8664 32.5557 27.6182C31.8007 27.4169 30.8772 27.4169 29.0284 27.4169H15.9715C14.1227 27.4169 13.1993 27.4169 12.4443 27.6182C11.5094 27.8664 10.6579 28.3364 9.97108 28.983C9.28427 29.6297 8.78517 30.4314 8.52151 31.3116C8.30768 32.0225 8.30768 32.892 8.30768 34.6326V37.216M30.4477 13.8585C30.4477 17.8584 26.8901 21.101 22.5 21.101C18.1098 21.101 14.5523 17.8584 14.5523 13.8585C14.5523 9.85872 18.1098 6.61789 22.5 6.61789C26.8901 6.61789 30.4477 9.8605 30.4477 13.8585Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="22.5" cy="22.5" r="21.5" stroke="white" stroke-width="2"/>
-        </svg>
+        <span th:switch="${session.roleUtilisateur}">
+          <span th:case="'Administrateur'">
+            <a th:href="@{'/admins/edit/' + ${session.idUtilisateur}}">
+              <svg id="svg-user-icon" class="filtre-icon" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M36.6923 37.216V34.6326C36.6923 32.892 36.6923 32.0225 36.4785 31.3116C36.2148 30.4314 35.7157 29.6297 35.0289 28.983C34.3421 28.3364 33.4905 27.8664 32.5557 27.6182C31.8007 27.4169 30.8772 27.4169 29.0284 27.4169H15.9715C14.1227 27.4169 13.1993 27.4169 12.4443 27.6182C11.5094 27.8664 10.6579 28.3364 9.97108 28.983C9.28427 29.6297 8.78517 30.4314 8.52151 31.3116C8.30768 32.0225 8.30768 32.892 8.30768 34.6326V37.216M30.4477 13.8585C30.4477 17.8584 26.8901 21.101 22.5 21.101C18.1098 21.101 14.5523 17.8584 14.5523 13.8585C14.5523 9.85872 18.1098 6.61789 22.5 6.61789C26.8901 6.61789 30.4477 9.8605 30.4477 13.8585Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="22.5" cy="22.5" r="21.5" stroke="white" stroke-width="2"/>
+              </svg>
+            </a>
+          </span>
+          <span th:case="'Professeur'">
+            <a th:href="@{'/professeurs/edit/' + ${session.idUtilisateur}}">
+              <svg id="svg-user-icon" class="filtre-icon" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M36.6923 37.216V34.6326C36.6923 32.892 36.6923 32.0225 36.4785 31.3116C36.2148 30.4314 35.7157 29.6297 35.0289 28.983C34.3421 28.3364 33.4905 27.8664 32.5557 27.6182C31.8007 27.4169 30.8772 27.4169 29.0284 27.4169H15.9715C14.1227 27.4169 13.1993 27.4169 12.4443 27.6182C11.5094 27.8664 10.6579 28.3364 9.97108 28.983C9.28427 29.6297 8.78517 30.4314 8.52151 31.3116C8.30768 32.0225 8.30768 32.892 8.30768 34.6326V37.216M30.4477 13.8585C30.4477 17.8584 26.8901 21.101 22.5 21.101C18.1098 21.101 14.5523 17.8584 14.5523 13.8585C14.5523 9.85872 18.1098 6.61789 22.5 6.61789C26.8901 6.61789 30.4477 9.8605 30.4477 13.8585Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="22.5" cy="22.5" r="21.5" stroke="white" stroke-width="2"/>
+              </svg>
+            </a>
+          </span>
+          <span th:case="'Etudiant'">
+            <a th:href="@{'/etudiants/edit/' + ${session.idUtilisateur}}">
+              <svg id="svg-user-icon" class="filtre-icon" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M36.6923 37.216V34.6326C36.6923 32.892 36.6923 32.0225 36.4785 31.3116C36.2148 30.4314 35.7157 29.6297 35.0289 28.983C34.3421 28.3364 33.4905 27.8664 32.5557 27.6182C31.8007 27.4169 30.8772 27.4169 29.0284 27.4169H15.9715C14.1227 27.4169 13.1993 27.4169 12.4443 27.6182C11.5094 27.8664 10.6579 28.3364 9.97108 28.983C9.28427 29.6297 8.78517 30.4314 8.52151 31.3116C8.30768 32.0225 8.30768 32.892 8.30768 34.6326V37.216M30.4477 13.8585C30.4477 17.8584 26.8901 21.101 22.5 21.101C18.1098 21.101 14.5523 17.8584 14.5523 13.8585C14.5523 9.85872 18.1098 6.61789 22.5 6.61789C26.8901 6.61789 30.4477 9.8605 30.4477 13.8585Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="22.5" cy="22.5" r="21.5" stroke="white" stroke-width="2"/>
+              </svg>
+            </a>
+          </span>
+          <span th:case="'Visiteur'">
+            <a th:href="@{'/visiteurs/edit/' + ${session.idUtilisateur}}">
+              <svg id="svg-user-icon" class="filtre-icon" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M36.6923 37.216V34.6326C36.6923 32.892 36.6923 32.0225 36.4785 31.3116C36.2148 30.4314 35.7157 29.6297 35.0289 28.983C34.3421 28.3364 33.4905 27.8664 32.5557 27.6182C31.8007 27.4169 30.8772 27.4169 29.0284 27.4169H15.9715C14.1227 27.4169 13.1993 27.4169 12.4443 27.6182C11.5094 27.8664 10.6579 28.3364 9.97108 28.983C9.28427 29.6297 8.78517 30.4314 8.52151 31.3116C8.30768 32.0225 8.30768 32.892 8.30768 34.6326V37.216M30.4477 13.8585C30.4477 17.8584 26.8901 21.101 22.5 21.101C18.1098 21.101 14.5523 17.8584 14.5523 13.8585C14.5523 9.85872 18.1098 6.61789 22.5 6.61789C26.8901 6.61789 30.4477 9.8605 30.4477 13.8585Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="22.5" cy="22.5" r="21.5" stroke="white" stroke-width="2"/>
+              </svg>
+            </a>
+          </span>
+        </span>
+
 
         <div id="myDropdownContent" class="dropdown-content">
           <a href="#">Settings</a>
           <a href="#">Logout</a>
         </div>
+
 
         <a th:href="@{/utilisateur/deconnexion}">
           <svg class="ps-3" width="51" height="55" viewBox="0 0 65 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,12 +77,63 @@
             <path d="M13.7762 27.9626H34" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
+
+        <div class="btn-group dropstart">
+          <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 10C1.46957 10 0.96086 10.2107 0.585787 10.5858C0.210714 10.9609 0 11.4696 0 12C0 12.5304 0.210714 13.0391 0.585787 13.4142C0.96086 13.7893 1.46957 14 2 14V10ZM30 14C30.5304 14 31.0391 13.7893 31.4142 13.4142C31.7893 13.0391 32 12.5304 32 12C32 11.4696 31.7893 10.9609 31.4142 10.5858C31.0391 10.2107 30.5304 10 30 10V14ZM2 0C1.46957 0 0.96086 0.210714 0.585787 0.585787C0.210714 0.96086 0 1.46957 0 2C0 2.53043 0.210714 3.03914 0.585787 3.41421C0.96086 3.78929 1.46957 4 2 4V0ZM30 4C30.5304 4 31.0391 3.78929 31.4142 3.41421C31.7893 3.03914 32 2.53043 32 2C32 1.46957 31.7893 0.96086 31.4142 0.585787C31.0391 0.210714 30.5304 0 30 0V4ZM2 20C1.46957 20 0.96086 20.2107 0.585787 20.5858C0.210714 20.9609 0 21.4696 0 22C0 22.5304 0.210714 23.0391 0.585787 23.4142C0.96086 23.7893 1.46957 24 2 24V20ZM30 24C30.5304 24 31.0391 23.7893 31.4142 23.4142C31.7893 23.0391 32 22.5304 32 22C32 21.4696 31.7893 20.9609 31.4142 20.5858C31.0391 20.2107 30.5304 20 30 20V24ZM2 14H30V10H2V14ZM2 4H30V0H2V4ZM2 24H30V20H2V24Z" fill="white"/>
+            </svg>
+          </button>
+          <span th:switch="${session.roleUtilisateur}">
+            <span th:case="'Administrateur'">
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/administration}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/gestion-projets}">Gérer les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/gestion-notes-de-cours}">Gérer les notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateurs}">Gérer les utilisateurs</a></li>
+                <li><a class="dropdown-item" th:href="@{/admins/new}">Ajouter un administrateur</a></li>
+              </ul>
+            </span>
+            <span th:case="'Professeur'">
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/professeur}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{'/notesDeCours/new/' + ${session.nomUtilisateur}}">Déposer ses notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="@{/notesDeCours}">Consulter les notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets/evaluation}">Évaluation des projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeurs}">Rechercher professeurs et étudiants</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeur}">Espace de collaboration</a></li>
+              </ul>
+            </span>
+            <span th:case="'Etudiant'">
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/etudiant}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets/new}">Déposer son projet</a></li>
+                <li><a class="dropdown-item" th:href="@{/notesDeCours}">Consulter les notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant}">Service de tutorat</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant}">Rechercher professeurs et étudiants</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant}">Espace de collaboration</a></li>
+              </ul>
+            </span>
+            <span th:case="'Visiteur'">
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/visiteur}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets-visiteur/new}">Déposer son projet</a></li>
+                <li><a class="dropdown-item" th:href="@{/visiteur}">Rechercher professeurs et étudiants</a></li>
+              </ul>
+            </span>
+          </span>
+
+        </div>
+
       </div>
     </div>
     <div>
       <nav class="navbar">
         <div class="container-fluid mx-4">
-          <p class="navbar-brand">Portail du département informatique - Ensemble des projets</p>
+          <p class="navbar-brand">Portail du département informatique - [[${pageTitle}]]</p>
           <div class="d-flex">
             <!-- Logo GitLab -->
             <a href="https://git.dti.crosemont.quebec/">
@@ -97,17 +197,6 @@
               </th:block>
             </div>
 
-
-            <!-- La page principale -->
-            <a href="">
-              <svg class="me-3 mt-1 filtre-icon" width="33" height="33" viewBox="1 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0H28V27.5H0V0Z" fill="white" fill-opacity="0.01"/>
-                <path d="M5.25001 24.0625V10.3125L2.33334 12.6042L14 3.4375L25.6667 12.6042L22.75 10.3125V24.0625H5.25001Z" stroke="#3B4394" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M11.0833 16.6146V24.0625H16.9167V16.6146H11.0833Z" stroke="#3B4394" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M5.25003 24.0625H22.75" stroke="#3B4394" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </a>
-
             <!-- La barre de recherche -->
             <form class="d-flex" th:action="@{/etudiants-projets}" method="get">
               <svg class="mt-2" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,4 +209,5 @@
         </div>
       </nav>
     </div>
+  </header>
 </div>

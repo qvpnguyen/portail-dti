@@ -49,7 +49,8 @@ public class UtilisateurController {
 //                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
                 session.setAttribute("nomUtilisateur", etudiant.getNom());
                 session.setAttribute("prenomUtilisateur", etudiant.getPrenom());
-
+                session.setAttribute("idUtilisateur", etudiant.getId());
+                session.setAttribute("roleUtilisateur", etudiant.getRole());
                 return "redirect:/etudiant";
 
             }
@@ -58,8 +59,8 @@ public class UtilisateurController {
 //                session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
                 session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
-
-
+                session.setAttribute("idUtilisateur", administrateur.getId());
+                session.setAttribute("roleUtilisateur", administrateur.getRole());
 
                 return "redirect:/administration";
             }else {
@@ -73,8 +74,8 @@ public class UtilisateurController {
 //                session.setAttribute("prenomProf", prof.getPrenom());
                 session.setAttribute("nomUtilisateur", prof.getNom());
                 session.setAttribute("prenomUtilisateur", prof.getPrenom());
-
-
+                session.setAttribute("idUtilisateur", prof.getId());
+                session.setAttribute("roleUtilisateur", prof.getRole());
 
                 return "redirect:/professeur";
 
@@ -84,8 +85,8 @@ public class UtilisateurController {
 //                session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
                 session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
-
-
+                session.setAttribute("idUtilisateur", administrateur.getId());
+                session.setAttribute("roleUtilisateur", administrateur.getRole());
 
                 return "redirect:/administration";
             }else {
@@ -99,8 +100,8 @@ public class UtilisateurController {
 //                session.setAttribute("prenomVisiteur", visiteur.getPrenom());
                 session.setAttribute("nomUtilisateur", visiteur.getNom());
                 session.setAttribute("prenomUtilisateur", visiteur.getPrenom());
-
-
+                session.setAttribute("idUtilisateur", visiteur.getId());
+                session.setAttribute("roleUtilisateur", visiteur.getRole());
 
                 return "redirect:/gestionProjets";
 
@@ -110,8 +111,8 @@ public class UtilisateurController {
 //                session.setAttribute("prenomAdmin", administrateur.getPrenom());
                 session.setAttribute("nomUtilisateur", administrateur.getNom());
                 session.setAttribute("prenomUtilisateur", administrateur.getPrenom());
-
-
+                session.setAttribute("idUtilisateur", administrateur.getId());
+                session.setAttribute("roleUtilisateur", administrateur.getRole());
 
                 return "redirect:/administration";
             }else {
@@ -129,7 +130,7 @@ public class UtilisateurController {
 
         return "redirect:/";
     }
-    @GetMapping("/admins/new/")
+    @GetMapping("/admins/new")
     public String afficherFormulaireAdmin(Model model) {
         Administrateur administrateur = new Administrateur();
         model.addAttribute("administrateur", administrateur);

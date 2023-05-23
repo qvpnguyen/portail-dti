@@ -51,5 +51,7 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
 
     @Query("SELECT e FROM Etudiant e WHERE e.photo = :fileName")
     public List<Etudiant> findByFileName(@Param("fileName") String fileName);
+    @Query("SELECT e FROM Etudiant e WHERE e.email = :email")
+    public Etudiant getUtilisateurByEmail(@Param("email") String email);
 
 }

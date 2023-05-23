@@ -1,6 +1,7 @@
 package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.*;
+import com.portaildti.portaildti.repos.NotesRepository;
 import com.portaildti.portaildti.repos.ProjetRepository;
 import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class ProjetService {
 
     @Autowired
     private ProjetRepository repo;
+    @Autowired
+    private NotesRepository notesRepo;
     public List<Projet> afficherProjet(){
         return (List<Projet>) repo.findAll();
     }
@@ -31,6 +34,16 @@ public class ProjetService {
             return  repo.findProjetsByIdProf(id);
         }
         return null;
+    }
+    public boolean isProjetDejaNote(Integer projetID) {
+
+        Notes projet = notesRepo.findNotesSeulByProjetID(projetID);
+
+        if (projet == null) return true;
+
+
+        return false;
+
     }
     public List<Projet> rechercherProjetParProf(String id) {
         if (id != null) {

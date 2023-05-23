@@ -28,17 +28,19 @@ public class ProfesseurController {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
+        String pageTitle = "Professeur";
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("pageTitle", pageTitle);
         return "professeur";
     }
     @GetMapping("/professeurs")
     public String afficherListProfesseur(Model model) {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
-
+        String pageTitle = "Recherche";
         model.addAttribute("listeProfesseurs", listeProfesseurs);
-
+        model.addAttribute("pageTitle", pageTitle);
         return "listProfesseurs";
     }
     @GetMapping("/rechercher/professeur")
@@ -54,10 +56,11 @@ public class ProfesseurController {
         Professeur professeur = profService.rechercherProfesseurParID(id);
         List<Projet> projetsProf = projetService.rechercherProjetParProfID(id);
         List<Cours> coursProf = coursService.rechercherCoursParProfId(id);
+        String pageTitle = String.format("Profil de %s %s", professeur.getPrenom(), professeur.getNom());
         model.addAttribute("professeur", professeur);
         model.addAttribute("projetsProf", projetsProf);
         model.addAttribute("coursProf", coursProf);
-
+        model.addAttribute("pageTitle", pageTitle);
 
         return "profilProfesseur";
     }

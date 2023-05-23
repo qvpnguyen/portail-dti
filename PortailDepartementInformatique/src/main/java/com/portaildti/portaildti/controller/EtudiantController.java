@@ -26,9 +26,11 @@ public class EtudiantController {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
+        String pageTitle = "Étudiant";
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("pageTitle", pageTitle);
         return "etudiant";
     }
 }
