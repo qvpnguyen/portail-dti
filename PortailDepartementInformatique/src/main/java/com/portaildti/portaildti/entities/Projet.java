@@ -6,7 +6,9 @@ package com.portaildti.portaildti.entities;
  */
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,9 +32,7 @@ public class Projet {
     @ManyToOne
     @JoinColumn(name = "ProfesseurID")
     private Professeur professeur;
-    @OneToOne
-    @JoinColumn(name = "NotesID")
-    private Notes notes;
+
     @ManyToMany
     @JoinTable(
             name = "étudiant_projet",
@@ -42,6 +42,9 @@ public class Projet {
     private Set<Etudiant> etudiants = new HashSet();
     @Lob
     private byte[] data;
+
+//    @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
+//    private List<Vote> votes = new ArrayList<>();
 
     public Projet() {
     }
@@ -55,11 +58,10 @@ public class Projet {
         this.lienGitlab = lienGitlab;
         this.cours = cours;
         this.professeur = professeur;
-        this.notes = null;
 
     }
 
-    public Projet(Integer id, String nom, Integer annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur, Notes notes) {
+    public Projet(Integer id, String nom, Integer annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur) {
         this.id = id;
         this.nom = nom;
         this.annee = annee;
@@ -68,7 +70,6 @@ public class Projet {
         this.lienGitlab = lienGitlab;
         this.cours = cours;
         this.professeur = professeur;
-        this.notes = notes;
 
     }
 
@@ -136,13 +137,6 @@ public class Projet {
         this.professeur = professeur;
     }
 
-    public Notes getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Notes notes) {
-        this.notes = notes;
-    }
     public void ajouter(Etudiant etudiant) {
         this.etudiants.add(etudiant);
     }
@@ -155,6 +149,14 @@ public class Projet {
         this.data = data;
     }
 
+//    public List<Vote> getVotes() {
+//        return votes;
+//    }
+//
+//    public void setVotes(List<Vote> votes) {
+//        this.votes = votes;
+//    }
+
     public String afficherTitreDesColonnes() {
         String message = "";
         message = String.format(" %-10s  %30s %15s %30s %15s %15s %15s %15s %15s %25s ", "Id", "Nom", "Annee", "Liste etudiants", "Description", "Video", "LienGitlab",
@@ -166,7 +168,7 @@ public class Projet {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15s", this.id, this.nom, this.annee, this.description, this.video, this.lienGitlab, this.cours, this.professeur, this.notes);
+        message = String.format(" %-10d  %30s %15d %30s %15s %15s %15s %15s %15s", this.id, this.nom, this.annee, this.description, this.video, this.lienGitlab, this.cours, this.professeur);
         return message;
     }
 
