@@ -118,7 +118,8 @@ public class ProjetController {
             model.addAttribute("listeProjets", listeProjets);
             model.addAttribute("listeCours", listeCours);
             model.addAttribute("listeProfesseurs", listeProfesseurs);
-
+            String pageTitle = "Ensemble des projets";
+            model.addAttribute("pageTitle", pageTitle);
             if (keyword != null){
                 List<Projet> listeProjetsParNom = projetService.rechercherProjet(keyword);
 // List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
@@ -282,7 +283,8 @@ public class ProjetController {
 
         List<Notes> listeNotesProjets = notesService.afficherNote();
         model.addAttribute("listeNotes", listeNotesProjets);
-
+        String pageTitle = "Évaluation des projets";
+        model.addAttribute("pageTitle", pageTitle);
         return "evaluationProjets";
     }
 
@@ -297,6 +299,8 @@ public class ProjetController {
         List<Notes> listNotesProjet = notesService.rechercherNotesParProjetNom(nomProjet);
         System.out.println(listNotesProjet);
         model.addAttribute("listeNotes", listNotesProjet);
+        String pageTitle = "Évaluation des projets";
+        model.addAttribute("pageTitle", pageTitle);
         return "evaluationProjets";
     }
 

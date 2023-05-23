@@ -46,7 +46,8 @@ public class NoteDeCoursController {
         }
         Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.afficherNoteDeCours();
         model.addAttribute("listNotesDeCours",listNotesDeCours);
-
+        String pageTitle = "Gestion de notes de cours";
+        model.addAttribute("pageTitle", pageTitle);
         return "gestionNotesDeCours";
     }
 
@@ -68,7 +69,8 @@ public class NoteDeCoursController {
     {
         List<NoteDeCours> listNotesDeCours = serviceNoteDeCours.rechercherNoteDeCoursPaNom(note);
         model.addAttribute("listNotesDeCours", listNotesDeCours);
-
+        String pageTitle = "Gestion de notes de cours";
+        model.addAttribute("pageTitle", pageTitle);
         return "gestionNotesDeCours";
     }
     @GetMapping("/notesDeCours/supprimer/{id}")
