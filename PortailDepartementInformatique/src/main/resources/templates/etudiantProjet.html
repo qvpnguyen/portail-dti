@@ -232,7 +232,7 @@
                                     </filter>
                                 </defs>
                             </svg>
-                            <button type="submit" class="btn bouton-mauve mt-3">Vote</button>
+                            <button type="submit" class="btn bouton-mauve mt-3" id="vote-button">Vote</button>
                         </form>
                         <br>
 
@@ -315,7 +315,11 @@
         });
     });
 
-    const form = document.querySelector('form');
+    voteButton.addEventListener('click', function() {
+
+        voteButton.disabled = true;
+    });
+
 
     // Add event listener for form submission
     form.addEventListener('submit', function(event) {
@@ -324,8 +328,22 @@
         // Get the current rating value from the hidden input field
         const projectId = event.target.querySelector('[name="rating"]').value;
         const ratingInput = parseInt(document.getElementById(`rating-input-${projectId}`).value);
-        const rating = parseInt(ratingInput.value);
+        const rating = ratingInput;
 
+        // Check if the rating input is filled
+        // if (!rating) {
+        //     alert('Please select a rating before submitting.');
+        //     return;
+        // }
+
+        const isAllStarsEmpty = starsArray.every(function(star) {
+            return star.getAttribute('fill') === 'none';
+        });
+
+        if (isAllStarsEmpty) {
+            alert('Please select a rating before submitting.');
+            return;
+        }
 
         // Get the current values of nombreVotes and moyenneRating
         const nombreVotesElement = document.querySelector('#nombreVotes');
@@ -342,37 +360,9 @@
         nombreVotesElement.innerText = nombreVotes;
         moyenneRatingElement.innerText = moyenneRating.toFixed(2);
         moyenneRatingElement.setAttribute('data-rating', moyenneRating);
+
     });
 
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const starsContainer = document.getElementById('stars-container');
-    //     const ratingInput = document.getElementById('rating-input');
-    //
-    //     function createStar(rating) {
-    //
-    //         //starsContainer.innerHTML = ''; // Clear the stars container before adding new stars
-    //
-    //         for (let i = 0; i < 5; i++) {
-    //             const star = document.createElement('div');
-    //             star.innerHTML = starSvg;
-    //
-    //             if (i >= Math.floor(rating)) {
-    //                 star.firstChild.setAttribute('fill', 'yellow');
-    //             }
-    //
-    //             star.addEventListener('click', function() {
-    //                 ratingInput.value = i + 1;
-    //                 createStar(i + 1);
-    //             });
-    //
-    //             starsContainer.appendChild(star);
-    //         }
-    //     }
-    //
-    //     const moyenneRating = parseFloat(document.getElementById('moyenneRating').getAttribute('data-rating'));
-    //     createStar(moyenneRating);
-    // });
 
 </script>
 <footer th:replace="fragments/pieds :: pieds"></footer>
