@@ -67,10 +67,9 @@ public class EtudiantProjetController {
             commentaire = note.getCommentaire();
         }
 
-        int nombreVotes = listeVotes.size();
-
         double moyenneRating = calculateAverageRating(listeVotes);
-        System.out.println(moyenneRating);
+
+        int nombreVotes = listeVotes.size();
 
         model.addAttribute("moyenneRating", moyenneRating);
         model.addAttribute("nombreVotes", nombreVotes);
