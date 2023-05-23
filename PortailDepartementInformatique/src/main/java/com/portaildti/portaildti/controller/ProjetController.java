@@ -4,7 +4,6 @@ import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.*;
 import com.portaildti.portaildti.service.exception.ProjetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,7 +21,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import java.util.ArrayList;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,23 +116,34 @@ public class ProjetController {
             model.addAttribute("listeProjets", listeProjets);
             model.addAttribute("listeCours", listeCours);
             model.addAttribute("listeProfesseurs", listeProfesseurs);
+
+
+            List<Projet> listeProjets1 = new ArrayList<>();
+
             String pageTitle = "Ensemble des projets";
             model.addAttribute("pageTitle", pageTitle);
             if (keyword != null){
-                List<Projet> listeProjetsParNom = projetService.rechercherProjet(keyword);
-// List<Projet> listeProjetsParCours = projetService.afficherProjetsParCoursNom(keyword);
-// List<Projet> listeProjetsParProf = projetService.rechercherProjetParProf(keyword);
-// List<Projet> listeProjetsParAnnee = projetService.afficherProjetsParAnnee(Integer.valueOf(keyword));
 
-                model.addAttribute("listeProjets",listeProjetsParNom);
-// model.addAttribute("listeProjets",listeProjetsParCours);
-// model.addAttribute("listeProjets",listeProjetsParProf);
-// model.addAttribute("listeProjets",listeProjetsParAnnee);
-                model.addAttribute("keyword", keyword);
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.rechercherProjet(keyword);
             }
 
-            return "projets";
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.afficherProjetsParCoursNom(keyword);
+            }
+
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.rechercherProjetParProf(keyword);
+            }
+
+            model.addAttribute("listeProjets", listeProjets1);
+            model.addAttribute("keyword", keyword);
         }
+
+
+        return "projets";
+    }
+
     @PostMapping("/projets/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
         if (file != null && !file.isEmpty()) {
@@ -326,10 +335,10 @@ public class ProjetController {
         Notes note = new Notes();
 
         System.out.println(nomProf);
-        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
+        Professeur professeur = professeurService.rechercherProfesseurSeulParNom(nomProf);
         List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);
         List<Projet> listeProjets = projetService.rechercherProjetParProf(nomProf);
-        model.addAttribute("listeEtudiants", listeEtudiants);
+        model.addAttribute("professeur", professeur);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("note", note);
         model.addAttribute("listeProjets", listeProjets);
@@ -340,6 +349,7 @@ public class ProjetController {
     public String ajouterNoteDeCours(Notes notes, RedirectAttributes redirectAttributes) throws Exception {
 
         redirectAttributes.addFlashAttribute("message","Le note du projet "+ notes.getProjetID().getNom()+" a été ajouté avec succès");
+        System.out.println(notes.getProfesseurID());
         notesService.ajouterNotes(notes);
 
         return "redirect:/projets/evaluation";

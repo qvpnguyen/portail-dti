@@ -20,6 +20,62 @@
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
     <!-- Inclusion du stylesheet principal -->
     <link rel="stylesheet" href="/css/style.css"/>
+    <script>
+        function checkEmailUnique(form) {
+            $("#error").text("");
+            $("#errorNote").text("");
+            $("#errorDate").text("");
+            $("#errorCommentaire").text("");
+
+            var note = document.getElementById('nom').value;
+            var date = document.getElementById('date').value;
+            var commentaire = document.getElementById('commentaire').value;
+            var currentYear = new Date().getFullYear();
+
+            if (note == "" || date == "" || commentaire == "") {
+                $("#error").text("Tous les champs doivent être remplis");
+                return false;
+            }
+
+            else if (parseInt(note) > 100) {
+                $("#errorNote").text("La note ne peut pas être supérieure à 100");
+                return false;
+            }
+
+            else if (date.length > 4) {
+                $("#errorDate").text("La date ne peut pas contenir plus de 4 chiffres");
+                return false;
+            }
+
+        else if (parseInt(date) > currentYear) {
+                $("#errorDate").text("La date ne peut pas dépasser l'année en cours");
+                return false;
+            }
+
+           else  if (typeof commentaire !== 'string' || commentaire.trim() === '') {
+                $("#errorCommentaire").text("Le commentaire doit être une chaîne non vide");
+                return false;
+            }
+
+            // Si toutes les validations sont passées, alors nous envoyons la requête AJAX
+            $.ajax({
+                type : 'POST',
+                url :  '[[@{/note/check_note}]]',
+                data: {projetID: $("#projetID").val()},
+                success : function(data) {
+                    if(data==='OK'){
+                        form.submit();
+                    } else {
+                        $("#error").text("Il y a déjà une note pour ce projet");
+                    }
+                }
+            });
+
+            // On retourne false pour empêcher la soumission du formulaire par défaut
+            return false;
+        }
+
+    </script>
 </head>
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
@@ -27,23 +83,26 @@
 <div class="container px-5 d-flex justify-content-center">
     <div class="row">
         <div class="boite-inscription mt-5">
-            <form   th:action="@{/notes/save}" method="POST"  th:object="${note}">
+            <form   th:action="@{/notes/save}" method="POST"  th:object="${note}" onsubmit="return checkEmailUnique(this);">
                 <div class="row mx-2 mt-4">
                     <div class="col-10">
+                        <span id="error" style="color:red;"></span>
                         <div class="form-group my-3">
                             <label >La note obtenue:</label>
                             <input type="text" class="form-control" id="nom" name="nomNotesDeCours" th:field="*{noteObtenue}">
+                            <span id="errorNote" style="color:red;"></span>
                         </div>
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
-                            <label for="etudiant">Etudiants responsable:</label>
-                            <select name="etudiant" id="etudiant" class="form-select" th:field="*{etudiantID}">
-                                <option th:each="etud : ${listeEtudiants}" th:value="${etud.id}"
-                                        th:text="${etud.prenom} + ' ' + ${etud.nom}"></option>
+                            <label for="professeur">Professeur responsable:</label>
+                            <select name="professeur" id="professeur" class="form-select" th:field="*{professeurID}">
+                                <option th:value="${professeur.id}"
+                                        th:text="${professeur.prenom} + ' ' + ${professeur.nom}"></option>
                             </select>
                         </div>
                     </div>
+
                     <div class="col-10">
                         <div class="form-group my-3">
                             <label th:field="*{session}">Session:</label>
@@ -56,14 +115,16 @@
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
-                            <label for="date">Date:</label>
+                            <label for="date">Annee:</label>
                             <input type="text" class="form-control" id="date" name="date" th:field="*{annee}">
+                            <span id="errorDate" style="color:red;"></span>
                         </div>
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
                             <label for="commentaire">Commentaire :</label>
                             <input type="text" class="form-control" id="commentaire" name="commentaire" th:field="${note.commentaire}">
+                            <span id="errorCommentaire" style="color:red;"></span>
                         </div>
                     </div>
                     <div class="col-10">
@@ -76,8 +137,8 @@
                     </div>
                     <div class="col-10">
                         <div class="form-group my-3">
-                            <label for="projet">Projet associé:</label>
-                            <select name="projet" id="projet" class="form-select" th:field="*{projetID}">
+                            <label for="projetID">Projet associé:</label>
+                            <select name="projet" id="projetID" class="form-select" th:field="*{projetID}">
                                 <option th:each="unProjet : ${listeProjets}" th:value="${unProjet.id}"
                                         th:text="${unProjet.nom}"></option>
                             </select>

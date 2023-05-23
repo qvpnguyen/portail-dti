@@ -43,6 +43,14 @@ public class ProfesseurService {
         }
         return null;
     }
+    public Professeur rechercherProfesseurSeulParNom(String nom){
+
+        if (nom != null) {
+            return repo.getProfesseurSeulParNom(nom);
+        }
+        return null;
+    }
+
     public Professeur rechercherProfesseurParID(Integer id){
 
         if (id != null) {

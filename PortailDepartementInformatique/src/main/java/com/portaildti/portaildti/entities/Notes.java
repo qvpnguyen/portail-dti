@@ -23,7 +23,7 @@ public class Notes {
     private String commentaire;
     @ManyToOne
     @JoinColumn(name = "ProfesseurID")
-    private Etudiant etudiantID;
+    private Professeur professeurID;
     @OneToOne
     @JoinColumn(name = "CoursID")
     private Cours coursID;
@@ -43,12 +43,12 @@ public class Notes {
         this.projetID = projetID;
     }
 
-    public Notes(int noteObtenue, String session, Integer annee, String commentaire, Etudiant etudiantID, Cours coursID, Projet projetID) {
+    public Notes(int noteObtenue, String session, Integer annee, String commentaire, Professeur professeurID, Cours coursID, Projet projetID) {
         this.noteObtenue = noteObtenue;
         this.session = session;
         this.annee = annee;
         this.commentaire = commentaire;
-        this.etudiantID = etudiantID;
+        this.professeurID = professeurID;
         this.coursID = coursID;
         this.projetID = projetID;
     }
@@ -93,12 +93,12 @@ public class Notes {
         this.commentaire = commentaire;
     }
 
-    public Etudiant getEtudiantID() {
-        return etudiantID;
+    public Professeur getProfesseurID() {
+        return professeurID;
     }
 
-    public void setEtudiantID(Etudiant etudiantID) {
-        this.etudiantID = etudiantID;
+    public void setProfesseurID(Professeur professeurID) {
+        this.professeurID = professeurID;
     }
 
     public Cours getCoursID() {

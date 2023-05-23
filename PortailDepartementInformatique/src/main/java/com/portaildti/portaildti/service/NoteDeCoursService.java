@@ -52,9 +52,9 @@ public class NoteDeCoursService {
 
     public boolean isnomNoteDeCoursUnique(String nom) {
 
-        List<NoteDeCours> noteDeCours = repo.getNoteDeCoursByName(nom);
+        NoteDeCours noteDeCours = repo.getNoteDeCoursSeulByName(nom);
 
-        if (noteDeCours.get(0) == null) return true;
+        if (noteDeCours == null) return true;
 
 
         return false;

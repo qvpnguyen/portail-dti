@@ -1,11 +1,14 @@
 package com.portaildti.portaildti.controller;
 
 import com.portaildti.portaildti.entities.Cours;
+import com.portaildti.portaildti.entities.Etudiant;
 import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.entities.Projet;
 import com.portaildti.portaildti.service.CoursService;
+import com.portaildti.portaildti.service.EtudiantService;
 import com.portaildti.portaildti.service.ProfesseurService;
 import com.portaildti.portaildti.service.ProjetService;
+import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,8 @@ import java.util.List;
 public class ProfesseurController {
     @Autowired
     ProfesseurService profService;
+    @Autowired
+    EtudiantService etudiantService;
     @Autowired
     CoursService coursService;
     @Autowired
@@ -38,19 +43,32 @@ public class ProfesseurController {
     @GetMapping("/professeurs")
     public String afficherListProfesseur(Model model) {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
+        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
         String pageTitle = "Recherche";
         model.addAttribute("listeProfesseurs", listeProfesseurs);
+        model.addAttribute("listeEtudiants", listeEtudiants);
         model.addAttribute("pageTitle", pageTitle);
         return "listProfesseurs";
     }
     @GetMapping("/rechercher/professeur")
     public String rechercherProfesseur(Model model,@Param("nom") String nom) {
         List<Professeur> listeProfesseurs = profService.rechercherProfesseurParNom(nom);
-
+        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
         model.addAttribute("listeProfesseurs", listeProfesseurs);
+        model.addAttribute("listeEtudiants", listeEtudiants);
 
         return "listProfesseurs";
     }
+    @GetMapping("/rechercher/etudiantList")
+    public String rechercherEtudiant(Model model,@Param("nom") String nom) {
+        List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
+        List<Etudiant> listeEtudiants = etudiantService.rechercherEtudiants(nom);
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
+        model.addAttribute("listeEtudiants", listeEtudiants);
+
+        return "listProfesseurs";
+    }
+
     @GetMapping("/professeur/profil/{id}")
     public String afficherProfilProfesseur(Model model,@PathVariable(name = "id") Integer id) {
         Professeur professeur = profService.rechercherProfesseurParID(id);
@@ -63,6 +81,19 @@ public class ProfesseurController {
         model.addAttribute("pageTitle", pageTitle);
 
         return "profilProfesseur";
+    }
+    @GetMapping("/etudiant/profil/{id}")
+    public String afficherEtudiantProfesseur(Model model,@PathVariable(name = "id") Integer id) throws UtilisateurNotFoundException {
+        Etudiant etudiant = etudiantService.get(id);
+        List<Projet> projetsProf = projetService.rechercherProjetParEtudiantID(id);
+        List<Cours> coursProf = coursService.rechercherCoursParEtuidantId(id);
+        String pageTitle = String.format("Profil de %s %s", etudiant.getPrenom(), etudiant.getNom());
+        model.addAttribute("etudiant", etudiant);
+        model.addAttribute("projetsProf", projetsProf);
+        model.addAttribute("coursProf", coursProf);
+        model.addAttribute("pageTitle", pageTitle);
+
+        return "profilEtudiant";
     }
 
 }

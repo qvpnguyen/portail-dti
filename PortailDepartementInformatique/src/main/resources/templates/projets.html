@@ -35,7 +35,7 @@
                             <div class="carte-video mb-4">
                                 <img id="play-button" class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
                                 <video id="project-video" controls class="projet-video hidden video-frame">
-                                    <source th:src="@{'/videos/utilisateur/' + ${projet.video}}" type="video/mp4">
+                                    <source th:src="@{'videos/utilisateur/' + ${projet.video}}" type="video/mp4">
                                     Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
                                 </video>
                                 <div class="conteneur-infos-projet">

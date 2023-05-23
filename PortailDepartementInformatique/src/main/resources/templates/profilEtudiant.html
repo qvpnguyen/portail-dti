@@ -35,80 +35,54 @@
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
 
-<body>
+<body class="fond-blanc">
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
-    <h4>Chercher note par nom du projet :</h4>
+    <div class="profil1">
+      <img th:src="@{${'/images/utilisateur/jane.jpg' }}" alt="Photo du professeur">
+      <h1 th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h1>
+    </div>
 
-    <form method="get" th:action="@{/rechercher/note_projet/}">
-      <input type="search" name="note" id="note" th:value="${note}">
-      <input type="submit" value="rechercher" />
-    </form>
-
-    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">
-      Ajouter une note à un projet
-    </a>
-
-
+    <!-- Afficher les projets responsables -->
     <div class="container conteneur-table bg-light p-5 mt-5">
-      <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
-
+      <h2>Projets </h2>
       <table id="tableProjets" class="display">
         <thead>
         <tr>
           <th>ID</th>
-          <th>nom du Projet</th>
-          <th>Session</th>
+          <th>Nom</th>
           <th>Année</th>
-          <th>Professeur</th>
           <th>Cours</th>
-          <th>Note obtenue</th>
-          <th>Commentaire</th>
-          <th>Supprimer la note</th>
-          <th>Modifier la note</th>
+
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${listeNotes}">
-          <td th:text="${user.id}"></td>
-          <td th:text="${user.projetID.nom}"></td>
-          <td th:text="${user.session}"></td>
-          <td th:text="${user.annee}"></td>
-          <td th:text="${user.professeurID.prenom+ ' ' + user.professeurID.nom}"></td>
-          <td th:text="${user.coursID.nom}"></td>
-          <td th:text="${user.noteObtenue + '%'}"></td>
-          <td th:text="${user.commentaire}"></td>
-          <td>
-            <a th:href="@{/note/supprimer/{id}(id=${user.id})}" class="fa-solid fa-trash icon-navy fa-2x" title="Supprimer"></a>
-          </td>
-          <td>
-            <a onclick="showForm(this)" class="fa-solid fa-pen-to-square icon-navy fa-2x"  title="Modifier"></a>
-            <form style="display:none;" th:action="@{'/modifier/note/' + ${user.id} }" method="get">
-              <input type="hidden" name="id" th:value="${user.id}">
-              <input type="text" name="noteObtenue">
-              <input type="submit" value="Envoyer" />
-            </form>
-          </td>
+        <tr th:each="projet : ${projetsProf}">
+          <td th:text="${projet.id}"></td>
+          <td th:text="${projet.nom}"></td>
+          <td th:text="${projet.annee}"></td>
+          <td th:text="${projet.cours.nom}"></td>
+
         </tr>
         </tbody>
       </table>
     </div>
+
+    <!-- Afficher les cours donnés-->
+    <div class="conteneur-cours-contact">
+      <div class="container conteneur-table bg-light p-5 mt-5">
+        <section class="cours1">
+          <h2>Cours etudiés</h2>
+          <ul th:each="cours : ${coursProf}">
+            <a th:href="@{'/professeur/profil/' + ${cours.profID.id} + '/' + ${cours.id}}"><li th:text="${cours.nom}"></li></a>
+          </ul>
+        </section>
+
+
+      </div>
+    </div>
   </div>
 </main>
-
-<footer th:replace="fragments/pieds :: pieds"></footer>
-
 </body>
-<script>
-  function showForm(element) {
-    var form = $(element).closest('tr').find('form');
-    if (form.css('display') === 'none') {
-      form.css('display', 'block');
-    } else {
-      form.css('display', 'none');
-    }
-  }
-
-
-</script>
+<footer th:replace="fragments/pieds :: pieds"></footer>
 </html>
