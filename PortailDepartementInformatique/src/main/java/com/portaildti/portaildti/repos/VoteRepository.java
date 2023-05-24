@@ -13,6 +13,7 @@ import java.util.List;
 public interface VoteRepository extends CrudRepository<Vote, Long> {
     @Query("SELECT v FROM Vote v WHERE v.projetID.id = :projetId")
     List<Vote> findByProjetId(@Param("projetId") Integer projetId);
+
     @Query("SELECT v.rating FROM Vote v WHERE v.projetID.id = :projetId")
     Vote findVoteRatingByProjetId(@Param("projetId") Integer projetId);
 }

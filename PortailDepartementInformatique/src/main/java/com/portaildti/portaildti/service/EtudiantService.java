@@ -149,4 +149,9 @@ public class EtudiantService {
         return true;
     }
 
+    public List<Etudiant> afficherEtudiantsParRole(String role){
+
+        return repo.findEtudiantsByRole(role);
+    }
+
 }

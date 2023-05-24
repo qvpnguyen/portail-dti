@@ -19,3 +19,4 @@ public class VoteService {
         return voteRepository.findVoteRatingByProjetId(projetId);
     }
 }
+
