@@ -31,6 +31,7 @@ public class ServiceTutoratController {
         List<Etudiant> listeTuteurs = etudiantService.afficherEtudiantsParRole("Tuteur");
         Map<String, List<Cours>> coursParTuteur = new HashMap<>();
         Map<Etudiant, String> disponibiliteTuteurs = new HashMap<>();
+        System.out.println(listeTuteurs);
         String disponibilite;
 
         if (listeTuteurs.isEmpty()) {
