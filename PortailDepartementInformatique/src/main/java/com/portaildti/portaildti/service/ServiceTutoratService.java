@@ -1,12 +1,10 @@
 package com.portaildti.portaildti.service;
 
-<<<<<<< HEAD
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
-import com.portaildti.portaildti.entities.ServiceTutorat;
 import com.portaildti.portaildti.repos.EtudiantRepository;
 import com.portaildti.portaildti.repos.ServiceTutoratRepository;
-import com.portaildti.portaildti.repos.TuteurCourRepository;
+import com.portaildti.portaildti.repos.TuteurCoursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,7 @@ public class ServiceTutoratService {
     ServiceTutoratRepository serviceTutoratRepository;
 
     @Autowired
-    TuteurCourRepository tuteurCourRepository;
+    TuteurCoursRepository tuteurCoursRepository;
 
     @Autowired
     EtudiantRepository etudiantRepository;
@@ -31,16 +29,16 @@ public class ServiceTutoratService {
         return etudiantRepository.findEtudiantsByRole(role);
     }
 
-    List<Etudiant> afficherEtudiantsParTuteur(Integer id){
+    public List<Etudiant> afficherEtudiantsParTuteur(Integer id){
         return serviceTutoratRepository.findEtudiantsByTuteur(id);
     }
 
-    List<Etudiant> afficherLesTuteurs(){
+    public List<Etudiant> afficherLesTuteurs(){
         return serviceTutoratRepository.findDistinctTuteurs();
     }
 
-    List<Cours> afficherCoursParTuteur(Integer id){
-        return tuteurCourRepository.findCoursByTuteur(id);
+    public List<Cours> afficherCoursParTuteur(Integer id){
+        return tuteurCoursRepository.findCoursByTuteur(id);
 
     }
 }

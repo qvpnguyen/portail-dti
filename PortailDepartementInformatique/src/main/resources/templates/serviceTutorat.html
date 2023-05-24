@@ -11,6 +11,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <!-- Inclusion du stylesheet principal -->
   <link rel="stylesheet" href="/css/style.css"/>
 </head>
@@ -28,9 +30,22 @@
           <div th:each="tuteur, iterStat : ${listeTuteurs}" class="col-sm-4">
             <div class="mb-4">
               <div class="carte-video mb-4">
-                <img id="play-button" class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
+                <div class="d-flex justify-content-center">
+                  <img th:src="${tuteur.photo != null} ? @{${'/images/utilisateur/' + tuteur.photo}} : @{/images/admin-icon.png}" th:alt="${tuteur.prenom + ' ' + tuteur.nom}" class="img-fluid fixed-size-image" />
+                </div>
                 <div class="conteneur-infos-projet">
-                  <h4 class="mt-2" th:text="${tuteur.prenom}"></h4>
+                  <div class="d-flex align-items-center">
+                    <a th:href="@{'/etudiant/profil/' + ${tuteur.id} }"><h4 th:text="${tuteur.prenom + ' ' + tuteur.nom}"></h4></a>
+                    <p class="mt-4">
+                      <i th:class="${tuteur.getDispoTutorat() ? 'fas fa-circle text-success' : 'fas fa-circle text-danger'}" id="disponobilite"></i>
+                    </p>
+                  </div>
+                  <ul>
+                    <li th:each="cours : ${coursParTuteur[tuteur.nom]}" class="list-inline-item">
+                      <span th:if="${cours.nom}" th:text="${cours.nom}"></span>
+                      <span th:unless="${cours.nom}">Aucun cours</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
