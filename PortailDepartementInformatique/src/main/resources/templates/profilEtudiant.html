@@ -39,7 +39,8 @@
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
     <div class="profil1">
-      <img th:src="@{${'/images/utilisateur/jane.jpg' }}" alt="Photo du professeur">
+      <img th:src="${etudiant.photo != null} ? @{${'/images/utilisateur/' + etudiant.photo}} : @{/images/admin-icon.png}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" class="img-fluid fixed-size-image" />
+
       <h1 th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h1>
     </div>
 

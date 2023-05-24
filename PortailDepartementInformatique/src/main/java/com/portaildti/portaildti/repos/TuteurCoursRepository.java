@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TuteurCourRepository extends CrudRepository<TuteurCours,Integer> {
+public interface TuteurCoursRepository extends CrudRepository<TuteurCours,Integer> {
     @Query("SELECT t.cours FROM TuteurCours t Join t.tuteur tu where tu.id = :tuteurId")
     List<Cours> findCoursByTuteur(@Param("tuteurId") Integer tuteurId);
 }
