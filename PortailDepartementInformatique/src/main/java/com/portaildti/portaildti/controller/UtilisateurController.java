@@ -51,6 +51,8 @@ public class UtilisateurController {
                 session.setAttribute("prenomUtilisateur", etudiant.getPrenom());
                 session.setAttribute("idUtilisateur", etudiant.getId());
                 session.setAttribute("roleUtilisateur", etudiant.getRole());
+                session.setAttribute("dispoTutorat", etudiant.getDispoTutorat());
+                session.setAttribute("isTuteur", etudiant.getTuteur());
                 return "redirect:/etudiant";
 
             }
