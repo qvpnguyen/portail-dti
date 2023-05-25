@@ -19,8 +19,11 @@ public class Cours {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 50, nullable = false)
     private String nom;
+    @Column
     private Integer credits;
+    @Column
     private Integer groupe;
 
     @ManyToMany

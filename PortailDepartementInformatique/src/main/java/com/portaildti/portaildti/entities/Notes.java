@@ -17,8 +17,11 @@ public class Notes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 3)
     private Integer noteObtenue;
+    @Column(length = 10)
     private String session;
+    @Column(length = 4)
     private Integer annee;
     private String commentaire;
     @ManyToOne

@@ -5,8 +5,11 @@ package com.portaildti.portaildti.entities;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -19,9 +22,15 @@ public class ServiceTutorat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Date dateTutorat;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(nullable = false)
+    private LocalDate dateTutorat;
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Column(nullable = false)
     private LocalTime heure;
+    @Column(nullable = false)
     private Double duree;
+    @Column(nullable = false)
     private String typeDeRencontre;
     @ManyToOne
     @JoinColumn(name = "ÉtudiantTuteurID")
@@ -37,7 +46,7 @@ public class ServiceTutorat {
 
     }
 
-    public ServiceTutorat(Integer id, Date dateTutorat, LocalTime heure, Double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
+    public ServiceTutorat(Integer id, LocalDate dateTutorat, LocalTime heure, Double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
         this.id = id;
         this.dateTutorat = dateTutorat;
         this.heure = heure;
@@ -56,11 +65,11 @@ public class ServiceTutorat {
         this.id = id;
     }
 
-    public Date getDateTutorat() {
+    public LocalDate getDateTutorat() {
         return dateTutorat;
     }
 
-    public void setDateTutorat(Date dateTutorat) {
+    public void setDateTutorat(LocalDate dateTutorat) {
         this.dateTutorat = dateTutorat;
     }
 

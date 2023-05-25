@@ -16,7 +16,9 @@ public class NoteDeCours {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private String nom;
+    @Column
     private String lien;
     @ManyToOne
     @JoinColumn(name = "CoursID")
@@ -24,6 +26,7 @@ public class NoteDeCours {
     @ManyToOne
     @JoinColumn(name = "ProfesseurID")
     private Professeur professeur;
+    @Column
     private String document;
     @Lob
     private byte[] data;

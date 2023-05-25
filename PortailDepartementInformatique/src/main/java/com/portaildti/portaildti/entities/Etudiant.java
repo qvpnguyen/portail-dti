@@ -19,13 +19,16 @@ public class Etudiant extends Utilisateur {
     //    private Date ddn;
     //private boolean active;
 //    private String role;
+    @Column
     private Boolean formationCompletee;
     @ManyToOne
     @JoinColumn(name = "CoursID")
     private Cours cours;
+    @Column
     private Boolean dispoTutorat;
     @Column(name = "is_tuteur")
     private Boolean isTuteur;
+    @Column
     private String profil;
 
     @ManyToMany
