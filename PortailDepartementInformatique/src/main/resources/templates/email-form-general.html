@@ -74,7 +74,7 @@
     <div class="row">
       <div class="boite-inscription">
         <div th:if="${message!=null}" class="alert alert-danger text-center">[[${message}]]</div>
-        <form th:action="@{/email/envoie}" method="post" enctype="multipart/form-data"
+        <form th:action="@{/email/save}" method="post" enctype="multipart/form-data"
                id="formulaire" onsubmit="return checkChamps(event, this);">
           <div class="row gx-5 mx-2">
             <div class="col-6">
