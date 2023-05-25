@@ -91,7 +91,7 @@
     <div class="row">
       <div class="boite-inscription">
         <div th:if="${message!=null}" class="alert alert-danger text-center">[[${message}]]</div>
-        <form th:action="@{/etudiants/save}" method="post" enctype="multipart/form-data"
+        <form th:action="@{/email/save}" method="post" enctype="multipart/form-data"
                id="formulaire" onsubmit="return checkEmailUnique(event, this);">
           <div class="row gx-5 mx-2">
             <div class="col-6">
@@ -107,22 +107,22 @@
               <div class="form-group my-3">
                 <label class="col-sm-2 col-form-label">Objet:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="destinataire"
+                  <input type="text" class="form-control" name="objet"
                          required minlength="3" maxlength="256" />
                 </div>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="dateDeNaissance">Date de Rendez-vous:</label>
-                <input type="date" class="form-control" id="dateDeNaissance">
+                <label for="date">Date de Rendez-vous:</label>
+                <input type="date" class="form-control" id="date">
               </div>
             </div>
 
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="heureDeRendezVous">Heure de Rendez-vous:</label>
-                <input type="time" class="form-control" id="heureDeRendezVous">
+                <label for="heure">Heure de Rendez-vous:</label>
+                <input type="time" class="form-control" id="heure">
               </div>
             </div>
 
@@ -141,7 +141,7 @@
                 <label for="cours">Cours associé:</label>
                 <select name="cours" id="cours" class="form-select">
                   <option value="" selected disabled>---</option>
-                  <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
+                  <option th:each="unCours : ${listeCoursTuteurs}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
                 </select>
               </div>
             </div>

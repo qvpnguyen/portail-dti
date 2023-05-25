@@ -45,6 +45,7 @@ public class UtilisateurController {
 
         if(type.equals("btnetudiant")){
             if(etudiant !=null){
+
 //                session.setAttribute("nomEtudiant", etudiant.getNom());
 //                session.setAttribute("prenomEtudiant", etudiant.getPrenom());
                 session.setAttribute("nomUtilisateur", etudiant.getNom());

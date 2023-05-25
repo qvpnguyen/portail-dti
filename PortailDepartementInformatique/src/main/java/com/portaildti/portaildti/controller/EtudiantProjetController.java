@@ -83,7 +83,7 @@ public class EtudiantProjetController {
         return "etudiantProjet";
     }
 
-    @PostMapping ("/etudiants-projets/{id}")
+    @PostMapping ("/etudiants-projets/{id}/rating")
     public String afficherProjetRating(Model model, @PathVariable(name = "id") Integer id, @RequestParam(name = "rating", required = false) Integer rating){
 
         Projet projetChoisi = projetService.afficherProjetParId(id);
