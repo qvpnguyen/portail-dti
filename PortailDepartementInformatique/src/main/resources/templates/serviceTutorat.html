@@ -26,6 +26,9 @@
     <div th:unless="${#lists.isEmpty(listeTuteurs)}">
       <div class="container">
         <h2 class="p-5 text-center text-sm">Rencontrez nos tuteurs</h2>
+        <div th:if="${message!= null}" class="alert alert-success text-center">
+          [[${message}]]
+        </div>
         <div class="row">
           <div th:each="tuteur, iterStat : ${listeTuteurs}" class="col-sm-4">
             <div class="mb-4">
@@ -39,6 +42,7 @@
                     <p class="mt-4">
                       <i th:class="${tuteur.getDispoTutorat() ? 'fas fa-circle text-success' : 'fas fa-circle text-danger'}" id="disponobilite"></i>
                     </p>
+                    <a th:href="@{/service-tutorat/{id}/rendez-vous ((id=${tuteur.id}))}" type="button" class="btn bouton-mauve ml-auto">Rendez-vous</a>
                   </div>
                   <ul>
                     <li th:each="cours : ${coursParTuteur[tuteur.nom]}" class="list-inline-item">
