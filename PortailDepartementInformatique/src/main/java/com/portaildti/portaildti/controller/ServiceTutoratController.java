@@ -77,6 +77,8 @@ public class ServiceTutoratController {
         } else {
             model.addAttribute("listeTutoresPourTuteur", listeTutoresPourTuteur);
         }
+        List<ServiceTutorat> listeTutoratsPourTuteur = serviceTutoratService.afficherServiceTutoratsParTuteur(id);
+        model.addAttribute("listeTutoratsPourTuteur", listeTutoratsPourTuteur);
         return "servicetutorat-listetutores";
     }
 

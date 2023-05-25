@@ -2,6 +2,7 @@ package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
+import com.portaildti.portaildti.entities.ServiceTutorat;
 import com.portaildti.portaildti.repos.EtudiantRepository;
 import com.portaildti.portaildti.repos.ServiceTutoratRepository;
 import com.portaildti.portaildti.repos.TuteurCoursRepository;
@@ -44,6 +45,9 @@ public class ServiceTutoratService {
     public List<Cours> afficherCoursParTuteur(Integer id){
         return tuteurCoursRepository.findCoursByTuteur(id);
 
+    }
+    public List<ServiceTutorat> afficherServiceTutoratsParTuteur(Integer id) {
+        return serviceTutoratRepository.findServiceTutoratsByTuteur(id);
     }
 
 }
