@@ -2,11 +2,13 @@ package com.portaildti.portaildti.service;
 
 import com.portaildti.portaildti.entities.NoteDeCours;
 import com.portaildti.portaildti.repos.NoteDeCoursRepository;
+import com.portaildti.portaildti.service.exception.DocumentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -69,7 +71,15 @@ public class NoteDeCoursService {
         return repo.findAllNoteDeCoursByIdCours(id);
     }
 
-
-
+    public String getDocumentByProjetId(Integer id) {
+        return repo.findById(id).get().getDocument();
+    }
+    public List<NoteDeCours> findByDocumentName(String document) throws DocumentNotFoundException {
+        try {
+            return repo.findByDocumentName(document);
+        } catch (NoSuchElementException exception) {
+            throw new DocumentNotFoundException("On ne peut pas trouver le note de cours " + document);
+        }
+    }
 
 }

@@ -25,6 +25,8 @@ public class NoteDeCours {
     @JoinColumn(name = "ProfesseurID")
     private Professeur professeur;
     private String document;
+    @Lob
+    private byte[] data;
 
     public NoteDeCours() {
     }
@@ -90,6 +92,14 @@ public class NoteDeCours {
 
     public void setLien(String lien) {
         this.lien = lien;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     public String afficherTitreDesColonnes() {

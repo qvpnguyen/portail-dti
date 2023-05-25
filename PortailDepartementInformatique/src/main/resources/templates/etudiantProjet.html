@@ -22,12 +22,17 @@
             <div class="rangee-projet row gx-5">
                 <div class="col-4">
                     <div class="carte-video">
-                        <img class="video-projet" src="/images/play-button-icon.png" alt="Jouer" />
+                        <img class="play-button1" src="/images/play-button-icon.png" alt="Jouer" />
+                        <video id="project-video1" controls class="projet-video1 hidden video-frame">
+                            <source th:src="@{'videos/utilisateur/' + ${projetChoisi.video}}" type="video/mp4">
+                            Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+                        </video>
                         <div class="conteneur-infos-projet">
                             <h4 class="mt-2" th:text="${projetChoisi.nom}"></h4>
                         </div>
                     </div>
-<!--                    id="stars-container"-->
+
+                    <!--                    id="stars-container"-->
                     <div class="star-rating">
 <!--                        <svg class="stars" width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">-->
 <!--                            <g filter="url(#filter0_d_18_643)">-->
@@ -285,8 +290,25 @@
             </div>
         </div>
     </main>
-</body>
 <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const playButton = document.querySelector('.play-button1');
+        const video = document.querySelector('.projet-video1');
+        let videoVisible = false;
+
+        playButton.addEventListener('click', function() {
+            console.log('Bouton de lecture cliqué');
+            // Toggle video visibility
+            if (videoVisible) {
+                video.classList.add('hidden');
+                videoVisible = false;
+            } else {
+                video.classList.remove('hidden');
+                videoVisible = true;
+            }
+        });
+    });
 
     let stars = document.querySelectorAll(".star-icon");
     let starsArray = Array.from(stars);
@@ -383,7 +405,7 @@
 
     });
 
-
 </script>
+</body>
 <footer th:replace="fragments/pieds :: pieds"></footer>
 </html>

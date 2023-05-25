@@ -36,7 +36,7 @@ public class UtilisateurController {
     @Autowired
     VisiteurService visiteurService;
     @GetMapping("/utilisateur/connexion/")
-    public String connexionUtilisateurs(Model model,HttpSession session, @RequestParam("btnradio") String type, @RequestParam(name = "nomUtilisateur") String email, @RequestParam(name = "motDePasse") String password) {
+    public String connexionUtilisateurs(Model model,RedirectAttributes redirectAttributes,HttpSession session, @RequestParam("btnradio") String type, @RequestParam(name = "nomUtilisateur") String email, @RequestParam(name = "motDePasse") String password) {
 
         Administrateur administrateur = adminService.adminExistByEmailAndPassword(email,password);
         Visiteur visiteur = visiteurService.visiteurExistsByEmailAndPassword(email,password);
@@ -67,9 +67,6 @@ public class UtilisateurController {
                 session.setAttribute("roleUtilisateur", administrateur.getRole());
 
                 return "redirect:/administration";
-            }else {
-                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
-                return "redirect:/";
             }
 
         } else if (type.equals("btnprofesseur")) {
@@ -93,9 +90,6 @@ public class UtilisateurController {
                 session.setAttribute("roleUtilisateur", administrateur.getRole());
 
                 return "redirect:/administration";
-            }else {
-                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
-                return "redirect:/";
             }
 
         } else if (type.equals("btnvisiteur")) {
@@ -119,12 +113,13 @@ public class UtilisateurController {
                 session.setAttribute("roleUtilisateur", administrateur.getRole());
 
                 return "redirect:/administration";
-            }else {
-                model.addAttribute("message", "L'email ou le mot de passe est incorrect");
-                return "redirect:/";
             }
         }
-        return "/";
+
+
+        redirectAttributes.addFlashAttribute("messageConnexion", "L'email ou le mot de passe est incorrect");
+        System.out.println("L'email ou le mot de passe est incorrect");
+        return "redirect:/";
     }
     @GetMapping("/utilisateur/deconnexion")
     public String deconnexionUtilisateurs(HttpSession session, RedirectAttributes redirectAttributes) {

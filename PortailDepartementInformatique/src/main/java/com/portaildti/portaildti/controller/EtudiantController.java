@@ -15,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 import java.util.List;
 
 @Controller
@@ -25,6 +28,7 @@ public class EtudiantController {
     CoursService coursService;
     @Autowired
     ProjetService projetService;
+
     @Autowired
     EtudiantService etudiantService;
 
@@ -42,7 +46,7 @@ public class EtudiantController {
     }
 
     @GetMapping("/etudiant/profil/{id}")
-    public String afficherProfilEtudiant(Model model,@PathVariable(name = "id") Integer id) throws UtilisateurNotFoundException {
+    public String afficherProfilEtudiant(Model model, @PathVariable(name = "id") Integer id) throws UtilisateurNotFoundException {
         Etudiant etudiant = etudiantService.get(id);
         List<Projet> projetsProf = projetService.rechercherProjetParEtudiantID(id);
         List<Cours> coursProf = coursService.rechercherCoursParEtuidantId(id);
@@ -54,4 +58,15 @@ public class EtudiantController {
 
         return "profilEtudiant";
     }
+
+/*    @GetMapping("/utilisateurs/{id}/active/{status}")
+    public String mettreAjourStatusActiveEtudiantTuteur(@PathVariable("id") Integer id,
+                                                     @PathVariable("status") boolean active, RedirectAttributes redirectAttributes) {
+        etudiantService.updateActiveStatus(id, active);
+
+
+        return "redirect:/etudiant";
+    }
+    */
+
 }

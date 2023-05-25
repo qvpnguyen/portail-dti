@@ -474,14 +474,19 @@ hr {
     margin-right: 5px;
 }
 
-.fixed-size-image {
-    width: 200px;
-    height: 240px;
-}
+/*.fixed-size-image {*/
+/*    width: 200px;*/
+/*    height: 240px;*/
+/*}*/
 
 #disponobilite {
     margin-left: 15px;
     margin-bottom: 17px;
+}
+
+.image-fix {
+    max-height: 400px;
+    object-fit: cover;
 }
 
 

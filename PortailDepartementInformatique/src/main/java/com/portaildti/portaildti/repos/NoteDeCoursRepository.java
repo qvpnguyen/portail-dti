@@ -23,6 +23,7 @@ public interface NoteDeCoursRepository extends CrudRepository<NoteDeCours,Intege
 
     @Query("SELECT n FROM NoteDeCours n  JOIN n.professeur p WHERE p.nom = ?1")
     public List<NoteDeCours> findAllNoteDeCoursByNameProfesseur(String nom);
-
+    @Query("SELECT n FROM NoteDeCours n WHERE n.document = :document")
+    public List<NoteDeCours> findByDocumentName(@Param("document") String document);
 
 }

@@ -92,6 +92,9 @@
                 <li><a class="dropdown-item" th:href="@{/gestion-notes-de-cours}">Gérer les notes de cours</a></li>
                 <li><a class="dropdown-item" th:href="@{/utilisateurs}">Gérer les utilisateurs</a></li>
                 <li><a class="dropdown-item" th:href="@{/admins/new}">Ajouter un administrateur</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" th:href="@{'/admins/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
             <span th:case="'Professeur'">
@@ -103,6 +106,9 @@
                 <li><a class="dropdown-item" th:href="@{/projets/evaluation}">Évaluation des projets</a></li>
                 <li><a class="dropdown-item" th:href="@{/professeurs}">Rechercher professeurs et étudiants</a></li>
                 <li><a class="dropdown-item" th:href="@{/professeur}">Espace de collaboration</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" th:href="@{'/professeurs/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
             <span th:case="'Etudiant'">
@@ -111,9 +117,12 @@
                 <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
                 <li><a class="dropdown-item" th:href="@{/projets/new}">Déposer son projet</a></li>
                 <li><a class="dropdown-item" th:href="@{/notesDeCours}">Consulter les notes de cours</a></li>
-                <li><a class="dropdown-item" th:href="@{/etudiant}">Service de tutorat</a></li>
-                <li><a class="dropdown-item" th:href="@{/etudiant}">Rechercher professeurs et étudiants</a></li>
+                <li><a class="dropdown-item" th:href="${session.isTuteur == true ? '/service-tutorat/liste-tutores' : '/service-tutorat'}">Service de tutorat</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeurs}">Rechercher professeurs et étudiants</a></li>
                 <li><a class="dropdown-item" th:href="@{/etudiant}">Espace de collaboration</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" th:href="@{'/etudiants/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
             <span th:case="'Visiteur'">
@@ -122,6 +131,9 @@
                 <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
                 <li><a class="dropdown-item" th:href="@{/projets-visiteur/new}">Déposer son projet</a></li>
                 <li><a class="dropdown-item" th:href="@{/visiteur}">Rechercher professeurs et étudiants</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" th:href="@{'/visiteurs/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
           </span>

@@ -39,9 +39,11 @@
                 <div th:if="${message}" class="alert alert-danger text-center">
                     <p th:text="${message}"></p>
                 </div>
+                <div th:if="${messageConnexion != null}" class="alert alert-danger text-center">[[${messageConnexion}]]</div>
                 <!-- TODO: Implémenter le connexionController pour le form action -->
                 <form th:action="@{/utilisateur/connexion/}" method="get">
                     <div class="d-flex justify-content-center">
+
                         <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
                             <input type="radio" class="btn-check" name="btnradio" value="btnetudiant" id="btnetudiant" autocomplete="off" checked>
                             <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
