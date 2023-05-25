@@ -82,19 +82,6 @@ public class ProfesseurController {
 
         return "profilProfesseur";
     }
-    @GetMapping("/etudiant/profil/{id}")
-    public String afficherEtudiantProfesseur(Model model,@PathVariable(name = "id") Integer id) throws UtilisateurNotFoundException {
-        Etudiant etudiant = etudiantService.get(id);
-        System.out.println("id " + id);
-        List<Projet> projetsProf = projetService.rechercherProjetParEtudiantID(id);
-        List<Cours> coursProf = coursService.rechercherCoursParEtuidantId(id);
-        String pageTitle = String.format("Profil de %s %s", etudiant.getPrenom(), etudiant.getNom());
-        model.addAttribute("etudiant", etudiant);
-        model.addAttribute("projetsProf", projetsProf);
-        model.addAttribute("coursProf", coursProf);
-        model.addAttribute("pageTitle", pageTitle);
 
-        return "profilEtudiant";
-    }
 
 }

@@ -38,10 +38,21 @@
 <body class="fond-blanc">
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
-    <div class="profil1">
-      <img th:src="@{${'/images/utilisateur/jane.jpg' }}" alt="Photo du professeur">
-      <h1 th:text="${professeur.prenom + ' ' + professeur.nom}"></h1>
+    <div class="container conteneur-table bg-light p-5 mt-5">
+      <div class="profil1">
+        <div class="row">
+          <div class="col-md-6">
+            <img th:src="${professeur.photo != null ? '/images/utilisateur/' + professeur.photo : '/images/admin-icon.png'}" th:alt="${professeur.prenom + ' ' + professeur.nom}" class="img-fluid fixed-size-image" />
+          </div>
+          <div class="nomUtilisateur-profil">
+            <h1 th:text="${professeur.prenom + ' ' + professeur.nom}"></h1>
+            <h5 th:text="${professeur.role}"></h5>
+            <button th:href="@{/contact}" type="button" class="btn bouton-mauve mt-3">Contacter</button>
+          </div>
+        </div>
+      </div>
     </div>
+
 
     <!-- Afficher les projets responsables -->
     <div class="container conteneur-table bg-light p-5 mt-5">
