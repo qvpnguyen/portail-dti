@@ -22,7 +22,7 @@
             <div class="rangee-projet row gx-5">
                 <div class="col-4">
                     <div class="carte-video">
-                        <img class="play-button1" src="/images/play-button-icon.png" alt="Jouer" />
+                        <img class="play-button1 mx-auto d-block" src="/images/play-button-icon.png" alt="Jouer" />
                         <video id="project-video1" controls class="projet-video1 hidden video-frame">
                             <source th:src="@{'/videos/utilisateur/' + ${projetChoisi.video}}" type="video/mp4">
                             Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
@@ -32,101 +32,7 @@
                         </div>
                     </div>
 
-                    <!--                    id="stars-container"-->
                     <div class="star-rating">
-<!--                        <svg class="stars" width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <g filter="url(#filter0_d_18_643)">-->
-<!--                                <path d="M29.2332 6.74249C30.3724 3.5817 30.9421 2 32 2C33.0579 2 33.6275 3.5817 34.7668 6.74249L38.6147 17.4313C38.9286 18.3017 39.0855 18.7368 39.4692 18.987C39.8499 19.2371 40.3614 19.2371 41.3815 19.2371H52.0854C55.7822 19.2371 57.6306 19.2371 57.9562 20.1387C58.2817 21.0403 56.7849 22.0123 53.7885 23.9536L44.6104 29.9051C43.785 30.4419 43.3723 30.7103 43.2241 31.1116C43.0788 31.5155 43.2357 31.9481 43.5467 32.8184L47.4353 43.601C48.5601 46.728 49.121 48.2914 48.2724 48.8438C47.4179 49.3989 45.9357 48.4399 42.9655 46.5143L33.7031 40.5132C32.8806 39.9816 32.4708 39.7158 32 39.7158C31.5291 39.7158 31.1194 39.9816 30.2969 40.5132L21.0345 46.5143C18.0642 48.4373 16.582 49.3989 15.7276 48.8438C14.876 48.2888 15.4399 46.728 16.5646 43.601L20.4532 32.8184C20.7642 31.9481 20.9211 31.5155 20.7729 31.1116C20.6276 30.7103 20.2149 30.4419 19.3895 29.9051L10.2114 23.9536C7.21792 22.0123 5.71827 21.0403 6.04378 20.1387C6.36928 19.2371 8.21769 19.2371 11.9145 19.2371H22.6184C23.6385 19.2371 24.15 19.2371 24.5308 18.987C24.9144 18.7368 25.0713 18.3017 25.3852 17.4313L29.2332 6.74249Z" fill="#F9C303" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--                            </g>-->
-<!--                            <defs>-->
-<!--                                <filter id="filter0_d_18_643" x="-0.000701904" y="0" width="64.0014" height="59.0015" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">-->
-<!--                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>-->
-<!--                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>-->
-<!--                                    <feOffset dy="4"/>-->
-<!--                                    <feGaussianBlur stdDeviation="2"/>-->
-<!--                                    <feComposite in2="hardAlpha" operator="out"/>-->
-<!--                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>-->
-<!--                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_18_643"/>-->
-<!--                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_18_643" result="shape"/>-->
-<!--                                </filter>-->
-<!--                            </defs>-->
-<!--                        </svg>-->
-<!--                        <svg class="stars" width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <g filter="url(#filter0_d_18_643)">-->
-<!--                                <path d="M29.2332 6.74249C30.3724 3.5817 30.9421 2 32 2C33.0579 2 33.6275 3.5817 34.7668 6.74249L38.6147 17.4313C38.9286 18.3017 39.0855 18.7368 39.4692 18.987C39.8499 19.2371 40.3614 19.2371 41.3815 19.2371H52.0854C55.7822 19.2371 57.6306 19.2371 57.9562 20.1387C58.2817 21.0403 56.7849 22.0123 53.7885 23.9536L44.6104 29.9051C43.785 30.4419 43.3723 30.7103 43.2241 31.1116C43.0788 31.5155 43.2357 31.9481 43.5467 32.8184L47.4353 43.601C48.5601 46.728 49.121 48.2914 48.2724 48.8438C47.4179 49.3989 45.9357 48.4399 42.9655 46.5143L33.7031 40.5132C32.8806 39.9816 32.4708 39.7158 32 39.7158C31.5291 39.7158 31.1194 39.9816 30.2969 40.5132L21.0345 46.5143C18.0642 48.4373 16.582 49.3989 15.7276 48.8438C14.876 48.2888 15.4399 46.728 16.5646 43.601L20.4532 32.8184C20.7642 31.9481 20.9211 31.5155 20.7729 31.1116C20.6276 30.7103 20.2149 30.4419 19.3895 29.9051L10.2114 23.9536C7.21792 22.0123 5.71827 21.0403 6.04378 20.1387C6.36928 19.2371 8.21769 19.2371 11.9145 19.2371H22.6184C23.6385 19.2371 24.15 19.2371 24.5308 18.987C24.9144 18.7368 25.0713 18.3017 25.3852 17.4313L29.2332 6.74249Z" fill="#F9C303" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--                            </g>-->
-<!--                            <defs>-->
-<!--                                <filter id="filter0_d_18_643" x="-0.000701904" y="0" width="64.0014" height="59.0015" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">-->
-<!--                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>-->
-<!--                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>-->
-<!--                                    <feOffset dy="4"/>-->
-<!--                                    <feGaussianBlur stdDeviation="2"/>-->
-<!--                                    <feComposite in2="hardAlpha" operator="out"/>-->
-<!--                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>-->
-<!--                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_18_643"/>-->
-<!--                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_18_643" result="shape"/>-->
-<!--                                </filter>-->
-<!--                            </defs>-->
-<!--                        </svg>-->
-<!--                        <svg class="stars" width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <g filter="url(#filter0_d_18_643)">-->
-<!--                                <path d="M29.2332 6.74249C30.3724 3.5817 30.9421 2 32 2C33.0579 2 33.6275 3.5817 34.7668 6.74249L38.6147 17.4313C38.9286 18.3017 39.0855 18.7368 39.4692 18.987C39.8499 19.2371 40.3614 19.2371 41.3815 19.2371H52.0854C55.7822 19.2371 57.6306 19.2371 57.9562 20.1387C58.2817 21.0403 56.7849 22.0123 53.7885 23.9536L44.6104 29.9051C43.785 30.4419 43.3723 30.7103 43.2241 31.1116C43.0788 31.5155 43.2357 31.9481 43.5467 32.8184L47.4353 43.601C48.5601 46.728 49.121 48.2914 48.2724 48.8438C47.4179 49.3989 45.9357 48.4399 42.9655 46.5143L33.7031 40.5132C32.8806 39.9816 32.4708 39.7158 32 39.7158C31.5291 39.7158 31.1194 39.9816 30.2969 40.5132L21.0345 46.5143C18.0642 48.4373 16.582 49.3989 15.7276 48.8438C14.876 48.2888 15.4399 46.728 16.5646 43.601L20.4532 32.8184C20.7642 31.9481 20.9211 31.5155 20.7729 31.1116C20.6276 30.7103 20.2149 30.4419 19.3895 29.9051L10.2114 23.9536C7.21792 22.0123 5.71827 21.0403 6.04378 20.1387C6.36928 19.2371 8.21769 19.2371 11.9145 19.2371H22.6184C23.6385 19.2371 24.15 19.2371 24.5308 18.987C24.9144 18.7368 25.0713 18.3017 25.3852 17.4313L29.2332 6.74249Z" fill="#F9C303" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--                            </g>-->
-<!--                            <defs>-->
-<!--                                <filter id="filter0_d_18_643" x="-0.000701904" y="0" width="64.0014" height="59.0015" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">-->
-<!--                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>-->
-<!--                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>-->
-<!--                                    <feOffset dy="4"/>-->
-<!--                                    <feGaussianBlur stdDeviation="2"/>-->
-<!--                                    <feComposite in2="hardAlpha" operator="out"/>-->
-<!--                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>-->
-<!--                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_18_643"/>-->
-<!--                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_18_643" result="shape"/>-->
-<!--                                </filter>-->
-<!--                            </defs>-->
-<!--                        </svg>-->
-<!--                        <svg class="stars" width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <g filter="url(#filter0_d_18_664)">-->
-<!--                                <path d="M29.2332 6.74249C30.3724 3.5817 30.9421 2 32 2C33.0579 2 33.6275 3.5817 34.7668 6.74249L38.6147 17.4313C38.9286 18.3017 39.0855 18.7368 39.4692 18.987C39.8499 19.2371 40.3614 19.2371 41.3815 19.2371H52.0854C55.7822 19.2371 57.6307 19.2371 57.9562 20.1387C58.2817 21.0403 56.7849 22.0123 53.7885 23.9536L44.6104 29.9051C43.785 30.4419 43.3723 30.7103 43.2241 31.1116C43.0788 31.5155 43.2357 31.9481 43.5467 32.8184L47.4353 43.601C48.5601 46.728 49.121 48.2914 48.2724 48.8438C47.4179 49.3989 45.9357 48.4399 42.9654 46.5143L33.7031 40.5132C32.8806 39.9816 32.4708 39.7158 32 39.7158C31.5291 39.7158 31.1194 39.9816 30.2969 40.5132L21.0345 46.5143C18.0642 48.4373 16.582 49.3989 15.7276 48.8438C14.876 48.2888 15.4399 46.728 16.5646 43.601L20.4532 32.8184C20.7642 31.9481 20.9211 31.5155 20.7729 31.1116C20.6276 30.7103 20.2149 30.4419 19.3895 29.9051L10.2114 23.9536C7.21792 22.0123 5.71827 21.0403 6.04378 20.1387C6.36928 19.2371 8.21769 19.2371 11.9145 19.2371H22.6184C23.6385 19.2371 24.15 19.2371 24.5308 18.987C24.9144 18.7368 25.0713 18.3017 25.3852 17.4313L29.2332 6.74249Z" fill="url(#paint0_linear_18_664)" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--                            </g>-->
-<!--                            <defs>-->
-<!--                                <filter id="filter0_d_18_664" x="-0.000701904" y="0" width="64.0014" height="59.0015" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">-->
-<!--                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>-->
-<!--                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>-->
-<!--                                    <feOffset dy="4"/>-->
-<!--                                    <feGaussianBlur stdDeviation="2"/>-->
-<!--                                    <feComposite in2="hardAlpha" operator="out"/>-->
-<!--                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>-->
-<!--                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_18_664"/>-->
-<!--                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_18_664" result="shape"/>-->
-<!--                                </filter>-->
-<!--                                <linearGradient id="paint0_linear_18_664" x1="8.5" y1="26" x2="53" y2="26" gradientUnits="userSpaceOnUse">-->
-<!--                                    <stop stop-color="#F9C303"/>-->
-<!--                                    <stop offset="0.515625" stop-color="#F9C303"/>-->
-<!--                                    <stop offset="0.551286" stop-color="white" stop-opacity="0"/>-->
-<!--                                    <stop offset="0.669514" stop-color="white" stop-opacity="0"/>-->
-<!--                                    <stop offset="0.864583" stop-color="white" stop-opacity="0"/>-->
-<!--                                    <stop offset="1" stop-color="white" stop-opacity="0"/>-->
-<!--                                </linearGradient>-->
-<!--                            </defs>-->
-<!--                        </svg>-->
-<!--                        <svg class="stars" width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <g filter="url(#filter0_d_18_666)">-->
-<!--                                <path d="M29.2332 6.74249C30.3724 3.5817 30.9421 2 32 2C33.0579 2 33.6275 3.5817 34.7668 6.74249L38.6147 17.4313C38.9286 18.3017 39.0855 18.7368 39.4692 18.987C39.8499 19.2371 40.3614 19.2371 41.3815 19.2371H52.0854C55.7822 19.2371 57.6307 19.2371 57.9562 20.1387C58.2817 21.0403 56.7849 22.0123 53.7885 23.9536L44.6104 29.9051C43.785 30.4419 43.3723 30.7103 43.2241 31.1116C43.0788 31.5155 43.2357 31.9481 43.5467 32.8184L47.4353 43.601C48.5601 46.728 49.121 48.2914 48.2724 48.8438C47.4179 49.3989 45.9357 48.4399 42.9654 46.5143L33.7031 40.5132C32.8806 39.9816 32.4708 39.7158 32 39.7158C31.5291 39.7158 31.1194 39.9816 30.2969 40.5132L21.0345 46.5143C18.0642 48.4373 16.582 49.3989 15.7276 48.8438C14.876 48.2888 15.4399 46.728 16.5646 43.601L20.4532 32.8184C20.7642 31.9481 20.9211 31.5155 20.7729 31.1116C20.6276 30.7103 20.2149 30.4419 19.3895 29.9051L10.2114 23.9536C7.21792 22.0123 5.71827 21.0403 6.04378 20.1387C6.36928 19.2371 8.21769 19.2371 11.9145 19.2371H22.6184C23.6385 19.2371 24.15 19.2371 24.5308 18.987C24.9144 18.7368 25.0713 18.3017 25.3852 17.4313L29.2332 6.74249Z" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--                            </g>-->
-<!--                            <defs>-->
-<!--                                <filter id="filter0_d_18_666" x="-0.000717163" y="0" width="64.0014" height="59.0015" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">-->
-<!--                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>-->
-<!--                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>-->
-<!--                                    <feOffset dy="4"/>-->
-<!--                                    <feGaussianBlur stdDeviation="2"/>-->
-<!--                                    <feComposite in2="hardAlpha" operator="out"/>-->
-<!--                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>-->
-<!--                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_18_666"/>-->
-<!--                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_18_666" result="shape"/>-->
-<!--                                </filter>-->
-<!--                            </defs>-->
-<!--                        </svg>-->
 
                         <h5>Évaluation Audience   (<b th:text="${nombreVotes}" class="small"><h6>votes</h6></b>)</h5>
                         <svg class="stars" width="32" height="30" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -357,102 +263,6 @@
         });
     });
 
-    // let voteButton = document.getElementById('voteButton');
-    // voteButton.addEventListener('click', function() {
-    //
-    //     voteButton.disabled = true;
-    // });
-
-    // let star1 = document.getElementById("star1");
-    // let star2 = document.getElementById("star2");
-    // let star3 = document.getElementById("star3");
-    // let star4 = document.getElementById("star4");
-    // let star5 = document.getElementById("star5");
-    //
-    // let starCount = document.getElementById("starCount");
-    //
-    // star1.addEventListener('click', function(event){
-    //
-    //     starCount.value = star1;
-    //
-    // });
-    //
-    // star2.addEventListener('click', function(event){
-    //
-    //     starCount.value = star2;
-    //
-    // });
-    //
-    // star3.addEventListener('click', function(event){
-    //
-    //     starCount.value = star3;
-    //
-    // });
-    //
-    // star4.addEventListener('click', function(event){
-    //
-    //     starCount.value = star4;
-    //
-    // });
-    //
-    // star5.addEventListener('click', function(event){
-    //
-    //     starCount.value = star5;
-    //
-    // });
-    //
-    //
-    // let formStar = document.getElementById('form-star');
-    // formStar.addEventListener('submit', function (event){
-    //     event.preventDefault();
-    //
-    //     const starCountValue = starCount.value;
-    //
-    //     console.log("star count " + starCountValue);
-    //
-    // });
-
-
-    // formRating.addEventListener('submit', function(event) {
-    //     event.preventDefault(); // Prevent the form from being submitted
-    //
-    //     // Get the current rating value from the hidden input field
-    //     const projectId = event.target.querySelector('[name="rating"]').value;
-    //     const ratingInput = parseInt(document.getElementById(`rating-input-${projectId}`).value);
-    //     const rating = ratingInput;
-    //
-    //     // Check if the rating input is filled
-    //     // if (!rating) {
-    //     //     alert('Please select a rating before submitting.');
-    //     //     return;
-    //     // }
-    //
-    //     const isAllStarsEmpty = starsArray.every(function(star) {
-    //         return star.getAttribute('fill') === 'none';
-    //     });
-    //
-    //     if (isAllStarsEmpty) {
-    //         alert('Please select a rating before submitting.');
-    //         return;
-    //     }
-    //
-    //     // Get the current values of nombreVotes and moyenneRating
-    //     const nombreVotesElement = document.querySelector('#nombreVotes');
-    //     const moyenneRatingElement = document.querySelector('#moyenneRating');
-    //
-    //     let nombreVotes = parseInt(nombreVotesElement.innerText);
-    //     let moyenneRating = parseFloat(moyenneRatingElement.getAttribute('data-rating'));
-    //
-    //     // Update the values based on the submitted rating
-    //     moyenneRating = (moyenneRating * nombreVotes + rating) / (nombreVotes + 1);
-    //     nombreVotes++;
-    //
-    //     // Update the displayed values
-    //     nombreVotesElement.innerText = nombreVotes;
-    //     moyenneRatingElement.innerText = moyenneRating.toFixed(2);
-    //     moyenneRatingElement.setAttribute('data-rating', moyenneRating);
-    //
-    // });
 
 </script>
 </body>
