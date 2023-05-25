@@ -184,9 +184,16 @@ public class ProjetController {
         }
 
         System.out.println("projetid: " + projet.getId());
+        System.out.println("membres de l'equipe: " + membres);
         // Dans un formulaire d'edition, si un projet est existant en allant chercher son id, on va iterer parmi la liste des membres et mettre a jour la liste des membres de l'equipe en faisant les ajouts/suppressions des membres necessaires
         if (projet.getId() != null) {
             etudiantProjetService.supprimerEtudiantProjetsParProjetId(projet.getId());
+            for (Etudiant membre : membres) {
+                EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
+                etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
+            }
+        } else {
+            projetService.ajouterProjet(projet);
             for (Etudiant membre : membres) {
                 EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
                 etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
