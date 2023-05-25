@@ -124,8 +124,10 @@ public class UtilisateurController {
     @GetMapping("/utilisateur/deconnexion")
     public String deconnexionUtilisateurs(HttpSession session, RedirectAttributes redirectAttributes) {
         String nomUtilisateur = (String) session.getAttribute("nomUtilisateur");
+        String prenomUtilisateur = (String) session.getAttribute("prenomUtilisateur");
+
         session.invalidate();
-        redirectAttributes.addFlashAttribute("message", "Vous êtes maintenant déconnecté(e), " + nomUtilisateur); // Add the logout message
+        redirectAttributes.addFlashAttribute("message", "Vous êtes maintenant déconnecté(e), " + nomUtilisateur + " " + prenomUtilisateur); // Add the logout message
 
         return "redirect:/";
     }
