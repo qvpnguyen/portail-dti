@@ -28,6 +28,10 @@ public class ServiceTutoratService {
 
         return etudiantRepository.findEtudiantsByRole(role);
     }
+    public List<Etudiant> afficherListeTuteurs() {
+
+        return etudiantRepository.findEtudiantsTuteurs();
+    }
 
     public List<Etudiant> afficherEtudiantsParTuteur(Integer id){
         return serviceTutoratRepository.findEtudiantsByTuteur(id);

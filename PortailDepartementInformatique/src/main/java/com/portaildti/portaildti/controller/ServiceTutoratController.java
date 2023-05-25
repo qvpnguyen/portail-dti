@@ -28,7 +28,7 @@ public class ServiceTutoratController {
         String pageTitle = "Service d'aide et Tutorat";
         model.addAttribute("pageTitle", pageTitle);
 
-        List<Etudiant> listeTuteurs = etudiantService.afficherEtudiantsParRole("Tuteur");
+        List<Etudiant> listeTuteurs = etudiantService.afficherEtudiants();
         Map<String, List<Cours>> coursParTuteur = new HashMap<>();
         Map<Etudiant, String> disponibiliteTuteurs = new HashMap<>();
         System.out.println(listeTuteurs);
