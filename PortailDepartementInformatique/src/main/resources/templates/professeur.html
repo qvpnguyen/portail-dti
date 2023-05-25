@@ -66,7 +66,7 @@
         <h3 class="text-center">Consulter les projets des étudiants</h3>
       </a>
       <!-- Deposer ses notes de cours sur OneDrive -->
-      <a th:href="@{/}" class="text-dark boite-fonctionnalite d-grid col-4">
+      <a th:href="@{'/notesDeCours/new/' + ${session.nomUtilisateur}}" class="text-dark boite-fonctionnalite d-grid col-4">
         <svg width="119" height="89" viewBox="0 0 119 89" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M96.4989 44.5C101.406 44.5 106.112 46.6335 109.581 50.4311C113.051 54.2287 115 59.3794 115 64.75C115 70.1206 113.051 75.2713 109.581 79.0689C106.112 82.8665 101.406 85 96.4989 85H27.1198C22.9506 84.9987 18.8593 83.7638 15.2788 81.4261C11.6983 79.0883 8.76173 75.7346 6.7799 71.7199C4.79807 67.7051 3.84468 63.1786 4.0206 58.6194C4.19653 54.0602 5.49522 49.6378 7.77927 45.8203C10.0633 42.0027 13.2478 38.9319 16.9956 36.933C20.7435 34.934 24.9153 34.0811 29.0698 34.4645C33.2242 34.848 37.2066 36.4536 40.5957 39.1113C43.9848 41.7691 46.6544 45.3802 48.322 49.5625M96.4989 44.5C103.899 21.3543 85.3982 4 65.047 4C44.6958 4 28.9699 21.3542 31.7451 34.375M96.4989 44.5C90.9732 44.5 86.0149 47.1527 82.6231 51.358" stroke="black" stroke-width="7" stroke-linecap="round"/>
         </svg>
