@@ -46,6 +46,7 @@
         <div class="nomUtilisateur-profil">
           <h1 th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h1>
           <h5 th:text="${etudiant.role}"></h5>
+          <span th:if="${etudiant.tuteur}">/Tuteur</span>
           <a th:href="@{/etudiant/profil/{id}/contact ((id=${etudiant.id}))}" type="button" class="btn bouton-mauve mt-3">Contacter</a>
         </div>
       </div>

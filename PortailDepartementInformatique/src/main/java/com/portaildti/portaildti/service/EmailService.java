@@ -15,7 +15,7 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
-    public void envoyerCourriel(String to, String subject, String body, LocalDate date, LocalTime time) throws MessagingException, javax.mail.MessagingException {
+    public void envoyerCourriel(String to, String subject, String body, LocalDate date, LocalTime heure) throws MessagingException, javax.mail.MessagingException {
 
         MimeMessage mimeMessage=javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
@@ -24,7 +24,7 @@ public class EmailService {
         mimeMessageHelper.setText(body);
         mimeMessageHelper.setSubject(subject);
 
-        String dateTimeText = "Date de Rendez-vous: " + date + ", Heure de Rendez-vous: " + time;
+        String dateTimeText = "Date de Rendez-vous: " + date + ", Heure de Rendez-vous: " + heure;
         mimeMessageHelper.setText(dateTimeText + "\n\n" + body);
 
         //File saveFile = new File(fileToAttach);
@@ -35,7 +35,7 @@ public class EmailService {
 //                    fileSystemResource);
         javaMailSender.send(mimeMessage);
 
-        System.out.printf("Le message avec pièce jointe a été envoyé avec succès à " +to);
+        System.out.printf("Le message avec pièce jointe a été envoyé avec succès à " + to);
 
     }
 }

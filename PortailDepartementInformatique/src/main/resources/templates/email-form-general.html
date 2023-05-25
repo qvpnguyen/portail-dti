@@ -68,21 +68,21 @@
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
 </header>
 <body class="fond-blanc">
-<h2 class="p-5 text-center text-lg">Envoyez un message à votre tuteur</h2>
+<h2 class="p-5 text-center text-lg">Nouveau message</h2>
 <main class="d-flex align-items-center main-index-inscription">
   <div class="container px-5 d-flex justify-content-center">
     <div class="row">
       <div class="boite-inscription">
         <div th:if="${message!=null}" class="alert alert-danger text-center">[[${message}]]</div>
-        <form th:action="@{/email/save}" method="post" enctype="multipart/form-data"
-               th:object="${service}" id="formulaire" onsubmit="return checkChamps(event, this);">
+        <form th:action="@{/email/envoie}" method="post" enctype="multipart/form-data"
+               id="formulaire" onsubmit="return checkChamps(event, this);">
           <div class="row gx-5 mx-2">
             <div class="col-6">
               <div class="form-group my-3">
                 <label class="col-sm-2 col-form-label">Destinataire:</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" name="destinataire"
-                         required minlength="3" maxlength="256" th:attr="value=${etudiantEmail}" th:readonly="true" />
+                         required minlength="3" maxlength="256" th:attr="value=${utilisateurEmail}" th:readonly="true" />
                 </div>
               </div>
             </div>
@@ -95,38 +95,15 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
-              <div class="form-group my-3">
-                <label for="date">Date de Rendez-vous:</label>
-                <input type="date" class="form-control" id="date" th:field="*{dateTutorat}" name="date" required>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <div class="form-group my-3">
-                <label for="heure">Heure de Rendez-vous:</label>
-                <input type="time" class="form-control" id="heure" th:field="*{heure}" name="heure" required>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group my-3">
-                <label for="cours">Cours associé:</label>
-                <select name="cours" id="cours" class="form-select" th:field="*{cours}">
-                  <option value="" selected disabled>---</option>
-                  <option th:each="unCours : ${listeCoursTuteurs}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
-                </select>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group my-3">
-                <label>Message:</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="10" cols="39" name="contenu" required placeholder="Composez votre message"></textarea>
+                <div class="col-12">
+                  <div class="form-group my-3">
+                    <label>Message:</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" rows="10" cols="39" name="contenu" required placeholder="Composez votre message"></textarea>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
           </div>
-
           <div class="text-center mt-4">
             <input type="submit" class="btn bouton-mauve" value="Envoyer"/>
           </div>
