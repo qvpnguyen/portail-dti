@@ -30,7 +30,7 @@ public class ServiceTutoratController {
         String pageTitle = "Service d'aide et tutorat";
         model.addAttribute("pageTitle", pageTitle);
 
-        List<Etudiant> listeTuteurs = etudiantService.afficherEtudiants();
+        List<Etudiant> listeTuteurs = etudiantService.rechercherEtudiantsTuteur();
         Map<String, List<Cours>> coursParTuteur = new HashMap<>();
         Map<Etudiant, String> disponibiliteTuteurs = new HashMap<>();
         String disponibilite;
@@ -50,8 +50,8 @@ public class ServiceTutoratController {
 
                 coursParTuteur.put(tuteur.getNom(), listeCoursTuteurs);
 
-                //if (disponibiliteTuteurs.)
-                //disponibiliteTuteurs.put(tuteur, tuteur.getDispoTutorat() ? "Disponible" : "Non disponible"); // Set tutor availability
+//if (disponibiliteTuteurs.)
+//disponibiliteTuteurs.put(tuteur, tuteur.getDispoTutorat() ? "Disponible" : "Non disponible"); // Set tutor availability
 
             }
         }
