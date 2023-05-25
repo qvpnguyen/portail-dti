@@ -101,7 +101,7 @@ public class UtilisateurController {
                 session.setAttribute("idUtilisateur", visiteur.getId());
                 session.setAttribute("roleUtilisateur", visiteur.getRole());
 
-                return "redirect:/gestionProjets";
+                return "redirect:/visiteur";
 
             }
             else if(administrateur!=null) {
