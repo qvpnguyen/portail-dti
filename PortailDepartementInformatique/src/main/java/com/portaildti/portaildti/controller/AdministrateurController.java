@@ -59,12 +59,7 @@ public class AdministrateurController {
         List<Cours> listeCours = coursService.afficherCours();
         List<Projet> listeProjets = projetService.afficherProjet();
         String pageTitle = "Gestion des utilisateurs";
-//        GestionUtilisateurs gestionUtilisateurs = new GestionUtilisateurs();
-//        gestionUtilisateurs.setVisiteurs(visiteurs);
-//        gestionUtilisateurs.setEtudiants(etudiants);
-//        gestionUtilisateurs.setProfesseurs(professeurs);
-//        gestionUtilisateurs.setAdmins(admins);
-//        model.addAttribute("gestionUtilisateurs", gestionUtilisateurs);
+
         model.addAttribute("visiteurs", visiteurs);
         model.addAttribute("etudiants", etudiants);
         model.addAttribute("professeurs", professeurs);

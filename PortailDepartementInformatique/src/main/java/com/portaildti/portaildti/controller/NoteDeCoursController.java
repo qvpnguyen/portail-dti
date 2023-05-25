@@ -46,6 +46,8 @@ public class NoteDeCoursController {
     @GetMapping("/notesDeCours")
     public String afficherListeNotesDeCours(Model model, @RequestParam(name = "nomProfesseur", required = false) String nomProfesseur) {
 
+
+
         if (nomProfesseur != null) {
 
             Iterable<NoteDeCours> listNotesDeCours = serviceNoteDeCours.rechercherNoteDeCoursParProfesseurNom(nomProfesseur);
@@ -146,6 +148,8 @@ public class NoteDeCoursController {
         model.addAttribute("professeur", professeur);
         model.addAttribute("projetsProf", projetsProf);
         model.addAttribute("coursProf", coursProf);
+        model.addAttribute("pageTitle", "Gestion de notes de cours");
+
 
 //        if (coursId != null) {
 
