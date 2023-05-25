@@ -56,7 +56,7 @@
                                     <i th:text="${projet.description}"></i>
                                 </p>
                                 <ul>
-                                    <li th:each="etudiant : ${etudiantsParProjet[projet.nom]}" class="list-inline-item">
+                                    <li th:each="etudiant : ${etudiantsParProjet[projet.id]}" class="list-inline-item">
                                         <span th:text="${etudiant.prenom}"></span>
                                         <span th:text="${etudiant.nom}"></span>
                                     </li>

@@ -45,7 +45,7 @@ public class EtudiantProjetController {
 
     @GetMapping("/etudiants-projets/{id}")
     public String afficherProjet(Model model, @PathVariable(name = "id") Integer id) {
-
+        List<Projet> projets = projetService.afficherProjet();
         Projet projetChoisi = projetService.afficherProjetParId(id);
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetId(id);
         List<Vote> listeVotes = voteRepository.findByProjetId(id);
@@ -70,10 +70,14 @@ public class EtudiantProjetController {
         double moyenneRating = calculateAverageRating(listeVotes);
 
         int nombreVotes = listeVotes.size();
-
+        Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        for (Projet projet : projets) {
+            List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+            etudiantsParProjet.put(projet.getId(), etudiants);
+        }
+        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
         model.addAttribute("moyenneRating", moyenneRating);
         model.addAttribute("nombreVotes", nombreVotes);
-        model.addAttribute("etudiantsParProjet", Collections.singletonMap(projetChoisi.getNom(), listeEtudiants));
         model.addAttribute("projetChoisi", projetChoisi);
         model.addAttribute("listeProjets", projetService.afficherProjet());
         model.addAttribute("professeur", projetChoisi.getProfesseur().getNom() + " " + projetChoisi.getProfesseur().getPrenom());
