@@ -16,8 +16,8 @@
 </head>
 <body class="fond-blanc">
 
-    <header th:replace="fragments/entete :: entete" >
-    </header>
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" ></header>
+
     <main>
         <div th:if="${#lists.isEmpty(listeTutoresPourTuteur)}">
             <p class="navbar-brand">Aucun tutorat à afficher.</p>

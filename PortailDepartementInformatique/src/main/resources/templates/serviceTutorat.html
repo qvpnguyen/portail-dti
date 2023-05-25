@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body class="fond-blanc">
-  <header th:replace="fragments/entete :: entete" ></header>
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" ></header>
 
   <main>
     <div th:if="${#lists.isEmpty(listeTuteurs)}">
