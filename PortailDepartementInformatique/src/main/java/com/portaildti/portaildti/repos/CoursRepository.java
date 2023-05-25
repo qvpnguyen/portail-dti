@@ -18,8 +18,10 @@ public interface CoursRepository extends CrudRepository<Cours, Integer> {
     @Query("SELECT c FROM Cours c JOIN c.profID p WHERE p.id = :idProf")
     List<Cours> findCoursParProfID(@Param("idProf") Integer idProf);
 
-    @Query("SELECT c FROM Cours c JOIN c.etudiant p WHERE p.id = :idEtudiant")
-    List<Cours> findCoursParEtudiantID(@Param("idEtudiant") Integer idEtudiant);
+    @Query("SELECT e.cours FROM Etudiant e WHERE e.id = :idEtudiant")
+    List<Cours> findCoursByEtudiantId(@Param("idEtudiant") Integer idEtudiant);
+
+
     @Query("SELECT c FROM Cours c JOIN c.profID p WHERE p.nom = :nomProf")
     List<Cours> findCoursParProf(@Param("nomProf") String nomProf);
 
