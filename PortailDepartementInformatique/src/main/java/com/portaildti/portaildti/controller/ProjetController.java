@@ -76,11 +76,11 @@ public class ProjetController {
 
     @GetMapping("/etudiants-projets")
         public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
-
+            List<Projet> projets = projetService.afficherProjet();
             List<Projet> listeProjets = new ArrayList<>();
             List<Cours> listeCours = coursService.afficherCours();
             List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
-            Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+//            Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
             List<Projet> projetsFiltres = new ArrayList<>();
 
             if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
@@ -106,10 +106,16 @@ public class ProjetController {
             if (listeProjets.isEmpty()) {
                 model.addAttribute("aucunResultat", true);
             } else {
-                for (Projet projet : listeProjets) {
-                    List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
-                    etudiantsParProjet.put(projet.getNom(), listeEtudiants);
-                }
+//                for (Projet projet : listeProjets) {
+//                    List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
+//                    etudiantsParProjet.put(projet.getNom(), listeEtudiants);
+//                }
+            }
+
+            Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+            for (Projet projet : projets) {
+                List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+                etudiantsParProjet.put(projet.getId(), etudiants);
             }
 
             model.addAttribute("etudiantsParProjet", etudiantsParProjet);

@@ -21,10 +21,15 @@ public class Projet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 100, nullable = false)
     private String nom;
+    @Column(length = 4)
     private Integer annee;
+    @Column
     private String description;
+    @Column
     private String video;
+    @Column
     private String lienGitlab;
     @ManyToOne
     @JoinColumn(name = "CoursID")

@@ -13,6 +13,9 @@ public class Vote {
     @ManyToOne
     @JoinColumn(name = "ProjetID")
     private Projet projetID;
+    @ManyToOne
+    @JoinColumn(name = "EtudiantID")
+    private Etudiant etudiant;
 
     public Long getId() {
         return id;
@@ -36,6 +39,14 @@ public class Vote {
 
     public void setProjetID(Projet projetID) {
         this.projetID = projetID;
+    }
+
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
     }
 
     @Override

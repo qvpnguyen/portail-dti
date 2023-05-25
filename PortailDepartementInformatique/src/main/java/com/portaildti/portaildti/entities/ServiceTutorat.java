@@ -28,7 +28,9 @@ public class ServiceTutorat {
     @DateTimeFormat(pattern = "HH:mm")
     @Column(nullable = false)
     private LocalTime heure;
+    @Column(nullable = false)
     private Double duree;
+    @Column(nullable = false)
     private String typeDeRencontre;
     @ManyToOne
     @JoinColumn(name = "ÉtudiantTuteurID")
