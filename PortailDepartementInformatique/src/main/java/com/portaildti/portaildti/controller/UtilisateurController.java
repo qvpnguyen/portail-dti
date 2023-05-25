@@ -192,15 +192,11 @@ public class UtilisateurController {
                     //en utilisant la méthode transferTo() de l'objet MultipartFile
                     file.transferTo(serverFile);
                 } else {
-                    try {
-                        if (admin.getId() != null) {
-                            String photo = adminService.getPhotoByUserId(admin.getId());
-                            admin.setPhoto(photo);
-                        }
-                    } catch (Exception e) {
-                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + admin.getEmail());
-                        return "redirect:/admins/new";
+                    if (admin.getId() != null) {
+                        String photo = adminService.getPhotoByUserId(admin.getId());
+                        admin.setPhoto(photo);
                     }
+
                 }
                 redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
                 adminService.ajouterAdmin(admin);
@@ -242,14 +238,9 @@ public class UtilisateurController {
                     //en utilisant la méthode transferTo() de l'objet MultipartFile
                     file.transferTo(serverFile);
                 } else {
-                    try {
-                        if (prof.getId() != null) {
-                            String photo = profService.getPhotoByUserId(prof.getId());
-                            prof.setPhoto(photo);
-                        }
-                    } catch (Exception e) {
-                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + prof.getEmail());
-                        return "redirect:/professeurs/new";
+                    if (prof.getId() != null) {
+                        String photo = profService.getPhotoByUserId(prof.getId());
+                        prof.setPhoto(photo);
                     }
                 }
                 redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
@@ -295,14 +286,9 @@ public class UtilisateurController {
                     //en utilisant la méthode transferTo() de l'objet MultipartFile
                     file.transferTo(serverFile);
                 } else {
-                    try {
-                        if (etudiant.getId() != null) {
-                            String photo = etudiantService.getPhotoByUserId(etudiant.getId());
-                            etudiant.setPhoto(photo);
-                        }
-                    } catch (Exception e) {
-                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + etudiant.getEmail());
-                        return "redirect:/etudiants/new";
+                    if (etudiant.getId() != null) {
+                        String photo = etudiantService.getPhotoByUserId(etudiant.getId());
+                        etudiant.setPhoto(photo);
                     }
                 }
                 redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
@@ -348,15 +334,10 @@ public class UtilisateurController {
                     //en utilisant la méthode transferTo() de l'objet MultipartFile
                     file.transferTo(serverFile);
                 } else {
-                    try {
                         if (visiteur.getId() != null) {
                             String photo = visiteurService.getPhotoByUserId(visiteur.getId());
                             visiteur.setPhoto(photo);
                         }
-                    } catch (Exception e) {
-                        redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + visiteur.getEmail());
-                        return "redirect:/visiteurs/new";
-                    }
                 }
                 redirectAttributes.addFlashAttribute("message","L'utilisateur a été ajouté/mis à jour avec succès");
                 visiteurService.ajouterVisiteur(visiteur);

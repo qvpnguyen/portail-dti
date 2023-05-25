@@ -26,28 +26,24 @@ public class UtilisateurRestController {
     public String verifierDoublonEmailAdmin(@Param("email") String email, @Param("id") Integer id) {
         //Pour la simplicité on retourne pas un Objet JSON mais plutôt une chaine de charactère
         // Selon la valeur que retourne la méthode isEmailUnique
-        System.out.println("email: " + email + " id: " + id);
         return administrateurService.isEmailUnique(email,id) ? "OK" : "Doublon";
     }
     @PostMapping("/professeurs/check_email")
     public String verifierDoublonEmailProf(@Param("email") String email, @Param("id") Integer id) {
         //Pour la simplicité on retourne pas un Objet JSON mais plutôt une chaine de charactère
         // Selon la valeur que retourne la méthode isEmailUnique
-        System.out.println("email: " + email + " id: " + id);
         return professeurService.isEmailUnique(email,id) ? "OK" : "Doublon";
     }
     @PostMapping("/etudiants/check_email")
     public String verifierDoublonEmailEtudiant(@Param("email") String email, @Param("id") Integer id) {
         //Pour la simplicité on retourne pas un Objet JSON mais plutôt une chaine de charactère
         // Selon la valeur que retourne la méthode isEmailUnique
-        System.out.println("email: " + email + " id: " + id);
         return etudiantService.isEmailUnique(email,id) ? "OK" : "Doublon";
     }
     @PostMapping("/visiteurs/check_email")
     public String verifierDoublonEmailVisiteur(@Param("email") String email, @Param("id") Integer id) {
         //Pour la simplicité on retourne pas un Objet JSON mais plutôt une chaine de charactère
         // Selon la valeur que retourne la méthode isEmailUnique
-        System.out.println("email: " + email + " id: " + id);
         return visiteurService.isEmailUnique(email,id) ? "OK" : "Doublon";
     }
 

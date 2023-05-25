@@ -24,7 +24,7 @@
                     <div class="carte-video">
                         <img class="play-button1" src="/images/play-button-icon.png" alt="Jouer" />
                         <video id="project-video1" controls class="projet-video1 hidden video-frame">
-                            <source th:src="@{'videos/utilisateur/' + ${projetChoisi.video}}" type="video/mp4">
+                            <source th:src="@{'/videos/utilisateur/' + ${projetChoisi.video}}" type="video/mp4">
                             Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
                         </video>
                         <div class="conteneur-infos-projet">
@@ -252,7 +252,7 @@
                         <p th:text="${professeur}"></p>
                         <br>
                         <p><b>Étudiants:</b></p>
-                        <li th:each="etudiant : ${etudiantsParProjet[projetChoisi.nom]}" class="list-inline-item">
+                        <li th:each="etudiant : ${etudiantsParProjet[projetChoisi.id]}" class="list-inline-item">
                             <span th:text="${etudiant.prenom}"></span>
                             <span th:text="${etudiant.nom}"></span>
                         </li>
