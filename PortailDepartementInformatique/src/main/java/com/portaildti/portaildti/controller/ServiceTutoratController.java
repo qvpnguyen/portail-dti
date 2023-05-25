@@ -4,11 +4,13 @@ import com.portaildti.portaildti.entities.*;
 import com.portaildti.portaildti.service.EtudiantService;
 import com.portaildti.portaildti.service.ServiceTutoratService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +27,13 @@ public class ServiceTutoratController {
     @GetMapping("/service-tutorat")
     public String afficherTuteurs(Model model) {
 
-        String pageTitle = "Service d'aide et Tutorat";
+        String pageTitle = "Service d'aide et tutorat";
         model.addAttribute("pageTitle", pageTitle);
 
-        List<Etudiant> listeTuteurs = etudiantService.afficherEtudiantsParRole("Tuteur");
+        List<Etudiant> listeTuteurs = etudiantService.afficherEtudiants();
         Map<String, List<Cours>> coursParTuteur = new HashMap<>();
         Map<Etudiant, String> disponibiliteTuteurs = new HashMap<>();
+        System.out.println(listeTuteurs);
         String disponibilite;
 
         if (listeTuteurs.isEmpty()) {
@@ -59,6 +62,22 @@ public class ServiceTutoratController {
         model.addAttribute("disponibiliteTuteurs", disponibiliteTuteurs);
 
         return "serviceTutorat";
+    }
+
+    @GetMapping("/service-tutorat/liste-tutores")
+    public String afficherListeTutoresPourTuteur(Model model, HttpSession session) {
+        Integer id = (Integer) session.getAttribute("idUtilisateur");
+
+        String pageTitle = "Service d'aide et tutorat";
+        model.addAttribute("pageTitle", pageTitle);
+        List<Etudiant> listeTutoresPourTuteur = serviceTutoratService.afficherEtudiantsParTuteur(id);
+        System.out.println("liste tutores: " + listeTutoresPourTuteur);
+        if (listeTutoresPourTuteur.isEmpty()) {
+            model.addAttribute("message", "Aucun tutoré à afficher");
+        } else {
+            model.addAttribute("listeTutoresPourTuteur", listeTutoresPourTuteur);
+        }
+        return "servicetutorat-listetutores";
     }
 
 }

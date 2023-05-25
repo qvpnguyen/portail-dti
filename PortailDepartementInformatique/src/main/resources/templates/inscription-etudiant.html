@@ -183,7 +183,16 @@
                 </label>
               </div>
               <div class="form-group my-3">
-                <label>Êtes-vous disponible pour être un.e tuteur.e?</label>
+                <label>Voulez-vous être un.e tuteur.e?</label>
+                <label class="radio-inline" for="tuteurOui">
+                  <input th:field="*{tuteur}" type="radio" id="tuteurOui" value="true" name="tuteur">Oui
+                </label>
+                <label class="radio-inline" for="tuteurNon">
+                  <input th:field="*{tuteur}" type="radio" id="tuteurNon" value="false" name="tuteur">Non
+                </label>
+              </div>
+              <div class="form-group my-3">
+                <label>Êtes-vous disponible pour faire du tutorat?</label>
                 <label class="radio-inline" for="disponibleOui">
                   <input th:field="*{dispoTutorat}" type="radio" id="disponibleOui" value="true" name="disponible">Oui
                 </label>

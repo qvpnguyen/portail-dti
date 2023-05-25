@@ -42,7 +42,7 @@ public class CoursService {
     public List<Cours> rechercherCoursParEtuidantId(Integer id) {
 
         if (id != null) {
-            return repo.findCoursParEtudiantID(id);
+            return repo.findCoursByEtudiantId(id);
         }
 
         return  null;

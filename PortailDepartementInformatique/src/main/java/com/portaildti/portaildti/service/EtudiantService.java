@@ -153,5 +153,4 @@ public class EtudiantService {
 
         return repo.findEtudiantsByRole(role);
     }
-
 }

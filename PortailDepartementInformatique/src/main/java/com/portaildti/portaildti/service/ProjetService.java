@@ -37,7 +37,7 @@ public class ProjetService {
     }
     public List<Projet> rechercherProjetParEtudiantID(Integer id) {
         if (id != null) {
-            return  repo.findProjetsByIdEtudiant(id);
+            return  repo.findProjetByEtudiant(id);
         }
         return null;
     }
