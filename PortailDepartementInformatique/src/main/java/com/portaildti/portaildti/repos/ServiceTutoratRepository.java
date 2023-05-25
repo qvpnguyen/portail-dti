@@ -30,4 +30,6 @@ public interface ServiceTutoratRepository extends CrudRepository<Projet, Integer
     List<ServiceTutorat> findTutoratsByTuteur(@Param("tuteurId") Integer tuteurId);
     @Query("SELECT t FROM ServiceTutorat t WHERE t.tuteur.id = :tuteurId")
     List<ServiceTutorat> findServiceTutoratsByTuteur(@Param("tuteurId") Integer tuteurId);
+
+
 }
