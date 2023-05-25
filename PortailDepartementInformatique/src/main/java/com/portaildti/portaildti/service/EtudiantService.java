@@ -153,6 +153,10 @@ public class EtudiantService {
 
         return repo.findEtudiantsByRole(role);
     }
+    public List<Etudiant> afficherEtudiantsAnciens(){
+
+        return repo.findEtudiantsAnciens();
+    }
 
 
     public void updateActiveStatus(Integer id, boolean enabled) {

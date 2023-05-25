@@ -35,6 +35,9 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
     @Query("SELECT e FROM Etudiant e WHERE e.isTuteur = true")
     public List<Etudiant> findEtudiantsTuteurs();
 
+    @Query("SELECT e FROM Etudiant e WHERE e.formationCompletee = true")
+    public List<Etudiant> findEtudiantsAnciens();
+
     @Query("SELECT e FROM Etudiant e WHERE e.role = :role AND e.dispoTutorat = :disponibilite")
     public List<Etudiant> findEtudiantsByRoleAndDisponibilite(@Param("role") String role, @Param("disponibilite") String disponibilite);
 

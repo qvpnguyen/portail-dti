@@ -45,6 +45,18 @@ public class EtudiantController {
         return "etudiant";
     }
 
+    @GetMapping("/etudiant/anciens")
+    public String afficherPageEtudiantAnciens(Model model) {
+        List<Etudiant> anciensEtudiants = etudiantService.afficherEtudiantsAnciens();
+
+        String pageTitle = " Anciens Étudiants";
+        model.addAttribute("anciensEtudiants", anciensEtudiants);
+
+        model.addAttribute("pageTitle", pageTitle);
+        return "anciensEtudiants";
+    }
+
+
     @GetMapping("/etudiant/profil/{id}")
     public String afficherProfilEtudiant(Model model, @PathVariable(name = "id") Integer id) throws UtilisateurNotFoundException {
         Etudiant etudiant = etudiantService.get(id);

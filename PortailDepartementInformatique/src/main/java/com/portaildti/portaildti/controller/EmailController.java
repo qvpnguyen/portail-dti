@@ -97,7 +97,7 @@ public class EmailController {
                                               @RequestParam("destinataire") String destinataire,
                                               @RequestParam("objet") String objet,
                                               @RequestParam("contenu") String contenu,
-                                              HttpSession session) throws MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+                                              HttpSession session) throws MessagingException {
 
         emailService.envoyerCourrielGeneral(destinataire,objet,contenu);
         redirectAttributes.addFlashAttribute("message", "Le message a été envoyé avec succès à " +destinataire);
@@ -116,7 +116,7 @@ public class EmailController {
     public String envoyerEmailTutorat(RedirectAttributes redirectAttributes,
                                @RequestParam("destinataire") String destinataire,
                                @RequestParam("objet") String objet,
-                               @RequestParam("contenu") String contenu, ServiceTutorat serviceTutorat) throws MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+                               @RequestParam("contenu") String contenu, ServiceTutorat serviceTutorat) throws MessagingException {
 
 
         emailService.envoyerCourriel(destinataire,objet,contenu, serviceTutorat.getDateTutorat(), serviceTutorat.getHeure());

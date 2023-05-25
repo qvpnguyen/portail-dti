@@ -1,6 +1,6 @@
 package com.portaildti.portaildti.service;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+//import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,7 +15,7 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
-    public void envoyerCourriel(String to, String subject, String body, LocalDate date, LocalTime heure) throws MessagingException, javax.mail.MessagingException {
+    public void envoyerCourriel(String to, String subject, String body, LocalDate date, LocalTime heure) throws  javax.mail.MessagingException {
 
         MimeMessage mimeMessage=javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
@@ -39,7 +39,7 @@ public class EmailService {
 
     }
 
-    public void envoyerCourrielGeneral(String to, String subject, String body) throws MessagingException, javax.mail.MessagingException {
+    public void envoyerCourrielGeneral(String to, String subject, String body) throws javax.mail.MessagingException {
 
         MimeMessage mimeMessage=javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
