@@ -38,4 +38,19 @@ public class EmailService {
         System.out.printf("Le message avec pièce jointe a été envoyé avec succès à " + to);
 
     }
+
+    public void envoyerCourrielGeneral(String to, String subject, String body) throws MessagingException, javax.mail.MessagingException {
+
+        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
+        mimeMessageHelper.setFrom("dti.collegerosemont@outlook.com");
+        mimeMessageHelper.setTo(to);
+        mimeMessageHelper.setText(body);
+        mimeMessageHelper.setSubject(subject);
+
+        javaMailSender.send(mimeMessage);
+
+        System.out.printf("Le message avec pièce jointe a été envoyé avec succès à " + to);
+
+    }
 }

@@ -2,9 +2,11 @@ package com.portaildti.portaildti.controller;
 
 import com.portaildti.portaildti.entities.Cours;
 import com.portaildti.portaildti.entities.Etudiant;
+import com.portaildti.portaildti.entities.Professeur;
 import com.portaildti.portaildti.entities.ServiceTutorat;
 import com.portaildti.portaildti.service.EmailService;
 import com.portaildti.portaildti.service.EtudiantService;
+import com.portaildti.portaildti.service.ProfesseurService;
 import com.portaildti.portaildti.service.ServiceTutoratService;
 import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -31,6 +34,9 @@ public class EmailController {
 
     @Autowired
     private EtudiantService etudiantService;
+
+    @Autowired
+    private ProfesseurService professeurService;
 
     @Autowired
     private ServiceTutoratService serviceTutoratService;
@@ -55,43 +61,62 @@ public class EmailController {
     }
 
     @GetMapping("/etudiant/profil/{id}/contact")
-    public String envoyerCourrielGeneral (Model model, @PathVariable(name = "id") Integer id) throws UtilisateurNotFoundException {
+    public String envoyerCourrielGeneralEtudiant (Model model, @PathVariable(name = "id") Integer id, HttpSession session) throws UtilisateurNotFoundException {
 
         model.addAttribute("pageTitle", "Envoie d'un message");
+
+        String role = (String) session.getAttribute("roleUtilisateur");
 
         Etudiant etudiant = etudiantService.get(id);
 
         model.addAttribute("etudiant", etudiant);
         model.addAttribute("utilisateurEmail", etudiant.getEmail());
+        model.addAttribute("role", role);
 
         return "email-form-general";
     }
 
-    @PostMapping("/email/envoie")
-    public String envoyerEmailGeneral(RedirectAttributes redirectAttributes,
-                               @RequestParam("destinataire") String destinataire,
-                               @RequestParam("objet") String objet,
-                               @RequestParam("contenu") String contenu, ServiceTutorat serviceTutorat) throws MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
-        // multipartFile.getOriginalFilename();
-        //String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        //System.out.println("fileName :" + fileName);
+    @GetMapping("/professeur/profil/{id}/contact")
+    public String envoyerCourrielGeneralProfesseur (Model model, @PathVariable(name = "id") Integer id, HttpSession session) throws UtilisateurNotFoundException {
 
+        model.addAttribute("pageTitle", "Envoie d'un message");
 
-        emailService.envoyerCourriel(destinataire,objet,contenu, serviceTutorat.getDateTutorat(), serviceTutorat.getHeure());
-        redirectAttributes.addFlashAttribute("message", "Le message a été envoyé avec succès à " +destinataire);
+        String role = (String) session.getAttribute("roleUtilisateur");
 
+        Professeur professeur = professeurService.get(id);
 
-        return "redirect:/etudiant";
+        model.addAttribute("professeur", professeur);
+        model.addAttribute("utilisateurEmail", professeur.getEmail());
+        model.addAttribute("role", role);
+
+        return "email-form-general";
     }
 
     @PostMapping("/email/save")
+    public String envoyerEmailGeneral(RedirectAttributes redirectAttributes,
+                                              @RequestParam("destinataire") String destinataire,
+                                              @RequestParam("objet") String objet,
+                                              @RequestParam("contenu") String contenu,
+                                              HttpSession session) throws MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+
+        emailService.envoyerCourrielGeneral(destinataire,objet,contenu);
+        redirectAttributes.addFlashAttribute("message", "Le message a été envoyé avec succès à " +destinataire);
+        String role = (String) session.getAttribute("roleUtilisateur");
+
+        if (role != null) {
+            if (role.equals("Etudiant")) {
+                return "redirect:/etudiant";
+            }
+        }
+
+        return "redirect:/professeur";
+    }
+
+    @PostMapping("/email/saveTutorat")
     public String envoyerEmailTutorat(RedirectAttributes redirectAttributes,
                                @RequestParam("destinataire") String destinataire,
                                @RequestParam("objet") String objet,
                                @RequestParam("contenu") String contenu, ServiceTutorat serviceTutorat) throws MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
-        // multipartFile.getOriginalFilename();
-        //String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        //System.out.println("fileName :" + fileName);
 
 
         emailService.envoyerCourriel(destinataire,objet,contenu, serviceTutorat.getDateTutorat(), serviceTutorat.getHeure());
