@@ -144,7 +144,7 @@
                         <span><b th:text="${moyenneRating}" id="moyenneRating" data-rating="${moyenneRating}"></b>/5</span>
                         <br>
                         <h5 class="mt-5">Ma Vote:</h5>
-                        <form th:action="@{/etudiants-projets/{id}/rating (id=${projetChoisi.id})}" method="post">
+                        <form  th:action="@{/etudiants-projets/{id} (id=${projetChoisi.id})}" id="form-rating" method="post">
                             <div id="stars-container" class="stars-container"></div>
                             <input type="hidden" name="rating" id="'rating-input-' + ${projetChoisi.id}" th:value="${projetChoisi.id}">
                             <svg width="64" height="60" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="star-icon">
@@ -232,7 +232,7 @@
                                     </filter>
                                 </defs>
                             </svg>
-                            <button type="submit" class="btn bouton-mauve mt-3" id="vote-button">Vote</button>
+                            <button type="submit" class="btn bouton-mauve mt-3" id="voteButton" disabled>Vote</button>
                         </form>
                         <br>
 
@@ -291,13 +291,33 @@
     let stars = document.querySelectorAll(".star-icon");
     let starsArray = Array.from(stars);
     let previousStar = null;
+    let previousIndex = null;
 
     starsArray.forEach(function(star, index) {
         star.addEventListener('click', function() {
+
+            let currentIndex = index;
+            let voteButton = document.getElementById('voteButton');
+
+            console.log("current " + currentIndex);
+            console.log("previous " + previousIndex);
+            console.log("star " + star);
+            console.log("index " + index);
+
+            if (previousIndex === currentIndex){
+
+                voteButton.disabled = true;
+
+            } else {
+
+                voteButton.disabled = false;
+            }
+
             if (previousStar === star) {
                 starsArray.forEach(function(star) {
                     star.setAttribute('fill', 'none');
                 });
+                voteButton.disabled = true;
                 previousStar = null;
             } else {
                 if (previousStar) {
@@ -311,18 +331,18 @@
                 previousStar = star;
             }
             console.log('star clicked:', star, index);
-            document.getElementById('rating-input').value = index + 1;
+            //document.getElementById('rating-input').value = index + 1;
         });
     });
 
-    voteButton.addEventListener('click', function() {
+    // let voteButton = document.getElementById('voteButton');
+    // voteButton.addEventListener('click', function() {
+    //
+    //     voteButton.disabled = true;
+    // });
 
-        voteButton.disabled = true;
-    });
-
-
-    // Add event listener for form submission
-    form.addEventListener('submit', function(event) {
+    let formRating = document.getElementById('form-rating')
+    formRating.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the form from being submitted
 
         // Get the current rating value from the hidden input field

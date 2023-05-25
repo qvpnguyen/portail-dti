@@ -427,15 +427,6 @@ hr {
     color: green;
 }
 
-/*.dropdown-list li:hover {
-    background-color: #3B4394;
-    color: #fff;
-}*/
-
-/*.form-filtrage {
-    height: 100px;
-    width: 50px;
-}*/
 /* Styles pour la photo et le nom */
 .profil1 {
     display: flex;
@@ -462,6 +453,12 @@ hr {
     height: 300px;
 }
 
+.nomUtilisateur-profil {
+    flex: 0 1 auto;
+    width: 20%;
+}
+
+/* Style pour les étoiles de rating */
 .stars {
     display: inline-block;
     font-size: 24px;

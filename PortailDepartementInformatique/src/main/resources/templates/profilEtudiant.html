@@ -39,10 +39,17 @@
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
     <div class="profil1">
-      <img th:src="${etudiant.photo != null} ? @{${'/images/utilisateur/' + etudiant.photo}} : @{/images/admin-icon.png}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" class="img-fluid fixed-size-image" />
-
-      <h1 th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h1>
+      <div class="row">
+        <div class="col-md-6">
+          <img th:src="${etudiant.photo != null} ? @{${'/images/utilisateur/' + etudiant.photo}} : @{/images/admin-icon.png}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" class="img-fluid fixed-size-image" />
+        </div>
+        <div class="nomUtilisateur-profil">
+          <h1 th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h1>
+          <h5 th:text="${etudiant.role}"></h5>
+        </div>
+      </div>
     </div>
+
 
     <!-- Afficher les projets responsables -->
     <div class="container conteneur-table bg-light p-5 mt-5">

@@ -83,7 +83,7 @@ public class EtudiantProjetController {
         return "etudiantProjet";
     }
 
-    @PostMapping ("/etudiants-projets/{id}/rating")
+    @PostMapping ("/etudiants-projets/{id}")
     public String afficherProjetRating(Model model, @PathVariable(name = "id") Integer id, @RequestParam(name = "rating", required = false) Integer rating){
 
         Projet projetChoisi = projetService.afficherProjetParId(id);
@@ -105,6 +105,7 @@ public class EtudiantProjetController {
             System.out.println(votes);
 
             model.addAttribute("projetChoisi", projetChoisi);
+
             model.addAttribute("totalVotes", totalVotes);
         }
 
@@ -116,11 +117,19 @@ public class EtudiantProjetController {
         if (totalVotes == 0) {
             return 0.0;
         }
+
         int sum = 0;
+
         for (Vote vote : votes) {
+            System.out.println("getRating: " + vote.getRating());
             sum += vote.getRating();
+            System.out.println("sum inside loop: " + sum);
         }
+
         double average = (double) sum / totalVotes;
+        System.out.println("totalVotes: " + totalVotes);
+        System.out.println("sum: " + sum);
+        System.out.println(" ");
         return Math.round(average * 100.0) / 100.0;
     }
 
