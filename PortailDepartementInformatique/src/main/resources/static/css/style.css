@@ -488,6 +488,7 @@ hr {
 }
 
 .image-fix {
+    max-height: 400px;
     object-fit: cover;
 }
 
