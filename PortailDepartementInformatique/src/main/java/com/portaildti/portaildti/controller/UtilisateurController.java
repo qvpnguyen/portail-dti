@@ -269,7 +269,6 @@ public class UtilisateurController {
                         return "inscription-admin";
                     }
                     String chemin = file.getOriginalFilename();
-                    System.out.println("chemin: " + chemin);
                     String filename = StringUtils.cleanPath(chemin);
                     etudiant.setPhoto(filename);
                     etudiant.setRole(role);

@@ -50,7 +50,8 @@
 
 <main>
   <div class="container px-5">
-    <div th:if="${message!=null}" class="alert alert-success text-center">[[${message}]]</div>
+    <br>
+    <div th:if="${message!=null}" class="alert alert-success text-center mt-3">[[${message}]]</div>
     <div class="rangee-boites row gx-5 justify-content-evenly">
       <!-- Consulter les projets des Ã©tudiants -->
       <a th:href="@{/etudiants-projets}" class="text-dark boite-fonctionnalite d-grid col-4">
