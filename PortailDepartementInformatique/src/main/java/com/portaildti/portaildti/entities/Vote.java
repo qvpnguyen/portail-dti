@@ -8,7 +8,8 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double rating;
+    private Integer rating;
+    private double ratingAverage;
 
     @ManyToOne
     @JoinColumn(name = "ProjetID")
@@ -25,12 +26,20 @@ public class Vote {
         this.id = id;
     }
 
-    public double getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public double getRatingAverage() {
+        return ratingAverage;
+    }
+
+    public void setRatingAverage(double ratingAverage) {
+        this.ratingAverage = ratingAverage;
     }
 
     public Projet getProjetID() {

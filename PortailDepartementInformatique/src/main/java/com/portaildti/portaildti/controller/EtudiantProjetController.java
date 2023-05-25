@@ -44,12 +44,18 @@ public class EtudiantProjetController {
     NotesService notesService;
 
     @GetMapping("/etudiants-projets/{id}")
-    public String afficherProjet(Model model, @PathVariable(name = "id") Integer id) {
+    public String afficherProjet(Model model, @PathVariable(name = "id") Integer id, @RequestParam(name = "starCount", required = false) Integer starCount) {
         List<Projet> projets = projetService.afficherProjet();
         Projet projetChoisi = projetService.afficherProjetParId(id);
         List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetId(id);
         List<Vote> listeVotes = voteRepository.findByProjetId(id);
         Notes note = notesService.rechercherNotesParProjetID(id);
+
+        Vote vote = new Vote();
+        vote.setRating(starCount);
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println("The setRating is: " + vote.getRating());
 
         String noteObtenue;
 
@@ -89,7 +95,7 @@ public class EtudiantProjetController {
     }
 
     @PostMapping ("/etudiants-projets/{id}/rating")
-    public String afficherProjetRating(Model model, @PathVariable(name = "id") Integer id, @RequestParam(name = "rating", required = false) Integer rating){
+    public String afficherProjetRating(Model model, @PathVariable(name = "id") Integer id, @RequestParam(name = "starCount", required = false) Integer rating){
 
         Projet projetChoisi = projetService.afficherProjetParId(id);
 
