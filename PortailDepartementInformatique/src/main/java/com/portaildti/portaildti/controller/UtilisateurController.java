@@ -570,6 +570,7 @@ public class UtilisateurController {
         try {
             Administrateur administrateur = adminService.get(id);
             model.addAttribute("administrateur", administrateur);
+            model.addAttribute("pageTitle", "Mise a jour le compte Admin");
             return "inscription-admin";
         } catch (UtilisateurNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", "On ne peut pas trouver l'utilisateur avec l'id " + id);
