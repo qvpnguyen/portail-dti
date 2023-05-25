@@ -12,121 +12,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
     <!-- Inclusion du stylesheet principal -->
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body class="fond-blanc">
 
     <header th:replace="fragments/entete :: entete" >
     </header>
     <main>
-        <div th:if="${#lists.isEmpty(listeProjets)}">
-            <p class="navbar-brand">Aucun résultat trouvé.</p>
+        <div th:if="${#lists.isEmpty(listeTutoresPourTuteur)}">
+            <p class="navbar-brand">Aucun tutoré à afficher.</p>
         </div>
-        <div th:unless="${#lists.isEmpty(listeProjets)}">
+        <div th:unless="${#lists.isEmpty(listeTutoresPourTuteur)}">
             <div class="container px-5">
-                <h2 class="p-5 text-center text-sm">Ces ensembles des projets sont réalisés par des étudiants en informatique au cours de leur parcours scolaire qui témoignent de la créativité et de l'ingéniosité de la prochaine génération de développeurs. Grâce à ces projets, les étudiants en informatique ont acquis une expérience pratique en développement des applications de Web et se sont positionnés pour réussir dans l'industrie technologique rapide et en constante évolution.</h2>
-
-                <div th:unless="${nomProfesseur == null}">
-                    <p class="navbar-brand">Aucun Projet de professeur trouvé.</p>
-                </div>
-                <div th:unless="${nomProfesseur != null}">
-                    <div th:each="projet, iterStat : ${listeProjets}" class="row gx-5 mb-4">
-                        <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
-                            <div class="carte-video mb-4">
-                                <img id="play-button" class="video-projet" src="images/play-button-icon.png" alt="Jouer" />
-                                <video id="project-video" controls class="projet-video hidden video-frame">
-                                    <source th:src="@{'videos/utilisateur/' + ${projet.video}}" type="video/mp4">
-                                    Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
-                                </video>
-                                <div class="conteneur-infos-projet">
-                                    <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}">
-                                        <h4 class="mt-2" th:text="${projet.nom}"></h4>
-                                    </a>
-                                    <p>
-                                        <i th:text="${projet.description}"></i>
-                                    </p>
-                                    <ul>
-                                        <li th:each="etudiant : ${etudiantsParProjet[projet.nom]}" class="list-inline-item">
-                                            <span th:text="${etudiant.prenom}"></span>
-                                            <span th:text="${etudiant.nom}"></span>
-                                        </li>
-                                    </ul>
-                                </div>
+                <h2 class="p-5 text-center text-sm">Liste de vos tutorés</h2>
+                <div th:each="tutore, iterStat : ${listeTutoresPourTuteur}" class="row gx-5 mb-4">
+                    <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
+                        <div class="carte-video mb-4">
+                            <img th:src="@{${tutore.photo != null ? '/images/utilisateur/' + tutore.photo : '/images/admin-icon.png'}}" th:alt="${tutore.prenom + ' ' + tutore.nom}" class="img-fluid fixed-size-image">
+                            <div class="conteneur-infos-projet">
+                                <a th:href="@{'/etudiant/profil/' + ${tutore.id}}">
+                                    <h4 th:text="${tutore.prenom + ' ' + tutore.nom}"></h4></a>
+                                </a>
+                                <p>
+                                    <i th:text="'Profil ' + ${tutore.profil}"></i>
+                                </p>
                             </div>
                         </div>
-                        <div th:classappend="${iterStat.odd}? 'col-8 order-md-2' : 'col-8 order-md-1'">
-                            <div class="carte-description p-4">
-                                <p th:text="${projet.description}"></p>
-                            </div>
+                    </div>
+                    <div th:classappend="${iterStat.odd}? 'col-8 order-md-2' : 'col-8 order-md-1'">
+                        <div class="carte-description p-4">
+                            <p th:text="${tutore}"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-
-    <script>
-        const svgIcon = document.getElementById("svg-icon");
-        const dropdown = document.getElementById("dropdown");
-
-        svgIcon.addEventListener("click", () => {
-            svgIcon.classList.toggle("active-svg-icon");
-            dropdown.classList.toggle("active");
-        });
-
-        dropdown.addEventListener("click", (event) => {
-            console.log(`Clicked on ${event.target.textContent}`);
-        });
-
-        function toggleDropdown() {
-            document.getElementById("myDropdownContent").classList.toggle("show");
-        }
-
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropdown-svg')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-
-
-        // Sélectionnez l'image et la vidéo par leur identifiant
-        const playButton = document.getElementById('play-button');
-        const projectVideo = document.getElementById('project-video');
-
-        // Ajoutez une variable pour suivre l'état de la vidéo
-        let videoVisible = false;
-
-        // Ajoutez un écouteur d'événement pour le clic sur l'image
-        playButton.addEventListener('click', () => {
-            if (videoVisible) {
-                // Masquez la vidéo en ajoutant la classe 'hidden'
-                projectVideo.classList.add('hidden');
-                videoVisible = false;
-            } else {
-                // Affichez la vidéo et supprimez la classe 'hidden' pour la rendre visible
-                projectVideo.classList.remove('hidden');
-                videoVisible = true;
-            }
-        });
-
-        // Ajoutez un écouteur d'événement pour le clic en dehors de la vidéo
-        window.addEventListener('click', (event) => {
-            // Vérifiez si l'élément cliqué n'est pas la vidéo ou l'image
-            if (event.target !== projectVideo && event.target !== playButton) {
-                // Masquez la vidéo en ajoutant la classe 'hidden'
-                projectVideo.classList.add('hidden');
-                videoVisible = false;
-            }
-        });
-
-    </script>
 </body>
 <footer th:replace="fragments/pieds :: pieds"></footer>
 </html>

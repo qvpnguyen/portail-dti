@@ -53,6 +53,7 @@ public class UtilisateurController {
                 session.setAttribute("roleUtilisateur", etudiant.getRole());
                 session.setAttribute("dispoTutorat", etudiant.getDispoTutorat());
                 session.setAttribute("isTuteur", etudiant.getTuteur());
+                System.out.println("id connexion " + etudiant.getId());
                 return "redirect:/etudiant";
 
             }
@@ -262,6 +263,9 @@ public class UtilisateurController {
             redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + prof.getEmail());
             return "redirect:/professeurs/new";
         }
+        if (role.equals("Professeur")) {
+            return "redirect:/professeur";
+        }
         return "redirect:/utilisateurs";
     }
     @PostMapping("/etudiants/save")
@@ -312,6 +316,9 @@ public class UtilisateurController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Il y a déjà un utilisateur avec le même email: " + etudiant.getEmail());
             return "redirect:/etudiants/new";
+        }
+        if (role.equals("Etudiant")) {
+            return "redirect:/etudiant";
         }
         return "redirect:/utilisateurs";
     }
@@ -364,7 +371,9 @@ public class UtilisateurController {
             return "redirect:/visiteurs/new";
         }
 
-
+        if (role.equals("Visiteur")) {
+            return "redirect:/visiteur";
+        }
         return "redirect:/utilisateurs";
     }
     @GetMapping("/images/admins/{fileId}")
