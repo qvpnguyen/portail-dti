@@ -348,6 +348,7 @@ public class ProjetController {
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("note", note);
         model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("pageTitle", "Ajouter une note a un projet");
 
         return "notes-form";
     }

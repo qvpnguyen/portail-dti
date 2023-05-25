@@ -67,7 +67,7 @@
                     <td th:text="${noteDeCours.id}"></td>
                     <td th:text="${noteDeCours.nom}"></td>
                     <td th:text="${noteDeCours.cours.nom}"></td>
-                    <td th:text="${noteDeCours.lien}"></td>
+                    <td ><a th:href="${noteDeCours.lien}" th:text="${noteDeCours.lien}"></a></td>
                     <td th:text="${noteDeCours.professeur.prenom} + ' ' + ${noteDeCours.professeur.nom}"></td>
                     <td>
                         <a class="fa-solid fa-download icon-navy fa-2x" th:href="@{'/documents/utilisateur/' + ${noteDeCours.document}}"  title="Télécharger" download></a>

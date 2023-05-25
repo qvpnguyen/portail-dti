@@ -83,6 +83,7 @@ public class EtudiantProjetController {
         model.addAttribute("professeur", projetChoisi.getProfesseur().getNom() + " " + projetChoisi.getProfesseur().getPrenom());
         model.addAttribute("noteObtenu", noteObtenue);
         model.addAttribute("commentaire", commentaire);
+        model.addAttribute("pageTitle", "Evaluer un projet");
 
         return "etudiantProjet";
     }
@@ -109,6 +110,7 @@ public class EtudiantProjetController {
             System.out.println(votes);
 
             model.addAttribute("projetChoisi", projetChoisi);
+
             model.addAttribute("totalVotes", totalVotes);
         }
 
@@ -120,11 +122,19 @@ public class EtudiantProjetController {
         if (totalVotes == 0) {
             return 0.0;
         }
+
         int sum = 0;
+
         for (Vote vote : votes) {
+            System.out.println("getRating: " + vote.getRating());
             sum += vote.getRating();
+            System.out.println("sum inside loop: " + sum);
         }
+
         double average = (double) sum / totalVotes;
+        System.out.println("totalVotes: " + totalVotes);
+        System.out.println("sum: " + sum);
+        System.out.println(" ");
         return Math.round(average * 100.0) / 100.0;
     }
 

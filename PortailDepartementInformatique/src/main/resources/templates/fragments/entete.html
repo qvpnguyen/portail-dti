@@ -25,6 +25,7 @@
         </div>
 
       </div>
+
       <div class="d-flex header-utilisateur">
         <h2 class="titre-utilisateur me-2 mt-2">[[${session.nomUtilisateur}]] [[${session.prenomUtilisateur}]]</h2>
         <span th:switch="${session.roleUtilisateur}">
@@ -69,14 +70,16 @@
         </div>
 
 
-        <a th:href="@{/utilisateur/deconnexion}">
-          <svg class="ps-3" width="51" height="55" viewBox="0 0 65 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0H51V55H0V0Z" fill="white" fill-opacity="0.01"/>
-            <path d="M19.9925 11.4553H5.99783V44.4854H19.9989" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M26.9995 36.2277L34 27.9702L26.9995 19.7126" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M13.7762 27.9626H34" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <th:block th:if="${session.nomUtilisateur != null}">
+          <a th:href="@{/utilisateur/deconnexion}">
+            <svg class="ps-3" width="51" height="55" viewBox="0 0 65 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0H51V55H0V0Z" fill="white" fill-opacity="0.01"/>
+              <path d="M19.9925 11.4553H5.99783V44.4854H19.9989" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M26.9995 36.2277L34 27.9702L26.9995 19.7126" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.7762 27.9626H34" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </th:block>
 
         <div class="btn-group dropstart">
           <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
@@ -136,6 +139,12 @@
                 <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
+             <span th:case="${null}">
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/}">Connexion</a></li>
+
+              </ul>
+            </span>
           </span>
 
         </div>
@@ -173,7 +182,7 @@
               <path d="M1.90337 1H16.3573C16.8563 1 17.2607 1.55577 17.2607 2.24139L17.2609 4.21027C17.261 4.53963 17.1657 4.85549 16.9963 5.08837L11.2016 13.0519C11.0322 13.2847 10.937 13.6005 10.937 13.9298V21.7578C10.937 22.5655 10.3847 23.1582 9.8146 22.9623L8.00786 22.3415C7.60568 22.2034 7.32357 21.7067 7.32357 21.137V13.9298C7.32357 13.6005 7.22839 13.2847 7.05898 13.0519L1.26459 5.0883C1.09517 4.85547 1 4.53967 1 4.21039V2.24155C1 1.55587 1.40445 1 1.90337 1Z" stroke="#3B4394" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <!-- Filtre -->
-            <div id="dropdown" class="dropdown">
+            <div id="dropdown" class="dropdown dropdown-list-container">
               <form th:action="@{/etudiants-projets}" method="get">
                 <ul class="dropdown-list ms-3 mt-3">
                   <li>
@@ -222,4 +231,5 @@
       </nav>
     </div>
   </header>
+
 </div>

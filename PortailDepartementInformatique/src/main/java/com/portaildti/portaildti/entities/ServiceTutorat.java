@@ -25,7 +25,7 @@ public class ServiceTutorat {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(nullable = false)
     private LocalDate dateTutorat;
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm")
     @Column(nullable = false)
     private LocalTime heure;
     @Column(nullable = false)
