@@ -153,4 +153,9 @@ public class EtudiantService {
 
         return repo.findEtudiantsByRole(role);
     }
+
+
+    public void updateActiveStatus(Integer id, boolean enabled) {
+        repo.updateActiveStatusEtudiant(id, enabled);
+    }
 }
