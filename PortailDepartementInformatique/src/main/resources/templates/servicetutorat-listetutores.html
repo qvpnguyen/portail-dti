@@ -28,20 +28,25 @@
                 <div th:each="tutore, iterStat : ${listeTutoresPourTuteur}" class="row gx-5 mb-4">
                     <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
                         <div class="carte-video mb-4">
-                            <img th:src="@{${tutore.photo != null ? '/images/utilisateur/' + tutore.photo : '/images/admin-icon.png'}}" th:alt="${tutore.prenom + ' ' + tutore.nom}" class="img-fluid fixed-size-image">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${tutore.photo != null ? '/images/utilisateur/' + tutore.photo : '/images/admin-icon.png'}}" th:alt="${tutore.prenom + ' ' + tutore.nom}" class="img-fluid image-fix">
+                            </div>
                             <div class="conteneur-infos-projet">
                                 <a th:href="@{'/etudiant/profil/' + ${tutore.id}}">
                                     <h4 th:text="${tutore.prenom + ' ' + tutore.nom}"></h4></a>
                                 </a>
-                                <p>
-                                    <i th:text="'Profil ' + ${tutore.profil}"></i>
-                                </p>
+                                <p><i th:text="'Profil ' + ${tutore.profil}"></i></p>
                             </div>
                         </div>
                     </div>
                     <div th:classappend="${iterStat.odd}? 'col-8 order-md-2' : 'col-8 order-md-1'">
-                        <div class="carte-description p-4">
-                            <p th:text="${tutore}"></p>
+                        <div th:each="tutorat, iterStat : ${listeTutoratsPourTuteur}">
+                            <div class="carte-description p-4">
+                                <p th:text="'Date: ' + ${tutorat.dateTutorat}"></p>
+                                <p th:text="'Heure: ' + ${tutorat.heure}"></p>
+                                <p th:text="'Durée: ' + ${tutorat.duree} + ' heures'"></p>
+                                <p th:text="'Type de rencontre: ' + ${tutorat.typeDeRencontre}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
