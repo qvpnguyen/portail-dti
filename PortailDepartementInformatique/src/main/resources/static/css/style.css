@@ -494,3 +494,15 @@ hr {
 
 
 
+.dropdown-list-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    width: 30%; /* Réduire la largeur à 80% */
+    /* Définir une hauteur maximale */
+    overflow-y: auto; /* Ajouter une barre de défilement si nécessaire */
+}

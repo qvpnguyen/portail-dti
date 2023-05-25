@@ -68,6 +68,7 @@ public class NoteDeCoursController {
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("noteDeCours",noteDeCours);
+        model.addAttribute("pageTitle", "Ajouter un nouveau note de cours");
 
         return "notesDeCours-form";
     }

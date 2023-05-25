@@ -23,6 +23,23 @@
 
 <header th:replace="fragments/entete :: entete">
 </header>
+<script> // Récupérer les références aux éléments SVG et à la liste des professeurs et des cours
+const svgIcon = document.getElementById('svg-icon');
+const dropdown = document.getElementById('dropdown');
+
+// Ajouter un écouteur d'événement pour le clic sur le SVG
+svgIcon.addEventListener('click', function() {
+    // Vérifier si la liste des professeurs et des cours est visible ou cachée
+    const isDropdownVisible = dropdown.style.display === 'block';
+
+    // Afficher ou masquer la liste en fonction de son état actuel
+    if (isDropdownVisible) {
+        dropdown.style.display = 'none';
+    } else {
+        dropdown.style.display = 'block';
+    }
+});
+</script>
 <main>
     <div th:if="${#lists.isEmpty(listeProjets)}">
         <p class="navbar-brand">Aucun résultat trouvé.</p>
