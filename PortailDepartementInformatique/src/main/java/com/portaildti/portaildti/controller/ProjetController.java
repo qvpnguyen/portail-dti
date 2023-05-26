@@ -75,60 +75,57 @@ public class ProjetController {
 //    }
 
     @GetMapping("/etudiants-projets")
-        public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
-            List<Projet> projets = projetService.afficherProjet();
-            List<Projet> listeProjets = new ArrayList<>();
-            List<Cours> listeCours = coursService.afficherCours();
-            List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
-//            Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
-            List<Projet> projetsFiltres = new ArrayList<>();
+    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
+        List<Projet> projets = projetService.afficherProjet();
+        List<Projet> listeProjets = new ArrayList<>();
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
+// Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        List<Projet> projetsFiltres = new ArrayList<>();
 
-            if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
-                for (String nomProfesseur : nomsProfesseurs) {
-                    List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
-                    projetsFiltres.addAll(projetsProfesseur);
-                }
-                listeProjets.addAll(projetsFiltres);
+        if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
+            for (String nomProfesseur : nomsProfesseurs) {
+                List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
+                projetsFiltres.addAll(projetsProfesseur);
             }
+            listeProjets.addAll(projetsFiltres);
+        }
 
-            else if (nomsCours != null && !nomsCours.isEmpty()) {
-                for (String nomCours : nomsCours) {
-                    List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
-                    projetsFiltres.addAll(projetsCours);
-                }
-                listeProjets.addAll(projetsFiltres);
+
+        else if (nomsCours != null && !nomsCours.isEmpty()) {
+            for (String nomCours : nomsCours) {
+                List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
+                projetsFiltres.addAll(projetsCours);
             }
+            listeProjets.addAll(projetsFiltres);
 
-            if ((nomsProfesseurs == null || nomsProfesseurs.isEmpty()) && (nomsCours == null || nomsCours.isEmpty())) {
-                listeProjets = projetService.afficherProjet();
-            }
+        }
 
-            if (listeProjets.isEmpty()) {
-                model.addAttribute("aucunResultat", true);
-            } else {
-//                for (Projet projet : listeProjets) {
-//                    List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
-//                    etudiantsParProjet.put(projet.getNom(), listeEtudiants);
-//                }
-            }
+        if ((nomsProfesseurs == null || nomsProfesseurs.isEmpty()) && (nomsCours == null || nomsCours.isEmpty())) {
+            listeProjets = projetService.afficherProjet();
+        }
 
-            Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
-            for (Projet projet : projets) {
-                List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
-                etudiantsParProjet.put(projet.getId(), etudiants);
-            }
+        if (listeProjets.isEmpty()) {
+            model.addAttribute("aucunResultat", true);
+        } 
 
-            model.addAttribute("etudiantsParProjet", etudiantsParProjet);
-            model.addAttribute("listeProjets", listeProjets);
-            model.addAttribute("listeCours", listeCours);
-            model.addAttribute("listeProfesseurs", listeProfesseurs);
+        Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        for (Projet projet : projets) {
+            List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+            etudiantsParProjet.put(projet.getId(), etudiants);
+        }
+
+        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+        model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
 
 
-            List<Projet> listeProjets1 = new ArrayList<>();
+        List<Projet> listeProjets1 = new ArrayList<>();
 
-            String pageTitle = "Ensemble des projets";
-            model.addAttribute("pageTitle", pageTitle);
-            if (keyword != null){
+        String pageTitle = "Ensemble des projets";
+        model.addAttribute("pageTitle", pageTitle);
+        if (keyword != null){
 
             if (listeProjets1.isEmpty()) {
                 listeProjets1 = projetService.rechercherProjet(keyword);

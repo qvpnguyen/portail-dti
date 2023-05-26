@@ -50,8 +50,8 @@ public class ServiceTutoratController {
 
                 coursParTuteur.put(tuteur.getNom(), listeCoursTuteurs);
 
-                //if (disponibiliteTuteurs.)
-                //disponibiliteTuteurs.put(tuteur, tuteur.getDispoTutorat() ? "Disponible" : "Non disponible"); // Set tutor availability
+//if (disponibiliteTuteurs.)
+//disponibiliteTuteurs.put(tuteur, tuteur.getDispoTutorat() ? "Disponible" : "Non disponible"); // Set tutor availability
 
             }
         }

@@ -13,4 +13,5 @@ import java.util.List;
 public interface TuteurCoursRepository extends CrudRepository<TuteurCours,Integer> {
     @Query("SELECT t.cours FROM TuteurCours t Join t.tuteur tu where tu.id = :tuteurId")
     List<Cours> findCoursByTuteur(@Param("tuteurId") Integer tuteurId);
+
 }

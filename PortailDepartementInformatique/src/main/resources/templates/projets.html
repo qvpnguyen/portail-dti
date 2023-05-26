@@ -59,9 +59,9 @@ svgIcon.addEventListener('click', function() {
                 <div th:each="projet, iterStat : ${listeProjets}" class="row gx-5 mb-4">
                     <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
                         <div class="carte-video mb-4">
-                            <img th:id="'play-button-' + ${iterStat.count}" class="play-button" src="images/play-button-icon.png"
+                            <img th:id="'play-button-' + ${iterStat.count}" class="play-button mx-auto d-block" src="images/play-button-icon.png"
                                  alt="Jouer" />
-                            <video th:id="'project-video-' + ${iterStat.count}" controls class="projet-video hidden video-frame">
+                            <video th:id="'project-video-' + ${iterStat.count}" controls class="projet-video video-frame hidden">
                                 <source th:src="@{'videos/utilisateur/' + ${projet.video}}" type="video/mp4">
                                 Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
                             </video>

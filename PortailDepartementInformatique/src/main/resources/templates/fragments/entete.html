@@ -71,7 +71,7 @@
 
 
         <th:block th:if="${session.nomUtilisateur != null}">
-          <a th:href="@{/utilisateur/deconnexion}">
+          <a th:href="@{/utilisateur/deconnexion}" onclick="return confirmLogout()">
             <svg class="ps-3" width="51" height="55" viewBox="0 0 65 55" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0H51V55H0V0Z" fill="white" fill-opacity="0.01"/>
               <path d="M19.9925 11.4553H5.99783V44.4854H19.9989" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -232,5 +232,16 @@
       </nav>
     </div>
   </header>
+
+  <script>
+    function confirmLogout() {
+      if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+        window.location.href = '/';
+        return true; // Proceed with logout
+      } else {
+        return false; // Cancel the link action
+      }
+    }
+  </script>
 
 </div>
