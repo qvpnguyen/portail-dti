@@ -91,7 +91,7 @@ public class ProjetController {
                 listeProjets.addAll(projetsFiltres);
             }
 
-            if (nomsCours != null && !nomsCours.isEmpty()) {
+            else if (nomsCours != null && !nomsCours.isEmpty()) {
                 for (String nomCours : nomsCours) {
                     List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
                     projetsFiltres.addAll(projetsCours);

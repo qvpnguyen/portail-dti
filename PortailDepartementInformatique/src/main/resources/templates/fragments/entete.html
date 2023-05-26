@@ -192,7 +192,7 @@
                     </th:block>
                     <th:block th:unless="${#lists.isEmpty(listeProfesseurs)}">
                       <div th:each="prof : ${listeProfesseurs}">
-                        <input type="checkbox" name="professeur" th:value="${prof.nom}" multiple>
+                        <input type="radio" name="professeur" th:value="${prof.nom}">
                         <label th:for="${prof.nom}" th:text="${prof.nom} + ' ' + ${prof.prenom}"></label><br>
                       </div>
                     </th:block>
@@ -205,7 +205,7 @@
                     </th:block>
                     <th:block th:unless="${#lists.isEmpty(listeCours)}">
                       <div th:each="cours : ${listeCours}">
-                        <input type="checkbox" name="cours" th:value="${cours.nom}" multiple>
+                        <input type="radio" name="cours" th:value="${cours.nom}">
                         <label th:for="${cours.nom}" th:text="${cours.nom}"></label><br>
                       </div>
                     </th:block>
@@ -214,9 +214,10 @@
                 <input class="btn bouton-mauve ms-3 mt-3" type="submit" value="Filtrer">
               </form>
               <th:block th:if="${aucunResultat}">
-                <p>Aucun resultat trouvé.</p>
+                <p>Aucun résultat trouvé.</p>
               </th:block>
             </div>
+
 
             <!-- La barre de recherche -->
             <form class="d-flex" th:action="@{/etudiants-projets}" method="get">
