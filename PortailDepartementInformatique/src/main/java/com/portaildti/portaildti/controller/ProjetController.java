@@ -91,12 +91,14 @@ public class ProjetController {
             listeProjets.addAll(projetsFiltres);
         }
 
+
         else if (nomsCours != null && !nomsCours.isEmpty()) {
             for (String nomCours : nomsCours) {
                 List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
                 projetsFiltres.addAll(projetsCours);
             }
             listeProjets.addAll(projetsFiltres);
+
         }
 
         if ((nomsProfesseurs == null || nomsProfesseurs.isEmpty()) && (nomsCours == null || nomsCours.isEmpty())) {
@@ -105,12 +107,7 @@ public class ProjetController {
 
         if (listeProjets.isEmpty()) {
             model.addAttribute("aucunResultat", true);
-        } else {
-// for (Projet projet : listeProjets) {
-// List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
-// etudiantsParProjet.put(projet.getNom(), listeEtudiants);
-// }
-        }
+        } 
 
         Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
         for (Projet projet : projets) {
