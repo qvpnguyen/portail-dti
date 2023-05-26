@@ -34,11 +34,7 @@ public class EtudiantService {
         return  null;
     }
 
-    public List<Etudiant> rechercherEtudiantsTuteur() {
 
-            return (List<Etudiant>) repo.findEtudiantsTuteurs();
-
-    }
 
     public Etudiant ajouterEtudiant(Etudiant etudiant){
         return repo.save(etudiant);

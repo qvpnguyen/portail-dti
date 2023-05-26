@@ -37,7 +37,7 @@
       var objet = document.getElementById('objet').value();
       var date = document.getElementById('date').value();
       var contenu = document.getElementById('contenu').value();
-      var currentYear = new Date().getDate();
+      var currentYear = new Date().getFullYear();
 
       if (objet == "" || date == "" || contenu == "") {
         $("#error").text("Tous les champs doivent être remplis");
@@ -49,8 +49,8 @@
         return false;
       }
 
-      else if (parseInt(date) > currentYear) {
-        $("#errorDate").text("La date ne peut pas être passée");
+      else if (parseInt(date) < currentYear) {
+        $("#errorDate").text("La date ne peut pas être une ancienne date");
         return false;
       }
 
