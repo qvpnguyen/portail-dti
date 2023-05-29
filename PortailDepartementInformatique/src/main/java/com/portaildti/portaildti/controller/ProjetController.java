@@ -107,7 +107,7 @@ public class ProjetController {
 
         if (listeProjets.isEmpty()) {
             model.addAttribute("aucunResultat", true);
-        } 
+        }
 
         Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
         for (Projet projet : projets) {

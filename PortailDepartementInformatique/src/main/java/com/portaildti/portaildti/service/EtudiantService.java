@@ -168,6 +168,5 @@ public class EtudiantService {
     public void updateActiveStatus(Integer id, boolean enabled) {
         repo.updateActiveStatusEtudiant(id, enabled);
     }
-    public List<Etudiant> rechercherEtudiantsTuteur() {
-        return (List<Etudiant>) repo.findEtudiantsTuteurs();    }
+
 }
