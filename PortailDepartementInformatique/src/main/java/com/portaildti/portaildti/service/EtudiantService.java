@@ -159,6 +159,10 @@ public class EtudiantService {
 
         return repo.findEtudiantsAnciens();
     }
+    public List<Etudiant> rechercherEtudiantsTuteur(){
+
+        return repo.findEtudiantsTuteurs();
+    }
 
 
     public void updateActiveStatus(Integer id, boolean enabled) {

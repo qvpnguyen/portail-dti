@@ -16,13 +16,36 @@ import java.time.LocalDate;
 @Entity
 public class Visiteur extends Utilisateur {
 
+
+    private String statut;
+
+
+    private String compagnie;
+
     public Visiteur() {
     }
 
-    public Visiteur(Integer id, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
+    public Visiteur(Integer id, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo, String statut, String compagnie) {
         super(id, prenom, nom, email, role, active, motDePasse, ddn, photo);
+        this.statut = statut;
+        this.compagnie = compagnie;
     }
 
+    public String getStatut() {
+        return statut;
+    }
 
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public String getCompagnie() {
+        return compagnie;
+    }
+
+    public void setCompagnie(String compagnie) {
+        this.compagnie = compagnie;
+    }
 }
+
 

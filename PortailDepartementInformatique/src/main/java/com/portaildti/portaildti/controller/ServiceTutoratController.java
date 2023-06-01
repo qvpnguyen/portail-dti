@@ -77,6 +77,7 @@ public class ServiceTutoratController {
             model.addAttribute("listeTutoresPourTuteur", listeTutoresPourTuteur);
         }
         List<ServiceTutorat> listeTutoratsPourTuteur = serviceTutoratService.afficherServiceTutoratsParTuteur(id);
+        System.out.println("liste tutores: " + listeTutoratsPourTuteur);
         model.addAttribute("listeTutoratsPourTuteur", listeTutoratsPourTuteur);
 //        Map<Integer, List<ServiceTutorat>> tutoreParListeTutoratPourTuteur = new HashMap<>();
 //        for (Etudiant tutore : tutoreParListeTutoratPourTuteur) {
