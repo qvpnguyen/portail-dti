@@ -38,13 +38,13 @@ public class Projet {
     @JoinColumn(name = "ProfesseurID")
     private Professeur professeur;
 
-    @ManyToMany
-    @JoinTable(
-            name = "étudiant_projet",
-            joinColumns = @JoinColumn(name = "ProjetID"),
-            inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
-    )
-    private Set<Etudiant> etudiants = new HashSet();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "étudiant_projet",
+//            joinColumns = @JoinColumn(name = "ProjetID"),
+//            inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
+//    )
+//    private Set<Etudiant> etudiants = new HashSet();
     @Lob
     private byte[] data;
 
@@ -146,9 +146,9 @@ public class Projet {
         this.professeur = professeur;
     }
 
-    public void ajouter(Etudiant etudiant) {
-        this.etudiants.add(etudiant);
-    }
+//    public void ajouter(Etudiant etudiant) {
+//        this.etudiants.add(etudiant);
+//    }
 
     public byte[] getData() {
         return data;
