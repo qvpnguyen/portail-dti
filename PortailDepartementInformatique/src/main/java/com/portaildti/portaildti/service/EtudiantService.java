@@ -34,6 +34,8 @@ public class EtudiantService {
         return  null;
     }
 
+
+
     public Etudiant ajouterEtudiant(Etudiant etudiant){
         return repo.save(etudiant);
     }
@@ -157,9 +159,14 @@ public class EtudiantService {
 
         return repo.findEtudiantsAnciens();
     }
+    public List<Etudiant> rechercherEtudiantsTuteur(){
+
+        return repo.findEtudiantsTuteurs();
+    }
 
 
     public void updateActiveStatus(Integer id, boolean enabled) {
         repo.updateActiveStatusEtudiant(id, enabled);
     }
+
 }

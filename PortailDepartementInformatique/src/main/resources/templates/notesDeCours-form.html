@@ -21,8 +21,7 @@
   <!-- Inclusion du stylesheet principal -->
   <link rel="stylesheet" href="/css/style.css"/>
   <script>
-    function checkEmailUnique(form) {
-      $("#error").text("");
+    function validateForm(form){
       $("#errorNom").text("");
       $("#errorLien").text("");
 
@@ -47,97 +46,101 @@
         $("#errorLien").text("Veuillez entrer un lien URL valide");
         return false;
       }
-
-      // Si toutes les validations sont passées, alors nous envoyons la requête AJAX
-      $.ajax({
-        type : 'POST',
-        url :  '[[@{/noteDeCours/check_note}]]',
-        data: {nom: $("#nom").val()},
-        success : function(data) {
-          if(data==='OK'){
-            form.submit();
-          } else {
-            $("#error").text("Il y a déjà un note de cours avec le meme nom : " + $("#nom").val());
-          }
-        }
-      });
-
-      // On retourne false pour empêcher la soumission du formulaire par défaut
-      return false;
     }
-
   </script>
+
 </head>
-<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
-</header>
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche"></header>
 <body class="fond-blanc">
 <div class="container px-5 d-flex justify-content-center">
   <div class="row">
     <div class="boite-inscription mt-5">
-<form   th:action="@{/notesDeCours/save}" method="POST" enctype="multipart/form-data" th:object="${noteDeCours}" onsubmit="return checkEmailUnique(this);">
-  <div class="row mx-2 mt-4">
-    <div class="col-10">
-      <span id="error" style="color:red;"></span>
-      <div class="form-group my-3">
-        <label >Nom de notes de cours:</label>
-        <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
-        <span id="errorNom" style="color:red;"></span>
-      </div>
-    </div>
-    <div class="col-10">
-      <div class="form-group my-3">
-        <label for="professeur">Professeur responsable:</label>
-        <select name="professeur" id="professeur" class="form-select">
-          <option th:each="unProf : ${listeProfesseurs}" th:value="${unProf.id}" th:text="${unProf.prenom} + ' ' + ${unProf.nom}"></option>
-        </select>
-      </div>
-    </div>
-    <div class="col-10">
-      <div class="form-group my-3">
-        <label >Lien URL:</label>
-        <input type="text" class="form-control" id="lien" name="lien" th:field="*{lien}">
-        <span id="errorLien" style="color:red;"></span>
-      </div>
-    </div>
-    <div class="col-10">
-      <div class="form-group my-3">
-        <label for="cours">Cours associé:</label>
-        <select name="cours" id="cours" class="form-select">
-          <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
-        </select>
-      </div>
-    </div>
-    <div class="col-10">
-      <div class="form-group my-3">
-        <label >Téléversez votre document de notes de cours:</label>
-        <div class="row">
-          <div class="col-8">
-            <input type="file" class="form-control mt-2" id="documentNotesCours" name="documentNotesCours" >
+      <form th:action="@{/notesDeCours/save}" method="POST" enctype="multipart/form-data" th:object="${noteDeCours}" onsubmit="return checkEmailUnique(this); ">
+        <div class="row mx-2 mt-4">
+          <div class="col-10">
+            <span id="error" style="color:red;"></span>
+            <div class="form-group my-3">
+              <label>Nom de notes de cours:</label>
+              <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
+              <span id="errorNom" style="color:red;"></span>
+            </div>
           </div>
-          <div class="col-4 mt-2">
-            <button type="button" class="btn bouton-mauve">
-              Téléverser
-            </button>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label for="professeur">Professeur responsable:</label>
+              <select name="professeur" id="professeur" class="form-select">
+                <option th:each="unProf : ${listeProfesseurs}" th:value="${unProf.id}" th:text="${unProf.prenom} + ' ' + ${unProf.nom}"></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label>Lien URL:</label>
+              <input type="text" class="form-control" id="lien" name="lien" th:field="*{lien}">
+              <span id="errorLien" style="color:red;"></span>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label for="cours">Cours associé:</label>
+              <select name="cours" id="cours" class="form-select">
+                <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label>Téléversez votre document de notes de cours:</label>
+              <div class="row">
+                <div class="col-8">
+                  <input type="file" class="form-control mt-2" id="documentNotesCours" name="documentNotesCours">
+                </div>
+                <div class="col-4 mt-2">
+                  <button type="button" class="btn bouton-mauve">
+                    Téléverser
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="d-grid gap-2 mt-4 mx-3">
-    <button type="submit" class="btn bouton-mauve">
-      Sauvegarder
-    </button>
-    <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
-      <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>
-      OneDrive
-    </a>
-  </div>
-</form>
+        <div class="d-grid gap-2 mt-4 mx-3">
+          <button type="submit" class="btn bouton-mauve">
+            Sauvegarder
+          </button>
+          <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
+            <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>
+            OneDrive
+          </a>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+<script>
+  function checkEmailUnique(form) {
+    $("#error").text("");
 
+
+    // Si toutes les validations sont passées, alors nous envoyons la requête AJAX
+    $.ajax({
+      type: 'POST',
+      url: '/noteDeCours/check_note',
+      data: {nom: $("#nom").val()},
+      success: function(data) {
+        if (data === 'OK') {
+          form.submit();
+        } else {
+          $("#error").text("Il y a déjà une note de cours avec le même nom : " + $("#nom").val());
+        }
+      }
+    });
+
+    // On retourne false pour empêcher la soumission du formulaire par défaut
+    return validateForm(form);
+  }
+</script>
 </body>
 <footer th:replace="fragments/pieds :: pieds"></footer>
 </html>

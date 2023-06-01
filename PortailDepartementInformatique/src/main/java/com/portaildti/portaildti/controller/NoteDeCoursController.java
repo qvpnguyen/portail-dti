@@ -130,8 +130,10 @@ public class NoteDeCoursController {
             //en utilisant la méthode transferTo() de l'objet MultipartFile
             file.transferTo(serverFile);
         } else {
-            String document = serviceNoteDeCours.getDocumentByProjetId(noteDeCours.getId());
-            noteDeCours.setDocument(document);
+            if(noteDeCours.getId()!=null) {
+                String document = serviceNoteDeCours.getDocumentByProjetId(noteDeCours.getId());
+                noteDeCours.setDocument(document);
+            }
         }
         serviceNoteDeCours.ajouterNoteDeCours(noteDeCours);
         redirectAttributes.addFlashAttribute("message","Le note de cours a été ajouté avec succès");

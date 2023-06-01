@@ -23,6 +23,8 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
 
     @Query("SELECT e FROM Etudiant e WHERE e.email = :email")
     public Etudiant findEtudiantByEmail(@Param("email") String email);
+    @Query("SELECT e FROM Etudiant e WHERE e.isTuteur = true ")
+    public List<Etudiant> finEtudiantTuteur();
 
     @Query("SELECT e FROM Etudiant e WHERE e.cours = :coursID")
     public List<Etudiant> findEtudiantsByCoursID(@Param("coursID") Long coursID);
@@ -58,5 +60,6 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
     public List<Etudiant> findByFileName(@Param("fileName") String fileName);
     @Query("SELECT e FROM Etudiant e WHERE e.email = :email")
     public Etudiant getUtilisateurByEmail(@Param("email") String email);
-
+    @Query("SELECT e FROM Etudiant e WHERE e.isTuteur = true ")
+    public List<Etudiant> findEtudiantTuteur();
 }

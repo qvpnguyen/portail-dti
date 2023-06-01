@@ -73,62 +73,58 @@ public class ProjetController {
 //        model.addAttribute("keyword", keyword);
 //        return "projets";
 //    }
-
     @GetMapping("/etudiants-projets")
-        public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
-            List<Projet> projets = projetService.afficherProjet();
-            List<Projet> listeProjets = new ArrayList<>();
-            List<Cours> listeCours = coursService.afficherCours();
-            List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
-//            Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
-            List<Projet> projetsFiltres = new ArrayList<>();
+    public String afficherEnsembleProjets(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
+        List<Projet> projets = projetService.afficherProjet();
+        List<Projet> listeProjets = new ArrayList<>();
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
+// Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        List<Projet> projetsFiltres = new ArrayList<>();
 
-            if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
-                for (String nomProfesseur : nomsProfesseurs) {
-                    List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
-                    projetsFiltres.addAll(projetsProfesseur);
-                }
-                listeProjets.addAll(projetsFiltres);
+        if (nomsProfesseurs != null && !nomsProfesseurs.isEmpty()) {
+            for (String nomProfesseur : nomsProfesseurs) {
+                List<Projet> projetsProfesseur = projetService.afficherProjetsParProfesseurNom(nomProfesseur);
+                projetsFiltres.addAll(projetsProfesseur);
             }
+            listeProjets.addAll(projetsFiltres);
+        }
 
-            if (nomsCours != null && !nomsCours.isEmpty()) {
-                for (String nomCours : nomsCours) {
-                    List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
-                    projetsFiltres.addAll(projetsCours);
-                }
-                listeProjets.addAll(projetsFiltres);
+
+        else if (nomsCours != null && !nomsCours.isEmpty()) {
+            for (String nomCours : nomsCours) {
+                List<Projet> projetsCours = projetService.afficherProjetsParCoursNom(nomCours);
+                projetsFiltres.addAll(projetsCours);
             }
+            listeProjets.addAll(projetsFiltres);
 
-            if ((nomsProfesseurs == null || nomsProfesseurs.isEmpty()) && (nomsCours == null || nomsCours.isEmpty())) {
-                listeProjets = projetService.afficherProjet();
-            }
+        }
 
-            if (listeProjets.isEmpty()) {
-                model.addAttribute("aucunResultat", true);
-            } else {
-//                for (Projet projet : listeProjets) {
-//                    List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsParProjetNom(projet.getNom());
-//                    etudiantsParProjet.put(projet.getNom(), listeEtudiants);
-//                }
-            }
+        if ((nomsProfesseurs == null || nomsProfesseurs.isEmpty()) && (nomsCours == null || nomsCours.isEmpty())) {
+            listeProjets = projetService.afficherProjet();
+        }
 
-            Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
-            for (Projet projet : projets) {
-                List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
-                etudiantsParProjet.put(projet.getId(), etudiants);
-            }
+        if (listeProjets.isEmpty()) {
+            model.addAttribute("aucunResultat", true);
+        }
 
-            model.addAttribute("etudiantsParProjet", etudiantsParProjet);
-            model.addAttribute("listeProjets", listeProjets);
-            model.addAttribute("listeCours", listeCours);
-            model.addAttribute("listeProfesseurs", listeProfesseurs);
+        Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        for (Projet projet : projets) {
+            List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+            etudiantsParProjet.put(projet.getId(), etudiants);
+        }
+
+        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+        model.addAttribute("listeProjets", listeProjets);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
 
 
-            List<Projet> listeProjets1 = new ArrayList<>();
+        List<Projet> listeProjets1 = new ArrayList<>();
 
-            String pageTitle = "Ensemble des projets";
-            model.addAttribute("pageTitle", pageTitle);
-            if (keyword != null){
+        String pageTitle = "Ensemble des projets";
+        model.addAttribute("pageTitle", pageTitle);
+        if (keyword != null){
 
             if (listeProjets1.isEmpty()) {
                 listeProjets1 = projetService.rechercherProjet(keyword);
@@ -173,7 +169,6 @@ public class ProjetController {
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-
             // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
             File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
             //en utilisant la méthode transferTo() de l'objet MultipartFile
@@ -182,7 +177,6 @@ public class ProjetController {
             String video = projetService.getVideoByProjetId(projet.getId());
             projet.setVideo(video);
         }
-
         System.out.println("projetid: " + projet.getId());
         System.out.println("membres de l'equipe: " + membres);
         // Dans un formulaire d'edition, si un projet est existant en allant chercher son id, on va iterer parmi la liste des membres et mettre a jour la liste des membres de l'equipe en faisant les ajouts/suppressions des membres necessaires
@@ -204,12 +198,16 @@ public class ProjetController {
         redirectAttributes.addFlashAttribute("membresEquipe", membres);
         return "redirect:/gestion-projets";
     }
+
     @PostMapping("/projets-visiteur/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
         projetService.ajouterProjet(projet);
         return "redirect:/visiteur";
     }
+
+
+
     @GetMapping("/videos/utilisateur/{fileId}")
     public void telechargerFichier(@PathVariable String fileId, HttpServletResponse response, HttpServletRequest request) throws IOException, ProjetNotFoundException {
         HttpSession session = request.getSession();
@@ -258,6 +256,7 @@ public class ProjetController {
         }
 
     }
+
     @GetMapping("projets/edit/{projetid}")
     public String mettreAJourProjet(@PathVariable(name = "projetid") Integer id, RedirectAttributes redirectAttributes, Model model) {
         try {
@@ -300,72 +299,5 @@ public class ProjetController {
         return "redirect:/gestion-projets";
     }
 
-    @GetMapping("/projets/evaluation")
-    public String evaluerProjet(Model model) {
 
-        List<Notes> listeNotesProjets = notesService.afficherNote();
-        model.addAttribute("listeNotes", listeNotesProjets);
-        String pageTitle = "Évaluation des projets";
-        model.addAttribute("pageTitle", pageTitle);
-        return "evaluationProjets";
-    }
-
-    @GetMapping("/modifier/note/{id}")
-    public String modifierNote (@PathVariable(name = "id") Integer id,@RequestParam("noteObtenue") int noteObtenue) {
-    notesService.modifierNoteObtenue(id,noteObtenue);
-        return "redirect:/projets/evaluation";
-    }
-
-    @GetMapping("/rechercher/note_projet/")
-    public String rechercherNoteParNomProjet (Model model,@RequestParam("note") String nomProjet) {
-        List<Notes> listNotesProjet = notesService.rechercherNotesParProjetNom(nomProjet);
-        System.out.println(listNotesProjet);
-        model.addAttribute("listeNotes", listNotesProjet);
-        String pageTitle = "Évaluation des projets";
-        model.addAttribute("pageTitle", pageTitle);
-        return "evaluationProjets";
-    }
-
-    @GetMapping("/note/supprimer/{id}")
-    public String supprimerNote(@PathVariable(name = "id") Integer id,
-                                Model model,
-                                RedirectAttributes redirectAttributes) {
-        Notes notes = notesService.rechercherNotesParID(id);
-        if(notes != null) {
-            notesService.deleteNotes(id);
-            redirectAttributes.addFlashAttribute("message",
-                    "Note avec  ID " + id + " a été supprimé avec succès ");
-        }else{
-            redirectAttributes.addFlashAttribute("message",
-                    "Note  avec  ID " + id + " n'existe pas");
-        }
-
-        return "redirect:/projets/evaluation";
-    }
-
-    @GetMapping("/note/new/{nomProfSession}")
-    public String afficherFormNotesProjets(Model model, @PathVariable("nomProfSession") String nomProf) {
-        Notes note = new Notes();
-
-        System.out.println(nomProf);
-        Professeur professeur = professeurService.rechercherProfesseurSeulParNom(nomProf);
-        List<Cours> listeCours = coursService.rechercherCoursParProf(nomProf);
-        List<Projet> listeProjets = projetService.rechercherProjetParProf(nomProf);
-        model.addAttribute("professeur", professeur);
-        model.addAttribute("listeCours", listeCours);
-        model.addAttribute("note", note);
-        model.addAttribute("listeProjets", listeProjets);
-        model.addAttribute("pageTitle", "Ajouter une note a un projet");
-
-        return "notes-form";
-    }
-    @PostMapping("/notes/save")
-    public String ajouterNoteDeCours(Notes notes, RedirectAttributes redirectAttributes) throws Exception {
-
-        redirectAttributes.addFlashAttribute("message","Le note du projet "+ notes.getProjetID().getNom()+" a été ajouté avec succès");
-        System.out.println(notes.getProfesseurID());
-        notesService.ajouterNotes(notes);
-
-        return "redirect:/projets/evaluation";
-    }
 }
