@@ -66,18 +66,24 @@ svgIcon.addEventListener('click', function() {
                                 Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
                             </video>
                             <div class="conteneur-infos-projet">
-                                <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}">
-                                    <h4 class="mt-2" th:text="${projet.nom}"></h4>
+                                <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}" class="text-decoration-none">
+                                    <h4 class="mt-2">
+                                        <span th:text="${projet.nom}"></span>
+                                        <span class="text-muted" style="font-size: smaller;">(<span th:text="${projet.annee}"></span>)</span>
+                                    </h4>
                                 </a>
-                                <p>
-                                    <i th:text="${projet.description}"></i>
-                                </p>
-                                <ul>
-                                    <li th:each="etudiant : ${etudiantsParProjet[projet.id]}" class="list-inline-item">
+
+                                <span class="text-decoration-underline">Réalisé par:</span>
+                                <ul class="list-inline">
+                                    <li th:each="etudiant : ${etudiantsParProjet[projet.id]}" class="list-inline-item ps-0 pe-0">
                                         <span th:text="${etudiant.prenom}"></span>
                                         <span th:text="${etudiant.nom}"></span>
                                     </li>
                                 </ul>
+                                <span class="text-decoration-underline">Avec la supervision de:</span>
+                                <br>
+                                <span th:if="${projet.professeur != null}" th:text="${projet.professeur.prenom} + ' ' + ${projet.professeur.nom}"></span>
+                                <span th:unless="${projet.professeur != null}">Aucun professeur</span>
                             </div>
                         </div>
                     </div>
