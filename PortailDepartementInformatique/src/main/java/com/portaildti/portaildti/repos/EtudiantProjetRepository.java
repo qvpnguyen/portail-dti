@@ -12,8 +12,12 @@ import java.util.List;
 
 @Repository
 public interface EtudiantProjetRepository extends CrudRepository<EtudiantProjet, Integer> {
-    @Query("SELECT e FROM Etudiant e JOIN EtudiantProjet ep ON ep.etudiant.id = e.id WHERE ep.projet.id = :projetid")
-    public List<Etudiant> findEtudiantsByProjetId(@Param("projetid") Integer projetid);
+
+//    @Query("SELECT e FROM Etudiant e JOIN EtudiantProjet ep ON ep.etudiant.id = e.id WHERE ep.projet.id = :projetid")
+//    public List<Etudiant> findEtudiantsByProjetId(@Param("projetid") Integer projetid);
+
+    @Query("SELECT e FROM Etudiant e JOIN e.projets p WHERE p.id = :projectId")
+    public List<Etudiant> findEtudiantsByProjetId(@Param("projectId") Integer projectId);
     @Query("SELECT ep FROM EtudiantProjet ep WHERE ep.projet.id = :projetid")
     public List<EtudiantProjet> findEtudiantProjetsByProjetId(@Param("projetid") Integer projetid);
     @Query("DELETE FROM EtudiantProjet ep WHERE ep.projet.id = :projetid")
