@@ -64,7 +64,7 @@ public class ProfesseurService {
         }
         return null;
     }
-    public Professeur rechercherProfesseurParCoursNom(String nomCours){
+    public List<Professeur> rechercherProfesseurParCoursNom(String nomCours){
         if (nomCours != null) {
             return repo.findProfesseursByCoursName(nomCours);
         }

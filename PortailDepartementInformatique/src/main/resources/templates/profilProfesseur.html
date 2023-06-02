@@ -51,7 +51,6 @@
 
       </div>
     </div>
-  </div>
 
 
     <!-- Afficher les projets responsables -->
@@ -83,10 +82,16 @@
     <div class="conteneur-cours-contact">
       <div class="container conteneur-table bg-light p-5 mt-5">
         <section class="cours1">
-          <h2>Cours Donnés</h2>
-          <ul th:each="cours : ${coursProf}">
-            <a th:href="@{'/professeur/profil/' + ${cours.profID.id} + '/' + ${cours.id}}"><li th:text="${cours.nom}"></li></a>
+          <h2>Cours donnés</h2>
+          <ul class="list-unstyled">
+            <li th:each="cours : ${coursProf}">
+              <a th:each="professeur : ${cours.professeurSet}" th:href="@{'/professeur/profil/' + ${professeur.id} + '/' + ${cours.id}}" class="text-decoration-none">
+                <span th:text="${cours.nom}"></span>
+              </a>
+            </li>
           </ul>
+
+          <p th:if="${#lists.isEmpty(coursProf)}">Aucun cours</p>
         </section>
 
 

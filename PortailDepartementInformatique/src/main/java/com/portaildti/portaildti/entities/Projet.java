@@ -25,7 +25,7 @@ public class Projet {
     private String nom;
     @Column(length = 4)
     private Integer annee;
-    @Column
+    @Column(length = 5000)
     private String description;
     @Column
     private String video;
@@ -38,13 +38,13 @@ public class Projet {
     @JoinColumn(name = "ProfesseurID")
     private Professeur professeur;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "étudiant_projet",
-//            joinColumns = @JoinColumn(name = "ProjetID"),
-//            inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
-//    )
-//    private Set<Etudiant> etudiants = new HashSet();
+    @ManyToMany
+    @JoinTable(
+            name = "étudiant_projet",
+            joinColumns = @JoinColumn(name = "ProjetID"),
+            inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
+    )
+    private Set<Etudiant> etudiants = new HashSet();
     @Lob
     private byte[] data;
 
