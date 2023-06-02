@@ -1,6 +1,7 @@
 package com.portaildti.portaildti.repos;
 
 import com.portaildti.portaildti.entities.Etudiant;
+import com.portaildti.portaildti.entities.Projet;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -26,7 +27,7 @@ public interface EtudiantRepository extends CrudRepository<Etudiant, Integer> {
     @Query("SELECT e FROM Etudiant e WHERE e.isTuteur = true ")
     public List<Etudiant> finEtudiantTuteur();
 
-    @Query("SELECT e FROM Etudiant e WHERE e.cours = :coursID")
+    @Query("SELECT e FROM Etudiant e WHERE e.coursSet = :coursID")
     public List<Etudiant> findEtudiantsByCoursID(@Param("coursID") Long coursID);
 
     @Query("SELECT e FROM Etudiant e WHERE e.dispoTutorat = :disponibilite")

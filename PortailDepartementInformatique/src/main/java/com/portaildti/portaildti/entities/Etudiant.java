@@ -21,9 +21,14 @@ public class Etudiant extends Utilisateur {
 //    private String role;
     @Column
     private Boolean formationCompletee;
-    @ManyToOne
-    @JoinColumn(name = "CoursID")
-    private Cours cours;
+    @ManyToMany
+    @JoinTable(
+            name = "étudiant_cours",
+            joinColumns = @JoinColumn(name = "étudiantID"),
+            inverseJoinColumns = @JoinColumn(name = "coursID")
+    )
+    private Set<Cours> coursSet = new HashSet();
+
     @Column
     private Boolean dispoTutorat;
     @Column(name = "is_tuteur")
@@ -55,39 +60,39 @@ public class Etudiant extends Utilisateur {
 
     }
 
-    public Etudiant(Integer id, String prenom, String nom, LocalDate ddn, String email, Boolean active, String role, Boolean formationCompletee, String profil, String motDePasse, Cours coursID, String photo, Boolean dispoTutorat, Boolean isTuteur) {
+    public Etudiant(Integer id, String prenom, String nom, LocalDate ddn, String email, Boolean active, String role, Boolean formationCompletee, String profil, String motDePasse, Set<Cours> coursID, String photo, Boolean dispoTutorat, Boolean isTuteur) {
 
         super(id, prenom, nom, email, role, active, motDePasse, ddn, photo);
         this.formationCompletee = formationCompletee;
-        this.cours = coursID;
+        this.coursSet = coursID;
         this.dispoTutorat = dispoTutorat;
         this.profil = profil;
         this.isTuteur = isTuteur;
     }
 
-    public Etudiant(Boolean formationCompletee, Cours cours, Boolean dispoTutorat, String profil, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo, Boolean isTuteur) {
+    public Etudiant(Boolean formationCompletee, Set<Cours> cours, Boolean dispoTutorat, String profil, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo, Boolean isTuteur) {
 
         super(prenom, nom, email, role, active, motDePasse, ddn, photo);
         this.formationCompletee = formationCompletee;
-        this.cours = cours;
+        this.coursSet = cours;
         this.dispoTutorat = dispoTutorat;
         this.profil = profil;
         this.isTuteur = isTuteur;
     }
 
-    public Etudiant(Boolean formationCompletee, Cours cours, Boolean dispoTutorat, String profil, String prenom, String nom, Boolean isTuteur) {
+    public Etudiant(Boolean formationCompletee, Set<Cours> cours, Boolean dispoTutorat, String profil, String prenom, String nom, Boolean isTuteur) {
         super(prenom, nom);
         this.formationCompletee = formationCompletee;
-        this.cours = cours;
+        this.coursSet = cours;
         this.dispoTutorat = dispoTutorat;
         this.profil = profil;
         this.isTuteur = isTuteur;
     }
 
-    public Etudiant(Boolean formationCompletee, Cours cours, Boolean dispoTutorat, String profil, Integer id, Boolean isTuteur) {
+    public Etudiant(Boolean formationCompletee, Set<Cours> cours, Boolean dispoTutorat, String profil, Integer id, Boolean isTuteur) {
         super(id);
         this.formationCompletee = formationCompletee;
-        this.cours = cours;
+        this.coursSet = cours;
         this.dispoTutorat = dispoTutorat;
         this.profil = profil;
         this.isTuteur = isTuteur;
@@ -162,12 +167,12 @@ public class Etudiant extends Utilisateur {
         this.formationCompletee = formationCompletee;
     }
 
-    public Cours getCours() {
-        return cours;
+    public Set<Cours> getCoursSet() {
+        return coursSet;
     }
 
-    public void setCours(Cours cours) {
-        this.cours = cours;
+    public void setCoursSet(Set<Cours> coursSet) {
+        this.coursSet = coursSet;
     }
 
     public String getProfil() {

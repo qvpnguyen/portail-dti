@@ -6,7 +6,12 @@ package com.portaildti.portaildti.entities;
  */
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -16,6 +21,14 @@ import java.time.LocalDate;
 public class Professeur extends Utilisateur{
 //    private List<NoteDeCours> notesDeCours;
 //    private List<Projet> projets;
+
+    @ManyToMany
+    @JoinTable(
+            name = "professeur_cours",
+            joinColumns = @JoinColumn(name = "professeurID"),
+            inverseJoinColumns = @JoinColumn(name = "coursID")
+    )
+    private Set<Cours> coursSet = new HashSet<>();
 
     public Professeur() {
 //        this.notesDeCours = new ArrayList();
@@ -40,7 +53,15 @@ public class Professeur extends Utilisateur{
 //        this.projets = new ArrayList();
     }
 
-//    public Professeur(List<NoteDeCours> notesDeCours, List<Projet> projets, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
+    public Set<Cours> getCoursSet() {
+        return coursSet;
+    }
+
+    public void setCoursSet(Set<Cours> coursSet) {
+        this.coursSet = coursSet;
+    }
+
+    //    public Professeur(List<NoteDeCours> notesDeCours, List<Projet> projets, int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, Date ddn) {
 //        super(id, prenom, nom, email, role, active, nomUtilisateur, motDePasse, ddn);
 //        this.notesDeCours = notesDeCours;
 //        this.projets = projets;

@@ -25,7 +25,7 @@ public class Projet {
     private String nom;
     @Column(length = 4)
     private Integer annee;
-    @Column
+    @Column(length = 5000)
     private String description;
     @Column
     private String video;
@@ -146,9 +146,9 @@ public class Projet {
         this.professeur = professeur;
     }
 
-    public void ajouter(Etudiant etudiant) {
-        this.etudiants.add(etudiant);
-    }
+//    public void ajouter(Etudiant etudiant) {
+//        this.etudiants.add(etudiant);
+//    }
 
     public byte[] getData() {
         return data;

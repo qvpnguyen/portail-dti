@@ -63,6 +63,7 @@
           <th>Nom</th>
           <th>Année</th>
           <th>Cours</th>
+          <th>Professeur</th>
 
         </tr>
         </thead>
@@ -72,7 +73,7 @@
           <td th:text="${projet.nom}"></td>
           <td th:text="${projet.annee}"></td>
           <td th:text="${projet.cours.nom}"></td>
-
+          <td th:text="${projet.professeur.prenom} + ' ' + ${projet.professeur.nom}"></td>
         </tr>
         </tbody>
       </table>
@@ -82,13 +83,17 @@
     <div class="conteneur-cours-contact">
       <div class="container conteneur-table bg-light p-5 mt-5">
         <section class="cours1">
-          <h2>Cours etudiés</h2>
-          <ul th:each="cours : ${coursProf}">
-            <a th:href="@{'/professeur/profil/' + ${cours.profID.id} + '/' + ${cours.id}}"><li th:text="${cours.nom}"></li></a>
+          <h2>Cours étudiés</h2>
+          <ul class="list-unstyled">
+            <li th:each="cours : ${coursProf}">
+              <a th:each="professeur : ${cours.professeurSet}" th:href="@{'/professeur/profil/' + ${professeur.id} + '/' + ${cours.id}}" class="text-decoration-none">
+                <span th:text="${cours.nom}"></span>
+              </a>
+            </li>
           </ul>
+
+          <p th:if="${#lists.isEmpty(coursProf)}">Aucun cours</p>
         </section>
-
-
       </div>
     </div>
   </div>
