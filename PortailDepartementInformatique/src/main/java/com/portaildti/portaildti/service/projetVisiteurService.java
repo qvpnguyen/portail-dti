@@ -34,7 +34,9 @@ public class projetVisiteurService {
         }
         return null;
     }
-
+    public ProjetVisiteur ajouterProjetVisiteur(ProjetVisiteur projetVisiteur) {
+        return repos.save(projetVisiteur);
+    }
 
 
 

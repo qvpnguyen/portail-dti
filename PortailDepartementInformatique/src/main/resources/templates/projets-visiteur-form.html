@@ -58,6 +58,7 @@
 
         <form th:action="@{/projets-visiteur/save}" method="post" enctype="multipart/form-data"
         th:object="${projet}" id="formulaire">
+          <input type="hidden" th:field="*{visiteur}" th:value="${session.idUtilisateur}">
           <div class="row mx-2 mt-4">
             <div class="col-10">
               <div class="form-group my-3">
@@ -73,12 +74,12 @@
             </div>
             <div class="col-10">
               <div class="form-group my-3">
-                <label for="annee">Année:</label>
-                <!--<input type="number" class="form-control" id="annee" name="annee" value="2023">-->
-                <select id="annee" name="annee" class="form-select">
-                  <option selected disabled>Choisir une année</option>
-                  <option th:each="annee : ${#numbers.sequence(2020, 2030)}" th:value="${annee}" th:text="${annee}" th:field="*{annee}"></option>
-                </select>
+                <label for="fileVideo">Téléversez un document:</label>
+                <div class="row">
+                  <div class="col-8">
+                    <input type="file" class="form-control mt-2" id="fileVideo" name="fileVideo">
+                  </div>
+                </div>
               </div>
             </div>
           </div>

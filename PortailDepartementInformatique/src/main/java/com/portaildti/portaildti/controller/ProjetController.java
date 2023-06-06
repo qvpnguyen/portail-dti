@@ -30,6 +30,8 @@ public class ProjetController {
     @Autowired
     ProjetService projetService;
     @Autowired
+    projetVisiteurService projetVisiteurService;
+    @Autowired
     EtudiantService etudiantService;
     @Autowired
     ProfesseurService professeurService;
@@ -57,7 +59,7 @@ public class ProjetController {
 
     @GetMapping("/projets-visiteur/new")
     public String afficherFormulaireProjetVisiteur(Model model) {
-        Projet projet = new Projet();
+        ProjetVisiteur projet = new ProjetVisiteur();
         model.addAttribute("projet", projet);
         model.addAttribute("pageTitle", "Ajouter un nouveau projet");
         return "projets-visiteur-form";
@@ -200,9 +202,38 @@ public class ProjetController {
     }
 
     @PostMapping("/projets-visiteur/save")
-    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes) {
+    public String ajouterProjetVisiteur(ProjetVisiteur projetVisiteur, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, Model model) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            // On spécifie une limite de taille de fichier
+            long maxSize = 30000000; // 30MB
+            // On vérifie si la taille du fichier ne dépasse pas la limite
+            long fileSize = file.getSize();
+            System.out.println(" fileSize : " + fileSize);
+            if (fileSize > maxSize) {
+                model.addAttribute("message","La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + " soit 10MB ");
+                return "utilisateurs_form";
+            }
+            String chemin = file.getOriginalFilename();
+            String filename = StringUtils.cleanPath(chemin);
+            // Association du nom de fichier à l'utilisateur enregistré
+            projetVisiteur.setDocument(filename);
+            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+            projetVisiteur.setData(file.getBytes());
+            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+            File directory = new File("src/main/resources/static/videos/utilisateur");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+            //en utilisant la méthode transferTo() de l'objet MultipartFile
+            file.transferTo(serverFile);
+        } else {
+            String video = projetService.getVideoByProjetId(projetVisiteur.getId());
+            projetVisiteur.setDocument(video);
+        }
         redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
-        projetService.ajouterProjet(projet);
+        projetVisiteurService.ajouterProjetVisiteur(projetVisiteur);
         return "redirect:/visiteur";
     }
 
@@ -298,6 +329,53 @@ public class ProjetController {
         }
         return "redirect:/gestion-projets";
     }
+    @GetMapping("/projets-visiteurs")
+    public String afficherProjetsVisiteurs(@RequestParam(name = "professeur", required = false) List<String> nomsProfesseurs, @RequestParam(name = "cours", required = false) List<String> nomsCours, @RequestParam(name = "keyword", required = false) String keyword, Model model) throws ProjetNotFoundException {
+        List<ProjetVisiteur> projetsVisiteurs = projetVisiteurService.afficherProjetVisiteur();
+        List<ProjetVisiteur> listeProjetsVisiteurs = new ArrayList<>();
+        List<Cours> listeCours = coursService.afficherCours();
+        List<Professeur> listeProfesseurs = professeurService.afficherProfesseurs();
+// Map<String, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        List<Projet> projetsFiltres = new ArrayList<>();
 
+
+
+        Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+        for (ProjetVisiteur projet : projetsVisiteurs) {
+            List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+            etudiantsParProjet.put(projet.getId(), etudiants);
+        }
+
+        model.addAttribute("etudiantsParProjet", etudiantsParProjet);
+        model.addAttribute("listeProjetsVisiteurs", listeProjetsVisiteurs);
+        model.addAttribute("listeCours", listeCours);
+        model.addAttribute("listeProfesseurs", listeProfesseurs);
+
+
+        List<Projet> listeProjets1 = new ArrayList<>();
+
+        String pageTitle = "Ensemble des projets";
+        model.addAttribute("pageTitle", pageTitle);
+        if (keyword != null){
+
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.rechercherProjet(keyword);
+            }
+
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.afficherProjetsParCoursNom(keyword);
+            }
+
+            if (listeProjets1.isEmpty()) {
+                listeProjets1 = projetService.rechercherProjetParProf(keyword);
+            }
+
+            model.addAttribute("listeProjets", listeProjets1);
+            model.addAttribute("keyword", keyword);
+        }
+
+
+        return "projets-visiteurs";
+    }
 
 }
