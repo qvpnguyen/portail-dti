@@ -54,6 +54,7 @@ public class UtilisateurController {
                 session.setAttribute("roleUtilisateur", etudiant.getRole());
                 session.setAttribute("dispoTutorat", etudiant.getDispoTutorat());
                 session.setAttribute("isTuteur", etudiant.getTuteur());
+                session.setAttribute("utilisateurActuel",etudiant);
                 System.out.println("id connexion " + etudiant.getId());
                 return "redirect:/etudiant";
 
@@ -71,12 +72,13 @@ public class UtilisateurController {
 
         } else if (type.equals("btnprofesseur")) {
             if(prof !=null){
-//                session.setAttribute("nomProf", prof.getNom());
+                session.setAttribute("nomProf", prof.getNom());
 //                session.setAttribute("prenomProf", prof.getPrenom());
                 session.setAttribute("nomUtilisateur", prof.getNom());
                 session.setAttribute("prenomUtilisateur", prof.getPrenom());
                 session.setAttribute("idUtilisateur", prof.getId());
                 session.setAttribute("roleUtilisateur", prof.getRole());
+                session.setAttribute("profProjet",prof);
 
                 return "redirect:/professeur";
 

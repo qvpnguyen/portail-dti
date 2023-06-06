@@ -159,7 +159,7 @@
                         <br>
                         <p><b>Étudiants:</b></p>
                         <li th:each="etudiant : ${etudiantsParProjet[projetChoisi.id]}" class="list-inline-item">
-                            <span th:text="${etudiant.prenom}"></span>
+                             <span th:text="${etudiant.prenom}"></span>
                             <span th:text="${etudiant.nom}"></span>
                         </li>
                     </div>
@@ -168,7 +168,7 @@
                     <div>
                         <p class="note-police">Note: <strong class="note-projet" th:text="${noteObtenu}">%</strong></p>
                     </div>
-                    <div class="d-grid">
+                    <div class="d-grid" th:if="${session.nomProf}">
                         <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <rect width="24" height="24" fill="url(#pattern0)"/>
