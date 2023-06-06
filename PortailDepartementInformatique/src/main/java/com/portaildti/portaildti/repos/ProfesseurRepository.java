@@ -33,8 +33,8 @@ public interface ProfesseurRepository  extends CrudRepository<Professeur,Integer
     @Query("SELECT p FROM Projet pr JOIN pr.professeur p WHERE pr.nom = ?1")
     public List<Professeur> findProfesseursByProjetName(String nom);
 
-    @Query("SELECT p FROM Cours  c JOIN c.profID p WHERE c.nom = ?1")
-    public Professeur findProfesseursByCoursName(String nom);
+    @Query("SELECT p FROM Professeur p JOIN p.coursSet c WHERE c.nom = ?1")
+    public List<Professeur> findProfesseursByCoursName(String nom);
 
     @Query("SELECT p FROM NoteDeCours nc JOIN nc.professeur p WHERE nc.nom = ?1")
     public Professeur findProfesseursByNoteDeCoursName(String nom);

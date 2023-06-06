@@ -20,6 +20,8 @@ public class Cours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(length = 50, nullable = false)
+    private String code;
+    @Column(length = 50, nullable = false)
     private String nom;
     @Column
     private Integer credits;
@@ -33,9 +35,14 @@ public class Cours {
             inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
     )
     private Set<Etudiant> etudiant = new HashSet();
-    @ManyToOne
-    @JoinColumn(name = "ProfesseurID")
-    private Professeur profID;
+
+    @ManyToMany
+    @JoinTable(
+            name = "professeur_cours",
+            joinColumns = @JoinColumn(name = "professeurID"),
+            inverseJoinColumns = @JoinColumn(name = "coursID")
+    )
+    private Set<Professeur> professeurSet = new HashSet<>();
 
     public Cours() {
     }
@@ -64,14 +71,6 @@ public class Cours {
         return credits;
     }
 
-    public Professeur getProfID() {
-        return profID;
-    }
-
-    public void setProfID(Professeur profID) {
-        this.profID = profID;
-    }
-
     public void setCredits(Integer credits) {
         this.credits = credits;
     }
@@ -84,10 +83,25 @@ public class Cours {
         this.groupe = groupe;
     }
 
+    public Set<Professeur> getProfesseurSet() {
+        return professeurSet;
+    }
+
+    public void setProfesseurSet(Set<Professeur> professeurSet) {
+        this.professeurSet = professeurSet;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String afficherTitreDesColonnes() {
         String message = "";
-        message = String.format(" %-10s  %30s %15s %15s %15s  ", "Id", "Nom", "Crédits", "Groupe",
-                "ProfesseurID");
+        message = String.format(" %-10s  %30s %15s %15s", "Id", "Nom", "Crédits", "Groupe");
         message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
         return message;
     }
@@ -95,8 +109,7 @@ public class Cours {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15d %15s %15s  ",this.id,this.nom, this.credits,this.groupe,
-                this.profID);
+        message = String.format(" %-10d  %30s %15d %15s ",this.id,this.nom, this.credits,this.groupe);
         return message;
     }
 }
