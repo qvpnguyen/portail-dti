@@ -17,5 +17,7 @@ public interface ProjetVisiteurRepository extends CrudRepository<ProjetVisiteur,
     @Query("SELECT p FROM ProjetVisiteur p WHERE p.visiteur.nom = :nomVisiteur")
     List<ProjetVisiteur> findByNomVisiteur(@Param("nomVisiteur") String nomVisiteur);
 
+    @Query("SELECT p FROM ProjetVisiteur p WHERE p.id = :id")
+    public ProjetVisiteur findProjetById(@Param("id") Integer id);
 
 }

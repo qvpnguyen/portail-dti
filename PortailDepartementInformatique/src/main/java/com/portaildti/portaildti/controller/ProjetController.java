@@ -347,14 +347,14 @@ public class ProjetController {
         }
 
         model.addAttribute("etudiantsParProjet", etudiantsParProjet);
-        model.addAttribute("listeProjetsVisiteurs", listeProjetsVisiteurs);
+        model.addAttribute("projetsVisiteurs", projetsVisiteurs);
         model.addAttribute("listeCours", listeCours);
         model.addAttribute("listeProfesseurs", listeProfesseurs);
 
 
         List<Projet> listeProjets1 = new ArrayList<>();
 
-        String pageTitle = "Ensemble des projets";
+        String pageTitle = "Ensemble des projets visiteurs";
         model.addAttribute("pageTitle", pageTitle);
         if (keyword != null){
 
