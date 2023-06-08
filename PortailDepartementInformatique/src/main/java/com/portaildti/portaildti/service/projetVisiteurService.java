@@ -38,6 +38,8 @@ public class projetVisiteurService {
         return repos.save(projetVisiteur);
     }
 
-
+    public ProjetVisiteur afficherProjetParId(Integer id) {
+        return repos.findProjetById(id);
+    }
 
 }

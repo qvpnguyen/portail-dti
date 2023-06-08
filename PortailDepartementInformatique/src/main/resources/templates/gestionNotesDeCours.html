@@ -39,13 +39,15 @@
 <body class="fond-blanc">
 <main>
     <div class="container conteneur-table bg-light p-5 mt-5">
-        <h4>Chercher notes de cours par nom :</h4>
+        <h4 th:text="#{label.chercher_notes_cours_nom}"></h4>
         <form method="get" action="/rechercher/noteDeCours">
             <input type="search" name="note" th:value="${note}">
-            <input type="submit" value="rechercher" />
+            <input type="submit" th:value="#{label.recherche}" />
         </form>
 
-        <a  class="btn bouton-mauve mb-5" th:if="${session.roleUtilisateur == 'Professeur'}" th:href="@{/notesDeCours/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">Ajouter une note de cours</a>
+
+        <a  class="btn bouton-mauve mb-5" th:href="@{/notesDeCours/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}" th:text="#{label.ajouter_notes_cours}"></a>
+
 
         <div class="container conteneur-table bg-light p-5 mt-5">
             <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
@@ -54,12 +56,12 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nom</th>
-                    <th>Cours</th>
-                    <th>Lien</th>
-                    <th>Professeur</th>
-                    <th>Télécharger</th>
-                    <th>Supprimer</th>
+                    <th th:text="#{label.nom}"></th>
+                    <th th:text="#{label.cours}"></th>
+                    <th th:text="#{label.lien}"></th>
+                    <th th:text="#{label.professeur}"></th>
+                    <th th:text="#{label.telecharger}"></th>
+                    <th th:text="#{label.supprimer}"></th>
                 </tr>
                 </thead>
                 <tbody>

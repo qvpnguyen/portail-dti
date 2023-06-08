@@ -97,118 +97,118 @@
           <div class="d-flex justify-content-center">
             <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
               <input type="radio" class="btn-check" name="role" id="btnetudiant" value="Etudiant" autocomplete="off" checked>
-              <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
+              <label class="btn btn-outline-dark" for="btnetudiant" th:text="#{label.etudiant}">Étudiant</label>
 
               <input type="radio" class="btn-check" id="btnprofesseur" value="Professeur" autocomplete="off" disabled>
-              <label class="btn btn-outline-dark" for="btnprofesseur">Professeur</label>
+              <label class="btn btn-outline-dark" for="btnprofesseur" th:text="#{label.professeur}">Professeur</label>
 
               <input type="radio" class="btn-check" id="btnvisiteur" value="Visiteur" autocomplete="off" disabled>
-              <label class="btn btn-outline-dark" for="btnvisiteur">Visiteur</label>
+              <label class="btn btn-outline-dark" for="btnvisiteur" th:text="#{label.visiteur}">Visiteur</label>
 
               <input type="radio" class="btn-check" id="btnadmin" value="Administrateur" autocomplete="off" disabled>
-              <label class="btn btn-outline-dark" for="btnadmin">Administrateur</label>
+              <label class="btn btn-outline-dark" for="btnadmin" th:text="#{label.admin}">Administrateur</label>
             </div>
           </div>
           <div class="row gx-5 mx-2">
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="prenom">Prénom:</label>
+                <label for="prenom" th:text="#{label.prenom} + ':'">Prénom:</label>
                 <input type="text" class="form-control" id="prenom" th:field="*{prenom}" name="prenom">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="nom">Nom:</label>
+                <label for="nom" th:text="#{label.nom} + ':'">Nom:</label>
                 <input type="text" class="form-control" id="nom" th:field="*{nom}" name="nom">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="dateDeNaissance">Date de naissance:</label>
+                <label for="dateDeNaissance" th:text="#{label.ddn} + ':'">Date de naissance:</label>
                 <input type="date" class="form-control" id="dateDeNaissance" th:field="*{ddn}">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="profil">Profil:</label>
+                <label for="profil" th:text="#{label.profil} + ':'">Profil:</label>
                 <select th:field="*{profil}" name="profil" id="profil" class="form-select">
                   <option value="" disabled selected>---</option>
-                  <option value="Programmation">Programmation</option>
-                  <option value="Reseautique">Réseautique</option>
+                  <option value="Programmation" th:text="#{label.programmation}">Programmation</option>
+                  <option value="Reseautique" th:text="#{label.reseautique}">Réseautique</option>
                 </select>
 
               </div>
             </div>
             <div class="col-12">
               <div class="form-group my-3">
-                <label for="email">Courriel:</label>
+                <label for="email" th:text="#{label.courriel} + ':'">Courriel:</label>
                 <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="courriel@dti.crosemont.quebec" name="email">
               </div>
               <div class="form-group my-3">
-                <label for="motDePasse">Mot de passe:</label>
-                <input type="password" class="form-control" id="motDePasse" th:field="*{motDePasse}" placeholder="Entrez votre mot de passe" name="motDePasse">
+                <label for="motDePasse" th:text="#{label.password} + ':'">Mot de passe:</label>
+                <input type="password" class="form-control" id="motDePasse" th:field="*{motDePasse}" th:placeholder="#{label.entrer_password}" name="motDePasse">
               </div>
               <div class="form-group my-3">
-                <label for="confirmerMotDePasse">Confirmer le mot de passe:</label>
-                <input type="password" class="form-control" id="confirmerMotDePasse" name="confirmerMotDePasse" placeholder="Confirmez votre mot de passe">
+                <label for="confirmerMotDePasse" th:text="#{label.confirmer_password} + ':'">Confirmer le mot de passe:</label>
+                <input type="password" class="form-control" id="confirmerMotDePasse" name="confirmerMotDePasse" th:placeholder="#{label.confirmer_password}">
               </div>
               <div class="form-group my-3">
-                <label>Cet utilisateur est:</label>
+                <label th:text="#{label.cet_utilisateur}">Cet utilisateur est:</label>
                 <label class="radio-inline" for="active">
-                  <input type="radio" id="active" value="true" th:field="*{active}">Actif
+                  <input type="radio" id="active" value="true" th:field="*{active}">[[#{label.actif}]]
                 </label>
                 <label class="radio-inline" for="desactive">
-                  <input type="radio" id="desactive" value="false" th:field="*{active}">Inactif
+                  <input type="radio" id="desactive" value="false" th:field="*{active}">[[#{label.inactif}]]
                 </label>
               </div>
               <div class="form-group my-3">
-                <label for="fileImage">Téléversez votre photo:</label>
+                <label for="fileImage" th:text="#{label.photo}">Téléversez votre photo:</label>
                 <input type="file" class="form-control mt-2" id="fileImage" name="fileImage">
                 <img th:if="${etudiant.photo != null}" th:src="@{${'/images/utilisateur/' + etudiant.photo}}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" width="100">
               </div>
               <div class="form-group my-3">
-                <label for="cours">Cours associé:</label>
+                <label for="cours" th:text="#{label.cours_associe}">Cours associé:</label>
                   <select th:field="*{coursSet}" name="cours" id="cours" class="form-select">
                     <option value="" selected disabled>---</option>
                     <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
                   </select>
               </div>
               <div class="form-group my-3">
-                <label>Êtes-vous présentement aux études?</label>
+                <label th:text="#{label.etes_vous_aux_etudes}">Êtes-vous présentement aux études?</label>
                 <label class="radio-inline" for="formationCompleteeNon">
-                  <input th:field="*{formationCompletee}" type="radio" id="formationCompleteeNon" value="false" name="formationCompletee">Oui
+                  <input th:field="*{formationCompletee}" type="radio" id="formationCompleteeNon" value="false" name="formationCompletee">[[#{label.oui}]]
                 </label>
                 <label class="radio-inline" for="formationCompleteeOui">
-                  <input th:field="*{formationCompletee}" type="radio" id="formationCompleteeOui" value="true" name="formationCompletee">Non
+                  <input th:field="*{formationCompletee}" type="radio" id="formationCompleteeOui" value="true" name="formationCompletee">[[#{label.non}]]
                 </label>
               </div>
               <div class="form-group my-3">
-                <label>Voulez-vous être un.e tuteur.e?</label>
+                <label th:text="#{label.voulez_vous_tuteur}">Voulez-vous être un.e tuteur.e?</label>
                 <label class="radio-inline" for="tuteurOui">
-                  <input th:field="*{tuteur}" type="radio" id="tuteurOui" value="true" name="tuteur">Oui
+                  <input th:field="*{tuteur}" type="radio" id="tuteurOui" value="true" name="tuteur">[[#{label.oui}]]
                 </label>
                 <label class="radio-inline" for="tuteurNon">
-                  <input th:field="*{tuteur}" type="radio" id="tuteurNon" value="false" name="tuteur">Non
+                  <input th:field="*{tuteur}" type="radio" id="tuteurNon" value="false" name="tuteur">[[#{label.non}]]
                 </label>
               </div>
               <div class="form-group my-3">
-                <label>Êtes-vous disponible pour faire du tutorat?</label>
+                <label th:text="#{label.etes_vous_dispo_tutorat}">Êtes-vous disponible pour faire du tutorat?</label>
                 <label class="radio-inline" for="disponibleOui">
-                  <input th:field="*{dispoTutorat}" type="radio" id="disponibleOui" value="true" name="disponible">Oui
+                  <input th:field="*{dispoTutorat}" type="radio" id="disponibleOui" value="true" name="disponible">[[#{label.oui}]]
                 </label>
                 <label class="radio-inline" for="disponibleNon">
-                  <input th:field="*{dispoTutorat}" type="radio" id="disponibleNon" value="false" name="disponible">Non
+                  <input th:field="*{dispoTutorat}" type="radio" id="disponibleNon" value="false" name="disponible">[[#{label.non}]]
                 </label>
               </div>
             </div>
           </div>
 
           <div class="text-center mt-4">
-            <input type="submit" class="btn btn-dark" value="Soumettre"/>
+            <input type="submit" class="btn btn-dark" th:value="#{label.soumettre}"/>
           </div>
         </form>
         <div class="text-center mt-4">
-          <p><a th:href="@{/etudiants-projets}" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
+          <p><a th:href="@{/etudiants-projets}" class="text-dark">[[#{label.continuer_visiteur}]] <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
           <!--<p>Pas de compte? <a href="" class="text-dark">Cliquez ici</a></p>-->
         </div>
       </div>

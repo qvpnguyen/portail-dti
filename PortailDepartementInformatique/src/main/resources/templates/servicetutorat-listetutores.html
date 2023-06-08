@@ -24,7 +24,7 @@
         </div>
         <div th:unless="${#lists.isEmpty(listeTutoresPourTuteur)}">
             <div class="container px-5">
-                <h2 class="p-5 text-center text-sm">Liste de vos tutorats</h2>
+                <h2 class="p-5 text-center text-sm" th:text="#{label.liste_tutorats}"></h2>
                 <div th:each="tutore, iterStat : ${listeTutoresPourTuteur}" class="row gx-5 mb-4">
                     <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
                         <div class="carte-video mb-4">
@@ -44,10 +44,10 @@
                             <span th:if="${tutorat.etudiantTutore.id == tutore.id}">
                                 <div class="carte-description p-4">
                                     <p th:text="'Date: ' + ${tutorat.dateTutorat}"></p>
-                                    <p th:text="'Heure: ' + ${tutorat.heure}"></p>
-                                    <p th:text="'Durée: ' + ${tutorat.duree} + ' heures'"></p>
-                                    <p th:text="'Type de rencontre: ' + ${tutorat.typeDeRencontre}"></p>
-                                    <p th:text="'Cours: ' + ${tutorat.cours.nom}"></p>
+                                    <p th:text="#{label.heure} + ' ' + ${tutorat.heure}"></p>
+                                    <p th:text="#{label.duree} + ' ' + ${tutorat.duree} + ' hrs'"></p>
+                                    <p th:text="#{label.type_rencontre} + ' ' + ${tutorat.typeDeRencontre}"></p>
+                                    <p th:text="#{label.cours} + ': ' + ${tutorat.cours.nom}"></p>
                                 </div>
                             </span>
                         </div>

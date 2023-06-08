@@ -97,7 +97,7 @@ public class EtudiantProjetController {
         model.addAttribute("professeur", projetChoisi.getProfesseur().getNom() + " " + projetChoisi.getProfesseur().getPrenom());
         model.addAttribute("noteObtenu", noteObtenue);
         model.addAttribute("commentaire", commentaire);
-        model.addAttribute("pageTitle", "Evaluer un projet");
+        model.addAttribute("pageTitle", "Évaluer un projet");
 
         return "etudiantProjet";
     }

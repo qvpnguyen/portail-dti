@@ -58,15 +58,15 @@
 <body class="fond-blanc">
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
-    <button class="btn bouton-mauve" id="showProfesseur">Voir les  professeurs</button>
-    <button class="btn bouton-mauve" id="showEtudiant">Voir les  étudiants</button>
+    <button class="btn bouton-mauve" id="showProfesseur" th:text="#{label.voir_professeurs}"></button>
+    <button class="btn bouton-mauve" id="showEtudiant" th:text="#{label.voir_etudiants}"></button>
 
 
     <div id="tableauProfesseur" class="container conteneur-table bg-light p-5 mt-5">
-    <h4>Chercher Professeur par nom :</h4>
+    <h4 th:text="#{label.chercher_professeur_nom}"></h4>
     <form method="get" th:action="@{'/rechercher/professeur'}">
       <input type="search" name="nom" id="nom" th:value="${nom}" >
-      <input type="submit" class="btn bouton-mauve" value="rechercher" />
+      <input type="submit" class="btn bouton-mauve" th:value="#{label.recherche}" />
     </form>
 
 
@@ -77,10 +77,10 @@
         <thead>
         <tr>
           <th>ID</th>
-          <th>Nom</th>
-          <th>Email</th>
-          <th>Departement</th>
-          <th>Voir Profil</th>
+          <th th:text="#{label.nom}"></th>
+          <th th:text="#{label.courriel}"></th>
+          <th th:text="#{label.departement}"></th>
+          <th th:text="#{label.voir_profil}"></th>
         </tr>
         </thead>
 
@@ -98,10 +98,10 @@
     </div>
   </div>
   <div  id="tableauEtudiant" class="container conteneur-table bg-light p-5 mt-5">
-    <h4>Chercher Etudiant par nom :</h4>
+    <h4 th:text="#{label.chercher_etudiant_nom}"></h4>
     <form method="get" th:action="@{'/rechercher/etudiantList'}">
       <input type="search" name="nom1" id="nom1" th:value="${nom1}" >
-      <input type="submit" class="btn bouton-mauve" value="rechercher" />
+      <input type="submit" class="btn bouton-mauve" th:value="#{label.recherche}" />
     </form>
 
 
@@ -112,10 +112,10 @@
         <thead>
         <tr>
           <th>ID</th>
-          <th>Nom</th>
-          <th>Email</th>
-          <th>Departement</th>
-          <th>Voir Profil</th>
+          <th th:text="#{label.nom}"></th>
+          <th th:text="#{label.courriel}"></th>
+          <th th:text="#{label.departement}"></th>
+          <th th:text="#{label.voir_profil}"></th>
         </tr>
         </thead>
 

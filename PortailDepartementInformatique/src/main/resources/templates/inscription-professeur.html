@@ -97,61 +97,61 @@
           <div class="d-flex justify-content-center">
             <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
               <input type="radio" class="btn-check" id="btnetudiant" value="Etudiant" autocomplete="off" disabled>
-              <label class="btn btn-outline-dark" for="btnetudiant">Étudiant</label>
+              <label class="btn btn-outline-dark" for="btnetudiant" th:text="#{label.etudiant}">Étudiant</label>
 
               <input type="radio" class="btn-check" name="role" id="btnprofesseur" value="Professeur" autocomplete="off" checked>
-              <label class="btn btn-outline-dark" for="btnprofesseur">Professeur</label>
+              <label class="btn btn-outline-dark" for="btnprofesseur" th:text="#{label.professeur}">Professeur</label>
 
               <input type="radio" class="btn-check" id="btnvisiteur" value="Visiteur" autocomplete="off" disabled>
-              <label class="btn btn-outline-dark" for="btnvisiteur">Visiteur</label>
+              <label class="btn btn-outline-dark" for="btnvisiteur" th:text="#{label.visiteur}">Visiteur</label>
 
               <input type="radio" class="btn-check" id="btnadmin" value="Administrateur" autocomplete="off" disabled>
-              <label class="btn btn-outline-dark" for="btnadmin">Administrateur</label>
+              <label class="btn btn-outline-dark" for="btnadmin" th:text="#{label.admin}">Administrateur</label>
             </div>
           </div>
           <div class="row gx-5 mx-2">
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="prenom">Prénom:</label>
+                <label for="prenom" th:text="#{label.prenom} + ':'">Prénom:</label>
                 <input type="text" class="form-control" id="prenom" th:field="*{prenom}" name="prenom">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="nom">Nom:</label>
+                <label for="nom" th:text="#{label.nom} + ':'">Nom:</label>
                 <input type="text" class="form-control" id="nom" th:field="*{nom}" name="nom">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group my-3">
-                <label for="dateDeNaissance">Date de naissance:</label>
+                <label for="dateDeNaissance" th:text="#{label.ddn} + ':'">Date de naissance:</label>
                 <input type="date" class="form-control" id="dateDeNaissance" th:field="*{ddn}">
               </div>
             </div>
             <div class="col-12">
               <div class="form-group my-3">
-                <label for="email">Courriel:</label>
+                <label for="email" th:text="#{label.courriel} + ':'">Courriel:</label>
                 <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="courriel@dti.crosemont.quebec" name="email">
               </div>
               <div class="form-group my-3">
-                <label for="motDePasse">Mot de passe:</label>
-                <input type="password" class="form-control" id="motDePasse" th:field="*{motDePasse}" placeholder="Entrez votre mot de passe" name="motDePasse">
+                <label for="motDePasse" th:text="#{label.password} + ':'">Mot de passe:</label>
+                <input type="password" class="form-control" id="motDePasse" th:field="*{motDePasse}" name="motDePasse" th:placeholder="#{label.entrer_password}">
               </div>
               <div class="form-group my-3">
-                <label for="confirmerMotDePasse">Confirmer le mot de passe:</label>
-                <input type="password" class="form-control" id="confirmerMotDePasse" name="confirmerMotDePasse" placeholder="Confirmez votre mot de passe">
+                <label for="confirmerMotDePasse" th:text="#{label.confirmer_password} + ':'">Confirmer le mot de passe:</label>
+                <input type="password" class="form-control" id="confirmerMotDePasse" name="confirmerMotDePasse" th:placeholder="#{label.confirmer_password}">
               </div>
               <div class="form-group my-3">
-                <label>Cet utilisateur est:</label>
+                <label th:text="#{label.cet_utilisateur}">Cet utilisateur est:</label>
                 <label class="radio-inline" for="active">
-                  <input type="radio" id="active" value="true" th:field="*{active}">Actif
+                  <input type="radio" id="active" value="true" th:field="*{active}">[[#{label.actif}]]
                 </label>
                 <label class="radio-inline" for="desactive">
-                  <input type="radio" id="desactive" value="false" th:field="*{active}">Inactif
+                  <input type="radio" id="desactive" value="false" th:field="*{active}">[[#{label.inactif}]]
                 </label>
               </div>
               <div class="form-group my-3">
-                <label for="fileImage">Téléversez votre photo:</label>
+                <label for="fileImage" th:text="#{label.photo}">Téléversez votre photo:</label>
                 <input type="file" class="form-control mt-2" id="fileImage" name="fileImage">
                 <img th:if="${professeur.photo != null}" th:src="@{${'/images/utilisateur/' + professeur.photo}}" th:alt="${professeur.prenom + ' ' + professeur.nom}" width="100">
               </div>
@@ -159,11 +159,11 @@
           </div>
 
           <div class="text-center mt-4">
-            <input type="submit" class="btn btn-dark" value="Soumettre"/>
+            <input type="submit" class="btn btn-dark" th:value="#{label.soumettre}"/>
           </div>
         </form>
         <div class="text-center mt-4">
-          <p><a th:href="@{/etudiants-projets}" class="text-dark">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
+          <p><a th:href="@{/etudiants-projets}" class="text-dark">[[#{label.continuer_visiteur}]] <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
           <!--<p>Pas de compte? <a href="" class="text-dark">Cliquez ici</a></p>-->
         </div>
       </div>
