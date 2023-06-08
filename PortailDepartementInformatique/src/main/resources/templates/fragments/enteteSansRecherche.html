@@ -18,7 +18,7 @@
         </span>
         <div class="ms-3">
           <h1 class="titre">Ed.<br>volution</h1>
-          <p class="sous-titre">Oser apprendre et évoluer</p>
+          <p class="sous-titre" th:text="#{label.sous_titre}">Oser apprendre et évoluer</p>
         </div>
       </div>
 
@@ -83,6 +83,8 @@
                 <li><a class="dropdown-item" th:href="@{/utilisateurs}">Gérer les utilisateurs</a></li>
                 <li><a class="dropdown-item" th:href="@{/admins/new}">Ajouter un administrateur</a></li>
                 <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="?lang=en" th:text="#{label.en}"></a></li>
+                <li><a class="dropdown-item" href="?lang=fr" th:text="#{label.fr}"></a></li>
                 <li><a class="dropdown-item" th:href="@{'/admins/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
                 <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
@@ -97,22 +99,28 @@
                 <li><a class="dropdown-item" th:href="@{/professeurs}">Rechercher professeurs et étudiants</a></li>
                 <li><a class="dropdown-item" th:href="@{/professeur}">Espace de collaboration</a></li>
                 <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="?lang=en" th:text="#{label.en}"></a></li>
+                <li><a class="dropdown-item" href="?lang=fr" th:text="#{label.fr}"></a></li>
                 <li><a class="dropdown-item" th:href="@{'/professeurs/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
                 <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
             <span th:case="'Etudiant'">
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/etudiant}">Accueil</a></li>
-                <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
-                <li><a class="dropdown-item" th:href="@{/projets/new}">Déposer son projet</a></li>
-                <li><a class="dropdown-item" th:href="@{/notesDeCours}">Consulter les notes de cours</a></li>
-                <li><a class="dropdown-item" th:href="${session.isTuteur == true ? '/service-tutorat/liste-tutores' : '/service-tutorat'}">Service de tutorat</a></li>
-                <li><a class="dropdown-item" th:href="@{/professeurs}">Rechercher professeurs et étudiants</a></li>
-                <li><a class="dropdown-item" th:href="@{/etudiant}">Espace de collaboration</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant}" th:text="#{label.menu_accueil}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiants-projets}" th:text="#{label.menu_consulter_projets}">Consulter les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets-visiteurs}" th:text="#{label.menu_consulter_projets_visiteurs}">Consulter les projets visiteurs</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets/new}" th:text="#{label.menu_deposer_projet}">Déposer son projet</a></li>
+                <li><a class="dropdown-item" th:href="@{/notesDeCours}" th:text="#{label.menu_consulter_notes_cours}">Consulter les notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="${session.isTuteur == true ? '/service-tutorat/liste-tutores' : '/service-tutorat'}" th:text="#{label.menu_service_tutorat}">Service de tutorat</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeurs}" th:text="#{label.rechercher_professeurs_etudiants}">Rechercher professeurs et étudiants</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant/anciens}" th:text="#{label.liste_anciens_etudiants}">Liste des anciens étudiants</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant}" th:text="#{label.menu_espace_collaboration}">Espace de collaboration</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" th:href="@{'/etudiants/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
-                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
+                <li><a class="dropdown-item" href="?lang=en" th:text="#{label.en}"></a></li>
+                <li><a class="dropdown-item" href="?lang=fr" th:text="#{label.fr}"></a></li>
+                <li><a class="dropdown-item" th:href="@{'/etudiants/edit/' + ${session.idUtilisateur}}" th:text="#{label.menu_modifier_profil}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}" th:text="#{label.menu_deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
             <span th:case="'Visiteur'">
@@ -122,6 +130,8 @@
                 <li><a class="dropdown-item" th:href="@{/projets-visiteur/new}">Déposer son projet</a></li>
                 <li><a class="dropdown-item" th:href="@{/visiteur}">Rechercher professeurs et étudiants</a></li>
                 <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="?lang=en" th:text="#{label.en}"></a></li>
+                <li><a class="dropdown-item" href="?lang=fr" th:text="#{label.fr}"></a></li>
                 <li><a class="dropdown-item" th:href="@{'/visiteurs/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
                 <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
               </ul>
@@ -135,7 +145,7 @@
     <div>
       <nav class="navbar">
         <div class="container-fluid mx-4">
-          <a class="navbar-brand">Portail du département d'informatique - [[${pageTitle}]]</a>
+          <a class="navbar-brand"><span th:text="#{label.navbar-brand}"></span> - [[${pageTitle}]]</a>
           <div class="d-flex">
             <!-- Logo GitLab -->
             <a href="https://git.dti.crosemont.quebec/">
