@@ -150,7 +150,7 @@ public class ProjetController {
 
     @PostMapping("/projets/save")
     public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
-        if (file != null && !file.isEmpty()) {
+       /* if (file != null && !file.isEmpty()) {
             // On spécifie une limite de taille de fichier
             long maxSize = 30000000; // 30MB
             // On vérifie si la taille du fichier ne dépasse pas la limite
@@ -178,9 +178,9 @@ public class ProjetController {
         } else {
             String video = projetService.getVideoByProjetId(projet.getId());
             projet.setVideo(video);
-        }
-        System.out.println("projetid: " + projet.getId());
-        System.out.println("membres de l'equipe: " + membres);
+        }*/
+        //System.out.println("projetid: " + projet.getId());
+        //System.out.println("membres de l'equipe: " + membres);
         // Dans un formulaire d'edition, si un projet est existant en allant chercher son id, on va iterer parmi la liste des membres et mettre a jour la liste des membres de l'equipe en faisant les ajouts/suppressions des membres necessaires
         if (projet.getId() != null) {
             etudiantProjetService.supprimerEtudiantProjetsParProjetId(projet.getId());
@@ -198,7 +198,7 @@ public class ProjetController {
         projetService.ajouterProjet(projet);
         redirectAttributes.addFlashAttribute("message","Le projet a été ajouté/mis à jour avec succès");
         redirectAttributes.addFlashAttribute("membresEquipe", membres);
-        return "redirect:/gestion-projets";
+        return "redirect:/etudiants-projets";
     }
 
     @PostMapping("/projets-visiteur/save")

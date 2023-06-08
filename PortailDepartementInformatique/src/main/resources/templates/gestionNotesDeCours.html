@@ -45,7 +45,7 @@
             <input type="submit" value="rechercher" />
         </form>
 
-        <a  class="btn bouton-mauve mb-5" th:href="@{/notesDeCours/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">Ajouter une note de cours</a>
+        <a  class="btn bouton-mauve mb-5" th:if="${session.roleUtilisateur == 'Professeur'}" th:href="@{/notesDeCours/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">Ajouter une note de cours</a>
 
         <div class="container conteneur-table bg-light p-5 mt-5">
             <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>

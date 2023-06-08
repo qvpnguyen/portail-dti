@@ -13,16 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -79,8 +76,19 @@ public class EtudiantProjetController {
         Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
         for (Projet projet : projets) {
             List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+            System.out.println("la liste des etudiants du projets :" +etudiants);
             etudiantsParProjet.put(projet.getId(), etudiants);
         }
+        List<Integer> idsEtudiantsMemeProjet = new ArrayList<>();
+        for (Map.Entry<Integer, List<Etudiant>> entry : etudiantsParProjet.entrySet()) {
+            List<Etudiant> etudiants = entry.getValue();
+            for (Etudiant etudiant : etudiants) {
+                idsEtudiantsMemeProjet.add(etudiant.getId());
+            }
+        }
+        System.out.println("la liste  des etudiants :" +etudiantsParProjet);
+        System.out.println("la liste des is des etudiants :" +idsEtudiantsMemeProjet);
+        model.addAttribute("idsEtudiantsMemeProjet",idsEtudiantsMemeProjet);
         model.addAttribute("etudiantsParProjet", etudiantsParProjet);
         model.addAttribute("moyenneRating", moyenneRating);
         model.addAttribute("nombreVotes", nombreVotes);
