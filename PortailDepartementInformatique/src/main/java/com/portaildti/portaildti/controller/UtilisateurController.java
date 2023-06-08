@@ -6,13 +6,11 @@ import com.portaildti.portaildti.service.exception.UtilisateurNotFoundException;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,7 +53,6 @@ public class UtilisateurController {
                 session.setAttribute("dispoTutorat", etudiant.getDispoTutorat());
                 session.setAttribute("isTuteur", etudiant.getTuteur());
                 session.setAttribute("utilisateurActuel",etudiant);
-                System.out.println("id connexion " + etudiant.getId());
                 return "redirect:/etudiant";
 
             }
@@ -123,6 +120,19 @@ public class UtilisateurController {
         System.out.println("L'email ou le mot de passe est incorrect");
         return "redirect:/";
     }
+
+    @GetMapping("/utilisateur/getUserData")
+    @ResponseBody
+    public ResponseEntity<Utilisateur> getUserData(HttpSession session) {
+
+        String firstName = (String) session.getAttribute("nomUtilisateur");
+        String lastName = (String) session.getAttribute("prenomUtilisateur");
+
+        Utilisateur userData = new Utilisateur(firstName, lastName);
+
+        return ResponseEntity.ok(userData);
+    }
+
     @GetMapping("/utilisateur/deconnexion")
     public String deconnexionUtilisateurs(HttpSession session, RedirectAttributes redirectAttributes) {
         String nomUtilisateur = (String) session.getAttribute("nomUtilisateur");
