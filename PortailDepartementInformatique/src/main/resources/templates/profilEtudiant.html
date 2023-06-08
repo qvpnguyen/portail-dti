@@ -45,9 +45,9 @@
         </div>
         <div class="nomUtilisateur-profil">
           <h1 th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h1>
-          <h5 th:text="${etudiant.role}"></h5>
-          <span th:if="${etudiant.tuteur}">/Tuteur</span>
-          <a th:href="@{/etudiant/profil/{id}/contact ((id=${etudiant.id}))}" type="button" class="btn bouton-mauve mt-3">Contacter</a>
+          <h5 th:if="${etudiant.role == 'Etudiant'}" th:text="#{label.etudiant}"></h5>
+          <span th:if="${etudiant.tuteur}" th:text="'/' + #{label.tuteur}"></span>
+          <a th:href="@{/etudiant/profil/{id}/contact ((id=${etudiant.id}))}" type="button" class="btn bouton-mauve mt-3" th:text="#{label.contacter}"></a>
         </div>
       </div>
     </div>
@@ -60,10 +60,10 @@
         <thead>
         <tr>
           <th>ID</th>
-          <th>Nom</th>
-          <th>Année</th>
-          <th>Cours</th>
-          <th>Professeur</th>
+          <th th:text="#{label.nom}"></th>
+          <th th:text="#{label.annee}"></th>
+          <th th:text="#{label.cours}"></th>
+          <th th:text="#{label.professeur}"></th>
 
         </tr>
         </thead>
@@ -83,7 +83,7 @@
     <div class="conteneur-cours-contact">
       <div class="container conteneur-table bg-light p-5 mt-5">
         <section class="cours1">
-          <h2>Cours étudiés</h2>
+          <h2 th:text="#{label.cours_etudies}"></h2>
           <ul class="list-unstyled">
             <li th:each="cours : ${coursProf}">
               <a th:each="professeur : ${cours.professeurSet}" th:href="@{'/professeur/profil/' + ${professeur.id} + '/' + ${cours.id}}" class="text-decoration-none">
@@ -92,7 +92,7 @@
             </li>
           </ul>
 
-          <p th:if="${#lists.isEmpty(coursProf)}">Aucun cours</p>
+          <p th:if="${#lists.isEmpty(coursProf)}" th:text="#{label.aucun_cours}"></p>
         </section>
       </div>
     </div>
