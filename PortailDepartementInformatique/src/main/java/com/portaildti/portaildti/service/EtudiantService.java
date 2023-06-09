@@ -159,6 +159,10 @@ public class EtudiantService {
 
         return repo.findEtudiantsAnciens();
     }
+    public List<Etudiant> afficherEtudiantsActuels(){
+
+        return repo.findEtudiantsActuel();
+    }
     public List<Etudiant> rechercherEtudiantsTuteur(){
 
         return repo.findEtudiantsTuteurs();

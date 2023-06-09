@@ -43,7 +43,7 @@ public class ProfesseurController {
     @GetMapping("/professeurs")
     public String afficherListProfesseur(Model model) {
         List<Professeur> listeProfesseurs = profService.afficherProfesseurs();
-        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiants();
+        List<Etudiant> listeEtudiants = etudiantService.afficherEtudiantsActuels();
         String pageTitle = "Recherche";
         model.addAttribute("listeProfesseurs", listeProfesseurs);
         model.addAttribute("listeEtudiants", listeEtudiants);
