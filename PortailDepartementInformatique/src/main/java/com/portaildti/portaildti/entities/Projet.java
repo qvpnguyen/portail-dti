@@ -58,6 +58,9 @@ public class Projet {
     public Projet() {
     }
 
+    public Projet(Set<Etudiant> etudiants) {
+        this.etudiants = etudiants;
+    }
 
     public Projet(String nom, Integer annee, String description, String video, String lienGitlab, Cours cours, Professeur professeur) {
         this.nom = nom;
@@ -146,7 +149,15 @@ public class Projet {
         this.professeur = professeur;
     }
 
-//    public void ajouter(Etudiant etudiant) {
+    public Set<Etudiant> getEtudiants() {
+        return etudiants;
+    }
+
+    public void setEtudiants(Set<Etudiant> etudiants) {
+        this.etudiants = etudiants;
+    }
+
+    //    public void ajouter(Etudiant etudiant) {
 //        this.etudiants.add(etudiant);
 //    }
 

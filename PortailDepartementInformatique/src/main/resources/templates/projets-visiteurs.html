@@ -58,24 +58,14 @@ svgIcon.addEventListener('click', function() {
                         <div class="carte-video mb-4">
                             <iframe width="373" height="255" th:src="'https://www.youtube.com/embed/' + ${projet.document}" allowfullscreen></iframe>
                             <div class="conteneur-infos-projet">
-                                <a th:href="@{/projets-visiteurs/{id}(id=${projet.id})}" class="text-decoration-none">
+                                <a class="text-decoration-none">
                                     <h4 class="mt-2">
                                         <span th:text="${projet.nom}"></span>
 <!--                                        <span class="text-muted" style="font-size: smaller;">(<span th:text="${projet.annee}"></span>)</span>-->
                                     </h4>
                                 </a>
 
-                            <span class="text-decoration-underline" th:text="#{label.realise_par}">Réalisé par:</span>
-                            <ul class="list-inline">
-                                <li th:if="${etudiantsParProjet[projet.id] != null}" th:each="etudiant : ${etudiantsParProjet[projet.id]}" class="list-inline-item ps-0 pe-0">
-                                    <span th:text="${etudiant.prenom}"></span>
-                                    <span th:text="${etudiant.nom}"></span>
-                                </li>
-                            </ul>
-                            <span class="text-decoration-underline" th:text="#{label.supervision}">Avec la supervision de:</span>
-                            <br>
-<!--                            <span th:if="${projet.professeur != null}" th:text="${projet.professeur.prenom} + ' ' + ${projet.professeur.nom}"></span>-->
-<!--                            <span th:unless="${projet.professeur != null}">Aucun professeur</span>-->
+
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,9 @@
           <span th:case="'Etudiant'">
             <a th:href="@{/etudiant}"><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
           </span>
+          <span th:case="'Étudiant'">
+            <a th:href="@{/etudiant}"><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
+          </span>
           <span th:case="'Visiteur'">
             <a th:href="@{/visiteur}"><img class="logo-college" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/></a>
           </span>
@@ -45,7 +48,15 @@
               </svg>
             </a>
           </span>
-          <span th:case="${session.roleUtilisateur} == 'Etudiant' or ${session.roleUtilisateur} == 'Étudiant'">
+          <span th:case="'Etudiant'">
+            <a th:href="@{'/etudiants/edit/' + ${session.idUtilisateur}}">
+              <svg id="svg-user-icon" class="filtre-icon" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M36.6923 37.216V34.6326C36.6923 32.892 36.6923 32.0225 36.4785 31.3116C36.2148 30.4314 35.7157 29.6297 35.0289 28.983C34.3421 28.3364 33.4905 27.8664 32.5557 27.6182C31.8007 27.4169 30.8772 27.4169 29.0284 27.4169H15.9715C14.1227 27.4169 13.1993 27.4169 12.4443 27.6182C11.5094 27.8664 10.6579 28.3364 9.97108 28.983C9.28427 29.6297 8.78517 30.4314 8.52151 31.3116C8.30768 32.0225 8.30768 32.892 8.30768 34.6326V37.216M30.4477 13.8585C30.4477 17.8584 26.8901 21.101 22.5 21.101C18.1098 21.101 14.5523 17.8584 14.5523 13.8585C14.5523 9.85872 18.1098 6.61789 22.5 6.61789C26.8901 6.61789 30.4477 9.8605 30.4477 13.8585Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="22.5" cy="22.5" r="21.5" stroke="white" stroke-width="2"/>
+              </svg>
+            </a>
+          </span>
+          <span th:case="'Étudiant'">
             <a th:href="@{'/etudiants/edit/' + ${session.idUtilisateur}}">
               <svg id="svg-user-icon" class="filtre-icon" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M36.6923 37.216V34.6326C36.6923 32.892 36.6923 32.0225 36.4785 31.3116C36.2148 30.4314 35.7157 29.6297 35.0289 28.983C34.3421 28.3364 33.4905 27.8664 32.5557 27.6182C31.8007 27.4169 30.8772 27.4169 29.0284 27.4169H15.9715C14.1227 27.4169 13.1993 27.4169 12.4443 27.6182C11.5094 27.8664 10.6579 28.3364 9.97108 28.983C9.28427 29.6297 8.78517 30.4314 8.52151 31.3116C8.30768 32.0225 8.30768 32.892 8.30768 34.6326V37.216M30.4477 13.8585C30.4477 17.8584 26.8901 21.101 22.5 21.101C18.1098 21.101 14.5523 17.8584 14.5523 13.8585C14.5523 9.85872 18.1098 6.61789 22.5 6.61789C26.8901 6.61789 30.4477 9.8605 30.4477 13.8585Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -120,7 +131,7 @@
                 <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}" th:text="#{label.menu_deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
-            <span th:case="'Etudiant'">
+            <span th:case="'Étudiant'">
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" th:href="@{/etudiant}" th:text="#{label.menu_accueil}">Accueil</a></li>
                 <li><a class="dropdown-item" th:href="@{/etudiants-projets}" th:text="#{label.menu_consulter_projets}">Consulter les projets</a></li>
@@ -152,14 +163,13 @@
                 <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}" th:text="#{label.menu_deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
-             <span th:case="${null}">
+            <span th:case="${null}">
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" th:href="@{/}" th:text="#{label.login}">Connexion</a></li>
 
               </ul>
             </span>
           </span>
-
         </div>
 
       </div>

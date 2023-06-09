@@ -20,10 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ProjetController {
@@ -149,7 +146,7 @@ public class ProjetController {
     }
 
     @PostMapping("/projets/save")
-    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") List<Etudiant> membres, Model model) throws Exception {
+    public String ajouterProjet(Projet projet, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, @RequestParam("membresEquipe") Set<Etudiant> membres, Model model) throws Exception {
        /* if (file != null && !file.isEmpty()) {
             // On spécifie une limite de taille de fichier
             long maxSize = 30000000; // 30MB
@@ -183,17 +180,20 @@ public class ProjetController {
         //System.out.println("membres de l'equipe: " + membres);
         // Dans un formulaire d'edition, si un projet est existant en allant chercher son id, on va iterer parmi la liste des membres et mettre a jour la liste des membres de l'equipe en faisant les ajouts/suppressions des membres necessaires
         if (projet.getId() != null) {
-            etudiantProjetService.supprimerEtudiantProjetsParProjetId(projet.getId());
-            for (Etudiant membre : membres) {
-                EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
-                etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
-            }
+            projet.setEtudiants(membres);
+//            etudiantProjetService.supprimerEtudiantProjetsParProjetId(projet.getId());
+//            for (Etudiant membre : membres) {
+//                EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
+//                etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
+//            }
         } else {
             projetService.ajouterProjet(projet);
-            for (Etudiant membre : membres) {
-                EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
-                etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
-            }
+//            for (Etudiant membre : membres) {
+            projet.setEtudiants(membres);
+//                Projet projets = new Projet(membre);
+//                EtudiantProjet etudiantProjet = new EtudiantProjet(projet, membre);
+//                etudiantProjetService.ajouterEtudiantProjet(etudiantProjet);
+//            }
         }
         projetService.ajouterProjet(projet);
         redirectAttributes.addFlashAttribute("message","Le projet a été ajouté/mis à jour avec succès");
@@ -203,35 +203,35 @@ public class ProjetController {
 
     @PostMapping("/projets-visiteur/save")
     public String ajouterProjetVisiteur(ProjetVisiteur projetVisiteur, RedirectAttributes redirectAttributes, @RequestParam(value = "fileVideo", required = false) MultipartFile file, Model model) throws IOException {
-        if (file != null && !file.isEmpty()) {
-            // On spécifie une limite de taille de fichier
-            long maxSize = 30000000; // 30MB
-            // On vérifie si la taille du fichier ne dépasse pas la limite
-            long fileSize = file.getSize();
-            System.out.println(" fileSize : " + fileSize);
-            if (fileSize > maxSize) {
-                model.addAttribute("message","La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + " soit 10MB ");
-                return "utilisateurs_form";
-            }
-            String chemin = file.getOriginalFilename();
-            String filename = StringUtils.cleanPath(chemin);
-            // Association du nom de fichier à l'utilisateur enregistré
-            projetVisiteur.setDocument(filename);
-            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
-            projetVisiteur.setData(file.getBytes());
-            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
-            File directory = new File("src/main/resources/static/videos/utilisateur");
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
-            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
-            //en utilisant la méthode transferTo() de l'objet MultipartFile
-            file.transferTo(serverFile);
-        } else {
-            String video = projetService.getVideoByProjetId(projetVisiteur.getId());
-            projetVisiteur.setDocument(video);
-        }
+//        if (file != null && !file.isEmpty()) {
+//            // On spécifie une limite de taille de fichier
+//            long maxSize = 30000000; // 30MB
+//            // On vérifie si la taille du fichier ne dépasse pas la limite
+//            long fileSize = file.getSize();
+//            System.out.println(" fileSize : " + fileSize);
+//            if (fileSize > maxSize) {
+//                model.addAttribute("message","La taille " + fileSize + " du fichier dépasse la taille limite autorisée qui est " + maxSize + " soit 10MB ");
+//                return "utilisateurs_form";
+//            }
+//            String chemin = file.getOriginalFilename();
+//            String filename = StringUtils.cleanPath(chemin);
+//            // Association du nom de fichier à l'utilisateur enregistré
+//            projetVisiteur.setDocument(filename);
+//            // Récupération des données binaires du fichier image et stockage dans l'objet Utilisateur
+//            projetVisiteur.setData(file.getBytes());
+//            // Vérification si le répertoire d'images existe, s'il n'existe pas, il est créé
+//            File directory = new File("src/main/resources/static/videos/utilisateur");
+//            if (!directory.exists()) {
+//                directory.mkdirs();
+//            }
+//            // Création d'un fichier image sur le serveur et stockage du fichier sur le serveur
+//            File serverFile = new File(directory.getAbsolutePath() + File.separator + filename);
+//            //en utilisant la méthode transferTo() de l'objet MultipartFile
+//            file.transferTo(serverFile);
+//        } else {
+//            String video = projetService.getVideoByProjetId(projetVisiteur.getId());
+//            projetVisiteur.setDocument(video);
+//        }
         redirectAttributes.addFlashAttribute("message","Le projet a été ajouté avec succès");
         projetVisiteurService.ajouterProjetVisiteur(projetVisiteur);
         return "redirect:/visiteur";

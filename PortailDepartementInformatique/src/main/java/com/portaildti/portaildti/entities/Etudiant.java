@@ -60,6 +60,10 @@ public class Etudiant extends Utilisateur {
 
     }
 
+    public Etudiant(Set<Projet> projet) {
+        this.projets = projet;
+    }
+
     public Etudiant(Integer id, String prenom, String nom, LocalDate ddn, String email, Boolean active, String role, Boolean formationCompletee, String profil, String motDePasse, Set<Cours> coursID, String photo, Boolean dispoTutorat, Boolean isTuteur) {
 
         super(id, prenom, nom, email, role, active, motDePasse, ddn, photo);

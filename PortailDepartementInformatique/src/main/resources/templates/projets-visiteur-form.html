@@ -74,11 +74,12 @@
             </div>
             <div class="col-10">
               <div class="form-group my-3">
-                <label for="fileVideo" th:text="#{label.video_projet}">Téléversez un document:</label>
-                <div class="row">
-                  <div class="col-8">
-                    <input type="file" class="form-control mt-2" id="fileVideo" name="fileVideo">
-                  </div>
+                <label for="fileVideo">Mettez l'id de votre vidéo youtube du projet :
+                  <button type="button"   class="btn bouton-mauve  popover-lg custom-popover" data-bs-toggle="popover" data-bs-placement="right"  data-bs-html="true"  data-bs-content="<img src='/images/aideVideo.PNG' alt='Aide' />">
+                    ?
+                  </button>
+                </label>
+                <input type="text" class="form-control" id="fileVideo" name="fileVideo" th:field="*{document}">
                 </div>
               </div>
             </div>
@@ -104,6 +105,11 @@
     </div>
   </div>
 </main>
+<script>
+  $(function () {
+    $('[data-bs-toggle="popover"]').popover()
+  })
+</script>
 </body>
 <footer th:replace="fragments/pieds :: pieds"></footer>
 </html>
