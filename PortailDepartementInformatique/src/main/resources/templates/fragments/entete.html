@@ -90,32 +90,34 @@
           <span th:switch="${session.roleUtilisateur}">
             <span th:case="'Administrateur'">
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/administration}">Accueil</a></li>
-                <li><a class="dropdown-item" th:href="@{/gestion-projets}">Gérer les projets</a></li>
-                <li><a class="dropdown-item" th:href="@{/gestion-notes-de-cours}">Gérer les notes de cours</a></li>
-                <li><a class="dropdown-item" th:href="@{/utilisateurs}">Gérer les utilisateurs</a></li>
-                <li><a class="dropdown-item" th:href="@{/admins/new}">Ajouter un administrateur</a></li>
+                <li><a class="dropdown-item" th:href="@{/administration}" th:text="#{label.menu_accueil}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/gestion-projets}" th:text="#{label.menu_gerer_projets}">Gérer les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/gestion-notes-de-cours}" th:text="#{label.menu_gerer_notes_cours}">Gérer les notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateurs}" th:text="#{label.menu_gerer_utilisateurs}">Gérer les utilisateurs</a></li>
+                <li><a class="dropdown-item" th:href="@{/admins/new}" th:text="#{label.menu_ajouter_admin}">Ajouter un administrateur</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="?lang=en" th:text="#{label.en}"></a></li>
                 <li><a class="dropdown-item" href="?lang=fr" th:text="#{label.fr}"></a></li>
-                <li><a class="dropdown-item" th:href="@{'/admins/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
-                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
+                <li><a class="dropdown-item" th:href="@{'/admins/edit/' + ${session.idUtilisateur}}" th:text="#{label.menu_modifier_profil}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}" th:text="#{label.menu_deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
             <span th:case="'Professeur'">
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/professeur}">Accueil</a></li>
-                <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
-                <li><a class="dropdown-item" th:href="@{'/notesDeCours/new/' + ${session.nomUtilisateur}}">Déposer ses notes de cours</a></li>
-                <li><a class="dropdown-item" th:href="@{/notesDeCours}">Consulter les notes de cours</a></li>
-                <li><a class="dropdown-item" th:href="@{/projets/evaluation}">Évaluation des projets</a></li>
-                <li><a class="dropdown-item" th:href="@{/professeurs}">Rechercher professeurs et étudiants</a></li>
-                <li><a class="dropdown-item" th:href="@{/professeur}">Espace de collaboration</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeur}" th:text="#{label.menu_accueil}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiants-projets}" th:text="#{label.menu_consulter_projets}">Consulter les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets-visiteurs}" th:text="#{label.menu_consulter_projets_visiteurs}">Consulter les projets visiteurs</a></li>
+                <li><a class="dropdown-item" th:href="@{'/notesDeCours/new/' + ${session.nomUtilisateur}}" th:text="#{label.menu_deposer_notes_cours}">Déposer ses notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="@{/notesDeCours}" th:text="#{label.menu_consulter_notes_cours}">Consulter les notes de cours</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets/evaluation}" th:text="#{label.evaluation_projets}">Évaluation des projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeurs}" th:text="#{label.rechercher_professeurs_etudiants}">Rechercher professeurs et étudiants</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant/anciens}" th:text="#{label.liste_anciens_etudiants}">Liste des anciens étudiants</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeur}" th:text="#{label.menu_espace_collaboration}">Espace de collaboration</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="?lang=en" th:text="#{label.en}"></a></li>
                 <li><a class="dropdown-item" href="?lang=fr" th:text="#{label.fr}"></a></li>
-                <li><a class="dropdown-item" th:href="@{'/professeurs/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
-                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
+                <li><a class="dropdown-item" th:href="@{'/professeurs/edit/' + ${session.idUtilisateur}}" th:text="#{label.menu_modifier_profil}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}" th:text="#{label.menu_deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
             <span th:case="'Etudiant'">
@@ -138,20 +140,21 @@
             </span>
             <span th:case="'Visiteur'">
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/visiteur}">Accueil</a></li>
-                <li><a class="dropdown-item" th:href="@{/etudiants-projets}">Consulter les projets</a></li>
-                <li><a class="dropdown-item" th:href="@{/projets-visiteur/new}">Déposer son projet</a></li>
-                <li><a class="dropdown-item" th:href="@{/visiteur}">Rechercher professeurs et étudiants</a></li>
+                <li><a class="dropdown-item" th:href="@{/visiteur}" th:text="#{label.menu_accueil}">Accueil</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiants-projets}"  th:text="#{label.menu_consulter_projets}">Consulter les projets</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets-visiteurs}" th:text="#{label.menu_consulter_projets_visiteurs}">Consulter les projets visiteurs</a></li>
+                <li><a class="dropdown-item" th:href="@{/projets-visiteur/new}" th:text="#{label.menu_deposer_projet}">Déposer son projet</a></li>
+                <li><a class="dropdown-item" th:href="@{/professeurs}" th:text="#{label.rechercher_professeurs_etudiants}">Rechercher professeurs et étudiants</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="?lang=en" th:text="#{label.en}"></a></li>
                 <li><a class="dropdown-item" href="?lang=fr" th:text="#{label.fr}"></a></li>
-                <li><a class="dropdown-item" th:href="@{'/visiteurs/edit/' + ${session.idUtilisateur}}">Modifier son profil</a></li>
-                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}">Déconnexion</a></li>
+                <li><a class="dropdown-item" th:href="@{'/visiteurs/edit/' + ${session.idUtilisateur}}" th:text="#{label.menu_modifier_profil}">Modifier son profil</a></li>
+                <li><a class="dropdown-item" th:href="@{/utilisateur/deconnexion}" th:text="#{label.menu_deconnexion}">Déconnexion</a></li>
               </ul>
             </span>
              <span th:case="${null}">
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/}">Connexion</a></li>
+                <li><a class="dropdown-item" th:href="@{/}" th:text="#{label.login}">Connexion</a></li>
 
               </ul>
             </span>

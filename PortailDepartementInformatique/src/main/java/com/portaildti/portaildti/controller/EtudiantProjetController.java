@@ -72,20 +72,31 @@ public class EtudiantProjetController {
 
         int nombreVotes = listeVotes.size();
         Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
-        List<Integer> idsEtudiantsMemeProjet = new ArrayList<>();
-
+//<<<<<<< HEAD
+//        List<Integer> idsEtudiantsMemeProjet = new ArrayList<>();
+//
+//        for (Projet projet : projets) {
+//            List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+//            System.out.println("la liste des etudiants du projets :" +etudiants);
+//            etudiantsParProjet.put(projet.getId(), etudiants);
+//            //idsEtudiantsMemeProjet
+//        }
+//
+//        for (Map.Entry<Integer, List<Etudiant>> entry : etudiantsParProjet.entrySet()) {
+//            List<Etudiant> etudiants = entry.getValue();
+//=======
+        Map<Integer, List<Integer>> idsEtudiantsMemeProjet = new HashMap<>();
+        List<Integer> idsEtudiants;
         for (Projet projet : projets) {
             List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
-            System.out.println("la liste des etudiants du projets :" +etudiants);
-            etudiantsParProjet.put(projet.getId(), etudiants);
-            //idsEtudiantsMemeProjet
-        }
-
-        for (Map.Entry<Integer, List<Etudiant>> entry : etudiantsParProjet.entrySet()) {
-            List<Etudiant> etudiants = entry.getValue();
+            idsEtudiants = new ArrayList<>();
+//>>>>>>> 4981df7e0c41025463ab57fc8cb51aa38fb388b3
             for (Etudiant etudiant : etudiants) {
-                idsEtudiantsMemeProjet.add(etudiant.getId());
+                idsEtudiants.add(etudiant.getId());
             }
+            System.out.println("La liste des étudiants du projet :" + etudiants);
+            etudiantsParProjet.put(projet.getId(), etudiants);
+            idsEtudiantsMemeProjet.put(projet.getId(), idsEtudiants);
         }
 
         System.out.println("la liste  des etudiants :" +etudiantsParProjet);

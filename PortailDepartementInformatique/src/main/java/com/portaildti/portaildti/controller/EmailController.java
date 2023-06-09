@@ -63,7 +63,7 @@ public class EmailController {
     @GetMapping("/etudiant/profil/{id}/contact")
     public String envoyerCourrielGeneralEtudiant (Model model, @PathVariable(name = "id") Integer id, HttpSession session) throws UtilisateurNotFoundException {
 
-        model.addAttribute("pageTitle", "Envoie d'un message");
+        model.addAttribute("pageTitle", "Envoi d'un message");
 
         String role = (String) session.getAttribute("roleUtilisateur");
 
@@ -79,7 +79,7 @@ public class EmailController {
     @GetMapping("/professeur/profil/{id}/contact")
     public String envoyerCourrielGeneralProfesseur (Model model, @PathVariable(name = "id") Integer id, HttpSession session) throws UtilisateurNotFoundException {
 
-        model.addAttribute("pageTitle", "Envoie d'un message");
+        model.addAttribute("pageTitle", "Envoi d'un message");
 
         String role = (String) session.getAttribute("roleUtilisateur");
 
