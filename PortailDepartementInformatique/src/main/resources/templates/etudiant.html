@@ -18,18 +18,17 @@
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" ></header>
 <script>
 
-
   const svgIcon = document.getElementById("svg-icon");
   const dropdown = document.getElementById("dropdown");
 
-  // svgIcon.addEventListener("click", () => {
-  //   svgIcon.classList.toggle("active-svg-icon");
-  //   dropdown.classList.toggle("active");
-  // });
+  svgIcon.addEventListener("click", () => {
+    svgIcon.classList.toggle("active-svg-icon");
+    dropdown.classList.toggle("active");
+  });
 
-  // dropdown.addEventListener("click", (event) => {
-  //   console.log(`Clicked on ${event.target.textContent}`);
-  // });
+  dropdown.addEventListener("click", (event) => {
+    console.log(`Clicked on ${event.target.textContent}`);
+  });
 
   function toggleDropdown() {
     document.getElementById("myDropdownContent").classList.toggle("show");

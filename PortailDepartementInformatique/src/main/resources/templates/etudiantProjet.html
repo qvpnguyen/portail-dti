@@ -166,8 +166,9 @@
                     </div>
 
                     <div class="d-grid">
-                        <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve" th:class="${session.roleUtilisateur != 'Professeur' && !idsEtudiantsMemeProjet.contains(session.idUtilisateur) } ? 'btn bouton-mauve disabled' : 'btn bouton-mauve'">
-
+                        <a href="https://git.dti.crosemont.quebec/"
+                           class="btn bouton-mauve"
+                           th:class="${session.roleUtilisateur != 'Professeur' && session.roleUtilisateur != 'Professeur'  &&!#lists.contains(idsEtudiantsMemeProjet[projetChoisi.id], session.idUtilisateur)} ? 'btn bouton-mauve disabled' : 'btn bouton-mauve'">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <rect width="24" height="24" fill="url(#pattern0)"/>
                                 <defs>

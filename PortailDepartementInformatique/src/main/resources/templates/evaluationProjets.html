@@ -78,16 +78,22 @@
           <td th:text="${user.coursID.nom}"></td>
           <td th:text="${user.noteObtenue + '%'}"></td>
           <td th:text="${user.commentaire}"></td>
-          <td>
+          <td th:if="${user.professeurID.nom == session.nomUtilisateur}">
             <a th:href="@{/note/supprimer/{id}(id=${user.id})}" class="fa-solid fa-trash icon-navy fa-2x" title="Supprimer"></a>
           </td>
-          <td>
+          <td th:unless="${user.professeurID.nom == session.nomUtilisateur}">
+            <!-- Remplacer par une cellule vide pour aligner les autres colonnes -->
+          </td>
+          <td th:if="${user.professeurID.nom == session.nomUtilisateur}">
             <a onclick="showForm(this)" class="fa-solid fa-pen-to-square icon-navy fa-2x"  title="Modifier"></a>
             <form style="display:none;" th:action="@{'/modifier/note/' + ${user.id} }" method="get">
               <input type="hidden" name="id" th:value="${user.id}">
               <input type="text" name="noteObtenue">
               <input type="submit" value="Envoyer" />
             </form>
+          </td>
+          <td th:unless="${user.professeurID.nom == session.nomUtilisateur}">
+            <!-- Remplacer par une cellule vide pour aligner les autres colonnes -->
           </td>
         </tr>
         </tbody>

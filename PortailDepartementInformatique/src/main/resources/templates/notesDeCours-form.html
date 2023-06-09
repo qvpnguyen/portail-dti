@@ -20,6 +20,7 @@
   <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
   <!-- Inclusion du stylesheet principal -->
   <link rel="stylesheet" href="/css/style.css"/>
+  <!--
   <script>
     function validateForm(form){
       $("#errorNom").text("");
@@ -48,7 +49,7 @@
       }
     }
   </script>
-
+-->
 </head>
 <header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche"></header>
 <body class="fond-blanc">
@@ -138,7 +139,7 @@
     });
 
     // On retourne false pour empêcher la soumission du formulaire par défaut
-    return validateForm(form);
+    return false;
   }
 </script>
 </body>
