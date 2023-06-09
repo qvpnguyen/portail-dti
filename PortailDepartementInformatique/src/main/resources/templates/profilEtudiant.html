@@ -46,9 +46,9 @@
         <div class="nomUtilisateur-profil">
           <h1 th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h1>
           <h5 th:if="${etudiant.role == 'Étudiant'}" th:text="#{label.etudiant}"></h5>
-          <span th:if="${etudiant.tuteur}" th:text="'/' + #{label.tuteur}"></span>
-         <!-- <span th:if="${etudiant.tuteur && etudiant.formationCompletee}" th:text="'/' + #{label.tuteur} +'/Finissant' "></span>
-          <span th:if="${etudiant.formationCompletee}" th:text="'/Finissant' "></span>-->
+          <span th:if="${etudiant.tuteur && !etudiant.formationCompletee}" th:text="'/' + #{label.tuteur}"></span>
+          <span th:if="${etudiant.tuteur && etudiant.formationCompletee}" th:text="'/' + #{label.tuteur} + '/' + #{label.finissant}"></span>
+          <span th:if="${etudiant.formationCompletee && !etudiant.tuteur}" th:text="'/' + #{label.finissant}"></span>
           <a th:href="@{/etudiant/profil/{id}/contact ((id=${etudiant.id}))}" type="button" class="btn bouton-mauve mt-3" th:text="#{label.contacter}"></a>
         </div>
       </div>
