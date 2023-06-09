@@ -672,15 +672,6 @@ hr {
     }
 }
 
-#espace-collaboration {
-    display: inline-block;
-    position: fixed;
-    bottom: 45px;
-    right: 50px;
-    transform: translateX(-90%);
-    width: 50px;
-}
-
 .square {
     width: 100%;
     height: 0;
