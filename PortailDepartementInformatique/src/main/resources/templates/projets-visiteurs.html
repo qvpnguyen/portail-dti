@@ -46,37 +46,33 @@ svgIcon.addEventListener('click', function() {
     </div>
     <div th:unless="${#lists.isEmpty(projetsVisiteurs)}">
         <div class="container px-5">
-            <h2 class="p-5 text-center text-sm">Ces ensembles des projets sont proposés par des personnes ou des entreprises
-                ayant pour but de cibler les étudiants en informatique à les aider à développer leurs projets professionnels.
-                Grâce à ces projets, les étudiants en informatique ont acquis
-                une expérience pratique en développement des applications de Web et se sont positionnés pour réussir dans
-                l'industrie technologique rapide et en constante évolution.</h2>
+            <h2 class="p-5 text-center text-sm" th:text="#{label.ensemble_projets_visiteurs_description_generale}"></h2>
 
 
             <div th:unless="${nomProfesseur == null}">
                 <p class="navbar-brand">Aucun Projet de professeur trouvé.</p>
             </div>
             <div th:unless="${nomProfesseur != null}">
-                <div th:each="projet, iterStat : ${listeProjetsVisiteurs}" class="row gx-5 mb-4">
+                <div th:each="projet, iterStat : ${projetsVisiteurs}" class="row gx-5 mb-4">
                     <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
                         <div class="carte-video mb-4">
-                            <iframe width="373" height="255" th:src="'https://www.youtube.com/embed/' + ${projet.video}" allowfullscreen></iframe>
+                            <iframe width="373" height="255" th:src="'https://www.youtube.com/embed/' + ${projet.document}" allowfullscreen></iframe>
                             <div class="conteneur-infos-projet">
-                                <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}" class="text-decoration-none">
+                                <a th:href="@{/projets-visiteurs/{id}(id=${projet.id})}" class="text-decoration-none">
                                     <h4 class="mt-2">
                                         <span th:text="${projet.nom}"></span>
-                                        <span class="text-muted" style="font-size: smaller;">(<span th:text="${projet.annee}"></span>)</span>
+<!--                                        <span class="text-muted" style="font-size: smaller;">(<span th:text="${projet.annee}"></span>)</span>-->
                                     </h4>
                                 </a>
 
-                            <span class="text-decoration-underline">Réalisé par:</span>
+                            <span class="text-decoration-underline" th:text="#{label.realise_par}">Réalisé par:</span>
                             <ul class="list-inline">
                                 <li th:if="${etudiantsParProjet[projet.id] != null}" th:each="etudiant : ${etudiantsParProjet[projet.id]}" class="list-inline-item ps-0 pe-0">
                                     <span th:text="${etudiant.prenom}"></span>
                                     <span th:text="${etudiant.nom}"></span>
                                 </li>
                             </ul>
-                            <span class="text-decoration-underline">Avec la supervision de:</span>
+                            <span class="text-decoration-underline" th:text="#{label.supervision}">Avec la supervision de:</span>
                             <br>
 <!--                            <span th:if="${projet.professeur != null}" th:text="${projet.professeur.prenom} + ' ' + ${projet.professeur.nom}"></span>-->
 <!--                            <span th:unless="${projet.professeur != null}">Aucun professeur</span>-->

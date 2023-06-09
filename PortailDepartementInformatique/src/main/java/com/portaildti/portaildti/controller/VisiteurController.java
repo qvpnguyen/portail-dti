@@ -44,7 +44,7 @@ public class VisiteurController {
         model.addAttribute("pageTitle", pageTitle);
         return "visiteur";
     }
-    @GetMapping("/visiteurs-projets/{id}")
+    @GetMapping("/projets-visiteurs/{id}")
     public String afficherProjet(Model model, @PathVariable(name = "id") Integer id, @RequestParam(name = "starCount", required = false) Integer starCount) {
         List<ProjetVisiteur> projetsVisiteurs = projetVisiteurService.afficherProjetVisiteur();
         ProjetVisiteur projetChoisi = projetVisiteurService.afficherProjetParId(id);
