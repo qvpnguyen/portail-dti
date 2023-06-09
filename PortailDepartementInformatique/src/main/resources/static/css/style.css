@@ -513,15 +513,9 @@ hr {
     overflow-y: auto; /* Ajouter une barre de défilement si nécessaire */
 }
 
-<<<<<<< HEAD
-=======
 /* --------- Classes pour l'espace de collaboration ----------- */
 
 
-#chat-page {
-    position: relative;
-    height: 100%;
-}
 
 .chat-container {
     max-width: 700px;
@@ -539,13 +533,17 @@ hr {
     list-style-type: none;
     background-color: #FFF;
     margin: 0;
-    overflow: auto;
+    overflow-x: hidden;
     padding: 20px;
+    height: 400px;
     flex-grow: 1;
+    overflow-y: scroll;
 }
 
+
+
 #chat-page #messageForm {
-    padding: 20px;
+    padding: 50px 20px 20px 20px;
 }
 
 #chat-page ul li {
@@ -673,4 +671,28 @@ hr {
         font-size: 1.1em;
     }
 }
->>>>>>> 61b6176395dbff4ed8f81c15de64412cb62bd38b
+
+#espace-collaboration {
+    display: inline-block;
+    position: fixed;
+    bottom: 45px;
+    right: 50px;
+    transform: translateX(-90%);
+    width: 50px;
+}
+
+.square {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%; /* Creates a square aspect ratio */
+    position: relative;
+}
+
+.square img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Preserve aspect ratio and cover the entire square */
+}

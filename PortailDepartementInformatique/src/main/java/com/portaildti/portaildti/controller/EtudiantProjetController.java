@@ -51,8 +51,6 @@ public class EtudiantProjetController {
         Vote vote = new Vote();
         vote.setRating(starCount);
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println("The setRating is: " + vote.getRating());
 
         String noteObtenue;
 
@@ -74,11 +72,25 @@ public class EtudiantProjetController {
 
         int nombreVotes = listeVotes.size();
         Map<Integer, List<Etudiant>> etudiantsParProjet = new HashMap<>();
+//<<<<<<< HEAD
+//        List<Integer> idsEtudiantsMemeProjet = new ArrayList<>();
+//
+//        for (Projet projet : projets) {
+//            List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
+//            System.out.println("la liste des etudiants du projets :" +etudiants);
+//            etudiantsParProjet.put(projet.getId(), etudiants);
+//            //idsEtudiantsMemeProjet
+//        }
+//
+//        for (Map.Entry<Integer, List<Etudiant>> entry : etudiantsParProjet.entrySet()) {
+//            List<Etudiant> etudiants = entry.getValue();
+//=======
         Map<Integer, List<Integer>> idsEtudiantsMemeProjet = new HashMap<>();
         List<Integer> idsEtudiants;
         for (Projet projet : projets) {
             List<Etudiant> etudiants = etudiantProjetService.rechercherEtudiantsParProjet(projet.getId());
             idsEtudiants = new ArrayList<>();
+//>>>>>>> 4981df7e0c41025463ab57fc8cb51aa38fb388b3
             for (Etudiant etudiant : etudiants) {
                 idsEtudiants.add(etudiant.getId());
             }
@@ -121,8 +133,6 @@ public class EtudiantProjetController {
                 vote.setProjetID(projetChoisi);
                 voteRepository.save(vote);
             }
-
-            System.out.println(votes);
 
             model.addAttribute("projetChoisi", projetChoisi);
 

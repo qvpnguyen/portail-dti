@@ -29,12 +29,12 @@
         <div th:if="${message!= null}" class="alert alert-success text-center">
           [[${message}]]
         </div>
-        <div class="row">
-          <div th:each="tuteur, iterStat : ${listeTuteurs}" class="col-sm-4">
+        <div class="row d-flex">
+          <div th:each="tuteur, iterStat : ${listeTuteurs}" class="col-sm-4 align-items-stretch">
             <div class="mb-4">
               <div class="carte-video mb-4">
-                <div class="d-flex justify-content-center">
-                    <img th:src="${tuteur.photo != null ? '/images/utilisateur/' + tuteur.photo : '/images/admin-icon.png'}" th:alt="${tuteur.prenom + ' ' + tuteur.nom}" class="img-fluid image-fix" />
+                <div class="square">
+                  <img th:src="${tuteur.photo != null ? '/images/utilisateur/' + tuteur.photo : '/images/admin-icon.png'}" th:alt="${tuteur.prenom + ' ' + tuteur.nom}" class="img-fluid" />
                 </div>
                 <div class="conteneur-infos-projet">
                   <div class="d-flex align-items-center">
