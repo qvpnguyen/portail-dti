@@ -41,7 +41,7 @@
     <div class="profil1">
       <div class="row">
         <div class="col-md-6">
-          <img th:src="${professeur.photo != null ? '/images/utilisateur/' + professeur.photo : '/images/admin-icon.png'}" th:alt="${professeur.prenom + ' ' + professeur.nom}" class="img-fluid image-fix" />
+          <img th:src="${professeur.photo != null ? '/images/utilisateur/' + professeur.photo : '/images/utilisateur/admin-icon.png'}" th:alt="${professeur.prenom + ' ' + professeur.nom}" class="img-fluid image-fix" />
         </div>
         <div class="nomUtilisateur-profil">
           <h1 th:text="${professeur.prenom + ' ' + professeur.nom}"></h1>
