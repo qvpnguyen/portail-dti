@@ -62,19 +62,19 @@
           <div class="row mx-2 mt-4">
             <div class="col-10">
               <div class="form-group my-3">
-                <label for="nom">Nom du projet:</label>
+                <label for="nom" th:text="#{label.nom_projet} + ':'">Nom du projet:</label>
                 <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
               </div>
             </div>
             <div class="col-10">
               <div class="form-group my-3">
-                <label for="description">Brève description du projet:</label>
+                <label for="description" th:text="#{label.description_projet}">Brève description du projet:</label>
                 <textarea rows="5" class="form-control description-projet mt-2" id="description" name="description" th:field="*{description}"></textarea>
               </div>
             </div>
             <div class="col-10">
               <div class="form-group my-3">
-                <label for="fileVideo">Téléversez un document:</label>
+                <label for="fileVideo" th:text="#{label.video_projet}">Téléversez un document:</label>
                 <div class="row">
                   <div class="col-8">
                     <input type="file" class="form-control mt-2" id="fileVideo" name="fileVideo">
@@ -85,7 +85,7 @@
           </div>
 
           <div class="d-grid gap-2 mt-4 mx-3">
-            <input type="submit" value="Sauvegarder" class="btn bouton-mauve" />
+            <input type="submit" th:value="#{label.sauvegarder}" class="btn bouton-mauve" />
             <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="24" height="24" fill="url(#pattern0)"/>

@@ -61,14 +61,14 @@
           <div class="col-10">
             <span id="error" style="color:red;"></span>
             <div class="form-group my-3">
-              <label>Nom de notes de cours:</label>
+              <label th:text="#{label.nom_notes_cours}">Nom de notes de cours:</label>
               <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
               <span id="errorNom" style="color:red;"></span>
             </div>
           </div>
           <div class="col-10">
             <div class="form-group my-3">
-              <label for="professeur">Professeur responsable:</label>
+              <label for="professeur" th:text="#{label.professeur_responsable}">Professeur responsable:</label>
               <select name="professeur" id="professeur" class="form-select">
                 <option th:each="unProf : ${listeProfesseurs}" th:value="${unProf.id}" th:text="${unProf.prenom} + ' ' + ${unProf.nom}"></option>
               </select>
@@ -76,14 +76,14 @@
           </div>
           <div class="col-10">
             <div class="form-group my-3">
-              <label>Lien URL:</label>
+              <label th:text="#{label.lien_url}">Lien URL:</label>
               <input type="text" class="form-control" id="lien" name="lien" th:field="*{lien}">
               <span id="errorLien" style="color:red;"></span>
             </div>
           </div>
           <div class="col-10">
             <div class="form-group my-3">
-              <label for="cours">Cours associé:</label>
+              <label for="cours" th:text="#{label.cours_associe}">Cours associé:</label>
               <select name="cours" id="cours" class="form-select">
                 <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
               </select>
@@ -91,16 +91,16 @@
           </div>
           <div class="col-10">
             <div class="form-group my-3">
-              <label>Téléversez votre document de notes de cours:</label>
+              <label th:text="#{label.document_notes_cours}">Téléversez votre document de notes de cours:</label>
               <div class="row">
                 <div class="col-8">
                   <input type="file" class="form-control mt-2" id="documentNotesCours" name="documentNotesCours">
                 </div>
-                <div class="col-4 mt-2">
-                  <button type="button" class="btn bouton-mauve">
-                    Téléverser
-                  </button>
-                </div>
+<!--                <div class="col-4 mt-2">-->
+<!--                  <button type="button" class="btn bouton-mauve">-->
+<!--                    Téléverser-->
+<!--                  </button>-->
+<!--                </div>-->
               </div>
             </div>
           </div>
@@ -108,7 +108,7 @@
 
         <div class="d-grid gap-2 mt-4 mx-3">
           <button type="submit" class="btn bouton-mauve">
-            Sauvegarder
+            [[#{label.sauvegarder}]]
           </button>
           <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
             <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>

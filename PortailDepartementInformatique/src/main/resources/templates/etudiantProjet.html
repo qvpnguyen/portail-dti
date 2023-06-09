@@ -162,7 +162,7 @@
                 </div>
                 <div class="col-4">
                     <div>
-                        <p class="note-police">Note: <strong class="note-projet" th:text="${noteObtenu}">%</strong></p>
+                        <p class="note-police">[[#{label.note}]] <strong class="note-projet" th:text="${noteObtenu}">%</strong></p>
                     </div>
 
                     <div class="d-grid">
@@ -187,7 +187,7 @@
                         <br>
                         <br>
                         <div class="carte-description p-4">
-                            <p><b>[[#{label.commentaires}]]</b></p>
+                            <p><b>[[#{label.commentaires}]]:</b></p>
                             <p th:text="${commentaire}"></p>
                         </div>
                     </div>

@@ -38,14 +38,14 @@
 <body>
 <main>
   <div class="container conteneur-table bg-light p-5 mt-5">
-    <h4>Chercher note par nom du projet :</h4>
+    <h4 th:text="#{label.chercher_note_nom_projet}">Chercher note par nom du projet :</h4>
 
     <form method="get" th:action="@{/rechercher/note_projet/}">
       <input type="search" name="note" id="note" th:value="${note}">
-      <input type="submit" value="rechercher" />
+      <input type="submit" th:value="#{label.recherche}" />
     </form>
 
-    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}">
+    <a class="btn bouton-mauve mb-5" th:href="@{/note/new/{nomProfSession}(nomProfSession=${session.nomUtilisateur})}" th:text="#{label.ajouter_note_projet}">
       Ajouter une note à un projet
     </a>
 
@@ -57,15 +57,15 @@
         <thead>
         <tr>
           <th>ID</th>
-          <th>nom du Projet</th>
-          <th>Session</th>
-          <th>Année</th>
-          <th>Professeur</th>
-          <th>Cours</th>
-          <th>Note obtenue</th>
-          <th>Commentaire</th>
-          <th>Supprimer la note</th>
-          <th>Modifier la note</th>
+          <th th:text="#{label.nom_projet}">nom du Projet</th>
+          <th th:text="#{label.session}">Session</th>
+          <th th:text="#{label.annee}">Année</th>
+          <th th:text="#{label.professeur}">Professeur</th>
+          <th th:text="#{label.cours}">Cours</th>
+          <th th:text="#{label.note_obtenue}">Note obtenue</th>
+          <th th:text="#{label.commentaires}">Commentaire</th>
+          <th th:text="#{label.supprimer_note}">Supprimer la note</th>
+          <th th:text="#{label.modifier_note}">Modifier la note</th>
         </tr>
         </thead>
         <tbody>
