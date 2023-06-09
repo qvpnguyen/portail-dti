@@ -513,6 +513,8 @@ hr {
     overflow-y: auto; /* Ajouter une barre de défilement si nécessaire */
 }
 
+<<<<<<< HEAD
+=======
 /* --------- Classes pour l'espace de collaboration ----------- */
 
 
@@ -671,3 +673,4 @@ hr {
         font-size: 1.1em;
     }
 }
+>>>>>>> 61b6176395dbff4ed8f81c15de64412cb62bd38b

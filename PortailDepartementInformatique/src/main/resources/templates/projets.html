@@ -46,7 +46,16 @@ svgIcon.addEventListener('click', function() {
     </div>
     <div th:unless="${#lists.isEmpty(listeProjets)}">
         <div class="container px-5">
+
+            <div th:if="${message!=null}" class="alert alert-success text-center">[[${message}]]</div>
+            <h2 class="p-5 text-center text-sm">Ces ensembles des projets sont réalisés par des étudiants en
+                informatique au cours de leur parcours scolaire qui témoignent de la créativité et de l'ingéniosité de
+                la prochaine génération de développeurs. Grâce à ces projets, les étudiants en informatique ont acquis
+                une expérience pratique en développement des applications de Web et se sont positionnés pour réussir dans
+                l'industrie technologique rapide et en constante évolution.</h2>
+
             <h2 class="p-5 text-center text-sm" th:text="#{label.ensemble_projets_description_generale}"></h2>
+
 
             <div th:unless="${nomProfesseur == null}">
                 <p class="navbar-brand">Aucun Projet de professeur trouvé.</p>
@@ -55,12 +64,8 @@ svgIcon.addEventListener('click', function() {
                 <div th:each="projet, iterStat : ${listeProjets}" class="row gx-5 mb-4">
                     <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
                         <div class="carte-video mb-4">
-                            <img th:id="'play-button-' + ${iterStat.count}" class="play-button mx-auto d-block" src="images/play-button-icon.png"
-                                 alt="Jouer" />
-                            <video th:id="'project-video-' + ${iterStat.count}" controls class="projet-video video-frame hidden">
-                                <source th:src="@{'videos/utilisateur/' + ${projet.video}}" type="video/mp4">
-                                Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
-                            </video>
+
+                            <iframe width="373" height="255" th:src="'https://www.youtube.com/embed/' + ${projet.video}" allowfullscreen></iframe>
                             <div class="conteneur-infos-projet">
                                 <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}" class="text-decoration-none">
                                     <h4 class="mt-2">
