@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+  <title>Formulaire de projet - Portail du département de l'informatique</title>
+  <!-- Inclusion des fichiers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- Importation des polices (fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <!-- Inclusion du stylesheet principal -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+  <!-- Inclusion de la librairie jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Inclusion de la librairie jQuery -->
+  <!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+  <!-- Inclusion du plugin de validation jQuery -->
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Inclusion des scripts pour le modal dialogue -->
+  <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>-->
+  <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>-->
+  <!-- Inclusion du fichier de validation de formulaire -->
+  <script src="/js/projet-validation.js"></script>
+  <script>
+    function showModalDialog(title, message) {
+      $("#modalTitle").text(title);
+      $("#modalBody").text(message);
+      $("#modalDialog").modal();
+
+    }
+    function validateFile(input) {
+      let fileSize = input.files[0].size;
+      let maxSize = 30 * 1024 * 1024; // 30 MB
+
+      if (fileSize > maxSize) {
+        showModalDialog("Erreur", "la taille " + fileSize + " du fichier  " + $("#fileVideo").val()+ " dépasse la taille limite autorisée qui est " + maxSize+ " soit 10MB")
+        input.value = ""; // Efface le champ de saisie de fichier
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body class="fond-blanc">
+<header th:replace="fragments/enteteInscription :: enteteInscription" >
+</header>
+<main>
+  <div class="container px-5 d-flex justify-content-center">
+    <div class="row">
+      <div class="boite-inscription mt-5">
+
+        <form th:action="@{/projets/save}" method="post" enctype="multipart/form-data"
+        th:object="${projet}">
+          <input type="hidden" th:field="*{id}">
+          <div class="row mx-2 mt-4">
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="nom" th:text="#{label.nom_projet} + ':'">Nom du projet:</label>
+                <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="professeur" th:text="#{label.professeur_responsable}">Professeur responsable:</label>
+                <select name="professeur" id="professeur" class="form-select" th:field="*{professeur}">
+                  <option value="" disabled>---</option>
+                  <option th:each="unProf : ${listeProfesseurs}" th:value="${unProf.id}">[[${unProf.prenom}]] [[${unProf.nom}]]</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="cours" th:text="#{label.cours_associe}">Cours associé:</label>
+                <select name="cours" id="cours" class="form-select" th:field="*{cours}">
+                  <option value="" disabled>---</option>
+                  <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="membresEquipe" th:text="#{label.membres_equipe}">Membres de l'équipe:</label>
+                <select multiple name="membresEquipe" id="membresEquipe" class="form-select">
+                  <option value="" disabled>---</option>
+                  <option th:each="unEtudiant : ${listeEtudiants}" th:value="${unEtudiant.id}" th:selected="${etudiantsParProjet[projet.id].contains(unEtudiant)}">[[${unEtudiant.prenom}]] [[${unEtudiant.nom}]]</option>
+                </select>
+              </div>
+            </div>
+            <div id="inputContainer" class="col-10"></div>
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="description" th:text="#{label.description_projet}">Brève description du projet:</label>
+                <textarea rows="5" class="form-control description-projet mt-2" id="description" name="description" th:field="*{description}"></textarea>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="annee" th:text="#{label.annee}">Année:</label>
+                <select id="annee" name="annee" class="form-select">
+                  <option selected disabled th:text="#{label.choisir_annee}">Choisir une année</option>
+                  <option th:each="annee : ${#numbers.sequence(2020, 2030)}" th:value="${annee}" th:text="${annee}" th:field="*{annee}"></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="fileVideo" th:text="#{label.video_projet}">Téléversez votre vidéo du projet:</label>
+                <div class="row">
+                  <div class="col-8">
+                    <input type="file" class="form-control mt-2" id="fileVideo" name="fileVideo">
+                    <video th:if="${projet.video != null}" id="project-video" controls class="projet-video video-frame">
+                      <source th:src="@{'/videos/utilisateur/' + ${projet.video}}" type="video/mp4">
+                      Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+                    </video>
+                  </div>
+                  <!--                                            <div class="col-4 mt-2">
+                                                                  <button type="button" class="btn bouton-mauve">
+                                                                      <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                      <path d="M8.54878 14.7195V1.87793M8.54878 1.87793L12.6883 6.34964M8.54878 1.87793L4.40921 6.34964" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                      <path d="M1.09756 12.3413V15.195C1.09756 16.989 1.09756 17.8851 1.58272 18.4425C2.06788 18.9999 2.84777 18.9999 4.40922 18.9999H12.6883C14.2498 18.9999 15.0297 18.9999 15.5148 18.4425C16 17.8851 16 16.989 16 15.195V12.3413" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                                                      </svg>
+                                                                      Téléverser
+                                                                  </button>
+                                                              </div>-->
+                </div>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form-group my-3">
+                <label for="lienGitlab" th:text="#{label.lien_gitlab}">Lien Gitlab:</label>
+                <input type="text" class="form-control" id="lienGitlab" name="lienGitlab" th:field="*{lienGitlab}">
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 mt-4 mx-3">
+            <input type="submit" th:value="#{label.sauvegarder}" class="btn bouton-mauve">
+            <!-- Code SVG pour l'icone de sauvegarde -->
+            <!--                                    <svg width="27" height="24" viewBox="0 0 27 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0 0H27V23.5161H0V0Z" fill="white" fill-opacity="0.01"/>
+                                                <path d="M23.0625 1.95898H3.93748C3.0055 1.95898 2.24998 2.61701 2.24998 3.42874V20.086C2.24998 20.8977 3.0055 21.5557 3.93748 21.5557H23.0625C23.9945 21.5557 24.75 20.8977 24.75 20.086V3.42874C24.75 2.61701 23.9945 1.95898 23.0625 1.95898Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                                                <path d="M19.125 1.95898V10.7775H8.43751V1.95898H19.125Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                                                <path d="M15.1875 5.38867V7.34835" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                                <path d="M6.74823 1.95898H20.8116" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>-->
+            </input>
+            <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="24" height="24" fill="url(#pattern0)"/>
+                <defs>
+                  <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_30_41" transform="translate(-0.044186) scale(0.00465116)"/>
+                  </pattern>
+                  <image id="image0_30_41" width="234" height="215" xlink:href="data:image/png;base64,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"/>
+                </defs>
+              </svg>
+              GitLab
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<!--Modal dialogue -->
+<div class="modal fade text-center" id="modalDialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalTitle">Avertissement</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <span id="modalBody"></span>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</html>

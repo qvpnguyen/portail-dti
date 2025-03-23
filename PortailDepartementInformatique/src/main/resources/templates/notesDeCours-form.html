@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+  <title>Création de projet - Portail du département de l'informatique</title>
+  <!-- Inclusion des fichiers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- Importation des polices (fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <!-- Importation de FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <!-- Inclusion de jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+  <!-- Inclusion des fichiers pour le plugin DataTables -->
+  <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet"/>
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <!-- Inclusion du stylesheet principal -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <!--
+  <script>
+    function validateForm(form){
+      $("#errorNom").text("");
+      $("#errorLien").text("");
+
+      var nom = document.getElementById('nom').value;
+      var lien = document.getElementById('lien').value;
+
+      // Vérifier si le nom ou le lien est vide
+      if (nom.trim() === "" || lien.trim() === "") {
+        $("#error").text("Le nom et/ou le lien ne peuvent pas être vides");
+        return false;
+      }
+
+      // Vérifier si le nom est uniquement un nombre
+      if (!isNaN(nom)) {
+        $("#errorNom").text("Le nom ne peut pas être uniquement un nombre");
+        return false;
+      }
+
+      // Vérifier si le lien est une URL valide
+      var urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+      if (!urlRegex.test(lien)) {
+        $("#errorLien").text("Veuillez entrer un lien URL valide");
+        return false;
+      }
+    }
+  </script>
+-->
+</head>
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche"></header>
+<body class="fond-blanc">
+<div class="container px-5 d-flex justify-content-center">
+  <div class="row">
+    <div class="boite-inscription mt-5">
+      <form th:action="@{/notesDeCours/save}" method="POST" enctype="multipart/form-data" th:object="${noteDeCours}" onsubmit="return checkEmailUnique(this); ">
+        <div class="row mx-2 mt-4">
+          <div class="col-10">
+            <span id="error" style="color:red;"></span>
+            <div class="form-group my-3">
+              <label th:text="#{label.nom_notes_cours}">Nom de notes de cours:</label>
+              <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}">
+              <span id="errorNom" style="color:red;"></span>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label for="professeur" th:text="#{label.professeur_responsable}">Professeur responsable:</label>
+              <select name="professeur" id="professeur" class="form-select">
+                <option th:each="unProf : ${listeProfesseurs}" th:value="${unProf.id}" th:text="${unProf.prenom} + ' ' + ${unProf.nom}"></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label th:text="#{label.lien_url}">Lien URL:</label>
+              <input type="text" class="form-control" id="lien" name="lien" th:field="*{lien}">
+              <span id="errorLien" style="color:red;"></span>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label for="cours" th:text="#{label.cours_associe}">Cours associé:</label>
+              <select name="cours" id="cours" class="form-select">
+                <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="form-group my-3">
+              <label th:text="#{label.document_notes_cours}">Téléversez votre document de notes de cours:</label>
+              <div class="row">
+                <div class="col-8">
+                  <input type="file" class="form-control mt-2" id="documentNotesCours" name="documentNotesCours">
+                </div>
+<!--                <div class="col-4 mt-2">-->
+<!--                  <button type="button" class="btn bouton-mauve">-->
+<!--                    Téléverser-->
+<!--                  </button>-->
+<!--                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2 mt-4 mx-3">
+          <button type="submit" class="btn bouton-mauve">
+            [[#{label.sauvegarder}]]
+          </button>
+          <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
+            <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>
+            OneDrive
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  function checkEmailUnique(form) {
+    $("#error").text("");
+
+
+    // Si toutes les validations sont passées, alors nous envoyons la requête AJAX
+    $.ajax({
+      type: 'POST',
+      url: '/noteDeCours/check_note',
+      data: {nom: $("#nom").val()},
+      success: function(data) {
+        if (data === 'OK') {
+          form.submit();
+        } else {
+          $("#error").text("Il y a déjà une note de cours avec le même nom : " + $("#nom").val());
+        }
+      }
+    });
+
+    // On retourne false pour empêcher la soumission du formulaire par défaut
+    return false;
+  }
+</script>
+</body>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</html>

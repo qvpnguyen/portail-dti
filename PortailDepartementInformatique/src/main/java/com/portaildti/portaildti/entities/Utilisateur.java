@@ -4,6 +4,8 @@
  */
 package com.portaildti.portaildti.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
@@ -17,39 +19,45 @@ public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    int id;
+    Integer id;
+    @Column(length = 64, nullable = false)
     String prenom;
+    @Column(length = 64, nullable = false)
     String nom;
+    @Column(length = 128, nullable = false, unique = true)
     private String email;
-    //private String profil;
-    private String role;
-    private boolean active;
-    private String nomUtilisateur;
+//    private String profil;
+    @Column(nullable = false)
+    String role;
+    Boolean active;
+    @Column(length = 64, nullable = false)
     private String motDePasse;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate ddn;
+    @Column(length = 64)
     private String photo;
 
+    @Lob
+    private byte[] data;
 
     public Utilisateur() {
     }
 
 
-    public Utilisateur(int id, String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
-
+    public Utilisateur(Integer id, String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
         this.id = id;
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
-        //this.profil = profil;
+//        this.profil = profil;
         this.role = role;
         this.active = active;
-        this.nomUtilisateur = nomUtilisateur;
         this.motDePasse = motDePasse;
         this.ddn = ddn;
         this.photo = photo;
     }
 
-    public Utilisateur(int id, LocalDate ddn, String email, boolean active, String nom, String prenom, String password, String photo) {
+    public Utilisateur(Integer id, LocalDate ddn, String email, Boolean active, String nom, String prenom, String password, String photo) {
         this.ddn = ddn;
         this.id = id;
         this.prenom = prenom;
@@ -60,16 +68,15 @@ public class Utilisateur {
         this.photo = photo;
     }
 
-    public Utilisateur(String prenom, String nom, String email, String role, boolean active, String nomUtilisateur, String motDePasse, LocalDate ddn, String photo) {
+    public Utilisateur(String prenom, String nom, String email, String role, Boolean active, String motDePasse, LocalDate ddn, String photo) {
 
-        this.id = id;
+        //this.id = id;
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
-        //this.profil = profil;
+//        this.profil = profil;
         this.role = role;
         this.active = active;
-        this.nomUtilisateur = nomUtilisateur;
         this.motDePasse = motDePasse;
         this.ddn = ddn;
         this.photo = photo;
@@ -117,17 +124,17 @@ public class Utilisateur {
         this.nom = nom;
     }
 
-    public Utilisateur(int id) {
+    public Utilisateur(Integer id) {
         this.id = id;
     }
 
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -171,22 +178,13 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
-
-    public String getNomUtilisateur() {
-        return nomUtilisateur;
-    }
-
-    public void setNomUtilisateur(String nomUtilisateur) {
-        this.nomUtilisateur = nomUtilisateur;
-    }
-
     public String getMotDePasse() {
         return motDePasse;
     }
@@ -212,11 +210,17 @@ public class Utilisateur {
         this.photo = photo;
     }
 
+    public byte[] getData() {
+        return data;
+    }
 
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 
     public String afficherTitreDesColonnes() {
         String message = "";
-        message = String.format(" %-10s  %30s %15s %15s %15s %15s %15s %25s ", "Id", "nomUtilisateur", "Active", "Nom", "Prenom","Date de naissance", "Role",
+        message = String.format(" %-10s %15s %15s %15s %15s %15s %25s ", "Id", "Active", "Nom", "Prenom","Date de naissance", "Role",
                 "MotDePasse");
         message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
         return message;
@@ -225,7 +229,7 @@ public class Utilisateur {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15b %15s %15s %15s %15s %25s ",this.id,this.nomUtilisateur, this.active,this.nom,this.prenom,
+        message = String.format(" %-10d %15b %15s %15s %15s %15s %25s ",this.id, this.active,this.nom,this.prenom,
                 this.ddn, this.role, this.motDePasse);
         return message;
     }

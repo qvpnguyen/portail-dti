@@ -5,8 +5,11 @@ package com.portaildti.portaildti.entities;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -18,10 +21,16 @@ public class ServiceTutorat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private Date dateTutorat;
+    private Integer id;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(nullable = false)
+    private LocalDate dateTutorat;
+    @DateTimeFormat(pattern = "HH:mm")
+    @Column(nullable = false)
     private LocalTime heure;
-    private double duree;
+    @Column(nullable = false)
+    private Double duree;
+    @Column(nullable = false)
     private String typeDeRencontre;
     @ManyToOne
     @JoinColumn(name = "ÉtudiantTuteurID")
@@ -37,7 +46,7 @@ public class ServiceTutorat {
 
     }
 
-    public ServiceTutorat(int id, Date dateTutorat, LocalTime heure, double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
+    public ServiceTutorat(Integer id, LocalDate dateTutorat, LocalTime heure, Double duree, String typeDeRencontre, Etudiant tuteur, Etudiant etudiantTutore, Cours cours) {
         this.id = id;
         this.dateTutorat = dateTutorat;
         this.heure = heure;
@@ -48,19 +57,19 @@ public class ServiceTutorat {
         this.cours = cours;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Date getDateTutorat() {
+    public LocalDate getDateTutorat() {
         return dateTutorat;
     }
 
-    public void setDateTutorat(Date dateTutorat) {
+    public void setDateTutorat(LocalDate dateTutorat) {
         this.dateTutorat = dateTutorat;
     }
 
@@ -72,11 +81,11 @@ public class ServiceTutorat {
         this.heure = heure;
     }
 
-    public double getDuree() {
+    public Double getDuree() {
         return duree;
     }
 
-    public void setDuree(double duree) {
+    public void setDuree(Double duree) {
         this.duree = duree;
     }
 

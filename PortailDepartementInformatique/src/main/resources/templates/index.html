@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+    <title>Bienvenue au Portail du département de l'informatique</title>
+    <!-- Inclusion des fichiers Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Importation des polices (fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+    <!-- Inclusion du stylesheet principal -->
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<header class="border-0">
+    <div class="container d-flex justify-content-center">
+        <div class="entete-logo">
+            <div class="d-flex justify-content-between">
+                <img class="logo-college-agrandi py-3" th:src="@{'/images/logo-rosemont.png'}" alt="Logo du Collège de Rosemont"/>
+                <div class="mt-4">
+                    <h1 class="titre-agrandi" th:text="#{label.titre}">Ed.<br>volution</h1>
+                    <p class="sous-titre-agrandi" th:text="#{label.sous_titre}">Oser apprendre et évoluer</p>
+                </div>
+                <div class="language-links">
+                    <a class="text-white" href="?lang=en" th:text="#{label.en}">Anglais</a>
+                    <a class="text-white" href="?lang=fr" th:text="#{label.fr}">Français</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
+    <div class="container px-5 d-flex justify-content-center">
+
+        <div class="row">
+            <div class="boite-login">
+                <div th:if="${invalide!=null}" class="alert alert-danger text-center">[[${invalide}]]</div>
+                <br>
+                <div th:if="${deconnexion!=null}" class="alert alert-danger text-center">[[${deconnexion}]]</div>
+                <div th:if="${message}" class="alert alert-danger text-center">
+                    <p th:text="${message}"></p>
+                </div>
+                <div th:if="${messageConnexion != null}" class="alert alert-danger text-center">[[${messageConnexion}]]</div>
+                <!-- TODO: Implémenter le connexionController pour le form action -->
+                <form th:action="@{/utilisateur/connexion/}" method="get">
+                    <div class="d-flex justify-content-center">
+
+                        <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" value="btnetudiant" id="btnetudiant" autocomplete="off" checked>
+                            <label class="btn btn-outline-dark" for="btnetudiant" th:text="#{label.etudiant}">Étudiant</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" value="btnprofesseur" id="btnprofesseur" autocomplete="off">
+                            <label class="btn btn-outline-dark" for="btnprofesseur" th:text="#{label.professeur}">Professeur</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" value="btnvisiteur" id="btnvisiteur" autocomplete="off">
+                            <label class="btn btn-outline-dark" for="btnvisiteur" th:text="#{label.visiteur}">Visiteur</label>
+                        </div>
+                    </div>
+                    <div class="col-8 mx-5">
+                        <div class="form-group my-5">
+                            <label for="nomUtilisateur" th:text="#{label.courriel}">Courriel:</label>
+                            <input type="text" class="form-control" name = "nomUtilisateur" id="nomUtilisateur" th:placeholder="#{label.placeholder_courriel}">
+                        </div>
+                        <div class="form-group my-5">
+                            <label for="motDePasse" th:text="#{label.password}">Mot de passe:</label>
+                            <input type="password" class="form-control" name="motDePasse" id="motDePasse" th:placeholder="#{label.placeholder_password}">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-dark" th:text="#{label.login}">Connexion</button>
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    <p><a th:href="@{/etudiants-projets}" class="text-dark" th:text="#{label.continuer_visiteur}">Continuer en tant que visiteur <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
+                    <p th:text="#{label.pas_compte}">Pas de compte? Créez un compte pour</p> <a th:text="#{label.visiteur}" th:href="@{/visiteurs/new}" class="text-dark">visiteur</a>, <a th:text="#{label.etudiant}" th:href="@{/etudiants/new}" class="text-dark">étudiant</a> <span th:text="#{label.ou}"></span> <a th:text="#{label.professeur}" th:href="@{/professeurs/new}" class="text-dark">professeur</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</body>
+</html>

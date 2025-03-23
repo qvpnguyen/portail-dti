@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+    <title>Gestion des projets - Portail du département de l'informatique</title>
+    <!-- Inclusion des fichiers Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Importation des polices (fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+    <!-- Importation de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <!-- Inclusion de jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+    <!-- Inclusion des fichiers pour le plugin DataTables -->
+    <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <!-- Inclusion du stylesheet principal -->
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script>
+        $(document).ready(function () {
+            $('#tableProjets').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                // "searching": false
+            });
+        });
+    </script>
+</head>
+<body class="fond-blanc">
+<header th:replace="fragments/entete :: entete" >
+</header>
+<script>
+    const svgIcon = document.getElementById("svg-icon");
+    const dropdown = document.getElementById("dropdown");
+
+    svgIcon.addEventListener("click", () => {
+        svgIcon.classList.toggle("active-svg-icon");
+        dropdown.classList.toggle("active");
+    });
+
+    dropdown.addEventListener("click", (event) => {
+        console.log(`Clicked on ${event.target.textContent}`);
+    });
+
+    function toggleDropdown() {
+        document.getElementById("myDropdownContent").classList.toggle("show");
+    }
+
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropdown-svg')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+
+<main>
+    <div class="container conteneur-table bg-light p-5 mt-5">
+        <div th:if="${message!=null}" class="alert alert-success text-center">[[${message}]]</div>
+        <a th:href="@{/projets/new}" class="btn bouton-mauve mb-5">Ajouter un projet</a>
+        <table id="tableProjets" class="display">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Année</th>
+                <th>Cours</th>
+                <th>Équipe</th>
+                <th>Professeur en charge</th>
+                <th>Note</th>
+                <th>Télécharger</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="projet : ${projets}">
+                <td>[[${projet.id}]]</td>
+                <td>[[${projet.nom}]]</td>
+                <td>[[${projet.annee}]]</td>
+                <td>[[${projet.cours != null ? projet.cours.nom : ''}]]</td>
+                <td>
+                    <p th:each="membre : ${etudiantsParProjet[projet.id]}">
+                        [[${membre != null ? membre.prenom : ''}]] [[${membre != null ? membre.nom : ''}]]
+                    </p>
+                </td>
+                <td>[[${projet.professeur != null ? projet.professeur.prenom : ''}]] [[${projet.professeur != null ? projet.professeur.nom : ''}]]</td>
+                <td>
+                    <p th:each="user : ${listeNotes}">
+                        <span th:if="${user.projetID.id == projet.id}" th:text="${user.noteObtenue + '%'}"></span>
+                    </p>
+                </td>
+                <td>
+                    <a th:if="${projet.video != null}" class="fa-solid fa-download icon-navy fa-2x" th:href="@{'/videos/utilisateur/' + ${projet.video}}" title="Télécharger" download></a>
+                </td>
+                <td>
+                    <a class="fa-solid fa-pen-to-square icon-navy fa-2x" th:href="@{'/projets/edit/' + ${projet.id}}" title="Modifier"></a>
+                    <a class="fa-solid fa-trash icon-navy fa-2x" th:href="@{'/projets/delete/' + ${projet.id}}" title="Supprimer"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</body>
+</html>

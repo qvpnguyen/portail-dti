@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+    <title>Création de projet - Portail du département de l'informatique</title>
+    <!-- Inclusion des fichiers Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Importation des polices (fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+    <!-- Importation de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <!-- Inclusion de jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+    <!-- Inclusion des fichiers pour le plugin DataTables -->
+    <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <!-- Inclusion du stylesheet principal -->
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script>
+        function checkEmailUnique(form) {
+            $("#error").text("");
+            $("#errorNote").text("");
+            $("#errorDate").text("");
+            $("#errorCommentaire").text("");
+
+            var note = document.getElementById('nom').value;
+            var date = document.getElementById('date').value;
+            var commentaire = document.getElementById('commentaire').value;
+            var currentYear = new Date().getFullYear();
+
+            if (note == "" || date == "" || commentaire == "") {
+                $("#error").text("Tous les champs doivent être remplis");
+                return false;
+            }
+
+            else if (parseInt(note) > 100) {
+                $("#errorNote").text("La note ne peut pas être supérieure à 100");
+                return false;
+            }
+
+            else if (date.length > 4) {
+                $("#errorDate").text("La date ne peut pas contenir plus de 4 chiffres");
+                return false;
+            }
+
+        else if (parseInt(date) > currentYear) {
+                $("#errorDate").text("La date ne peut pas dépasser l'année en cours");
+                return false;
+            }
+
+           else  if (typeof commentaire !== 'string' || commentaire.trim() === '') {
+                $("#errorCommentaire").text("Le commentaire doit être une chaîne non vide");
+                return false;
+            }
+
+            // Si toutes les validations sont passées, alors nous envoyons la requête AJAX
+            $.ajax({
+                type : 'POST',
+                url :  '[[@{/note/check_note}]]',
+                data: {projetID: $("#projetID").val()},
+                success : function(data) {
+                    if(data==='OK'){
+                        form.submit();
+                    } else {
+                        $("#error").text("Il y a déjà une note pour ce projet");
+                    }
+                }
+            });
+
+            // On retourne false pour empêcher la soumission du formulaire par défaut
+            return false;
+        }
+
+    </script>
+</head>
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
+</header>
+<body class="fond-blanc">
+<div class="container px-5 d-flex justify-content-center">
+    <div class="row">
+        <div class="boite-inscription mt-5">
+            <form   th:action="@{/notes/save}" method="POST"  th:object="${note}" onsubmit="return checkEmailUnique(this);">
+                <div class="row mx-2 mt-4">
+                    <div class="col-10">
+                        <span id="error" style="color:red;"></span>
+                        <div class="form-group my-3">
+                            <label >La note obtenue:</label>
+                            <input type="text" class="form-control" id="nom" name="nomNotesDeCours" th:field="*{noteObtenue}">
+                            <span id="errorNote" style="color:red;"></span>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="professeur">Professeur responsable:</label>
+                            <select name="professeur" id="professeur" class="form-select" th:field="*{professeurID}">
+                                <option th:value="${professeur.id}"
+                                        th:text="${professeur.prenom} + ' ' + ${professeur.nom}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label th:field="*{session}">Session:</label>
+                            <select name="session">
+                                <option value="automne">Automne</option>
+                                <option value="hiver">Hiver</option>
+                                <option value="été">Été</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="date">Annee:</label>
+                            <input type="text" class="form-control" id="date" name="date" th:field="*{annee}">
+                            <span id="errorDate" style="color:red;"></span>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="commentaire">Commentaire :</label>
+                            <input type="text" class="form-control" id="commentaire" name="commentaire" th:field="${note.commentaire}">
+                            <span id="errorCommentaire" style="color:red;"></span>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="cours">Cours associé:</label>
+                            <select name="cours" id="cours" class="form-select" th:field="*{coursID}">
+                                <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group my-3">
+                            <label for="projetID">Projet associé:</label>
+                            <select name="projet" id="projetID" class="form-select" th:field="*{projetID}">
+                                <option th:each="unProjet : ${listeProjets}" th:value="${unProjet.id}"
+                                        th:text="${unProjet.nom}"></option>
+                            </select>
+                        </div>
+                    </div>
+                <div>
+                    <div class="d-grid gap-2 mt-4 mx-3">
+                        <button type="submit" class="btn bouton-mauve">
+                            Sauvegarder
+                        </button>
+                        <a href="https://git.dti.crosemont.quebec/" class="btn bouton-mauve">
+                            <img th:src="@{'/images/logo-onedrive.png'}" height="24" alt="Logo OneDrive"/>
+                            OneDrive
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</html>

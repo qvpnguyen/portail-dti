@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+  <title>Gestion des projets - Portail du département de l'informatique</title>
+  <!-- Inclusion des fichiers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- Importation des polices (fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <!-- Importation de FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <!-- Inclusion de jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+  <!-- Inclusion des fichiers pour le plugin DataTables -->
+  <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet"/>
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <!-- Inclusion du stylesheet principal -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <script>
+    $(document).ready(function () {
+      $('#tableauEtudiant').DataTable({
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+        },
+        "searching": false
+      });
+
+    });
+  </script>
+</head>
+<body class="fond-blanc">
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
+</header>
+
+<main>
+  <div class="container conteneur-table bg-light p-5 mt-5">
+    <table id="tableauEtudiant" class="display">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th th:text="#{label.nom}"></th>
+        <th th:text="#{label.courriel}"></th>
+        <th th:text="#{label.departement}"></th>
+        <th th:text="#{label.voir_profil}"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${anciensEtudiants}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.nom + ' ' + user.prenom}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.profil}"></td>
+        <td>
+          <a class="fa-solid fa-eye icon-navy fa-2x" th:href="@{'/etudiant/profil/' + ${user.id} }" title="Profil"></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</body>
+</html>

@@ -15,8 +15,10 @@ import javax.persistence.*;
 public class NoteDeCours {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+    @Column(nullable = false)
     private String nom;
+    @Column
     private String lien;
     @ManyToOne
     @JoinColumn(name = "CoursID")
@@ -24,7 +26,10 @@ public class NoteDeCours {
     @ManyToOne
     @JoinColumn(name = "ProfesseurID")
     private Professeur professeur;
+    @Column
     private String document;
+    @Lob
+    private byte[] data;
 
     public NoteDeCours() {
     }
@@ -68,11 +73,11 @@ public class NoteDeCours {
         this.professeur = professeur;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,6 +95,14 @@ public class NoteDeCours {
 
     public void setLien(String lien) {
         this.lien = lien;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     public String afficherTitreDesColonnes() {

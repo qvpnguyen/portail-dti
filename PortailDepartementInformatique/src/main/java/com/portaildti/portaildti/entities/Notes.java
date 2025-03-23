@@ -16,14 +16,17 @@ public class Notes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int noteObtenue;
+    private Integer id;
+    @Column(length = 3)
+    private Integer noteObtenue;
+    @Column(length = 10)
     private String session;
-    private int annee;
+    @Column(length = 4)
+    private Integer annee;
     private String commentaire;
     @ManyToOne
     @JoinColumn(name = "ProfesseurID")
-    private Etudiant etudiantID;
+    private Professeur professeurID;
     @OneToOne
     @JoinColumn(name = "CoursID")
     private Cours coursID;
@@ -34,7 +37,7 @@ public class Notes {
     public Notes() {
     }
 
-    public Notes(int id, int noteObtenue, String session, int annee, String commentaire, Projet projetID) {
+    public Notes(Integer id, Integer noteObtenue, String session, Integer annee, String commentaire, Projet projetID) {
         this.id = id;
         this.noteObtenue = noteObtenue;
         this.session = session;
@@ -43,29 +46,29 @@ public class Notes {
         this.projetID = projetID;
     }
 
-    public Notes(int noteObtenue, String session, int annee, String commentaire, Etudiant etudiantID, Cours coursID, Projet projetID) {
+    public Notes(int noteObtenue, String session, Integer annee, String commentaire, Professeur professeurID, Cours coursID, Projet projetID) {
         this.noteObtenue = noteObtenue;
         this.session = session;
         this.annee = annee;
         this.commentaire = commentaire;
-        this.etudiantID = etudiantID;
+        this.professeurID = professeurID;
         this.coursID = coursID;
         this.projetID = projetID;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getNoteObtenue() {
+    public Integer getNoteObtenue() {
         return noteObtenue;
     }
 
-    public void setNoteObtenue(int noteObtenue) {
+    public void setNoteObtenue(Integer noteObtenue) {
         this.noteObtenue = noteObtenue;
     }
 
@@ -77,11 +80,11 @@ public class Notes {
         this.session = session;
     }
 
-    public int getAnnee() {
+    public Integer getAnnee() {
         return annee;
     }
 
-    public void setAnnee(int annee) {
+    public void setAnnee(Integer annee) {
         this.annee = annee;
     }
 
@@ -93,12 +96,12 @@ public class Notes {
         this.commentaire = commentaire;
     }
 
-    public Etudiant getEtudiantID() {
-        return etudiantID;
+    public Professeur getProfesseurID() {
+        return professeurID;
     }
 
-    public void setEtudiantID(Etudiant etudiantID) {
-        this.etudiantID = etudiantID;
+    public void setProfesseurID(Professeur professeurID) {
+        this.professeurID = professeurID;
     }
 
     public Cours getCoursID() {

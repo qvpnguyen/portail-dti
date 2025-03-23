@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+  <title>Étudiant - Portail du département de l'informatique</title>
+  <!-- Inclusion des fichiers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- Importation des polices (fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <!-- Inclusion du stylesheet principal -->
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body class="fond-blanc">
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" ></header>
+
+  <main>
+    <div th:if="${#lists.isEmpty(listeTuteurs)}">
+      <p class="navbar-brand">Aucun Tuteur trouvé.</p>
+    </div>
+    <div th:unless="${#lists.isEmpty(listeTuteurs)}">
+      <div class="container">
+        <h2 class="p-5 text-center text-sm" th:text="#{label.rencontrez_tuteurs}"></h2>
+        <div th:if="${message!= null}" class="alert alert-success text-center">
+          [[${message}]]
+        </div>
+        <div class="row d-flex">
+          <div th:each="tuteur, iterStat : ${listeTuteurs}" class="col-sm-4 align-items-stretch">
+            <div class="mb-4">
+              <div class="carte-video mb-4">
+                <div class="square">
+                  <img th:src="${tuteur.photo != null ? '/images/utilisateur/' + tuteur.photo : '/images/utilisateur/admin-icon.png'}" th:alt="${tuteur.prenom + ' ' + tuteur.nom}" class="img-fluid" />
+                </div>
+                <div class="conteneur-infos-projet">
+                  <div class="d-flex align-items-center">
+                    <a th:href="@{'/etudiant/profil/' + ${tuteur.id} }"><h4 th:text="${tuteur.prenom + ' ' + tuteur.nom}"></h4></a>
+                    <p class="mt-4">
+                      <i th:class="${tuteur.getDispoTutorat() ? 'fas fa-circle text-success' : 'fas fa-circle text-danger'}" id="disponobilite"></i>
+                    </p>
+                    <a th:href="@{/service-tutorat/{id}/rendez-vous ((id=${tuteur.id}))}" type="button" class="btn bouton-mauve ml-auto" th:text="#{label.rendez-vous}"></a>
+                  </div>
+                  <ul>
+                    <li th:each="cours : ${coursParTuteur[tuteur.nom]}" class="list-inline-item">
+                      <span th:if="${cours.nom}" th:text="${cours.nom}"></span>
+                      <span th:unless="${cours.nom}">Aucun cours</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

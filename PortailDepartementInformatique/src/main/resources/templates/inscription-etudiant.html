@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+  <title>Inscription - Portail du département de l'informatique</title>
+  <!-- Inclusion des fichiers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- Importation des polices (fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <!-- Inclusion du stylesheet principal -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+  <!-- Inclusion de la librairie jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Inclusion de la librairie jQuery -->
+  <!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+  <!-- Inclusion du plugin de validation jQuery -->
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Inclusion des scripts pour le modal dialogue -->
+  <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>-->
+  <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>-->
+  <!-- Inclusion du fichier de validation de formulaire -->
+  <script src="/js/formulaire-validation.js"></script>
+  <script>
+    function checkEmailUnique(event, form) {
+      event.preventDefault();
+      // Si le fichier dépasse la limite autorisée, on ne soumet pas le formule
+      if (!validateFile(document.getElementById('fileImage'))) {
+        return false;
+      }
+
+
+      $.ajax({
+
+        type : 'POST',
+        url : ['[[@{/admins/check_email}]]','[[@{/professeurs/check_email}]]','[[@{/etudiants/check_email}]]','[[@{/visiteurs/check_email}]]'],
+        data: {email:$("#email").val(),id:$("#id").val()},
+
+        success : function(data) {
+          // alert("Reponse venant du Serveur " + data);
+
+          if(data==='OK'){
+            form.submit();
+          }else{
+            alert("Il y a déjà un utilisateur avec le même email : " + $("#email").val());
+
+            showModalDialog("Avertissement", "Il y a déjà un utilisateur avec le même email : " + $("#email").val())
+            window.location.href = '[[@{/etudiants/new}]]'
+            event.preventDefault();
+          }
+        },
+        error: function(xhr, status, error) {
+          console.log(error);
+        }
+      });
+
+      return false;
+    }
+
+    function showModalDialog(title, message) {
+      $("#modalTitle").text(title);
+      $("#modalBody").text(message);
+      $("#modalDialog").modal();
+
+    }
+    function validateFile(input) {
+      let fileSize = input.files[0].size;
+      let maxSize = 10 * 1024 * 1024; // 10 MB
+
+      if (fileSize > maxSize) {
+        showModalDialog("Erreur", "la taille " + fileSize + " du fichier  " + $("#fileImage").val()+ " dépasse la taille limite autorisée qui est " + maxSize+ " soit 10MB")
+        input.value = ""; // Efface le champ de saisie de fichier
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<header th:replace="fragments/enteteInscription :: enteteInscription" >
+</header>
+<body class="fond-blanc">
+<main class="d-flex align-items-center h-50 mt-5 main-index-inscription">
+  <div class="container px-5 d-flex justify-content-center">
+    <div class="row">
+      <div class="boite-inscription">
+        <div th:if="${message!=null}" class="alert alert-danger text-center">[[${message}]]</div>
+        <form th:action="@{/etudiants/save}" method="post" enctype="multipart/form-data"
+              th:object="${etudiant}" id="formulaire" onsubmit="return checkEmailUnique(event, this);">
+          <input type="hidden" th:field="*{id}" />
+          <div class="d-flex justify-content-center">
+            <div class="btn-group mt-5" role="group" aria-label="Login radio toggle button group">
+              <input type="radio" class="btn-check" name="role" id="btnetudiant" value="Etudiant" autocomplete="off" checked>
+              <label class="btn btn-outline-dark" for="btnetudiant" th:text="#{label.etudiant}">Étudiant</label>
+
+              <input type="radio" class="btn-check" id="btnprofesseur" value="Professeur" autocomplete="off" disabled>
+              <label class="btn btn-outline-dark" for="btnprofesseur" th:text="#{label.professeur}">Professeur</label>
+
+              <input type="radio" class="btn-check" id="btnvisiteur" value="Visiteur" autocomplete="off" disabled>
+              <label class="btn btn-outline-dark" for="btnvisiteur" th:text="#{label.visiteur}">Visiteur</label>
+
+              <input type="radio" class="btn-check" id="btnadmin" value="Administrateur" autocomplete="off" disabled>
+              <label class="btn btn-outline-dark" for="btnadmin" th:text="#{label.admin}">Administrateur</label>
+            </div>
+          </div>
+          <div class="row gx-5 mx-2">
+            <div class="col-6">
+              <div class="form-group my-3">
+                <label for="prenom" th:text="#{label.prenom} + ':'">Prénom:</label>
+                <input type="text" class="form-control" id="prenom" th:field="*{prenom}" name="prenom">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group my-3">
+                <label for="nom" th:text="#{label.nom} + ':'">Nom:</label>
+                <input type="text" class="form-control" id="nom" th:field="*{nom}" name="nom">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group my-3">
+                <label for="dateDeNaissance" th:text="#{label.ddn} + ':'">Date de naissance:</label>
+                <input type="date" class="form-control" id="dateDeNaissance" th:field="*{ddn}">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group my-3">
+                <label for="profil" th:text="#{label.profil} + ':'">Profil:</label>
+                <select th:field="*{profil}" name="profil" id="profil" class="form-select">
+                  <option value="" disabled selected>---</option>
+                  <option value="Programmation" th:text="#{label.programmation}">Programmation</option>
+                  <option value="Reseautique" th:text="#{label.reseautique}">Réseautique</option>
+                </select>
+
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group my-3">
+                <label for="email" th:text="#{label.courriel} + ':'">Courriel:</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="courriel@dti.crosemont.quebec" name="email">
+              </div>
+              <div class="form-group my-3">
+                <label for="motDePasse" th:text="#{label.password} + ':'">Mot de passe:</label>
+                <input type="password" class="form-control" id="motDePasse" th:field="*{motDePasse}" th:placeholder="#{label.entrer_password}" name="motDePasse">
+              </div>
+              <div class="form-group my-3">
+                <label for="confirmerMotDePasse" th:text="#{label.confirmer_password} + ':'">Confirmer le mot de passe:</label>
+                <input type="password" class="form-control" id="confirmerMotDePasse" name="confirmerMotDePasse" th:placeholder="#{label.confirmer_password}">
+              </div>
+              <div class="form-group my-3">
+                <label th:text="#{label.cet_utilisateur}">Cet utilisateur est:</label>
+                <label class="radio-inline" for="active">
+                  <input type="radio" id="active" value="true" th:field="*{active}">[[#{label.actif}]]
+                </label>
+                <label class="radio-inline" for="desactive">
+                  <input type="radio" id="desactive" value="false" th:field="*{active}">[[#{label.inactif}]]
+                </label>
+              </div>
+              <div class="form-group my-3">
+                <label for="fileImage" th:text="#{label.photo}">Téléversez votre photo:</label>
+                <input type="file" class="form-control mt-2" id="fileImage" name="fileImage">
+                <img th:if="${etudiant.photo != null}" th:src="@{${'/images/utilisateur/' + etudiant.photo}}" th:alt="${etudiant.prenom + ' ' + etudiant.nom}" width="100">
+              </div>
+              <div class="form-group my-3">
+                <label for="cours" th:text="#{label.cours_associe}">Cours associé:</label>
+                  <select th:field="*{coursSet}" name="cours" id="cours" class="form-select">
+                    <option value="" selected disabled>---</option>
+                    <option th:each="unCours : ${listeCours}" th:value="${unCours.id}" th:text="${unCours.nom}"></option>
+                  </select>
+              </div>
+              <div class="form-group my-3">
+                <label th:text="#{label.etes_vous_aux_etudes}">Êtes-vous présentement aux études?</label>
+                <label class="radio-inline" for="formationCompleteeNon">
+                  <input th:field="*{formationCompletee}" type="radio" id="formationCompleteeNon" value="false" name="formationCompletee">[[#{label.oui}]]
+                </label>
+                <label class="radio-inline" for="formationCompleteeOui">
+                  <input th:field="*{formationCompletee}" type="radio" id="formationCompleteeOui" value="true" name="formationCompletee">[[#{label.non}]]
+                </label>
+              </div>
+              <div class="form-group my-3">
+                <label th:text="#{label.voulez_vous_tuteur}">Voulez-vous être un.e tuteur.e?</label>
+                <label class="radio-inline" for="tuteurOui">
+                  <input th:field="*{tuteur}" type="radio" id="tuteurOui" value="true" name="tuteur">[[#{label.oui}]]
+                </label>
+                <label class="radio-inline" for="tuteurNon">
+                  <input th:field="*{tuteur}" type="radio" id="tuteurNon" value="false" name="tuteur">[[#{label.non}]]
+                </label>
+              </div>
+              <div class="form-group my-3">
+                <label th:text="#{label.etes_vous_dispo_tutorat}">Êtes-vous disponible pour faire du tutorat?</label>
+                <label class="radio-inline" for="disponibleOui">
+                  <input th:field="*{dispoTutorat}" type="radio" id="disponibleOui" value="true" name="disponible">[[#{label.oui}]]
+                </label>
+                <label class="radio-inline" for="disponibleNon">
+                  <input th:field="*{dispoTutorat}" type="radio" id="disponibleNon" value="false" name="disponible">[[#{label.non}]]
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <input type="submit" class="btn btn-dark" th:value="#{label.soumettre}"/>
+          </div>
+        </form>
+        <div class="text-center mt-4">
+          <p><a th:href="@{/etudiants-projets}" class="text-dark">[[#{label.continuer_visiteur}]] <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg></a></p>
+          <!--<p>Pas de compte? <a href="" class="text-dark">Cliquez ici</a></p>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!--Modal dialogue -->
+<div class="modal fade text-center" id="modalDialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalTitle">Avertissement</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <span id="modalBody"></span>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</body>
+</html>

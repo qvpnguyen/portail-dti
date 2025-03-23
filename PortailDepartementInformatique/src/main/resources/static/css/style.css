@@ -1,0 +1,689 @@
+@CHARSET "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', serif, sans-serif, cursive, fantasy, monospace, Times New Roman,Times, serif;
+}
+
+html {
+    height: 100%;
+    zoom: 80%;
+}
+
+body {
+    min-height: 100%;
+    background: linear-gradient(90.29deg, #3B4394 0%, rgba(177, 43, 99, 0.92) 59.9%, rgba(235, 31, 75, 0.96) 100%);
+}
+
+/* Classes pour la section Main uniquement pour les pages index et inscription ----------- */
+
+.main-index-inscription {
+    background: none;
+}
+
+/* Classes pour le logo du Collège, le titre Ed.volution et son sous-titre sur les pages index et inscription (format agrandi) ----------- */
+
+.logo-college-agrandi {
+    width: 25%;
+}
+
+.titre-agrandi {
+    color: #fff;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-top: 3rem;
+}
+
+.sous-titre-agrandi {
+    color: #fff;
+    font-size: 1.5rem;
+    bottom: 0;
+}
+
+/* --------- En-tête de page ----------- */
+header {
+    background: linear-gradient(90.29deg, #3B4394 0%, rgba(177, 43, 99, 0.92) 59.9%, rgba(235, 31, 75, 0.96) 100%);
+    /*position: absolute;*/
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: #fff;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-image: linear-gradient(to right, #3B4394, #B12B63, #EB1F4B) 1;
+}
+
+.logo-college {
+    width: 60px;
+    height: 80px;
+    margin-top: 20px;
+}
+
+.titre {
+    color: #fff;
+    font-weight: 700;
+    font-size: 25px;
+    margin-top: 18px;
+}
+
+header .sous-titre {
+    font-size: 0.75rem;
+    bottom: 0;
+
+}
+
+header .header-utilisateur {
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+header .titre-utilisateur {
+    font-size: 1.75rem;
+}
+
+header .barre-division-utilisateur {
+    width: 51px;
+    height: 0px;
+    left: 1205px;
+    top: 40px;
+    border: 1px solid #FFFFFF;
+    transform: rotate(90deg);
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.navbar-brand {
+    color: #1F2BAB;
+    font-weight: 600;
+}
+
+.navbar-positioning{
+    justify-content: inherit;
+    float: right;
+}
+
+.align-right{
+    margin: 0 25px 0 0;
+}
+
+header p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.navbar input[type="search"] {
+    width: 400px;
+    background: linear-gradient(90.24deg, rgba(59, 67, 148, 0.4) 0%, rgba(141, 50, 114, 0.4) 57.81%, rgba(235, 31, 75, 0.44) 100%);
+    border-radius: 12px;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* Style for active SVG icon */
+.active-svg-icon {
+    fill: #3B4394;
+}
+
+/* Style for dropdown list */
+.dropdown {
+    border-radius: 12px;
+    position: absolute;
+    top: 70px;
+    right: 100px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+.dropdown.active {
+    display: block;
+    height: 520px;
+    width: 500px;
+}
+
+.dropdown-list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.dropdown-list li {
+    padding: 10px;
+    cursor: pointer;
+    color: #3B4394;
+}
+
+.filtre-icon {
+    cursor: pointer;
+}
+
+/* --------- Section logo utilisateur ---------- */
+
+.my-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-svg {
+  width: 30px;
+  height: 30px;
+  fill: #4CAF50;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.show {
+  display: block;
+}
+
+/* --------- Section principale (Main) (gradient pour pages courtes) ----------- */
+.section-principale {
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.section-principale h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* --------- Classe dans le body pour définir un fond blanc transparent (fond blanc pour pages longues) ----------- */
+.fond-blanc {
+    background: rgba(255, 255, 255, 0.78);
+    background: linear-gradient(90.24deg, rgba(59, 67, 148, 0.4) 0%, rgba(141, 50, 114, 0.4) 57.81%, rgba(235, 31, 75, 0.44) 100%);
+}
+
+/* --------- Pied de page ----------- */
+footer {
+    background: radial-gradient(100% 34973.86% at 0% 0%, rgba(59, 67, 148, 0.8) 0%, rgba(177, 43, 99, 0.44) 76.56%, rgba(235, 31, 75, 0.85) 98.44%);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+}
+
+/* --------- Classe pour l'en-tête logo ----------- */
+.entete-logo {
+    width: calc(634px*1);
+}
+
+/* --------- Classe pour la boîte de login ----------- */
+.boite-login {
+    width: 634px;
+    height: 602px;
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 22px;
+}
+
+/* --------- Classe pour la boîte d'inscription (également utilisée pour la boîte de création du dépot d'un projet) ----------- */
+.boite-inscription {
+    width: 634px;
+    padding-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 22px;
+    margin-top: 9rem;
+}
+
+.description-projet {
+    background: rgba(241, 236, 236, 0.4);
+    border: 1px solid #9D9D9D;
+    /*box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+    border-radius: 12px;
+}
+
+/* --------- Changement de style pour les champs input pour devenir une ligne ----------- */
+input[type="text"], input[type="password"], input[type="email"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* --------- Classes pour les boîtes (cartes) de vidéo et la description de projets sur la page visiteur ----------- */
+.rangee-projet {
+
+    margin-top: 100px;
+    padding: 3rem 0;
+}
+
+.carte-video {
+    background: rgba(241, 236, 236, 0.4);
+    border: 1px solid #9D9D9D;
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
+}
+
+.carte-video:hover {
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25), 0px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.carte-description {
+    background: rgba(241, 236, 236, 0.4);
+    border: 1px solid #9D9D9D;
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
+}
+
+.carte-description:hover {
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25), 0px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.video-projet {
+    border-radius: 12px 12px 0 0;
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.conteneur-infos-projet {
+    background-color: #fff;
+    padding: 2px 16px;
+    border-radius: 0 0 12px 12px;
+}
+
+.conteneur-infos-projet > h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.conteneur-infos-projet > p {
+    font-size: 0.85rem;
+}
+
+/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur les pages Etudiant et Professeur ----------- */
+.rangee-boites {
+    padding: 3rem 0;
+}
+
+.rangee-boites a {
+    text-decoration: none;
+}
+
+.boite-fonctionnalite {
+    width: 300px;
+    height: 300px;
+    background: rgba(241, 236, 236, 0.7);
+    border: 1px solid #9D9D9D;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.boite-fonctionnalite:hover {
+    /*color: #fff !important;*/
+    background: rgba(235, 31, 75, 0.96);
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25), 0px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.boite-fonctionnalite > * {
+    margin: auto;
+}
+
+.boite-fonctionnalite > svg {
+    margin-top: 3rem;
+}
+
+.boite-fonctionnalite > h3 {
+    margin-top: -1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* --------- Classe pour le conteneur des datatables ----------- */
+.conteneur-table {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+}
+
+/* --------- Classe pour le bouton personnalisé en mauve ----------- */
+.bouton-mauve {
+    color: #fff;
+    background-color: #3B4394;
+}
+
+.bouton-mauve:hover {
+    color: #fff;
+    background-color: #212760;
+}
+
+.text-decoration-none {
+    color: #3B4390;
+}
+
+.text-decoration-none:hover {
+    color: black;
+}
+
+/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur la page evaluationProjets ----------- */
+
+.rangee-projetEval {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 60px;
+    /*    margin: 0 250px 60px 250px;*/
+
+}
+
+/* --------- Classes pour les boîtes (cartes) de fonctionnalités sur la page projets ----------- */
+
+hr {
+    height: 4px;
+    border-width: 0;
+    background-color: black;
+    margin: 10px auto;
+    width: 50%;
+}
+
+.note-police{
+    font-weight: 500;
+    font-size: 30px;
+    padding-top: 30px;
+}
+
+.note-projet{
+    font-size: 60px;
+}
+
+.star-rating{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.icon-navy {color: #3B4394}
+
+/* --------- Classes pour les validations de formulaire ----------- */
+.error {
+    color: red;
+}
+
+.valid {
+    color: green;
+}
+
+/* Styles pour la photo et le nom */
+.profil1 {
+    display: flex;
+    align-items: center;
+}
+
+.profil1 img {
+    width: 180px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.profil1 h1 {
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+    margin-right: 0;
+}
+.hidden {
+    display: none;
+}
+.video-frame {
+    width: 350px;
+    height: 300px;
+}
+
+.nomUtilisateur-profil {
+    flex: 0 1 auto;
+    width: 20%;
+}
+
+/* Style pour les étoiles de rating */
+.stars {
+    display: inline-block;
+    font-size: 24px;
+    color: gold;
+    text-shadow: 0 0 2px black;
+}
+
+.stars-container {
+    display: flex;
+}
+
+.stars-container .star {
+    margin-right: 5px;
+}
+
+/*.fixed-size-image {*/
+/*    width: 200px;*/
+/*    height: 240px;*/
+/*}*/
+
+#disponobilite {
+    margin-left: 15px;
+    margin-right: 30px;
+    margin-bottom: 17px;
+}
+
+.image-fix {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+
+
+.dropdown-list-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    width: 30%; /* Réduire la largeur à 80% */
+    /* Définir une hauteur maximale */
+    overflow-y: auto; /* Ajouter une barre de défilement si nécessaire */
+}
+
+/* --------- Classes pour l'espace de collaboration ----------- */
+
+
+
+.chat-container {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+    margin-top: 30px;
+    height: calc(100% - 60px);
+    max-height: 600px;
+    position: relative;
+}
+
+#chat-page ul {
+    list-style-type: none;
+    background-color: #FFF;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 20px;
+    height: 400px;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+
+
+#chat-page #messageForm {
+    padding: 50px 20px 20px 20px;
+}
+
+#chat-page ul li {
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+#chat-page ul li p {
+    margin: 0;
+}
+
+#chat-page .event-message {
+    width: 100%;
+    text-align: center;
+    clear: both;
+}
+
+#chat-page .event-message p {
+    color: #777;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+#chat-page .chat-message {
+    padding-left: 68px;
+    position: relative;
+}
+
+#chat-page .chat-message i {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    line-height: 42px;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+#chat-page .chat-message span {
+    color: #333;
+    font-weight: 600;
+}
+
+#chat-page .chat-message p {
+    color: #43464b;
+}
+
+#messageForm input {
+    float: left;
+    width: calc(100% - 85px);
+}
+
+#messageForm button {
+    float: left;
+    height: 38px;
+    margin-left: 5px;
+}
+
+.chat-header {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #ececec;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.connecting {
+    padding-top: 5px;
+    text-align: center;
+    color: #777;
+    position: absolute;
+    top: 65px;
+    width: 100%;
+}
+
+
+@media screen and (max-width: 730px) {
+
+    .chat-container {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .chat-container {
+        height: calc(100% - 30px);
+    }
+
+
+    #chat-page ul {
+        height: calc(100% - 120px);
+    }
+
+    #messageForm button {
+        width: 65px;
+    }
+
+    #messageForm input {
+        width: calc(100% - 70px);
+    }
+
+    .chat-header {
+        padding: 10px;
+    }
+
+    .connecting {
+        top: 60px;
+    }
+
+    .chat-header h2 {
+        font-size: 1.1em;
+    }
+}
+
+.square {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%; /* Creates a square aspect ratio */
+    position: relative;
+}
+
+.square img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Preserve aspect ratio and cover the entire square */
+}

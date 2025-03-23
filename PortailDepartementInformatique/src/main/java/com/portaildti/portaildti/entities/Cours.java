@@ -18,10 +18,15 @@ public class Cours {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+    @Column(length = 50, nullable = false)
+    private String code;
+    @Column(length = 50, nullable = false)
     private String nom;
-    private int credits;
-    private int groupe;
+    @Column
+    private Integer credits;
+    @Column
+    private Integer groupe;
 
     @ManyToMany
     @JoinTable(
@@ -30,22 +35,27 @@ public class Cours {
             inverseJoinColumns = @JoinColumn(name = "ÉtudiantID")
     )
     private Set<Etudiant> etudiant = new HashSet();
-    @ManyToOne
-    @JoinColumn(name = "ProfesseurID")
-    private Professeur profID;
+
+    @ManyToMany
+    @JoinTable(
+            name = "professeur_cours",
+            joinColumns = @JoinColumn(name = "professeurID"),
+            inverseJoinColumns = @JoinColumn(name = "coursID")
+    )
+    private Set<Professeur> professeurSet = new HashSet<>();
 
     public Cours() {
     }
 
-    public Cours(int id) {
+    public Cours(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,34 +67,41 @@ public class Cours {
         this.nom = nom;
     }
 
-    public int getCredits() {
+    public Integer getCredits() {
         return credits;
     }
 
-    public Professeur getProfID() {
-        return profID;
-    }
-
-    public void setProfID(Professeur profID) {
-        this.profID = profID;
-    }
-
-    public void setCredits(int credits) {
+    public void setCredits(Integer credits) {
         this.credits = credits;
     }
 
-    public int getGroupe() {
+    public Integer getGroupe() {
         return groupe;
     }
 
-    public void setGroupe(int groupe) {
+    public void setGroupe(Integer groupe) {
         this.groupe = groupe;
+    }
+
+    public Set<Professeur> getProfesseurSet() {
+        return professeurSet;
+    }
+
+    public void setProfesseurSet(Set<Professeur> professeurSet) {
+        this.professeurSet = professeurSet;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String afficherTitreDesColonnes() {
         String message = "";
-        message = String.format(" %-10s  %30s %15s %15s %15s  ", "Id", "Nom", "Crédits", "Groupe",
-                "ProfesseurID");
+        message = String.format(" %-10s  %30s %15s %15s", "Id", "Nom", "Crédits", "Groupe");
         message+="\n --------------------------------------------------------------------------------------------------------------------------------------";
         return message;
     }
@@ -92,8 +109,7 @@ public class Cours {
     @Override
     public String toString() {
         String message = "";
-        message = String.format(" %-10d  %30s %15d %15s %15s  ",this.id,this.nom, this.credits,this.groupe,
-                this.profID);
+        message = String.format(" %-10d  %30s %15d %15s ",this.id,this.nom, this.credits,this.groupe);
         return message;
     }
 }

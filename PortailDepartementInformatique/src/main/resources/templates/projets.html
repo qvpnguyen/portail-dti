@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+    <title>Projets - Portail du département de l'informatique</title>
+    <!-- Inclusion des fichiers Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+    <!-- Importation des polices (fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+    <!-- Inclusion du stylesheet principal -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="fond-blanc">
+
+<header th:replace="fragments/entete :: entete">
+</header>
+<script> // Récupérer les références aux éléments SVG et à la liste des professeurs et des cours
+const svgIcon = document.getElementById('svg-icon');
+const dropdown = document.getElementById('dropdown');
+
+// Ajouter un écouteur d'événement pour le clic sur le SVG
+svgIcon.addEventListener('click', function() {
+    // Vérifier si la liste des professeurs et des cours est visible ou cachée
+    const isDropdownVisible = dropdown.style.display === 'block';
+
+    // Afficher ou masquer la liste en fonction de son état actuel
+    if (isDropdownVisible) {
+        dropdown.style.display = 'none';
+    } else {
+        dropdown.style.display = 'block';
+    }
+});
+</script>
+<main>
+    <div th:if="${#lists.isEmpty(listeProjets)}">
+        <p class="navbar-brand">Aucun résultat trouvé.</p>
+    </div>
+    <div th:unless="${#lists.isEmpty(listeProjets)}">
+        <div class="container px-5">
+            <br>
+            <div th:if="${message!=null}" class="alert alert-success text-center">[[${message}]]</div>
+
+            <h2 class="p-5 text-center text-sm" th:text="#{label.ensemble_projets_description_generale}"></h2>
+
+
+            <div th:unless="${nomProfesseur == null}">
+                <p class="navbar-brand">Aucun Projet de professeur trouvé.</p>
+            </div>
+            <div th:unless="${nomProfesseur != null}">
+                <div th:each="projet, iterStat : ${listeProjets}" class="row gx-5 mb-4">
+                    <div th:classappend="${iterStat.odd}? 'col-4 order-md-1' : 'col-4 order-md-2'" class="mb-4">
+                        <div class="carte-video mb-4">
+
+                            <iframe width="373" height="255" th:src="'https://www.youtube.com/embed/' + ${projet.video}" allowfullscreen></iframe>
+                            <div class="conteneur-infos-projet">
+                                <a th:href="@{/etudiants-projets/{id}(id=${projet.id})}" class="text-decoration-none">
+                                    <h4 class="mt-2">
+                                        <span th:text="${projet.nom}"></span>
+                                        <span class="text-muted" style="font-size: smaller;">(<span th:text="${projet.annee}"></span>)</span>
+                                    </h4>
+                                </a>
+
+                                <span class="text-decoration-underline" th:text="#{label.realise_par}"></span>
+                                <ul class="list-inline">
+                                    <li th:each="etudiant : ${etudiantsParProjet[projet.id]}" class="list-inline-item ps-0 pe-0">
+                                        <span th:text="${etudiant.prenom}"></span>
+                                        <span th:text="${etudiant.nom}"></span>
+                                    </li>
+                                </ul>
+                                <span class="text-decoration-underline" th:text="#{label.supervision}"></span>
+                                <br>
+                                <span th:if="${projet.professeur != null}" th:text="${projet.professeur.prenom} + ' ' + ${projet.professeur.nom}"></span>
+                                <span th:unless="${projet.professeur != null}">Aucun professeur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:classappend="${iterStat.odd}? 'col-8 order-md-2' : 'col-8 order-md-1'">
+                        <div class="carte-description p-4">
+                            <p th:text="${projet.description}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const playButtons = document.querySelectorAll('.play-button');
+    const projectVideos = document.querySelectorAll('.projet-video');
+
+    playButtons.forEach((playButton, index) => {
+        let videoVisible = false;
+
+        playButton.addEventListener('click', () => {
+            const projectVideo = projectVideos[index];
+
+            if (videoVisible) {
+                projectVideo.classList.add('hidden');
+                videoVisible = false;
+            } else {
+                projectVideo.classList.remove('hidden');
+                videoVisible = true;
+            }
+        });
+
+        window.addEventListener('click', (event) => {
+            const projectVideo = projectVideos[index];
+
+            if (event.target !== projectVideo && event.target !== playButton) {
+                projectVideo.classList.add('hidden');
+                videoVisible = false;
+            }
+        });
+    });
+
+</script>
+</body>
+
+<footer th:replace="fragments/pieds :: pieds"></footer>
+
+</html>

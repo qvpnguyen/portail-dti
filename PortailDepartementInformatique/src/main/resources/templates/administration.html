@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+  <title>Administration - Portail du département de l'informatique</title>
+  <!-- Inclusion des fichiers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- Importation des polices (fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <!-- Inclusion du stylesheet principal -->
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="fond-blanc">
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" ></header>
+<script>
+  const svgIcon = document.getElementById("svg-icon");
+  const dropdown = document.getElementById("dropdown");
+
+  svgIcon.addEventListener("click", () => {
+    svgIcon.classList.toggle("active-svg-icon");
+    dropdown.classList.toggle("active");
+  });
+
+  dropdown.addEventListener("click", (event) => {
+    console.log(`Clicked on ${event.target.textContent}`);
+  });
+
+  function toggleDropdown() {
+    document.getElementById("myDropdownContent").classList.toggle("show");
+  }
+
+  window.onclick = function (event) {
+    if (!event.target.matches('.dropdown-svg')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+</script>
+
+<main>
+  <div class="container px-5">
+    <div class="rangee-boites row gx-5 justify-content-evenly">
+      <!-- Gérer les projets des étudiants -->
+      <a th:href="@{/gestion-projets}" class="text-dark boite-fonctionnalite d-grid col-4">
+        <svg width="91" height="112" viewBox="0 0 91 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.4445 87.2012H38.5833H54.7222" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22.4445 66.4004H24.75H27.0556" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22.4445 45.5996H29.3611H36.2778" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22.4445 4H66.25L87 27.4V92.4" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 100.2V27.3996C4 23.0918 7.09668 19.5996 10.9167 19.5996H55.8819C56.6156 19.5996 57.3192 19.9283 57.838 20.5135L72.3565 36.8858C72.8753 37.4709 73.1667 38.2645 73.1667 39.092V100.2C73.1667 104.507 70.0699 108 66.25 108H10.9167C7.09668 108 4 104.507 4 100.2Z" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M54.7222 19.5996V37.2796C54.7222 39.0027 55.9608 40.3996 57.4889 40.3996H73.1667" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3 class="text-center">Gérer les projets des étudiants</h3>
+      </a>
+      <!-- Gérer les notes de cours des professeurs -->
+      <a th:href="@{/gestion-notes-de-cours}" class="text-dark boite-fonctionnalite d-grid col-4">
+        <svg width="100" height="110" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0H100V110H0V0Z" fill="white" fill-opacity="0.01"/>
+          <path d="M60.4166 9.16602H18.75C16.4488 9.16602 14.5833 11.218 14.5833 13.7493V96.2493C14.5833 98.7807 16.4488 100.833 18.75 100.833H77.0833C79.3846 100.833 81.25 98.7807 81.25 96.2493V45.8432" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27.0833 41.249H43.75" stroke="black" stroke-width="7" stroke-linecap="round"/>
+          <path d="M27.0833 64.166H52.0833" stroke="black" stroke-width="7" stroke-linecap="round"/>
+          <path d="M85.4148 13.751L60.4258 41.2391" stroke="black" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3 class="text-center">Gérer les notes de cours des professeurs</h3>
+      </a>
+    </div>
+    <div class="rangee-boites row gx-5 justify-content-evenly">
+      <!-- Gérer les utilisateurs -->
+      <a th:href="@{/utilisateurs}" class="text-dark boite-fonctionnalite d-grid col-4">
+        <svg width="90" height="112" viewBox="0 0 90 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M86 108V99.6241C86 93.9804 86 91.1615 85.3823 88.8567C84.6206 86.003 83.1787 83.4036 81.1946 81.307C79.2105 79.2105 76.7505 77.6869 74.0499 76.882C71.8687 76.2293 69.2009 76.2293 63.86 76.2293H26.14C20.7991 76.2293 18.1313 76.2293 15.9501 76.882C13.2495 77.6869 10.7895 79.2105 8.80539 81.307C6.82128 83.4036 5.37942 86.003 4.61773 88.8567C4 91.1615 4 93.9804 4 99.6241V108M70.6933 27.4757C70.6933 40.4439 60.416 50.9571 47.7333 50.9571C35.0507 50.9571 24.7733 40.4439 24.7733 27.4757C24.7733 14.5074 35.0507 4 47.7333 4C60.416 4 70.6933 14.5132 70.6933 27.4757Z" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3 class="text-center">Gérer les utilisateurs</h3>
+      </a>
+      <!-- Ajouter un administrateur -->
+      <a th:href="@{/admins/new}" class="text-dark boite-fonctionnalite d-grid col-4">
+        <svg width="117" height="112" viewBox="0 0 117 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M86 108V99.6241C86 93.9804 86 91.1615 85.3823 88.8567C84.6206 86.003 83.1787 83.4036 81.1946 81.307C79.2105 79.2105 76.7505 77.6869 74.0499 76.882C71.8687 76.2293 69.2009 76.2293 63.86 76.2293H26.14C20.7991 76.2293 18.1313 76.2293 15.9501 76.882C13.2495 77.6869 10.7895 79.2105 8.80539 81.307C6.82128 83.4036 5.37942 86.003 4.61773 88.8567C4 91.1615 4 93.9804 4 99.6241V108M70.6933 27.4757C70.6933 40.4439 60.416 50.9571 47.7333 50.9571C35.0507 50.9571 24.7733 40.4439 24.7733 27.4757C24.7733 14.5074 35.0507 4 47.7333 4C60.416 4 70.6933 14.5132 70.6933 27.4757Z" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M99 4V34M114 19H84" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3 class="text-center">Ajouter un administrateur</h3>
+      </a>
+    </div>
+  </div>
+</main>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</body>
+</html>

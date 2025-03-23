@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+  <title>Profil professeur - Portail du département de l'informatique</title>
+  <!-- Inclusion des fichiers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- Importation des polices (fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;700;900&display=swap">
+  <!-- Importation de FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <!-- Inclusion de jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+  <!-- Inclusion des fichiers pour le plugin DataTables -->
+  <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet"/>
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <!-- Inclusion du stylesheet principal -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <script>
+    $(document).ready(function () {
+      $('#tableProjets').DataTable({
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+        },
+        "searching": false
+      });
+    });
+  </script>
+</head>
+<html class="fond-blanc">
+<header th:replace="fragments/enteteSansRecherche :: enteteSansRecherche" >
+</header>
+
+<body class="fond-blanc">
+<main>
+  <div class="container conteneur-table bg-light p-5 mt-5">
+    <div class="profil1">
+      <div class="row">
+        <div class="col-md-6">
+          <img th:src="${professeur.photo != null ? '/images/utilisateur/' + professeur.photo : '/images/utilisateur/admin-icon.png'}" th:alt="${professeur.prenom + ' ' + professeur.nom}" class="img-fluid image-fix" />
+        </div>
+        <div class="nomUtilisateur-profil">
+          <h1 th:text="${professeur.prenom + ' ' + professeur.nom}"></h1>
+          <h5 th:if="${professeur.role == 'Professeur'}" th:text="#{label.professeur}"></h5>
+          <a th:href="@{/professeur/profil/{id}/contact ((id=${professeur.id}))}" type="button" class="btn bouton-mauve mt-3">Contacter</a>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Afficher les projets responsables -->
+    <div class="container conteneur-table bg-light p-5 mt-5">
+      <h2 th:text="#{label.projets_responsables}"></h2>
+      <table id="tableProjets" class="display">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th th:text="#{label.nom}"></th>
+          <th th:text="#{label.annee}"></th>
+          <th th:text="#{label.cours}"></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="projet : ${projetsProf}">
+          <td th:text="${projet.id}"></td>
+          <td th:text="${projet.nom}"></td>
+          <td th:text="${projet.annee}"></td>
+          <td th:text="${projet.cours.nom}"></td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Afficher les cours donnés-->
+    <div class="conteneur-cours-contact">
+      <div class="container conteneur-table bg-light p-5 mt-5">
+        <section class="cours1">
+          <h2 th:text="#{label.cours_donnes}"></h2>
+          <ul class="list-unstyled">
+            <li th:each="cours : ${coursProf}">
+              <a th:each="professeur : ${cours.professeurSet}" th:href="@{'/professeur/profil/' + ${professeur.id} + '/' + ${cours.id}}" class="text-decoration-none">
+                <span th:text="${cours.nom}"></span>
+              </a>
+            </li>
+          </ul>
+
+          <p th:if="${#lists.isEmpty(coursProf)}" th:text="#{label.aucun_cours}"></p>
+        </section>
+
+
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+<footer th:replace="fragments/pieds :: pieds"></footer>
+</html>
