@@ -13,7 +13,7 @@ A **Spring Boot** application designed to manage the Department of Information T
 ---
 
 ## Project Structure
-
+```
 PortailDepartementInformatique/
 └── src/
     └── main/
@@ -37,7 +37,7 @@ PortailDepartementInformatique/
             ├── templates/
             │   └── fragments/
             └── application.properties
-	  
+```
 ---
 
 ## Getting started
