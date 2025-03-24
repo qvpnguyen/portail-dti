@@ -14,29 +14,29 @@ A **Spring Boot** application designed to manage the Department of Information T
 
 ## Project Structure
 
-PortailDepartementInformatique/ 
-└── src/ 
-  ├── main/ 
-    ├── java/com/portaildti/portaildti/ 
-    │ ├── config/
-    │ ├── controller/ 
-    │ ├── entities/ 
-    │ ├── repos/
-    │ ├── rest/
-	│ ├── service/
-	│ │ └── exception/
-	│ └── websocket/
-	└── resources/
-      ├── static/
-	  │ ├── css/
-	  │ ├── documents/utilisateur/
-	  │ ├── files/
-	  │ ├── images/utilisateur/
-	  │ ├── js/
-	  │ ├── videos/utilisateur/
-	  └── templates/
-	  │ └── fragments/
-      └── application.properties
+PortailDepartementInformatique/
+└── src/
+    └── main/
+        ├── java/com/portaildti/portaildti/
+        │   ├── config/
+        │   ├── controller/
+        │   ├── entities/
+        │   ├── repos/
+        │   ├── rest/
+        │   ├── service/
+        │   │   └── exception/
+        │   └── websocket/
+        └── resources/
+            ├── static/
+            │   ├── css/
+            │   ├── documents/utilisateur/
+            │   ├── files/
+            │   ├── images/utilisateur/
+            │   ├── js/
+            │   └── videos/utilisateur/
+            ├── templates/
+            │   └── fragments/
+            └── application.properties
 	  
 ---
 
