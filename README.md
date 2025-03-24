@@ -4,14 +4,6 @@ A **Spring Boot** application designed to manage the Department of Information T
 
 ---
 
-## 🔧 Tech Stack
-
-- **Spring Boot** (Java)
-- **MySQL** (Database)
-- **Maven** (Build tool)
-
----
-
 ## Project Structure
 ```
 PortailDepartementInformatique/
