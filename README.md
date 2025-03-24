@@ -75,7 +75,8 @@ spring.mail.properties.mail.smtp.connectiontimeout=5000
 spring.mail.properties.mail.smtp.timeout=5000
 spring.mail.properties.mail.smtp.writetimeout=5000
 spring.mail.properties.mail.smtp.starttls.enable=true
-server.port=9090```
+server.port=9090
+```
 
 Replace your_password with your actual MySQL root password.
 Replace email@example.com with an actual email address.
@@ -84,6 +85,8 @@ Replace mail_password with the password associated with the above email address.
 ### Database Initialization
 
 To set up the initial database schema and data, execute the provided SQL script found in the project's root directory named portaildti.sql
+
+---
 
 ## Authors and acknowledgment
 Patrick Nguyen
